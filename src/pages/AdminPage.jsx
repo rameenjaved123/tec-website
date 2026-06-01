@@ -7,42 +7,229 @@ import {
   updateSubmissionStatusInDB,
   updateSubmissionInDB,
   getS3ViewUrl,
-  ADMIN_PASSWORD,
   FORM_REGISTRY,
 } from '../config/forms';
+import {
+  getCurrentSession,
+  signIn,
+  signUp,
+  verifyEmail,
+  resendCode,
+  signOut,
+  completeNewPassword,
+} from '../utils/cognitoAuth';
 
-// ── Login ─────────────────────────────────────────────────
-function AdminLogin({ onLogin }) {
-  const [pw, setPw] = useState('');
-  const [error, setError] = useState('');
+// ── Group → Form mapping for RBAC ─────────────────────────
+const FORM_GROUP_MAP = {
+  'New Starter Form':              'new-starter-form',
+  'Partnerships & Collaborations': 'partnerships',
+  'Application Form':              'application-form',
+  'Job Application':               'job-application',
+  'English & IELTS Application':   'english-ielts',
+  'Enquiry Form':                  'enquiry-form',
+  'Enrolment Form':                'enrolment-form',
+  'International Application':     'international-application',
+  'Complaint':                     'complaint',
+};
 
-  const submit = (e) => {
+// Returns array of allowed form names, or null if admin (all access)
+function getAllowedForms(groups = []) {
+  if (groups.includes('admin')) return null; // null = unrestricted
+  return Object.keys(FORM_REGISTRY).filter(name => {
+    const g = FORM_GROUP_MAP[name];
+    return g && groups.includes(g);
+  });
+}
+
+// ── Auth UI ───────────────────────────────────────────────
+function AdminAuth({ onAuthed }) {
+  const [screen, setScreen]       = useState('login');   // login | signup | verify | new-password | pending
+  const [name, setName]           = useState('');
+  const [email, setEmail]         = useState('');
+  const [password, setPassword]   = useState('');
+  const [newPass, setNewPass]     = useState('');
+  const [code, setCode]           = useState('');
+  const [error, setError]         = useState('');
+  const [info, setInfo]           = useState('');
+  const [busy, setBusy]           = useState(false);
+  const [cognitoUser, setCognitoUser] = useState(null);
+  const [userAttrs, setUserAttrs] = useState({});
+
+  const err = (msg) => { setError(msg); setBusy(false); };
+
+  // ── Login ──────────────────────────────────────────────
+  async function handleLogin(e) {
     e.preventDefault();
-    if (pw === ADMIN_PASSWORD) {
-      sessionStorage.setItem('tec_admin', '1');
-      onLogin();
-    } else {
-      setError('Incorrect password');
+    setError(''); setBusy(true);
+    try {
+      const result = await signIn(email, password);
+      if (result.status === 'new-password') {
+        setCognitoUser(result.cognitoUser);
+        setUserAttrs(result.userAttributes);
+        setScreen('new-password');
+        setBusy(false);
+        return;
+      }
+      if (result.groups.length === 0) { setBusy(false); setScreen('pending'); return; }
+      onAuthed({ email: result.email, name: result.name, groups: result.groups });
+    } catch (e) {
+      err(e.message || 'Sign in failed');
     }
+  }
+
+  // ── Set new password (first login) ────────────────────
+  async function handleNewPassword(e) {
+    e.preventDefault();
+    setError(''); setBusy(true);
+    try {
+      const result = await completeNewPassword(cognitoUser, newPass, userAttrs);
+      if (result.groups.length === 0) { setBusy(false); setScreen('pending'); return; }
+      onAuthed(result);
+    } catch (e) {
+      err(e.message || 'Failed to set password');
+    }
+  }
+
+  // ── Sign up ────────────────────────────────────────────
+  async function handleSignup(e) {
+    e.preventDefault();
+    setError(''); setBusy(true);
+    try {
+      await signUp(name, email, password);
+      setBusy(false);
+      setScreen('verify');
+      setInfo('A verification code has been sent to ' + email);
+    } catch (e) {
+      err(e.message || 'Sign up failed');
+    }
+  }
+
+  // ── Verify email ───────────────────────────────────────
+  async function handleVerify(e) {
+    e.preventDefault();
+    setError(''); setBusy(true);
+    try {
+      await verifyEmail(email, code);
+      setBusy(false);
+      setScreen('pending');
+    } catch (e) {
+      err(e.message || 'Verification failed — check your code');
+    }
+  }
+
+  async function handleResend() {
+    setError(''); setInfo('');
+    try {
+      await resendCode(email);
+      setInfo('A new code has been sent to ' + email);
+    } catch (e) {
+      setError(e.message);
+    }
+  }
+
+  const inputStyle = {
+    width: '100%', padding: '11px 14px', borderRadius: 6, fontSize: '0.92rem',
+    border: '1px solid #d0d5d0', outline: 'none', marginBottom: 12,
+    fontFamily: 'inherit', boxSizing: 'border-box',
+  };
+  const btnStyle = {
+    width: '100%', padding: '12px', background: '#1a2e1a', color: '#c9a84c',
+    border: 'none', borderRadius: 6, fontWeight: 700, fontSize: '0.95rem',
+    cursor: busy ? 'not-allowed' : 'pointer', opacity: busy ? 0.7 : 1,
+    fontFamily: 'inherit',
+  };
+  const linkStyle = {
+    background: 'none', border: 'none', color: '#1a6a3a',
+    cursor: 'pointer', textDecoration: 'underline', fontSize: '0.85rem', padding: 0,
   };
 
   return (
     <div className="adm-login-wrap">
-      <form className="adm-login-box" onSubmit={submit}>
-        <div className="adm-login-logo">🔐</div>
-        <h2>Admin Access</h2>
-        <p>TEC Forms Dashboard</p>
-        <input
-          type="password"
-          className="adm-login-input"
-          placeholder="Enter password"
-          value={pw}
-          onChange={e => { setPw(e.target.value); setError(''); }}
-          autoFocus
-        />
-        {error && <span className="adm-login-error">{error}</span>}
-        <button type="submit" className="adm-login-btn">Sign In →</button>
-      </form>
+      <div className="adm-login-box" style={{ maxWidth: 400 }}>
+        <img src="/assets/logos/tec-crest.png" alt="TEC" style={{ width: 52, margin: '0 auto 12px', display: 'block' }} />
+        <h2 style={{ textAlign: 'center', color: '#1a2e1a', margin: '0 0 4px', fontSize: '1.3rem' }}>TEC Admin</h2>
+        <p style={{ textAlign: 'center', color: '#888', fontSize: '0.85rem', margin: '0 0 24px' }}>Forms Dashboard</p>
+
+        {/* ── LOGIN ── */}
+        {screen === 'login' && (
+          <form onSubmit={handleLogin}>
+            <input style={inputStyle} type="email" placeholder="Email address" value={email}
+              onChange={e => { setEmail(e.target.value); setError(''); }} required autoFocus />
+            <input style={inputStyle} type="password" placeholder="Password" value={password}
+              onChange={e => { setPassword(e.target.value); setError(''); }} required />
+            {error && <p style={{ color: '#c0392b', fontSize: '0.82rem', margin: '-6px 0 10px' }}>{error}</p>}
+            <button style={btnStyle} type="submit" disabled={busy}>{busy ? 'Signing in…' : 'Sign In →'}</button>
+            <p style={{ textAlign: 'center', marginTop: 16, fontSize: '0.85rem', color: '#666' }}>
+              Don't have an account?{' '}
+              <button type="button" style={linkStyle} onClick={() => { setScreen('signup'); setError(''); }}>Request access</button>
+            </p>
+          </form>
+        )}
+
+        {/* ── SIGN UP ── */}
+        {screen === 'signup' && (
+          <form onSubmit={handleSignup}>
+            <input style={inputStyle} type="text" placeholder="Full name" value={name}
+              onChange={e => { setName(e.target.value); setError(''); }} required autoFocus />
+            <input style={inputStyle} type="email" placeholder="Work email address" value={email}
+              onChange={e => { setEmail(e.target.value); setError(''); }} required />
+            <input style={inputStyle} type="password" placeholder="Choose a password (min 8 chars)" value={password}
+              onChange={e => { setPassword(e.target.value); setError(''); }} required minLength={8} />
+            {error && <p style={{ color: '#c0392b', fontSize: '0.82rem', margin: '-6px 0 10px' }}>{error}</p>}
+            <button style={btnStyle} type="submit" disabled={busy}>{busy ? 'Creating account…' : 'Request Access →'}</button>
+            <p style={{ textAlign: 'center', marginTop: 16, fontSize: '0.85rem', color: '#666' }}>
+              Already have an account?{' '}
+              <button type="button" style={linkStyle} onClick={() => { setScreen('login'); setError(''); }}>Sign in</button>
+            </p>
+          </form>
+        )}
+
+        {/* ── VERIFY EMAIL ── */}
+        {screen === 'verify' && (
+          <form onSubmit={handleVerify}>
+            {info && <p style={{ background: '#f0f7f0', border: '1px solid #c0ddc0', borderRadius: 6, padding: '10px 14px', fontSize: '0.83rem', color: '#2a5a2a', marginBottom: 14 }}>{info}</p>}
+            <input style={inputStyle} type="text" placeholder="Enter 6-digit verification code" value={code}
+              onChange={e => { setCode(e.target.value); setError(''); }} required autoFocus maxLength={6} />
+            {error && <p style={{ color: '#c0392b', fontSize: '0.82rem', margin: '-6px 0 10px' }}>{error}</p>}
+            <button style={btnStyle} type="submit" disabled={busy}>{busy ? 'Verifying…' : 'Verify Email →'}</button>
+            <p style={{ textAlign: 'center', marginTop: 12, fontSize: '0.82rem', color: '#666' }}>
+              Didn't receive it?{' '}
+              <button type="button" style={linkStyle} onClick={handleResend}>Resend code</button>
+            </p>
+          </form>
+        )}
+
+        {/* ── SET NEW PASSWORD ── */}
+        {screen === 'new-password' && (
+          <form onSubmit={handleNewPassword}>
+            <p style={{ fontSize: '0.85rem', color: '#555', marginBottom: 14 }}>
+              You're using a temporary password. Please set a permanent one to continue.
+            </p>
+            <input style={inputStyle} type="password" placeholder="New password (min 8 chars)" value={newPass}
+              onChange={e => { setNewPass(e.target.value); setError(''); }} required minLength={8} autoFocus />
+            {error && <p style={{ color: '#c0392b', fontSize: '0.82rem', margin: '-6px 0 10px' }}>{error}</p>}
+            <button style={btnStyle} type="submit" disabled={busy}>{busy ? 'Setting password…' : 'Set Password →'}</button>
+          </form>
+        )}
+
+        {/* ── PENDING APPROVAL ── */}
+        {screen === 'pending' && (
+          <div style={{ textAlign: 'center' }}>
+            <div style={{ fontSize: 40, marginBottom: 12 }}>⏳</div>
+            <h3 style={{ color: '#1a2e1a', margin: '0 0 8px' }}>Awaiting Approval</h3>
+            <p style={{ color: '#666', fontSize: '0.88rem', lineHeight: 1.7 }}>
+              Your account has been created and your email is verified.<br />
+              An admin will review and grant you access shortly.
+            </p>
+            <button
+              style={{ ...btnStyle, marginTop: 20, width: 'auto', padding: '10px 28px' }}
+              onClick={() => { signOut(); setScreen('login'); setPassword(''); }}
+            >
+              Back to Sign In
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -538,7 +725,8 @@ async function exportToExcel(entries, label) {
 
 // ── Main Dashboard ────────────────────────────────────────
 export default function AdminPage() {
-  const [authed, setAuthed]           = useState(!!sessionStorage.getItem('tec_admin'));
+  const [currentUser, setCurrentUser] = useState(null);  // { email, name, groups }
+  const [authChecked, setAuthChecked] = useState(false);
   const [entries, setEntries]         = useState([]);
   const [selected, setSelected]       = useState(null);
   const [filter, setFilter]           = useState('All');
@@ -548,6 +736,9 @@ export default function AdminPage() {
   const [entriesOpen, setEntriesOpen] = useState(true);
   const [page, setPage]               = useState(1);
   const PER_PAGE                      = 25;
+
+  // Which form names this user can see (null = all)
+  const allowedForms = currentUser ? getAllowedForms(currentUser.groups) : [];
 
 
   const CACHE_KEY = 'tec_admin_cache';
@@ -597,8 +788,16 @@ export default function AdminPage() {
     if (!silent) setLoading(false);
   };
 
+  // Check existing Cognito session on mount
   useEffect(() => {
-    if (!authed) return;
+    getCurrentSession().then(session => {
+      if (session && session.groups.length > 0) setCurrentUser(session);
+      setAuthChecked(true);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!currentUser) return;
 
     // 1. Show cached data immediately (zero wait)
     const cached = readCache();
@@ -612,14 +811,24 @@ export default function AdminPage() {
       load();
     }
 
-    // 3. Background refresh every 5 minutes (not 30 seconds)
+    // 3. Background refresh every 5 minutes
     const interval = setInterval(() => load({ silent: true }), CACHE_TTL);
     return () => clearInterval(interval);
-  }, [authed]);
+  }, [currentUser]);
 
-  const formTypes = ['All', ...new Set(entries.map(e => e.formType))];
+  // All form types visible to this user
+  const visibleFormTypes = [
+    'All',
+    ...new Set(
+      entries
+        .map(e => e.formType)
+        .filter(t => allowedForms === null || allowedForms.includes(t))
+    ),
+  ];
 
   const filtered = entries.filter(e => {
+    // RBAC: hide entries the user has no permission to see
+    if (allowedForms !== null && !allowedForms.includes(e.formType)) return false;
     const matchType = filter === 'All' || e.formType === filter;
     const q = search.toLowerCase();
     const matchSearch = !q || JSON.stringify(e).toLowerCase().includes(q);
@@ -634,7 +843,16 @@ export default function AdminPage() {
   const setFilterAndReset = (f) => { setFilter(f); setPage(1); };
   const setSearchAndReset = (s) => { setSearch(s); setPage(1); };
 
-  if (!authed) return <AdminLogin onLogin={() => setAuthed(true)} />;
+  // Still checking Cognito session
+  if (!authChecked) return (
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f4f6f4' }}>
+      <div style={{ color: '#1a2e1a', fontSize: '0.9rem' }}>Loading…</div>
+    </div>
+  );
+
+  if (!currentUser) return (
+    <AdminAuth onAuthed={(user) => { setCurrentUser(user); }} />
+  );
 
   return (
     <div className="adm-page">
@@ -684,16 +902,16 @@ export default function AdminPage() {
                 onClick={() => setFilterAndReset('All')}
               >
                 <span>All Submissions</span>
-                <span className="adm-badge">{entries.length}</span>
+                <span className="adm-badge">{filtered.length}</span>
               </button>
-              {formTypes.slice(1).map(t => (
+              {visibleFormTypes.slice(1).map(t => (
                 <button
                   key={t}
                   className={`adm-nav-item${filter === t ? ' active' : ''}`}
                   onClick={() => setFilterAndReset(t)}
                 >
                   <span>{t}</span>
-                  <span className="adm-badge">{entries.filter(e => e.formType === t).length}</span>
+                  <span className="adm-badge">{entries.filter(e => e.formType === t && (allowedForms === null || allowedForms.includes(e.formType))).length}</span>
                 </button>
               ))}
             </>
@@ -718,7 +936,14 @@ export default function AdminPage() {
             </>
           )}
         </nav>
-        <button className="adm-logout" onClick={() => { sessionStorage.removeItem('tec_admin'); setAuthed(false); }}>
+        <div style={{ padding: '12px 16px', borderTop: '1px solid #2a3e2a' }}>
+          <div style={{ fontSize: '0.78rem', color: '#8aaa8a', marginBottom: 2 }}>{currentUser.name}</div>
+          <div style={{ fontSize: '0.72rem', color: '#5a7a5a', marginBottom: 10, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{currentUser.email}</div>
+          <div style={{ fontSize: '0.68rem', color: '#c9a84c', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+            {currentUser.groups.includes('admin') ? '★ Admin' : currentUser.groups.join(', ')}
+          </div>
+        </div>
+        <button className="adm-logout" onClick={() => { signOut(); setCurrentUser(null); sessionStorage.removeItem(CACHE_KEY); }}>
           Sign Out
         </button>
       </aside>

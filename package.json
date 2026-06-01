@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "amazon-cognito-identity-js": "^6.3.16",
     "aws-rum-web": "^3.1.0",
     "jspdf": "^4.2.1",
     "lucide-react": "^0.383.0",

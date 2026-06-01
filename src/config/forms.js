@@ -3,6 +3,7 @@
 //  All forms, credentials, and utilities in one place.
 //  To add a new form: add an entry to FORM_REGISTRY below.
 // ════════════════════════════════════════════════════════════
+import { getIdToken } from '../utils/cognitoAuth';
 
 // ── AWS Config ───────────────────────────────────────────────
 export const AWS_CONFIG = {
@@ -565,11 +566,15 @@ export async function saveSubmissionToDB(entry) {
  * Makes multiple small requests (500 records each) instead of one
  * giant request — avoids Lambda/API Gateway timeout regardless of
  * how many records exist.
+ * Sends Cognito JWT so the Lambda filters by the user's assigned groups.
  * Returns sorted array on success, null on error.
  */
 export async function getAllSubmissionsFromDB(onProgress) {
   if (!AWS_CONFIG.dynamoGetUrl) return null;
   try {
+    const idToken = await getIdToken();
+    if (!idToken) throw new Error('Not authenticated');
+
     const PAGE = 500;
     let allItems = [];
     let nextKey  = null;
@@ -579,7 +584,9 @@ export async function getAllSubmissionsFromDB(onProgress) {
       url.searchParams.set('limit', PAGE);
       if (nextKey) url.searchParams.set('startKey', nextKey);
 
-      const res = await fetch(url.toString());
+      const res = await fetch(url.toString(), {
+        headers: { 'Authorization': `Bearer ${idToken}` },
+      });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const body = await res.json();
 
@@ -603,9 +610,13 @@ export async function getAllSubmissionsFromDB(onProgress) {
 export async function updateSubmissionInDB(entry) {
   if (!AWS_CONFIG.dynamoUpdateUrl) return false;
   try {
+    const idToken = await getIdToken();
     const res = await fetch(AWS_CONFIG.dynamoUpdateUrl, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        ...(idToken ? { 'Authorization': `Bearer ${idToken}` } : {}),
+      },
       body: JSON.stringify(entry),
     });
     return res.ok;
@@ -619,9 +630,13 @@ export async function updateSubmissionInDB(entry) {
 export async function updateSubmissionStatusInDB(id, status) {
   if (!AWS_CONFIG.dynamoUpdateUrl) return false;
   try {
+    const idToken = await getIdToken();
     const res = await fetch(AWS_CONFIG.dynamoUpdateUrl, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        ...(idToken ? { 'Authorization': `Bearer ${idToken}` } : {}),
+      },
       body: JSON.stringify({ id, status }),
     });
     return res.ok;
@@ -635,9 +650,13 @@ export async function updateSubmissionStatusInDB(id, status) {
 export async function deleteSubmissionFromDB(id) {
   if (!AWS_CONFIG.dynamoDeleteUrl) return false;
   try {
+    const idToken = await getIdToken();
     const res = await fetch(AWS_CONFIG.dynamoDeleteUrl, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        ...(idToken ? { 'Authorization': `Bearer ${idToken}` } : {}),
+      },
       body: JSON.stringify({ id }),
     });
     return res.ok;
