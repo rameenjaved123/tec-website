@@ -364,7 +364,7 @@ export default function NewsEventsPage() {
 
       <div className="container inner-content">
 
-        <p style={{ fontSize: '1rem', color: 'var(--tec-text-light)', lineHeight: 1.8, marginBottom: '40px', maxWidth: '720px' }}>
+        <p style={{ fontSize: '1rem', color: 'var(--tec-text-light)', lineHeight: 1.8, margin: '0 0 40px', textAlign: 'center' }}>
           From student milestones and cultural events to accreditations and professional development
           — here you'll find a record of what makes TEC such a vibrant place to learn and work.
         </p>

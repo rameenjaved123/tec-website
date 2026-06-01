@@ -1,9 +1,18 @@
 /* ── Hero ── */
 .hero {
   position: relative;
-  height: clamp(320px, 38vw, 560px);
+  /* Mobile: natural image proportions — no zoom/crop on wide banners */
+  aspect-ratio: 2500 / 938;
   overflow: hidden;
   background: #0d1e13;
+}
+
+/* Desktop: fixed height — aspect-ratio alone gives only ~512px at 1366px wide */
+@media (min-width: 769px) {
+  .hero {
+    aspect-ratio: unset;
+    height: 600px;
+  }
 }
 
 /* ── Split slide (standard) ── */
@@ -1012,8 +1021,8 @@
 }
 
 @media (max-width: 600px) {
-  .hero { height: clamp(240px, 70vw, 380px); }
-  .hero-full-img { object-position: center top; }
+  /* hero height is now controlled by aspect-ratio — no override needed */
+  .hero-full-img { object-position: center center; }
   .hero-left {
     width: 100%;
     clip-path: polygon(0 0, 100% 0, 100% 82%, 0 100%);

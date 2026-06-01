@@ -96,7 +96,7 @@ export default function FurtherEducationPage() {
       />
 
       <div className="container inner-content">
-        <p style={{ fontSize: '1.05rem', color: 'var(--tec-text-light)', marginBottom: '36px', maxWidth: '700px' }}>
+        <p style={{ fontSize: '1.05rem', color: 'var(--tec-text-light)', margin: '0 0 36px', textAlign: 'center' }}>
           Our Further Education courses are designed for adult learners looking to upskill, gain new
           qualifications, or prepare for higher education and employment.
         </p>

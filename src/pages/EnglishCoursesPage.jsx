@@ -487,7 +487,7 @@ export default function EnglishCoursesPage() {
       />
 
       {/* ── Intro ── */}
-      <div className="container" style={{ maxWidth: 860, padding: '72px 20px 40px', textAlign: 'center' }}>
+      <div className="container" style={{ padding: '72px 20px 40px', textAlign: 'center' }}>
         <p style={{ fontSize: '1rem', lineHeight: 1.85, color: '#333' }}>
           Our English Language courses are delivered at our Castle Boulevard campus in Nottingham.
           We offer two nationally recognised qualifications — the <strong>Ascentis ESOL</strong> programme

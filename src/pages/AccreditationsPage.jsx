@@ -40,15 +40,7 @@ export default function AccreditationsPage() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
           {items.map((item, i) => (
             <div key={i}>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: '220px 1fr',
-                gap: '40px',
-                alignItems: 'center',
-                padding: '40px 0',
-              }}
-                className="awarding-org-row"
-              >
+              <div className="awarding-org-row">
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <img
                     src={item.logo}

@@ -63,7 +63,7 @@ export default function AwardingOrganisationsPage() {
       />
 
       <div className="container inner-content">
-        <p style={{ fontSize: '1rem', color: 'var(--tec-text-light)', lineHeight: 1.8, marginBottom: '48px', maxWidth: '760px' }}>
+        <p style={{ fontSize: '1rem', color: 'var(--tec-text-light)', lineHeight: 1.8, margin: '0 0 48px', textAlign: 'center' }}>
           Trent Education Centre works with a range of respected UK-regulated awarding organisations
           to deliver accredited qualifications that are recognised by employers and institutions worldwide.
         </p>
@@ -71,15 +71,7 @@ export default function AwardingOrganisationsPage() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
           {orgs.map((org, i) => (
             <div key={i}>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: '220px 1fr',
-                gap: '40px',
-                alignItems: 'center',
-                padding: '40px 0',
-              }}
-                className="awarding-org-row"
-              >
+              <div className="awarding-org-row">
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <img
                     src={org.logo}

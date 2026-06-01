@@ -113,12 +113,12 @@ export default function CareersPage() {
       />
 
       <div className="container inner-content">
-        <p style={{ fontSize: '1rem', color: 'var(--tec-text-light)', lineHeight: '1.8', marginBottom: '12px', maxWidth: '800px' }}>
+        <p style={{ fontSize: '1rem', color: 'var(--tec-text-light)', lineHeight: '1.8', margin: '0 0 12px', textAlign: 'center' }}>
           Trent Education Centre (TEC) will be advertising new job opportunities from January 2024.
           Our job adverts will include a job description, person specification and details of how to
           apply for each vacancy. We welcome applications from people of all backgrounds.
         </p>
-        <p style={{ fontSize: '0.95rem', color: 'var(--tec-text-light)', lineHeight: '1.8', marginBottom: '40px', maxWidth: '800px' }}>
+        <p style={{ fontSize: '0.95rem', color: 'var(--tec-text-light)', lineHeight: '1.8', margin: '0 0 40px', textAlign: 'center' }}>
           TEC is an equal opportunities employer. All our hiring decisions are made fairly based upon
           qualifications and experience. We are committed to making reasonable adjustments where we
           can to enable disabled people to apply for any vacancy. Applicants will be required to

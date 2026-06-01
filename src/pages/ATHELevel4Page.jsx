@@ -535,6 +535,7 @@ function UnitAccordion({ unit, isOpen, onToggle }) {
           <p className="al4-unit-heading">{unit.title}</p>
 
           {/* Metadata table */}
+          <div className="al4-meta-table-wrap">
           <table className="al4-meta-table">
             <tbody>
               <tr>
@@ -561,6 +562,7 @@ function UnitAccordion({ unit, isOpen, onToggle }) {
               )}
             </tbody>
           </table>
+          </div>{/* end al4-meta-table-wrap */}
 
           {/* Assessor Guidance */}
           {unit.hasAssessorGuidance && (

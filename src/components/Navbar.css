@@ -88,10 +88,13 @@
 
 .dropdown.depth-1 {
   top: 0;
-  left: 100%;
+  /* Open to the LEFT to avoid going off-screen on right-side menus */
+  left: auto;
+  right: 100%;
   border-top: none;
-  border-left: 3px solid var(--tec-gold);
-  border-radius: 0 8px 8px 0;
+  border-right: 3px solid var(--tec-gold);
+  border-left: none;
+  border-radius: 8px 0 0 8px;
 }
 
 @keyframes dropDown {

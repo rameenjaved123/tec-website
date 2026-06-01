@@ -5,6 +5,7 @@
 
 .ap-section-header {
   margin-bottom: 32px;
+  text-align: center;
 }
 
 .ap-section-header h2 {
@@ -18,14 +19,13 @@
   width: 48px;
   height: 3px;
   background: var(--tec-green);
-  margin-bottom: 16px;
+  margin: 0 auto 16px;
 }
 
 .ap-section-intro {
   font-size: 1rem;
   color: var(--tec-text-light);
   line-height: 1.75;
-  max-width: 700px;
   margin: 0;
 }
 
@@ -211,6 +211,55 @@
 @media (max-width: 768px) {
   .ap-logo-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  /* Touch devices can't hover — show both front and back content stacked */
+  .ap-logo-card {
+    height: auto;
+  }
+
+  .ap-logo-card-front {
+    position: relative;
+    inset: auto;
+    opacity: 1 !important;
+    transform: none !important;
+    padding: 16px 12px 12px;
+    gap: 8px;
+  }
+
+  .ap-logo-card-hover {
+    position: relative;
+    inset: auto;
+    opacity: 1 !important;
+    transform: none !important;
+    background: #f0f7f1;
+    padding: 10px 12px 14px;
+  }
+
+  .ap-hover-desc {
+    color: var(--tec-text-light);
+    font-size: 0.76rem;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .ap-more-info-btn {
+    font-size: 0.74rem;
+    padding: 6px 14px;
+  }
+
+  .ap-logo-img {
+    max-width: 90px;
+    max-height: 56px;
+  }
+
+  .ap-logo-name {
+    font-size: 0.72rem;
   }
 
   .ap-img-grid {
@@ -221,10 +270,30 @@
     grid-template-columns: repeat(2, 1fr);
     max-width: 100%;
   }
+
+  .ap-section-header h2 {
+    font-size: 1.3rem;
+  }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 420px) {
+  /* Single column on very small phones */
   .ap-logo-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
+  }
+
+  .ap-logo-card-front {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 14px;
+    text-align: left;
+  }
+
+  .ap-logo-card-hover {
+    text-align: left;
+  }
+
+  .ap-hover-desc {
+    -webkit-line-clamp: 4;
   }
 }

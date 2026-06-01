@@ -93,7 +93,7 @@ export default function AdmissionPage() {
       />
 
       {/* ── Intro ── */}
-      <div className="container" style={{ padding: '72px 20px 12px', maxWidth: 860 }}>
+      <div className="container" style={{ padding: '72px 20px 12px', maxWidth: 1040 }}>
         <p style={{ fontSize: '1rem', lineHeight: 1.8, color: '#333', textAlign: 'center' }}>
           The College is dedicated to providing an admission process that is fair, transparent, and gives all applicants equal opportunities. The College accepts applications from people regardless of their background or circumstances, and actively promotes applications from communities that are under-represented in further and higher education, particularly those who may face disadvantages and barriers to higher education. We aim to attract students who need skills and qualifications to prepare for academic and career success, including finding a job, gaining promotion or starting your own business.
         </p>

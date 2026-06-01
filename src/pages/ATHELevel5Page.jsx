@@ -1198,6 +1198,7 @@ function UnitAccordion({ unit, isOpen, onToggle }) {
         <div className="al4-acc-body">
           <p className="al4-unit-heading">{unit.title}</p>
 
+          <div className="al4-meta-table-wrap">
           <table className="al4-meta-table">
             <tbody>
               <tr>
@@ -1224,6 +1225,7 @@ function UnitAccordion({ unit, isOpen, onToggle }) {
               )}
             </tbody>
           </table>
+          </div>{/* end al4-meta-table-wrap */}
 
           {unit.hasAssessorGuidance && unit.assessorGuidance.length > 0 && (
             <div className="al4-assessor">

@@ -48,7 +48,7 @@ export default function ContactPage() {
       <div className="container inner-content">
 
         {/* Intro */}
-        <p style={{ fontSize: '1rem', color: 'var(--tec-text-light)', lineHeight: 1.8, marginBottom: '32px', maxWidth: '800px' }}>
+        <p style={{ fontSize: '1rem', color: 'var(--tec-text-light)', lineHeight: 1.8, margin: '0 0 32px', textAlign: 'center' }}>
           Our Study Centres in Nottingham, Leicester and Birmingham have the same warm and vibrant
           community — get in touch with us and we'll be happy to help.
         </p>

@@ -222,10 +222,45 @@ function DropdownMenu({ items, depth = 0 }) {
   );
 }
 
+function MobileNavItem({ item, depth }) {
+  const [expanded, setExpanded] = useState(false);
+  const indent = depth === 0 ? 24 : depth === 1 ? 36 : 48;
+  const fontSize = depth === 0 ? '0.9rem' : depth === 1 ? '0.85rem' : '0.8rem';
+
+  return (
+    <div className="mobile-item" style={{ borderBottom: depth === 0 ? '1px solid rgba(255,255,255,0.07)' : 'none' }}>
+      <div
+        className="mobile-link"
+        style={{ paddingLeft: indent, paddingRight: 24 }}
+        onClick={() => item.children && setExpanded(e => !e)}
+      >
+        <Link
+          to={item.path}
+          style={{ fontSize, opacity: depth > 0 ? 0.85 : 1 }}
+        >
+          {item.label}
+        </Link>
+        {item.children && (
+          <ChevronDown
+            size={14}
+            className={`mobile-arrow ${expanded ? 'open' : ''}`}
+          />
+        )}
+      </div>
+      {item.children && expanded && (
+        <div style={{ background: `rgba(0,0,0,${0.12 + depth * 0.08})` }}>
+          {item.children.map((child, j) => (
+            <MobileNavItem key={j} item={child} depth={depth + 1} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function Navbar() {
   const [openMenu, setOpenMenu] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [mobileExpanded, setMobileExpanded] = useState(null);
   const location = useLocation();
   const timeoutRef = useRef(null);
 
@@ -287,29 +322,11 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="mobile-menu">
           {navItems.map((item, i) => (
-            <div key={i} className="mobile-item">
-              <div
-                className="mobile-link"
-                onClick={() => setMobileExpanded(mobileExpanded === i ? null : i)}
-              >
-                <Link to={item.path}>{item.label}</Link>
-                {item.children && (
-                  <ChevronDown
-                    size={16}
-                    className={`mobile-arrow ${mobileExpanded === i ? 'open' : ''}`}
-                  />
-                )}
-              </div>
-              {item.children && mobileExpanded === i && (
-                <div className="mobile-sub">
-                  {item.children.map((sub, j) => (
-                    <Link key={j} to={sub.path} className="mobile-sub-link">
-                      {sub.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
+            <MobileNavItem
+              key={i}
+              item={item}
+              depth={0}
+            />
           ))}
         </div>
       )}

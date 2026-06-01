@@ -342,6 +342,8 @@
   line-height: 1.75;
   color: #555;
   margin: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 /* ── Admission Policy Banner ── */

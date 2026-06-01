@@ -45,7 +45,7 @@ export default function PoliciesPage() {
       />
 
       <div className="container inner-content">
-        <p style={{ fontSize: '1.05rem', color: 'var(--tec-text-light)', marginBottom: '36px', maxWidth: '700px' }}>
+        <p style={{ fontSize: '1.05rem', color: 'var(--tec-text-light)', margin: '0 0 36px', textAlign: 'center' }}>
           Trent Education Centre is committed to transparency and accountability. Below you will find
           our key policies and official documents. Click any policy to open or download the PDF.
         </p>
