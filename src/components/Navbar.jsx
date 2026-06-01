@@ -232,18 +232,30 @@ function MobileNavItem({ item, depth }) {
       <div
         className="mobile-link"
         style={{ paddingLeft: indent, paddingRight: 24 }}
-        onClick={() => item.children && setExpanded(e => !e)}
       >
-        <Link
-          to={item.path}
-          style={{ fontSize, opacity: depth > 0 ? 0.85 : 1 }}
-        >
-          {item.label}
-        </Link>
+        {/* Items with children: tapping label toggles submenu (no navigation).
+            Items without children: Link navigates normally. */}
+        {item.children ? (
+          <span
+            style={{ fontSize, opacity: depth > 0 ? 0.85 : 1, color: '#fff', cursor: 'pointer', flex: 1 }}
+            onClick={() => setExpanded(e => !e)}
+          >
+            {item.label}
+          </span>
+        ) : (
+          <Link
+            to={item.path}
+            style={{ fontSize, opacity: depth > 0 ? 0.85 : 1 }}
+          >
+            {item.label}
+          </Link>
+        )}
         {item.children && (
           <ChevronDown
             size={14}
             className={`mobile-arrow ${expanded ? 'open' : ''}`}
+            onClick={() => setExpanded(e => !e)}
+            style={{ cursor: 'pointer' }}
           />
         )}
       </div>
