@@ -53,6 +53,8 @@ import EnrolmentFormPage from './pages/EnrolmentFormPage';
 import InternationalApplicationFormPage from './pages/InternationalApplicationFormPage';
 import AdminPage from './pages/AdminPage';
 import GenericPage from './pages/GenericPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import CookieConsent from './components/CookieConsent';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -131,12 +133,14 @@ function AppLayout() {
 
           {/* Policies */}
           <Route path="/policies" element={<PoliciesPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
 
           {/* 404 */}
           <Route path="*" element={<GenericPage title="Page Not Found" subtitle="The page you're looking for doesn't exist." />} />
         </Routes>
       </main>
       <Footer />
+      <CookieConsent />
     </div>
   );
 }
