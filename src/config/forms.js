@@ -43,16 +43,6 @@ export const SES_CONFIG = {
   fromName:  'Trent Education Centre',
 };
 
-// ── EmailJS (kept for fallback / non-SES forms) ───────────────
-export const EMAILJS_CONFIG = {
-  serviceId:              'service_s8x2vr8',
-  templateId:             'template_m18dzgr',
-  publicKey:              'LA-HTtbwGeLCXG5e8',
-  confirmationServiceId:     'service_msx2pzc',
-  confirmationTemplateId:    'template_cakcc3g',
-  confirmationPublicKey:     'Disl7IjBDWIhIZIj-',
-};
-
 // ── Google Sheets (Apps Script) ───────────────────────────────
 // Each form has its own Apps Script deployment → its own sheet
 export const SHEETS_CONFIG = {
@@ -144,13 +134,6 @@ export const FORM_REGISTRY = {
     icon: '📝',
     color: '#6a1b9a',
     notifyEmail: NOTIFY_EMAILS['Application Form'],
-    // ── EmailJS template IDs ──────────────────────────────────────────────────
-    notificationTemplateId:  'template_3h149cl',  // admin → digitaladmissions@ (No Reply account)
-    confirmationTemplateId:  'template_3auadfc',  // → applicant (HR account)
-    notificationServiceId:   'service_msx2pzc',   // No Reply
-    notificationPublicKey:   'Disl7IjBDWIhIZIj-',
-    confirmationServiceId:   'service_s8x2vr8',   // HR
-    confirmationPublicKey:   'LA-HTtbwGeLCXG5e8',
     sheetsTab: 'Sheet1',
     sheetsUrl: 'https://docs.google.com/spreadsheets/d/1U4YaBleh1BUVYvkV69xwVng-gfwqKUqVMcQCs8nsugk/edit',
     scriptUrl: 'https://script.google.com/macros/s/AKfycbznkDqOkpRsPkLqccgbn5yEfR9HIl-mXdsoGKdtfn-R-b_O_gL3gptufxnZy6XP1Zo-/exec',
