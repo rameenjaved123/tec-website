@@ -1,0 +1,265 @@
+/* ── Intro strip ── */
+.apply-intro {
+  background: #fff;
+  padding: 48px 24px;
+  border-bottom: 3px solid var(--tec-gold);
+}
+
+.apply-intro-inner {
+  max-width: 820px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.apply-intro p {
+  color: #444;
+  font-size: 1.05rem;
+  line-height: 1.85;
+  margin: 0;
+}
+
+/* ── How It Works ── */
+.enrol-steps-section {
+  padding: 72px 24px;
+  background: #f7f9f7;
+  border-bottom: 1px solid #e5ece5;
+}
+
+.enrol-section-title {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--tec-green-dark);
+  margin-bottom: 8px;
+}
+
+.enrol-section-title::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: var(--tec-gold);
+  margin: 12px auto 48px;
+  border-radius: 2px;
+}
+
+.enrol-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.enrol-step-card {
+  background: #fff;
+  border: 1px solid #e0ebe0;
+  border-top: 4px solid var(--tec-green);
+  border-radius: 0 0 10px 10px;
+  padding: 32px 28px;
+  position: relative;
+  transition: box-shadow 0.2s, border-top-color 0.2s;
+}
+
+.enrol-step-card:hover {
+  box-shadow: 0 8px 28px rgba(26,58,42,0.1);
+  border-top-color: var(--tec-gold);
+}
+
+.enrol-step-num {
+  position: absolute;
+  top: 20px;
+  right: 22px;
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: #edf3ed;
+  line-height: 1;
+  font-family: Georgia, serif;
+}
+
+.enrol-step-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--tec-green);
+  color: #fff;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.enrol-step-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--tec-green-dark);
+  margin-bottom: 10px;
+}
+
+.enrol-step-card p {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── Main section ── */
+.apply-main {
+  padding: 72px 24px;
+  background: #fff;
+}
+
+.apply-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* CTA card */
+.apply-cta-card {
+  background: var(--tec-green-dark);
+  border-radius: 12px;
+  padding: 44px 40px;
+  color: #fff;
+}
+
+.apply-cta-card h2 {
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.apply-cta-card p {
+  color: rgba(255,255,255,0.85);
+  line-height: 1.8;
+  margin-bottom: 32px;
+  font-size: 0.95rem;
+}
+
+.apply-portal-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 32px;
+  background: var(--tec-gold);
+  color: var(--tec-green-dark) !important;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  text-decoration: none !important;
+  transition: opacity 0.2s;
+  margin-bottom: 24px;
+}
+
+.apply-portal-btn:hover {
+  opacity: 0.88;
+}
+
+.apply-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.85rem;
+}
+
+.apply-note strong {
+  color: rgba(255,255,255,0.9);
+}
+
+/* Requirements */
+.apply-requirements {
+  background: #f7f9f7;
+  border: 1px solid #e0ebe0;
+  border-radius: 12px;
+  padding: 36px 32px;
+}
+
+.apply-requirements h3 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--tec-green-dark);
+  margin-bottom: 10px;
+}
+
+.apply-requirements > p {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.apply-requirements ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.apply-requirements li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.9rem;
+  color: #3a3a3a;
+  line-height: 1.6;
+}
+
+.apply-requirements li svg {
+  color: var(--tec-green);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ── Contact strip ── */
+.apply-contact-strip {
+  background: #f0f4f0;
+  border-top: 1px solid #dde8dd;
+  padding: 32px 24px;
+}
+
+.apply-contact-strip .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.apply-contact-label {
+  font-weight: 700;
+  color: var(--tec-green-dark);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.apply-contact-links {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.apply-contact-links a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--tec-green);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.apply-contact-links a:hover {
+  color: var(--tec-gold);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .enrol-steps,
+  .apply-main-grid {
+    grid-template-columns: 1fr;
+  }
+}

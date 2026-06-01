@@ -1,0 +1,32 @@
+/* ── BTEC 3-column facts/units layout ── */
+.btec-facts-inner {
+  display: grid;
+  grid-template-columns: 220px 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+/* ── BTEC LO list inside accordion body ── */
+.btec-lo-list {
+  list-style: disc;
+  padding-left: 20px;
+  margin: 0;
+}
+.btec-lo-list li {
+  font-size: 0.84rem;
+  color: #444;
+  line-height: 1.65;
+  margin-bottom: 6px;
+}
+.btec-lo-list li:last-child { margin-bottom: 0; }
+
+/* ── Smaller accordion title for BTEC (longer unit names) ── */
+.btec-acc-item .al4-acc-title { font-size: 0.84rem; }
+
+/* ── Responsive ── */
+@media (max-width: 1100px) {
+  .btec-facts-inner { grid-template-columns: 200px 1fr 1fr; gap: 20px; }
+}
+@media (max-width: 860px) {
+  .btec-facts-inner { grid-template-columns: 1fr; }
+}

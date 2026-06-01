@@ -1,0 +1,105 @@
+/* ── Full-width photo banner shared by all inner pages ── */
+.ph-banner {
+  position: relative;
+  height: 560px;
+  background-size: cover;
+  background-position: center top;
+  /* pull the box-row up so it overlaps the bottom of the banner */
+  margin-bottom: -48px;
+}
+
+/* subtle darkening so text stands out */
+.ph-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 28, 14, 0.42);
+}
+
+/* row that holds the green title box — it overlaps the banner bottom */
+.ph-box-row {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+/* wide green title box */
+.ph-box {
+  background: var(--tec-green);
+  width: 78%;
+  max-width: 1040px;
+  padding: 28px 64px;
+  text-align: center;
+}
+
+.ph-box h1 {
+  color: #fff;
+  font-size: 2.4rem;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.ph-box-extra {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* subtitle below the green box */
+.ph-subtitle {
+  width: 78%;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 64px 4px;
+  text-align: center;
+}
+
+.ph-subtitle::before {
+  content: '';
+  display: block;
+  width: 72px;
+  height: 4px;
+  background: var(--tec-gold);
+  border-radius: 3px;
+  margin: 24px auto 14px;
+}
+
+.ph-subtitle p {
+  font-size: 1.2rem;
+  color: #222;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.75;
+}
+
+/* ── Centred variant: title box sits inside the banner ── */
+.ph-banner.ph-centered {
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ph-box-row--inside {
+  position: relative;
+  z-index: 2;
+  padding: 0 20px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .ph-banner { height: 420px; margin-bottom: -40px; }
+  .ph-box { width: 90%; padding: 22px 36px; }
+  .ph-box h1 { font-size: 2rem; }
+  .ph-subtitle { width: 90%; padding: 0 36px 4px; }
+}
+
+@media (max-width: 560px) {
+  .ph-banner { height: 320px; margin-bottom: -36px; }
+  .ph-box { width: 96%; padding: 18px 20px; }
+  .ph-box h1 { font-size: 1.6rem; }
+  .ph-subtitle { width: 96%; padding: 0 20px 4px; }
+}
