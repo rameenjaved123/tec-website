@@ -1,30 +1,32 @@
-# Trent Education Centre — React Website
+# Trent Education Centre — Website
 
-A full React + Vite rebuild of [trenteducation.co.uk](https://trenteducation.co.uk), using React Router for multi-page navigation, CSS variables for theming, and a mobile-responsive layout.
+The official website and admin dashboard for [Trent Education Centre](https://trenteducation.co.uk), a UK further and higher education college based in Nottingham.
 
-## Project Structure
+**Live (dev):** [dev.trenteducation.co.uk](https://dev.trenteducation.co.uk)  
+**Production:** [trenteducation.co.uk](https://trenteducation.co.uk)
 
-```
-src/
-  components/
-    Navbar.jsx / Navbar.css      — sticky header with dropdowns
-    Footer.jsx / Footer.css      — links, contact, socials
-  pages/
-    HomePage.jsx / HomePage.css  — hero slider, courses, CTA
-    AdmissionPage.jsx            — admission overview + steps
-    EnglishCoursesPage.jsx       — ESOL & Functional Skills
-    HigherEducationPage.jsx      — ATHE / BTEC courses
-    FurtherEducationPage.jsx     — Level 3, Maths, SIA, Digital
-    AboutPage.jsx                — about TEC, vision, values
-    PoliciesPage.jsx             — policy documents list
-    ContactPage.jsx              — contact info & social links
-    ApplyPage.jsx                — application form redirect
-    GenericPage.jsx              — placeholder for sub-pages
-    InnerPage.css                — shared inner page styles
-  index.css                      — global CSS variables & resets
-  App.jsx                        — router + layout shell
-  main.jsx                       — React entry point
-```
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | React 18 + Vite |
+| Routing | React Router v6 (SPA) |
+| Hosting & CI/CD | AWS Amplify (auto-deploy from `main`) |
+| DNS | AWS Route 53 (delegated from cPanel) |
+| Auth | AWS Cognito (admin dashboard) |
+| API | AWS API Gateway + Lambda (Node.js ESM) |
+| Database | AWS DynamoDB |
+| Email | AWS SES |
+| File Storage | AWS S3 (presigned URLs) |
+| Analytics | AWS CloudWatch RUM (consent-gated) |
+| Icons | Lucide React |
+| PDF Export | jsPDF |
+| Excel Export | xlsx |
+| Tests | Playwright |
+
+---
 
 ## Getting Started
 
@@ -32,45 +34,83 @@ src/
 npm install
 npm run dev        # http://localhost:5173
 npm run build      # production build → /dist
+npm run test       # Playwright e2e tests
 ```
 
-## Deploying to GitHub + Netlify/Vercel
+---
 
-### 1. Push to GitHub
+## Project Structure
+
+```
+src/
+├── components/          # Shared UI
+│   ├── Navbar            — sticky header, 3-level dropdowns, mobile accordion
+│   ├── Footer            — links, contact, socials
+│   ├── PageHero          — hero banner used on all inner pages
+│   ├── CookieConsent     — GDPR cookie banner (gates analytics)
+│   └── ErrorBoundary     — React error boundary
+│
+├── pages/               # One file per page (+ paired .css)
+│   ├── HomePage
+│   ├── [Course pages]    — English, Higher Ed (ATHE L4/L5, BTEC HND), Further Ed
+│   ├── [About pages]     — About, Mission, Study Centres, Approvals, Careers…
+│   ├── [Form pages]      — Enquiry, Application, Enrolment, Job Application…
+│   ├── AdminPage         — full admin dashboard (Cognito auth + DynamoDB)
+│   └── InnerPage.css     — shared inner-page base styles
+│
+├── config/
+│   └── forms.js          — central config: API URLs, form registry, SES config
+│
+└── utils/
+    ├── cognitoAuth.js    — Cognito sign-in, sign-up, session management
+    ├── rum.js            — CloudWatch RUM initialisation (post-consent only)
+    └── errorReporter.js  — JS error reporting to CloudWatch
+
+lambda/                  # AWS Lambda source (manually deployed)
+├── tec-submissions-api  — DynamoDB CRUD (save/get/update/delete)
+├── tec-send-email       — SES email notifications
+├── tec-presigned-url-generator — S3 presigned URLs for file upload/view
+└── tec-website-error-reporter  — error logging handler
+
+tests/                   # Playwright e2e tests
+```
+
+---
+
+## Deployment
+
+The site auto-deploys via **AWS Amplify** on every push to `main`. No manual steps needed.
 
 ```bash
-git init
-git add .
-git commit -m "Initial commit: TEC React site"
-git remote add origin https://github.com/YOUR_USERNAME/tec-website.git
-git push -u origin main
+git push origin main    # triggers Amplify build → live in ~2–4 min
 ```
 
-### 2a. Deploy to Netlify (recommended)
+Lambda functions are deployed separately (manual zip upload to AWS Console).
 
-1. Go to [netlify.com](https://netlify.com) → **Add new site** → **Import from Git**
-2. Connect your GitHub account, select `tec-website`
-3. Set build settings:
-   - **Build command:** `npm run build`
-   - **Publish directory:** `dist`
-4. Click **Deploy site**
-5. In **Site settings → Domain management**, add your custom domain (`trenteducation.co.uk`)
-6. Update your domain's DNS:
-   - Add a CNAME record: `www` → `[your-netlify-site].netlify.app`
-   - Add an A record: `@` → Netlify's load balancer IPs (shown in Netlify dashboard)
+---
 
-### 2b. Deploy to Vercel
+## Admin Dashboard
 
-1. Go to [vercel.com](https://vercel.com) → **New Project** → import from GitHub
-2. Framework: **Vite** (auto-detected)
-3. Click **Deploy**
-4. In **Settings → Domains**, add your custom domain
+Available at `/admin`. Requires a Cognito account with an assigned group.
+
+- Staff sign up → pending approval → admin assigns a Cognito group
+- Each group restricts access to specific form types (RBAC)
+- `admin` group = unrestricted access to all submissions
+
+---
 
 ## Color Scheme
 
 | Variable | Value | Usage |
 |---|---|---|
-| `--tec-green-dark` | `#122618` | Navbar, footer, hero overlay |
-| `--tec-green` | `#1a3a2a` | Headings, buttons, accents |
-| `--tec-gold` | `#c9a227` | Highlights, CTA buttons |
-| `--tec-gray` | `#f5f5f5` | Section backgrounds |
+| `--tec-green-dark` | `#1a3a2a` | Navbar, footer, headings |
+| `--tec-green` | `#2d6a4f` | Buttons, accents, icons |
+| `--tec-green-mid` | `#2d5a3d` | Hero overlays |
+| `--tec-gold` | `#c9a84c` | CTA buttons, highlights |
+| `--tec-text-light` | `#555` | Body text |
+
+---
+
+## Full Technical Documentation
+
+See **[TEC-TECHNICAL-DOCUMENTATION.md](./TEC-TECHNICAL-DOCUMENTATION.md)** for the complete project reference covering all AWS services, CI/CD pipeline, DNS setup, Cognito RBAC, GDPR compliance, and a full runbook for replicating the project.
