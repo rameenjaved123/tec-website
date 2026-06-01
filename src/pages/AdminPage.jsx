@@ -157,8 +157,8 @@ function AdminAuth({ onAuthed }) {
               onChange={e => { setEmail(e.target.value); setError(''); }} required autoFocus />
             <input style={inputStyle} type="password" placeholder="Password" value={password}
               onChange={e => { setPassword(e.target.value); setError(''); }} required />
-            {error && <p style={{ color: '#c0392b', fontSize: '0.82rem', margin: '-6px 0 10px' }}>{error}</p>}
-            <button style={btnStyle} type="submit" disabled={busy}>{busy ? 'Signing in…' : 'Sign In →'}</button>
+            {error && <p className="adm-login-error" style={{ color: '#c0392b', fontSize: '0.82rem', margin: '-6px 0 10px' }}>{error}</p>}
+            <button className="adm-login-btn" style={btnStyle} type="submit" disabled={busy}>{busy ? 'Signing in…' : 'Sign In →'}</button>
             <p style={{ textAlign: 'center', marginTop: 16, fontSize: '0.85rem', color: '#666' }}>
               Don't have an account?{' '}
               <button type="button" style={linkStyle} onClick={() => { setScreen('signup'); setError(''); }}>Request access</button>
