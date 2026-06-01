@@ -40,6 +40,9 @@ jobs:
 
       - name: Run Playwright tests
         run: npx playwright test
+        env:
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
 
       - name: Upload test report on failure
         if: failure()
