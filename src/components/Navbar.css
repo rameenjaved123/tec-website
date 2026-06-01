@@ -137,6 +137,7 @@
   color: white;
   cursor: pointer;
   padding: 4px;
+  margin-left: auto;
 }
 
 .mobile-menu {

@@ -167,4 +167,34 @@
   .al4-apply-grid { grid-template-columns: 1fr; }
   .al4-section-title { font-size: 1.35rem; }
   .al4-lo-table { font-size: 0.75rem; }
+
+  /* Accordion meta table — scrollable on mobile */
+  .al4-lo-wrap,
+  .al4-meta-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .al4-meta-table {
+    min-width: 360px;
+  }
+  .al4-meta-label {
+    white-space: normal;
+    min-width: 110px;
+  }
+
+  /* Tab bar wraps on small screens */
+  .al4-tab-bar {
+    flex-wrap: wrap;
+  }
+  .al4-tab-btn {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 0.78rem;
+    padding: 12px 8px;
+  }
+
+  /* Accordion content padding */
+  .al4-unit-body {
+    padding: 16px;
+  }
 }

@@ -1,4 +1,5 @@
 import './InnerPage.css';
+import './StudentLifePage.css';
 import PageHero from '../components/PageHero';
 
 const facilityPhotos = [
@@ -32,7 +33,7 @@ export default function StudentLifePage() {
           </h2>
           <div style={{ width: '60px', height: '4px', background: 'var(--tec-gold)', borderRadius: '2px', marginBottom: '32px' }} />
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '24px', marginBottom: '36px' }}>
+          <div className="sl-council-grid">
             <div style={{ background: 'var(--tec-gray)', borderRadius: '12px', padding: '28px 24px', borderTop: '4px solid var(--tec-gold)' }}>
               <p style={{ fontWeight: 700, color: 'var(--tec-green)', marginBottom: '10px', fontSize: '1rem' }}>Student Voice</p>
               <p style={{ lineHeight: 1.8, color: 'var(--tec-text-light)', fontSize: '0.95rem' }}>
@@ -86,11 +87,11 @@ export default function StudentLifePage() {
       </div>
 
       {/* Well-Equipped Educational Facilities — full-width with photo grid */}
-      <div style={{ background: 'var(--tec-gray)', padding: '0 0 0 0', overflow: 'hidden' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '55% 45%', minHeight: '520px' }}>
+      <div style={{ background: 'var(--tec-gray)', padding: '0 0 0 0' }}>
+        <div className="sl-facility-section">
 
           {/* Left: 3×3 photo grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gridTemplateRows: '1fr 1fr 1fr' }}>
+          <div className="sl-photo-grid">
             {facilityPhotos.map((src, i) => (
               <div key={i} style={{ overflow: 'hidden', aspectRatio: '4/3' }}>
                 <img
@@ -105,7 +106,7 @@ export default function StudentLifePage() {
           </div>
 
           {/* Right: text panel */}
-          <div style={{ background: '#8aab92', display: 'flex', alignItems: 'center', padding: '56px 52px' }}>
+          <div className="sl-facility-text">
             <div>
               <h2 style={{ color: 'var(--tec-white)', fontSize: '1.9rem', fontWeight: 800, marginBottom: '24px', lineHeight: 1.25 }}>
                 Well-Equipped Educational Facilities
@@ -129,11 +130,11 @@ export default function StudentLifePage() {
             Learning &amp; Wellbeing Beyond the Classroom
           </h2>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '5fr 7fr', gap: '56px', alignItems: 'center' }}>
+          <div className="sl-learning-grid">
 
             {/* Left: two lists side by side */}
             <div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', marginBottom: '36px' }}>
+              <div className="sl-learning-lists">
                 <div>
                   <h3 style={{ color: 'var(--tec-gold)', marginBottom: '18px', fontSize: '1.05rem' }}>Experiential Learning</h3>
                   <ul style={{ listStyle: 'none', padding: 0 }}>
@@ -212,11 +213,11 @@ export default function StudentLifePage() {
           <h2 style={{ color: 'var(--tec-green)', textAlign: 'center', marginBottom: '40px', fontSize: '1.8rem' }}>
             Director's Message
           </h2>
-          <div style={{ display: 'flex', gap: '32px', alignItems: 'flex-start', background: 'var(--tec-white)', borderRadius: '16px', padding: '40px', boxShadow: '0 4px 24px rgba(0,0,0,0.07)' }}>
+          <div className="sl-director-card">
             <img
               src="/assets/images/general/pearson-partner.png"
               alt="Zaheer Ahmed, Director"
-              style={{ width: '120px', height: '120px', borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }}
+              className="sl-director-avatar"
             />
             <div>
               <p style={{ lineHeight: 1.9, color: 'var(--tec-text-light)', fontStyle: 'italic', fontSize: '1.05rem', marginBottom: '20px' }}>

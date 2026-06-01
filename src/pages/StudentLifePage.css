@@ -1,0 +1,113 @@
+/* ── Student Council cards ── */
+.sl-council-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 36px;
+}
+
+/* ── Facility section (photo grid + text) ── */
+.sl-facility-section {
+  display: grid;
+  grid-template-columns: 55% 45%;
+  min-height: 520px;
+  overflow: hidden;
+}
+
+.sl-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.sl-facility-text {
+  background: #8aab92;
+  display: flex;
+  align-items: center;
+  padding: 56px 52px;
+}
+
+/* ── Learning & Wellbeing section ── */
+.sl-learning-grid {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.sl-learning-lists {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 36px;
+}
+
+/* ── Director card ── */
+.sl-director-card {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  background: var(--tec-white);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+}
+
+.sl-director-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .sl-council-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sl-facility-section {
+    grid-template-columns: 1fr;
+    min-height: unset;
+  }
+
+  /* Show text above photos on mobile */
+  .sl-facility-text {
+    order: -1;
+    padding: 36px 24px;
+  }
+
+  .sl-photo-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 120px);
+  }
+
+  .sl-learning-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .sl-learning-lists {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .sl-director-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 28px 20px;
+    gap: 20px;
+  }
+
+  .sl-facility-text h2 {
+    font-size: 1.45rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .sl-photo-grid {
+    grid-template-rows: repeat(3, 90px);
+  }
+}

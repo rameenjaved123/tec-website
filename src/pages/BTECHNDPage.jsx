@@ -204,6 +204,7 @@ function UnitAccordion({ unit, isOpen, onToggle }) {
       </button>
       {isOpen && (
         <div className="al4-acc-body">
+          <div className="al4-meta-table-wrap">
           <table className="al4-meta-table">
             <tbody>
               <tr>
@@ -218,6 +219,7 @@ function UnitAccordion({ unit, isOpen, onToggle }) {
               </tr>
             </tbody>
           </table>
+          </div>
           <p style={{ fontWeight: 700, color: 'var(--tec-green-dark)', fontSize: '0.88rem', margin: '12px 0 8px' }}>
             By the end of this unit students will be able to:
           </p>
