@@ -94,25 +94,24 @@ const campuses = [
 
 /* News & Events — Instagram feed images */
 const newsPosts = [
-  { src: '/uploads/sb-instagram-feed-images/663136228_17969140263045882_4990871444550172158_nlow.webp', isVideo: true,  link: 'https://www.instagram.com/reels/DW3yuZjjK9M/' },
-  { src: '/uploads/sb-instagram-feed-images/656413746_1444211220831184_2177110105498773297_nlow.webp', isVideo: true,  link: 'https://www.instagram.com/reels/DWYsLKxDIGa/' },
-  { src: '/uploads/sb-instagram-feed-images/656864212_17967290847045882_714952565932259239_nfull.webp', isVideo: false, link: 'https://www.instagram.com/p/DWT0OOtDLlW/' },
-  { src: '/uploads/sb-instagram-feed-images/645821380_17964433218045882_4962563911164900286_nfull.webp', isVideo: false, link: 'https://www.instagram.com/p/DVf69XMjAPi/' },
-  { src: '/uploads/sb-instagram-feed-images/623986554_1795478401375747_3651335901021063968_nlow.webp', isVideo: true,  link: 'https://www.instagram.com/reels/DUIT_eBDPSL/' },
-  { src: '/uploads/sb-instagram-feed-images/621825500_17959789470045882_3282542183620762183_nlow.webp', isVideo: false, link: 'https://www.instagram.com/p/DT2Vc-AjE8I/' },
-  { src: '/uploads/sb-instagram-feed-images/619750470_17959354623045882_945025808466373106_nlow.webp', isVideo: true,  link: 'https://www.instagram.com/reels/DTsERF-DNmP/' },
-  { src: '/uploads/sb-instagram-feed-images/615235178_17958601359045882_8105772759434397806_nlow.webp', isVideo: false, link: 'https://www.instagram.com/p/DTaKMX9DOw6/' },
+  { src: '/assets/images/general/photo-1.jpg',      isVideo: true,  link: 'https://www.instagram.com/reels/DW3yuZjjK9M/' },
+  { src: '/assets/images/general/photo-2.jpg',      isVideo: true,  link: 'https://www.instagram.com/reels/DWYsLKxDIGa/' },
+  { src: '/assets/images/general/photo-3.jpg',      isVideo: false, link: 'https://www.instagram.com/p/DWT0OOtDLlW/' },
+  { src: '/assets/images/general/photo-4.jpg',      isVideo: false, link: 'https://www.instagram.com/p/DVf69XMjAPi/' },
+  { src: '/assets/images/general/photo-5.jpg',      isVideo: true,  link: 'https://www.instagram.com/reels/DUIT_eBDPSL/' },
+  { src: '/assets/images/general/group-photo.jpg',  isVideo: false, link: 'https://www.instagram.com/p/DT2Vc-AjE8I/' },
+  { src: '/assets/images/general/meeting.jpg',      isVideo: true,  link: 'https://www.instagram.com/reels/DTsERF-DNmP/' },
+  { src: '/assets/images/general/site-photo-1.jpg', isVideo: false, link: 'https://www.instagram.com/p/DTaKMX9DOw6/' },
 ];
 
 const awarding = [
-  { name: 'OTHM', src: '/uploads/elementor/thumbs/1-qxdrga3hpzuhb9wv5ndlvsqrhvmup3usceyf5qxejs.png' },
-  { name: 'ATHE', src: '/uploads/elementor/thumbs/6-qxdrfzr9mtgbrkbvu0wpmdcoyn1tcfpqmzs2vpcqg8.png' },
-  { name: 'NCFE', src: '/uploads/elementor/thumbs/ncfe-nywzglgg3n6t329xgfwdje2aa093kf33hhbz4vge9g.jpg' },
-  { name: 'Pearson', src: '/uploads/elementor/thumbs/3-1-qxdrgvps36o2qb1gneq0z5ad5qoam58m3dyl741cko.png' },
-  { name: 'BIIAB', src: '/uploads/elementor/thumbs/5-qxdrhl3f7pmtfs0lj7oycgvt7577dz1d6vkp5kzpwo.png' },
-  { name: 'Open Awards', src: '/uploads/elementor/thumbs/Untitled-design-8-qxo63zs8zjicly98dscye7ya4cetb155eediegk6i0.png' },
-  { name: 'Ascentis', src: '/uploads/elementor/thumbs/Trent-Child-Care-Logo-3-r988ig4xhoectlk0z5rngt9e83khwfwpxr1wq41wbs.png' },
-  { name: 'Focus Awards', src: '/uploads/elementor/thumbs/Trent-Child-Care-Logo-4-r988juw7qqbu8jiaqrpi7ggaawmbg3i84qa4n1ymzs.png' },
+  { name: 'OTHM',        src: '/assets/logos/othm.jpg' },
+  { name: 'ATHE',        src: '/assets/logos/athe.png' },
+  { name: 'NCFE',        src: '/assets/logos/ncfe.jpg' },
+  { name: 'Pearson',     src: '/assets/logos/pearson.png' },
+  { name: 'BIIAB',       src: '/assets/logos/biiab.png' },
+  { name: 'Open Awards', src: '/assets/logos/open-awards.jpg' },
+  { name: 'Focus Awards',src: '/assets/logos/focus-awards.png' },
 ];
 
 export default function HomePage() {
@@ -326,14 +325,11 @@ export default function HomePage() {
           <h3 className="partners-label">Memberships &amp; Endorsements:</h3>
           <div className="partners-logos partners-logos--big memberships-section">
             {[
-              { name: 'British Council', src: '/uploads/elementor/thumbs/8-1-qxdsbnxhwut4ykbpw7r64vmtj0y1pag5br420ce6so.png' },
-              { name: 'Advance HE', src: '/uploads/elementor/thumbs/Untitled-design-1-scaled-reavmi6hcceom5pgjah5qv9obxehk1lu221a42l6g8.png' },
-              { name: 'TOTUM', src: '/uploads/elementor/thumbs/Untitled-design-1-r41rmri6vx17izjh5pbbesv2ah3wyhu0xki9997f8o.png' },
-              { name: 'Endorsement', src: '/uploads/elementor/thumbs/Trent-Child-Care-Logo-8-r988qwomzzz9b99nkterwoeqoxvf6dhr3mf87ricbs.png' },
-              { name: 'Membership', src: '/uploads/elementor/thumbs/10-1-qxdsc4ulbvgarjn55f2gdrd47ymnjubbe2usnbp3oo.png' },
-              { name: 'Membership', src: '/uploads/elementor/thumbs/7-qxdsbej40ig9qgpdf3owfy07l68dkbetygl77ks4iw.png' },
-              { name: 'Membership', src: '/uploads/elementor/thumbs/12-qxdsb54q463eid30xzmmr0dlnbipfcdil62cet6294.png' },
-              { name: 'Membership', src: '/uploads/elementor/thumbs/9-1-qxdsbwe1md4pv1zfitet9bhyvhscmkdqcwzfbu1n8o.png' },
+              { name: 'British Council', src: '/assets/logos/british-council-ielts.jpg' },
+              { name: 'Advance HE',      src: '/assets/logos/advance-he.jpg' },
+              { name: 'TOTUM',           src: '/assets/logos/totum.png' },
+              { name: 'OFSTED',          src: '/assets/logos/ofsted.png' },
+              { name: 'SFA',             src: '/assets/logos/sfa.jpg' },
             ].map((p, i) => (
               <div key={i} className="partner-logo partner-logo--big">
                 <img src={p.src} alt={p.name} />

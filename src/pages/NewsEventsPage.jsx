@@ -102,7 +102,7 @@ function MediaBlock({ media, title }) {
   );
 }
 
-const BASE = '/uploads/';
+const BASE = 'https://trenteducation.co.uk/uploads/';
 
 /* ─── news data ─────────────────────────────────────────────────── */
 const news = [
