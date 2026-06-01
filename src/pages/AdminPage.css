@@ -938,28 +938,87 @@
     min-height: 100vh;
   }
 
+  /* ── Topbar: 2-row layout on mobile ── */
   .adm-topbar {
-    flex-wrap: nowrap;
-    align-items: center;
+    flex-wrap: wrap;
     gap: 10px;
+    align-items: center;
+    margin-bottom: 16px;
   }
 
+  /* Row 1: toggle + title (fill remaining space) */
+  .adm-sidebar-toggle {
+    order: 0;
+  }
+
+  .adm-topbar > div:first-of-type {
+    order: 1;
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Row 2: search + action buttons (full width) */
   .adm-topbar-right {
-    flex-wrap: wrap;
+    order: 2;
+    width: 100%;
+    flex-wrap: nowrap;
     gap: 6px;
   }
 
   .adm-search {
-    width: 140px;
-    font-size: 0.75rem;
+    flex: 1;
+    width: auto;
+    min-width: 0;
+    font-size: 0.78rem;
   }
 
-  .adm-stats {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+  .adm-export-btn {
+    font-size: 0.72rem;
+    padding: 6px 10px;
+    white-space: nowrap;
   }
 
   .adm-title {
     font-size: 1rem;
+    margin: 0 0 2px;
+  }
+
+  .adm-subtitle {
+    font-size: 0.72rem;
+  }
+
+  /* ── Stats: 2×2 grid ── */
+  .adm-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .adm-stat-card {
+    padding: 14px 12px;
+  }
+
+  .adm-stat-val {
+    font-size: 1.4rem;
+  }
+
+  /* ── Table: hide less important columns ── */
+  .adm-table th:nth-child(5),
+  .adm-table td:nth-child(5),
+  .adm-table th:nth-child(6),
+  .adm-table td:nth-child(6) {
+    display: none;
+  }
+
+  .adm-table th,
+  .adm-table td {
+    padding: 8px 10px;
+    font-size: 0.72rem;
+  }
+
+  .adm-avatar {
+    width: 28px;
+    height: 28px;
+    font-size: 0.75rem;
   }
 }
