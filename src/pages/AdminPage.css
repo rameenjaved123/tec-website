@@ -853,3 +853,113 @@
   color: #bbb;
   font-size: 0.85rem;
 }
+
+/* ── Mobile sidebar toggle + close ───────────────────────────── */
+.adm-sidebar-toggle {
+  display: none; /* hidden on desktop */
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  font-size: 1.3rem;
+  background: #1c2128;
+  color: #e6edf3;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.adm-sidebar-toggle:hover { background: #2d333b; }
+
+.adm-sidebar-close {
+  display: none; /* hidden on desktop */
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.7);
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s;
+  z-index: 1;
+}
+
+.adm-sidebar-close:hover { background: rgba(255,255,255,0.18); color: #fff; }
+
+/* ── Mobile backdrop ─────────────────────────────────────────── */
+.adm-mobile-backdrop {
+  display: none;
+}
+
+/* ── Mobile responsive ───────────────────────────────────────── */
+@media (max-width: 768px) {
+  .adm-sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    height: 100vh;
+    z-index: 1000;
+    transition: left 0.25s ease;
+    box-shadow: none;
+  }
+
+  .adm-sidebar--open {
+    left: 0;
+    box-shadow: 4px 0 24px rgba(0,0,0,0.35);
+  }
+
+  .adm-sidebar-close {
+    display: flex;
+  }
+
+  .adm-mobile-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 999;
+  }
+
+  .adm-sidebar-toggle {
+    display: flex;
+  }
+
+  .adm-main {
+    padding: 16px 14px 40px;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .adm-topbar {
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .adm-topbar-right {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .adm-search {
+    width: 140px;
+    font-size: 0.75rem;
+  }
+
+  .adm-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .adm-title {
+    font-size: 1rem;
+  }
+}

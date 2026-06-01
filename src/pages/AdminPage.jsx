@@ -734,6 +734,7 @@ export default function AdminPage() {
   const [loading, setLoading]         = useState(false);
   const [dbMode, setDbMode]           = useState(false);
   const [entriesOpen, setEntriesOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [page, setPage]               = useState(1);
   const PER_PAGE                      = 25;
 
@@ -856,8 +857,15 @@ export default function AdminPage() {
 
   return (
     <div className="adm-page">
+      {/* Mobile backdrop */}
+      {sidebarOpen && (
+        <div className="adm-mobile-backdrop" onClick={() => setSidebarOpen(false)} />
+      )}
+
       {/* Sidebar */}
-      <aside className="adm-sidebar">
+      <aside className={`adm-sidebar${sidebarOpen ? ' adm-sidebar--open' : ''}`}>
+        {/* Mobile close button */}
+        <button className="adm-sidebar-close" onClick={() => setSidebarOpen(false)}>✕</button>
         <div className="adm-sidebar-logo">
           <img
             src="/assets/logos/tec-crest.png"
@@ -899,7 +907,7 @@ export default function AdminPage() {
             <>
               <button
                 className={`adm-nav-item${filter === 'All' ? ' active' : ''}`}
-                onClick={() => setFilterAndReset('All')}
+                onClick={() => { setFilterAndReset('All'); setSidebarOpen(false); }}
               >
                 <span>All Submissions</span>
                 <span className="adm-badge">{filtered.length}</span>
@@ -908,7 +916,7 @@ export default function AdminPage() {
                 <button
                   key={t}
                   className={`adm-nav-item${filter === t ? ' active' : ''}`}
-                  onClick={() => setFilterAndReset(t)}
+                  onClick={() => { setFilterAndReset(t); setSidebarOpen(false); }}
                 >
                   <span>{t}</span>
                   <span className="adm-badge">{entries.filter(e => e.formType === t && (allowedForms === null || allowedForms.includes(e.formType))).length}</span>
@@ -951,6 +959,8 @@ export default function AdminPage() {
       {/* Main */}
       <main className="adm-main">
         <div className="adm-topbar">
+          {/* Mobile sidebar toggle */}
+          <button className="adm-sidebar-toggle" onClick={() => setSidebarOpen(true)}>☰</button>
           <div>
             <h1 className="adm-title">
               {filter === 'All' ? 'All Submissions' : filter}
