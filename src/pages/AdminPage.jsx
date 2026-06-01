@@ -985,7 +985,7 @@ export default function AdminPage() {
             <input
               className="adm-search"
               type="text"
-              placeholder="🔍  Search entries…"
+              placeholder="Search entries…"
               value={search}
               onChange={e => setSearchAndReset(e.target.value)}
             />
