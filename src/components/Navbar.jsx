@@ -260,7 +260,7 @@ function MobileNavItem({ item, depth }) {
         )}
       </div>
       {item.children && expanded && (
-        <div style={{ background: `rgba(0,0,0,${0.12 + depth * 0.08})` }}>
+        <div className="mobile-sub" style={{ background: `rgba(0,0,0,${0.12 + depth * 0.08})` }}>
           {item.children.map((child, j) => (
             <MobileNavItem key={j} item={child} depth={depth + 1} />
           ))}
