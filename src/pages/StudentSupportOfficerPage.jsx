@@ -88,9 +88,7 @@ export default function StudentSupportOfficerPage() {
               <p style={{ color: 'var(--tec-gold)', fontWeight: 600, fontSize: '0.9rem', marginBottom: '4px' }}>Now Hiring</p>
               <p style={{ color: 'var(--tec-text-light)', fontSize: '0.85rem', marginBottom: '24px' }}>£26,200 per annum</p>
               <a
-                href="https://trenteducation.co.uk/enrol/job-application/?job=Student%20Support%20Officer"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/job-application?job=Student%20Support%20Officer"
                 style={{
                   display: 'block',
                   textAlign: 'center',

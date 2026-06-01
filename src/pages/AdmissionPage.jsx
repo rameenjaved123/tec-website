@@ -119,7 +119,7 @@ export default function AdmissionPage() {
             <a href="mailto:admissions@trenteducation.co.uk">admissions@trenteducation.co.uk</a>{' '}
             so you can see if Trent Education Centre has the right courses and support for you.
           </p>
-          <a href="https://trenteducation.co.uk/enrol/apply" target="_blank" rel="noreferrer" className="adm-apply-btn">
+          <a href="/application-form" className="adm-apply-btn">
             Start Your Application
           </a>
         </div>

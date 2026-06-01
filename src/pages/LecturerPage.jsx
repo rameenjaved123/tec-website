@@ -53,9 +53,7 @@ export default function LecturerPage() {
               <h3 style={{ color: 'var(--tec-green)', fontSize: '1.1rem', fontWeight: 700, marginBottom: '8px' }}>Lecturer</h3>
               <p style={{ color: 'var(--tec-gold)', fontWeight: 600, fontSize: '0.9rem', marginBottom: '24px' }}>Now Hiring</p>
               <a
-                href="https://trenteducation.co.uk/enrol/job-application/?job=Lecturer"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/job-application?job=Lecturer"
                 style={{
                   display: 'block',
                   textAlign: 'center',

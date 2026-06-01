@@ -60,9 +60,7 @@ export default function ApplyPage() {
               <h2>Apply Now</h2>
               <p>Our online application takes just 10 minutes to complete. Once submitted, a member of our admissions team will be in touch within 2 working days.</p>
               <a
-                href="https://trenteducation.co.uk/enrol/apply"
-                target="_blank"
-                rel="noreferrer"
+                href="/application-form"
                 className="apply-portal-btn"
               >
                 Go to Application Portal <ArrowRight size={16} />

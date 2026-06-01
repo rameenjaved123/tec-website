@@ -77,50 +77,39 @@ export default function StudentLifePage() {
 
       </div>
 
-      {/* Photo collage — full-width */}
-      <div style={{ lineHeight: 0 }}>
-        <img
-          src="/assets/images/general/tec-collage.jpg"
-          alt="TEC Study Centres — student life"
-          style={{ width: '100%', display: 'block' }}
-        />
-      </div>
+      {/* Well-Equipped Educational Facilities */}
+      <div className="sl-facility-outer">
 
-      {/* Well-Equipped Educational Facilities — full-width with photo grid */}
-      <div style={{ background: 'var(--tec-gray)', padding: '0 0 0 0' }}>
-        <div className="sl-facility-section">
-
-          {/* Left: 3×3 photo grid */}
-          <div className="sl-photo-grid">
-            {facilityPhotos.map((src, i) => (
-              <div key={i} style={{ overflow: 'hidden', aspectRatio: '4/3' }}>
-                <img
-                  src={src}
-                  alt={`TEC facility ${i + 1}`}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.4s ease' }}
-                  onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.06)'}
-                  onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                />
-              </div>
-            ))}
+        {/* Text panel */}
+        <div className="sl-facility-text">
+          <div>
+            <h2 style={{ color: 'var(--tec-white)', fontSize: '1.9rem', fontWeight: 800, marginBottom: '24px', lineHeight: 1.25 }}>
+              Well-Equipped Educational Facilities
+            </h2>
+            <p style={{ lineHeight: 1.9, color: 'rgba(255,255,255,0.92)', fontSize: '1.02rem' }}>
+              Our Study Centres in Nottingham, Leicester and Birmingham have newly fitted IT equipment,
+              including laptops and PCs with projectors and Smart Boards. Classrooms are spacious and
+              designed for flexible seating arrangement so that you can participate in engaging lessons
+              with good variety of interaction for knowledge and skills development.
+            </p>
           </div>
-
-          {/* Right: text panel */}
-          <div className="sl-facility-text">
-            <div>
-              <h2 style={{ color: 'var(--tec-white)', fontSize: '1.9rem', fontWeight: 800, marginBottom: '24px', lineHeight: 1.25 }}>
-                Well-Equipped Educational Facilities
-              </h2>
-              <p style={{ lineHeight: 1.9, color: 'rgba(255,255,255,0.92)', fontSize: '1.02rem' }}>
-                Our Study Centres in Nottingham, Leicester and Birmingham have newly fitted IT equipment,
-                including laptops and PCs with projectors and Smart Boards. Classrooms are spacious and
-                designed for flexible seating arrangement so that you can participate in engaging lessons
-                with good variety of interaction for knowledge and skills development.
-              </p>
-            </div>
-          </div>
-
         </div>
+
+        {/* Photo grid */}
+        <div className="sl-photo-grid">
+          {facilityPhotos.map((src, i) => (
+            <div key={i} className="sl-photo-cell">
+              <img
+                src={src}
+                alt={`TEC facility ${i + 1}`}
+                loading="lazy"
+                onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.06)'}
+                onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+              />
+            </div>
+          ))}
+        </div>
+
       </div>
 
       {/* Learning & Wellbeing section — dark green band */}

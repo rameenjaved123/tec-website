@@ -1,4 +1,5 @@
 import './InnerPage.css';
+import './MembershipsPage.css';
 import PageHero from '../components/PageHero';
 
 const memberships = [
@@ -41,7 +42,7 @@ export default function MembershipsPage() {
       <div className="container inner-content">
         {memberships.map((m, i) => (
           <div key={i}>
-            <div style={{ display: 'grid', gridTemplateColumns: '260px 1fr', gap: '64px', alignItems: 'center', padding: '16px 0' }}>
+            <div className="mem-row">
 
               {/* Logo column */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

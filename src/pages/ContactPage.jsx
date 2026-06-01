@@ -120,7 +120,7 @@ export default function ContactPage() {
         </div>
 
         {/* Follow Us & Opening Hours row */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '28px', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '28px', alignItems: 'start' }}>
 
           <div>
             <h3 style={{ color: 'var(--tec-green)', marginBottom: '16px' }}>Follow Us</h3>

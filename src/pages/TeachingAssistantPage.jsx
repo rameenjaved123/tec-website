@@ -121,9 +121,7 @@ export default function TeachingAssistantPage() {
               <p style={{ color: 'var(--tec-gold)', fontWeight: 600, fontSize: '0.9rem', marginBottom: '4px' }}>Now Hiring: 12 Positions</p>
               <p style={{ color: 'var(--tec-text-light)', fontSize: '0.85rem', marginBottom: '24px' }}>Nottingham – Leicester</p>
               <a
-                href="https://trenteducation.co.uk/enrol/job-application/?job=Teaching%20Assistant"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/job-application?job=Teaching%20Assistant"
                 style={{
                   display: 'block',
                   textAlign: 'center',

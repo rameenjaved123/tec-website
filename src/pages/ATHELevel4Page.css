@@ -90,7 +90,7 @@
 .al4-acc-title { font-size: 0.9rem; font-weight: 600; color: var(--tec-green-dark); line-height: 1.4; }
 
 /* ── Accordion body ── */
-.al4-acc-body { background: #f9fdf9; border-top: 1px solid #e0e0e0; padding: 24px 20px; }
+.al4-acc-body { background: #f9fdf9; border-top: 1px solid #e0e0e0; padding: 24px 20px; max-width: 100%; box-sizing: border-box; overflow: hidden; }
 
 .al4-unit-heading {
   text-align: center;
@@ -163,38 +163,75 @@
 /* ── Responsive ── */
 @media (max-width: 900px) { .al4-facts-units-inner { grid-template-columns: 1fr; } }
 @media (max-width: 768px) {
-  .al4-tab-btn { font-size: 0.82rem; padding: 14px 10px; }
   .al4-apply-grid { grid-template-columns: 1fr; }
   .al4-section-title { font-size: 1.35rem; }
   .al4-lo-table { font-size: 0.75rem; }
 
-  /* Accordion meta table — scrollable on mobile */
+  /* Tab bar: scroll horizontally instead of breaking page layout */
+  .al4-tab-bar {
+    justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap;
+    /* hide scrollbar but keep functionality */
+    scrollbar-width: none;
+  }
+  .al4-tab-bar::-webkit-scrollbar { display: none; }
+
+  .al4-tab-btn {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    font-size: 0.78rem;
+    padding: 12px 16px;
+  }
+
+  /* Accordion body: prevent any child from stretching the page */
+  .al4-acc-body {
+    padding: 16px 12px;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  /* Tables: scroll horizontally inside their wrapper */
   .al4-lo-wrap,
   .al4-meta-table-wrap {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    max-width: 100%;
   }
+
   .al4-meta-table {
-    min-width: 360px;
+    min-width: 300px;
+    font-size: 0.8rem;
   }
   .al4-meta-label {
     white-space: normal;
-    min-width: 110px;
+    min-width: 90px;
+    width: 90px;
   }
-
-  /* Tab bar wraps on small screens */
-  .al4-tab-bar {
-    flex-wrap: wrap;
-  }
-  .al4-tab-btn {
-    flex: 1 1 auto;
-    min-width: 0;
-    font-size: 0.78rem;
-    padding: 12px 8px;
+  .al4-meta-table td {
+    padding: 6px 8px;
   }
 
   /* Accordion content padding */
   .al4-unit-body {
     padding: 16px;
+  }
+
+  /* Prevent all accordion content from overflowing */
+  .al4-accordion,
+  .al4-acc-item,
+  .al4-acc-header,
+  .al4-acc-body {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .al4-ic-para,
+  .al4-assessor-para,
+  .al4-ic-list li {
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
 }
