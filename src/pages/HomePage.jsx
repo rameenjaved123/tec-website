@@ -93,15 +93,16 @@ const campuses = [
 ];
 
 /* News & Events — Instagram feed images */
+const IG = '/assets/images/instagram/';
 const newsPosts = [
-  { src: '/assets/images/general/photo-1.jpg',      isVideo: true,  link: 'https://www.instagram.com/reels/DW3yuZjjK9M/' },
-  { src: '/assets/images/general/photo-2.jpg',      isVideo: true,  link: 'https://www.instagram.com/reels/DWYsLKxDIGa/' },
-  { src: '/assets/images/general/photo-3.jpg',      isVideo: false, link: 'https://www.instagram.com/p/DWT0OOtDLlW/' },
-  { src: '/assets/images/general/photo-4.jpg',      isVideo: false, link: 'https://www.instagram.com/p/DVf69XMjAPi/' },
-  { src: '/assets/images/general/photo-5.jpg',      isVideo: true,  link: 'https://www.instagram.com/reels/DUIT_eBDPSL/' },
-  { src: '/assets/images/general/group-photo.jpg',  isVideo: false, link: 'https://www.instagram.com/p/DT2Vc-AjE8I/' },
-  { src: '/assets/images/general/meeting.jpg',      isVideo: true,  link: 'https://www.instagram.com/reels/DTsERF-DNmP/' },
-  { src: '/assets/images/general/site-photo-1.jpg', isVideo: false, link: 'https://www.instagram.com/p/DTaKMX9DOw6/' },
+  { src: IG + '663136228_17969140263045882_4990871444550172158_nlow.webp', isVideo: true,  link: 'https://www.instagram.com/reels/DW3yuZjjK9M/' },
+  { src: IG + '656413746_1444211220831184_2177110105498773297_nlow.webp',  isVideo: true,  link: 'https://www.instagram.com/reels/DWYsLKxDIGa/' },
+  { src: IG + '656864212_17967290847045882_714952565932259239_nfull.webp', isVideo: false, link: 'https://www.instagram.com/p/DWT0OOtDLlW/' },
+  { src: IG + '645821380_17964433218045882_4962563911164900286_nfull.webp',isVideo: false, link: 'https://www.instagram.com/p/DVf69XMjAPi/' },
+  { src: IG + '623986554_1795478401375747_3651335901021063968_nlow.webp',  isVideo: true,  link: 'https://www.instagram.com/reels/DUIT_eBDPSL/' },
+  { src: IG + '621825500_17959789470045882_3282542183620762183_nlow.webp', isVideo: false, link: 'https://www.instagram.com/p/DT2Vc-AjE8I/' },
+  { src: IG + '619750470_17959354623045882_945025808466373106_nlow.webp',  isVideo: true,  link: 'https://www.instagram.com/reels/DTsERF-DNmP/' },
+  { src: IG + '615235178_17958601359045882_8105772759434397806_nlow.webp', isVideo: false, link: 'https://www.instagram.com/p/DTaKMX9DOw6/' },
 ];
 
 const awarding = [
