@@ -106,13 +106,14 @@ const newsPosts = [
 ];
 
 const awarding = [
-  { name: 'OTHM',        src: '/assets/logos/othm.jpg' },
-  { name: 'ATHE',        src: '/assets/logos/athe.png' },
-  { name: 'NCFE',        src: '/assets/logos/ncfe.jpg' },
-  { name: 'Pearson',     src: '/assets/logos/pearson.png' },
-  { name: 'BIIAB',       src: '/assets/logos/biiab.png' },
-  { name: 'Open Awards', src: '/assets/logos/open-awards.jpg' },
-  { name: 'Focus Awards',src: '/assets/logos/focus-awards.png' },
+  { name: 'OTHM',        src: '/assets/logos/partners/othm.png' },
+  { name: 'ATHE',        src: '/assets/logos/partners/athe.png' },
+  { name: 'NCFE',        src: '/assets/logos/partners/ncfe.png' },
+  { name: 'Pearson',     src: '/assets/logos/partners/pearson.png' },
+  { name: 'BIIAB',       src: '/assets/logos/partners/biiab.png' },
+  { name: 'Open Awards', src: '/assets/logos/partners/open-awards.png' },
+  { name: 'Ascentis',    src: '/assets/logos/partners/ascentis.png' },
+  { name: 'Focus Awards',src: '/assets/logos/partners/focus-awards.png' },
 ];
 
 export default function HomePage() {
@@ -326,11 +327,14 @@ export default function HomePage() {
           <h3 className="partners-label">Memberships &amp; Endorsements:</h3>
           <div className="partners-logos partners-logos--big memberships-section">
             {[
-              { name: 'British Council', src: '/assets/logos/british-council-ielts.jpg' },
-              { name: 'Advance HE',      src: '/assets/logos/advance-he.jpg' },
-              { name: 'TOTUM',           src: '/assets/logos/totum.png' },
-              { name: 'OFSTED',          src: '/assets/logos/ofsted.png' },
-              { name: 'SFA',             src: '/assets/logos/sfa.jpg' },
+              { name: 'Membership',      src: '/assets/logos/partners/membership-1.png' },
+              { name: 'Membership',      src: '/assets/logos/partners/membership-2.png' },
+              { name: 'Membership',      src: '/assets/logos/partners/membership-3.png' },
+              { name: 'Membership',      src: '/assets/logos/partners/membership-4.png' },
+              { name: 'British Council', src: '/assets/logos/partners/british-council.png' },
+              { name: 'Advance HE',      src: '/assets/logos/partners/advance-he.png' },
+              { name: 'TOTUM',           src: '/assets/logos/partners/totum.png' },
+              { name: 'Endorsement',     src: '/assets/logos/partners/endorsement.png' },
             ].map((p, i) => (
               <div key={i} className="partner-logo partner-logo--big">
                 <img src={p.src} alt={p.name} />
