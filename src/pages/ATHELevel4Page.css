@@ -165,9 +165,8 @@
 @media (max-width: 768px) {
   .al4-apply-grid { grid-template-columns: 1fr; }
   .al4-section-title { font-size: 1.35rem; }
-  .al4-lo-table { font-size: 0.75rem; min-width: 480px; }
 
-  /* Tab bar: scroll horizontally instead of breaking page layout */
+  /* Tab bar: scrolls horizontally — MUST have width:100% so overflow-x:auto works */
   .al4-tab-bar {
     width: 100%;
     box-sizing: border-box;
@@ -187,46 +186,18 @@
     padding: 12px 16px;
   }
 
-  /* Accordion body: prevent any child from stretching the page */
-  .al4-acc-body {
-    padding: 16px 12px;
-    max-width: 100%;
-    overflow: hidden;
-  }
-
-  /* Tables: scroll horizontally inside their wrapper */
-  .al4-lo-wrap,
-  .al4-meta-table-wrap {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    max-width: 100%;
-  }
-
-  .al4-meta-table {
-    width: 100%;
+  /* Grid item must have min-width:0 so it respects 1fr and doesn't expand
+     beyond its column when accordion content is wider than the viewport */
+  .al4-units-col {
     min-width: 0;
-    font-size: 0.8rem;
-    table-layout: fixed;
-  }
-  .al4-meta-label {
-    white-space: normal;
-    width: 38%;
-    word-break: break-word;
-  }
-  .al4-meta-value {
-    word-break: break-word;
-    overflow-wrap: break-word;
-  }
-  .al4-meta-table td {
-    padding: 6px 8px;
+    overflow-x: hidden;
   }
 
-  /* Accordion content padding */
-  .al4-unit-body {
-    padding: 16px;
+  .al4-facts-col {
+    min-width: 0;
   }
 
-  /* Prevent all accordion content from overflowing */
+  /* Accordion shell */
   .al4-accordion,
   .al4-acc-item,
   .al4-acc-header,
@@ -235,9 +206,60 @@
     box-sizing: border-box;
   }
 
+  .al4-acc-body {
+    padding: 16px 12px;
+  }
+
+  /* ── Meta table (Unit Aims, Level, Code…) ──
+     Force fixed layout + word-break so it stays within mobile width */
+  .al4-meta-table-wrap {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .al4-meta-table {
+    width: 100%;
+    min-width: 0;
+    font-size: 0.8rem;
+    table-layout: fixed;
+  }
+
+  .al4-meta-table td {
+    padding: 6px 8px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .al4-meta-label {
+    white-space: normal;
+    width: 38%;
+  }
+
+  /* ── Learning Outcomes table (4 cols) ──
+     Too wide for mobile — scroll inside its wrapper */
+  .al4-lo-wrap {
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 24px;
+  }
+
+  .al4-lo-table {
+    font-size: 0.75rem;
+    min-width: 480px; /* wider than viewport → triggers scroll */
+  }
+
+  /* ── Text content ── */
+  .al4-unit-body { padding: 16px; }
+
   .al4-ic-para,
   .al4-assessor-para,
-  .al4-ic-list li {
+  .al4-ic-list li,
+  .al4-unit-heading {
     word-break: break-word;
     overflow-wrap: break-word;
   }
