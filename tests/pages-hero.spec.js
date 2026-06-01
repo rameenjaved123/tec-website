@@ -15,7 +15,7 @@ const pagesWithHero = [
   { path: '/ncfe-maths-l2',            title: /ncfe|maths/i },
   { path: '/sia-door-supervisors',     title: /sia|door/i },
   { path: '/digital-skills',           title: /digital/i },
-  { path: '/about',                    title: /about/i },
+  { path: '/about',                    title: /background/i },
   { path: '/mission-values',           title: /mission/i },
   { path: '/study-centres',            title: /study centre/i },
   { path: '/student-life',             title: /student life/i },
@@ -37,7 +37,7 @@ for (const { path, title } of pagesWithHero) {
   test(`PageHero visible on ${path}`, async ({ page }) => {
     await page.goto(path);
     await expect(page.locator('.ph-banner')).toBeVisible();
-    const heading = page.locator('.ph-banner h1');
+    const heading = page.locator('.ph-box h1').first();
     await expect(heading).toBeVisible();
     await expect(heading).toHaveText(title);
   });

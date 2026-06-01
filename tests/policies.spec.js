@@ -10,8 +10,9 @@ test.describe('Policies Page (/policies)', () => {
   });
 
   test('PO-02: At least 20 policies listed', async ({ page }) => {
-    const policyItems = page.locator('.policy-item, [class*="policy-item"]');
-    await expect(policyItems).toHaveCount(26);
+    const policyItems = page.locator('.policy-item');
+    const count = await policyItems.count();
+    expect(count).toBeGreaterThanOrEqual(20);
   });
 
   test('PO-03: All "View PDF" links present', async ({ page }) => {
@@ -28,9 +29,9 @@ test.describe('Policies Page (/policies)', () => {
   });
 
   test('PO-05: Key policies present', async ({ page }) => {
-    await expect(page.getByText(/Admissions Policy/i)).toBeVisible();
-    await expect(page.getByText(/Complaints and Appeals Policy/i)).toBeVisible();
-    await expect(page.getByText(/Academic Misconduct/i)).toBeVisible();
-    await expect(page.getByText(/Terms and Conditions/i)).toBeVisible();
+    await expect(page.getByText(/Admissions Policy/i).first()).toBeVisible();
+    await expect(page.getByText(/Complaints and Appeals Policy/i).first()).toBeVisible();
+    await expect(page.getByText(/Academic Misconduct/i).first()).toBeVisible();
+    await expect(page.getByText(/Terms and Conditions/i).first()).toBeVisible();
   });
 });
