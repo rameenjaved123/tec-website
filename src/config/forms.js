@@ -488,21 +488,11 @@ export async function uploadToS3(file, folder = 'uploads') {
 }
 
 // ════════════════════════════════════════════════════════════
-//  DATA LAYER  — DynamoDB (primary) + localStorage (fallback/cache)
-//
-//  How it works:
-//    • On submit  → save to localStorage immediately (fast, offline-safe)
-//                 → also POST to DynamoDB asynchronously
-//    • On load    → fetch from DynamoDB if configured; otherwise localStorage
-//    • On delete  → remove from localStorage + DynamoDB
-//    • On status  → update in localStorage + DynamoDB
+//  DATA LAYER  — DynamoDB (primary store)
 // ════════════════════════════════════════════════════════════
 
-const STORAGE_KEY = 'tec_form_submissions_v2';
-
-// ── Entry builder (no localStorage) ─────────────────────────
+// ── Entry builder ────────────────────────────────────────────
 export function saveSubmission(formType, data) {
-  // Builds the entry object only — DynamoDB is the store (saveSubmissionToDB)
   return {
     id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
     formType,
@@ -511,19 +501,6 @@ export function saveSubmission(formType, data) {
     ...data,
   };
 }
-
-// Kept for seedData migration compatibility — reads legacy localStorage if present
-export function getAllSubmissions() {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-  } catch {
-    return [];
-  }
-}
-
-export function deleteSubmission() {}          // no-op, DB handles it
-export function updateSubmissionStatus() {}    // no-op, DB handles it
-export function getSubmissionById() {}         // no-op
 
 // ── DynamoDB helpers ─────────────────────────────────────────
 
