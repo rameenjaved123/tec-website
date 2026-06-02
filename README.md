@@ -50,13 +50,27 @@ src/
 │   ├── CookieConsent     — GDPR cookie banner (gates analytics)
 │   └── ErrorBoundary     — React error boundary
 │
-├── pages/               # One file per page (+ paired .css)
-│   ├── HomePage
-│   ├── [Course pages]    — English, Higher Ed (ATHE L4/L5, BTEC HND), Further Ed
-│   ├── [About pages]     — About, Mission, Study Centres, Approvals, Careers…
-│   ├── [Form pages]      — Enquiry, Application, Enrolment, Job Application…
-│   ├── AdminPage         — full admin dashboard (Cognito auth + DynamoDB)
-│   └── InnerPage.css     — shared inner-page base styles
+├── pages/               # Pages organised into subdirectories by domain
+│   ├── InnerPage.css     — shared inner-page base styles
+│   ├── CoursePage.css    — shared course-page styles
+│   ├── GenericPage.jsx   — generic 404 / fallback page
+│   ├── home/             — HomePage
+│   ├── about/            — About, Mission & Values, Study Centres, Carbon Reduction,
+│   │                       Student Life, Strategic Plan, News & Events, Careers
+│   ├── approvals/        — Approvals, Awarding Orgs, Accreditations,
+│   │                       Approved Supplier Status, Memberships
+│   ├── courses/
+│   │   ├── english/           — EnglishCourses, EnglishPolicies
+│   │   ├── higher-education/  — HigherEducation, ATHE L4, ATHE L5, BTEC HND
+│   │   └── further-education/ — FurtherEducation, ATHE L3, NCFE Maths L1/L2,
+│   │                            SIA Door Supervisors, Digital Skills
+│   ├── admissions/       — Admission overview, Apply / Enrolment
+│   ├── forms/            — Enquiry, Enrolment, Job Application, International,
+│   │                       English IELTS, Partnerships, New Starter
+│   ├── jobs/             — 11 individual job-listing pages
+│   ├── policies/         — Policies, Privacy Policy, Complaint
+│   ├── contact/          — Contact page
+│   └── admin/            — AdminPage (Cognito auth + DynamoDB dashboard)
 │
 ├── config/
 │   └── forms.js          — central config: API URLs, form registry, SES config

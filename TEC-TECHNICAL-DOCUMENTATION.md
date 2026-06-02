@@ -123,45 +123,53 @@ tec-website/
 │   │   ├── CookieConsent.css
 │   │   └── ErrorBoundary.jsx  # React error boundary
 │   │
-│   ├── pages/                 # One file per page (+ paired CSS)
-│   │   ├── HomePage.jsx / .css
-│   │   ├── AboutPage.jsx
-│   │   ├── MissionValuesPage.jsx / .css
-│   │   ├── StudyCentresPage.jsx / .css
-│   │   ├── CarbonReductionPage.jsx
-│   │   ├── StudentLifePage.jsx / .css
-│   │   ├── StrategicPlanPage.jsx / .css
-│   │   ├── ApprovalsPage.jsx / .css
-│   │   ├── AwardingOrganisationsPage.jsx
-│   │   ├── AccreditationsPage.jsx
-│   │   ├── ApprovedSupplierStatusPage.jsx
-│   │   ├── MembershipsPage.jsx / .css
-│   │   ├── CareersPage.jsx
-│   │   ├── NewsEventsPage.jsx
-│   │   ├── ContactPage.jsx
-│   │   ├── PoliciesPage.jsx
-│   │   ├── PrivacyPolicyPage.jsx / .css
-│   │   ├── ComplaintPage.jsx
+│   ├── pages/                 # Pages organised by domain into subdirectories
+│   │   ├── InnerPage.css           # Shared inner-page base styles
+│   │   ├── CoursePage.css          # Shared course-page styles
+│   │   ├── GenericPage.jsx         # Generic 404 / fallback
 │   │   │
-│   │   ├── AdmissionPage.jsx / .css
-│   │   ├── ApplyPage.jsx / .css
+│   │   ├── home/
+│   │   │   └── HomePage.jsx / .css
 │   │   │
-│   │   ├── EnglishCoursesPage.jsx / .css
-│   │   ├── EnglishPoliciesPage.jsx / .css
+│   │   ├── about/
+│   │   │   ├── AboutPage.jsx
+│   │   │   ├── MissionValuesPage.jsx / .css
+│   │   │   ├── StudyCentresPage.jsx / .css
+│   │   │   ├── CarbonReductionPage.jsx
+│   │   │   ├── StudentLifePage.jsx / .css
+│   │   │   ├── StrategicPlanPage.jsx / .css
+│   │   │   ├── NewsEventsPage.jsx
+│   │   │   └── CareersPage.jsx
 │   │   │
-│   │   ├── HigherEducationPage.jsx
-│   │   ├── ATHELevel4Page.jsx / .css
-│   │   ├── ATHELevel5Page.jsx
-│   │   ├── BTECHNDPage.jsx / .css
+│   │   ├── approvals/
+│   │   │   ├── ApprovalsPage.jsx / .css
+│   │   │   ├── AwardingOrganisationsPage.jsx
+│   │   │   ├── AccreditationsPage.jsx
+│   │   │   ├── ApprovedSupplierStatusPage.jsx
+│   │   │   └── MembershipsPage.jsx / .css
 │   │   │
-│   │   ├── FurtherEducationPage.jsx
-│   │   ├── ATHELevel3Page.jsx
-│   │   ├── NCFEMathsL1Page.jsx
-│   │   ├── NCFEMathsL2Page.jsx
-│   │   ├── SIADoorSupervisorsPage.jsx
-│   │   ├── DigitalSkillsPage.jsx
+│   │   ├── courses/
+│   │   │   ├── english/
+│   │   │   │   ├── EnglishCoursesPage.jsx / .css
+│   │   │   │   └── EnglishPoliciesPage.jsx / .css
+│   │   │   ├── higher-education/
+│   │   │   │   ├── HigherEducationPage.jsx
+│   │   │   │   ├── ATHELevel4Page.jsx / .css
+│   │   │   │   ├── ATHELevel5Page.jsx
+│   │   │   │   └── BTECHNDPage.jsx / .css
+│   │   │   └── further-education/
+│   │   │       ├── FurtherEducationPage.jsx
+│   │   │       ├── ATHELevel3Page.jsx
+│   │   │       ├── NCFEMathsL1Page.jsx
+│   │   │       ├── NCFEMathsL2Page.jsx
+│   │   │       ├── SIADoorSupervisorsPage.jsx
+│   │   │       └── DigitalSkillsPage.jsx
 │   │   │
-│   │   ├── [Form pages]
+│   │   ├── admissions/
+│   │   │   ├── AdmissionPage.jsx / .css
+│   │   │   └── ApplyPage.jsx / .css
+│   │   │
+│   │   ├── forms/
 │   │   │   ├── EnquiryFormPage.jsx
 │   │   │   ├── EnrolmentFormPage.jsx
 │   │   │   ├── JobApplicationFormPage.jsx
@@ -170,7 +178,7 @@ tec-website/
 │   │   │   ├── PartnershipsFormPage.jsx
 │   │   │   └── NewStarterFormPage.jsx / .css
 │   │   │
-│   │   ├── [Career job description pages]
+│   │   ├── jobs/
 │   │   │   ├── LecturerPage.jsx
 │   │   │   ├── TeachingAssistantPage.jsx
 │   │   │   ├── StudentSupportOfficerPage.jsx
@@ -183,9 +191,17 @@ tec-website/
 │   │   │   ├── EducationOfficerPage.jsx
 │   │   │   └── AcademicManagerPage.jsx
 │   │   │
-│   │   ├── AdminPage.jsx / .css    # Full admin dashboard
-│   │   ├── InnerPage.css           # Shared inner-page styles
-│   │   └── GenericPage.jsx
+│   │   ├── policies/
+│   │   │   ├── PoliciesPage.jsx
+│   │   │   ├── PrivacyPolicyPage.jsx / .css
+│   │   │   └── ComplaintPage.jsx
+│   │   │
+│   │   ├── contact/
+│   │   │   └── ContactPage.jsx
+│   │   │
+│   │   └── admin/
+│   │       ├── AdminPage.jsx       # Full admin dashboard
+│   │       └── AdminPage.css
 │   │
 │   ├── config/
 │   │   └── forms.js               # Central config: API URLs, form registry,
