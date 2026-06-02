@@ -211,7 +211,9 @@
   }
 
   /* ── Meta table (Unit Aims, Level, Code…) ──
-     Force fixed layout + word-break so it stays within mobile width */
+     Give the table a minimum width so it's always wider than the
+     acc-body, triggering the wrapper's overflow-x:auto scroll.
+     This prevents words like "K/650/6249" being broken mid-character. */
   .al4-meta-table-wrap {
     width: 100%;
     box-sizing: border-box;
@@ -221,21 +223,19 @@
   }
 
   .al4-meta-table {
-    width: 100%;
-    min-width: 0;
+    min-width: 380px;
     font-size: 0.8rem;
-    table-layout: fixed;
+    table-layout: auto;
   }
 
   .al4-meta-table td {
     padding: 6px 8px;
-    word-break: break-word;
-    overflow-wrap: break-word;
+    word-break: normal;
+    white-space: normal;
   }
 
   .al4-meta-label {
-    white-space: normal;
-    width: 38%;
+    white-space: nowrap;
   }
 
   /* ── Learning Outcomes table (4 cols) ──
