@@ -869,13 +869,13 @@ export default function AdminPage() {
         <button className="adm-sidebar-close" onClick={() => setSidebarOpen(false)}>✕</button>
         <div className="adm-sidebar-logo">
           <img
-            src="/assets/logos/tec-crest.png"
+            src="/assets/logos/tec-logo-transparent.png"
             alt="Trent Education Centre"
             className="adm-sidebar-logo-img"
           />
           <div>
-            <div className="adm-sidebar-title">TEC Admin</div>
-            <div className="adm-sidebar-sub">Forms Dashboard</div>
+            <div className="adm-sidebar-title">Trent Education Centre</div>
+            <div className="adm-sidebar-sub">Admin Dashboard</div>
           </div>
         </div>
         <nav className="adm-nav">
@@ -934,22 +934,6 @@ export default function AdminPage() {
             </a>
           ) : null)}
 
-          {/* ── SHEETS (collapsible) ── */}
-          {Object.entries(FORM_REGISTRY).some(([, cfg]) => cfg.sheetsUrl) && (
-            <div className="adm-nav-section" style={{ marginTop: 8 }}>SHEETS</div>
-          )}
-          {Object.entries(FORM_REGISTRY).map(([name, cfg]) => cfg.sheetsUrl ? (
-            <a
-              key={name}
-              href={cfg.sheetsUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="adm-nav-item adm-nav-link"
-            >
-              <span>{name}</span>
-              <span className="adm-nav-arrow">↗</span>
-            </a>
-          ) : null)}
 
         </nav>
 
@@ -986,20 +970,8 @@ export default function AdminPage() {
             <h1 className="adm-title">
               {filter === 'All' ? 'All Submissions' : filter}
             </h1>
-            <p className="adm-subtitle" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              {loading ? (
-                <span style={{ color: '#888' }}>Loading…</span>
-              ) : (
-                <>
-                  {filtered.length} entries
-                  <span style={{
-                    fontSize: '0.7rem', fontWeight: 600, padding: '2px 10px', borderRadius: 20,
-                    background: '#f0f0f0', color: '#666', border: '1px solid #e0e0e0',
-                  }}>
-                    {dbMode ? 'DynamoDB' : 'Local'}
-                  </span>
-                </>
-              )}
+            <p className="adm-subtitle">
+              {loading ? 'Loading…' : `${filtered.length} entries`}
             </p>
           </div>
           <div className="adm-topbar-right">
