@@ -95,10 +95,11 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 24px 22px;
+  padding: 16px 16px;
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.28s, transform 0.28s;
+  overflow: hidden;
 }
 
 .ap-logo-card:hover .ap-logo-card-hover {
@@ -150,10 +151,14 @@
 
 /* ── Shared hover content ─────────────────────────── */
 .ap-hover-desc {
-  font-size: 0.84rem;
+  font-size: 0.72rem;
   color: rgba(255, 255, 255, 0.92);
-  line-height: 1.65;
-  margin: 0 0 18px;
+  line-height: 1.5;
+  margin: 0 0 12px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
 }
 
 .ap-more-info-btn {
@@ -162,9 +167,9 @@
   gap: 6px;
   background: var(--tec-gold);
   color: #1a1a1a;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  padding: 8px 18px;
+  padding: 7px 16px;
   border-radius: 50px;
   text-decoration: none;
   transition: background 0.2s, transform 0.2s;
