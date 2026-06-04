@@ -734,6 +734,7 @@ export default function AdminPage() {
   const [loading, setLoading]         = useState(false);
   const [dbMode, setDbMode]           = useState(false);
   const [entriesOpen, setEntriesOpen] = useState(true);
+  const [formsOpen, setFormsOpen]     = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [page, setPage]               = useState(1);
   const PER_PAGE                      = 25;
@@ -879,21 +880,6 @@ export default function AdminPage() {
         </div>
         <nav className="adm-nav">
 
-          {/* ── FORM LINKS (first) ── */}
-          <div className="adm-nav-section">FORM LINKS</div>
-          {Object.entries(FORM_REGISTRY).map(([name, cfg]) => cfg.path ? (
-            <a
-              key={name}
-              href={cfg.path}
-              target="_blank"
-              rel="noreferrer"
-              className="adm-nav-item adm-nav-link"
-            >
-              <span>{name}</span>
-              <span className="adm-nav-arrow">↗</span>
-            </a>
-          ) : null)}
-
           {/* ── ENTRIES (collapsible) ── */}
           <button
             className="adm-nav-section adm-nav-section--toggle"
@@ -925,32 +911,67 @@ export default function AdminPage() {
             </>
           )}
 
-          {/* ── SHEETS ── */}
+          {/* ── FORM LINKS (collapsible) ── */}
+          <button
+            className="adm-nav-section adm-nav-section--toggle"
+            onClick={() => setFormsOpen(o => !o)}
+            style={{ marginTop: 8 }}
+          >
+            <span>FORM LINKS</span>
+            <span className="adm-nav-chevron">{formsOpen ? '▾' : '▸'}</span>
+          </button>
+
+          {formsOpen && Object.entries(FORM_REGISTRY).map(([name, cfg]) => cfg.path ? (
+            <a
+              key={name}
+              href={cfg.path}
+              target="_blank"
+              rel="noreferrer"
+              className="adm-nav-item adm-nav-link"
+            >
+              <span>{name}</span>
+              <span className="adm-nav-arrow">↗</span>
+            </a>
+          ) : null)}
+
+          {/* ── SHEETS (collapsible) ── */}
           {Object.entries(FORM_REGISTRY).some(([, cfg]) => cfg.sheetsUrl) && (
-            <>
-              <div className="adm-nav-section" style={{ marginTop: 16 }}>SHEETS</div>
-              {Object.entries(FORM_REGISTRY).map(([name, cfg]) => cfg.sheetsUrl ? (
-                <a
-                  key={name}
-                  href={cfg.sheetsUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="adm-nav-item adm-nav-link"
-                >
-                  <span>{name}</span>
-                  <span className="adm-nav-arrow">↗</span>
-                </a>
-              ) : null)}
-            </>
+            <div className="adm-nav-section" style={{ marginTop: 8 }}>SHEETS</div>
           )}
+          {Object.entries(FORM_REGISTRY).map(([name, cfg]) => cfg.sheetsUrl ? (
+            <a
+              key={name}
+              href={cfg.sheetsUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="adm-nav-item adm-nav-link"
+            >
+              <span>{name}</span>
+              <span className="adm-nav-arrow">↗</span>
+            </a>
+          ) : null)}
+
         </nav>
-        <div style={{ padding: '12px 16px', borderTop: '1px solid #2a3e2a' }}>
-          <div style={{ fontSize: '0.78rem', color: '#8aaa8a', marginBottom: 2 }}>{currentUser.name}</div>
-          <div style={{ fontSize: '0.72rem', color: '#5a7a5a', marginBottom: 10, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{currentUser.email}</div>
-          <div style={{ fontSize: '0.68rem', color: '#c9a84c', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+
+        {/* ── User info ── */}
+        <div style={{
+          margin: '8px 10px 0',
+          padding: '10px 12px',
+          borderRadius: 8,
+          background: 'rgba(255,255,255,0.05)',
+          border: '1px solid rgba(255,255,255,0.08)',
+        }}>
+          <div style={{ fontSize: '0.78rem', fontWeight: 600, color: 'rgba(255,255,255,0.8)', marginBottom: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            {currentUser.name}
+          </div>
+          <div style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.4)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            {currentUser.email}
+          </div>
+          <div style={{ fontSize: '0.65rem', color: '#c9a84c', marginTop: 5, textTransform: 'uppercase', letterSpacing: '0.07em', fontWeight: 700 }}>
             {currentUser.groups.includes('admin') ? '★ Admin' : currentUser.groups.join(', ')}
           </div>
         </div>
+
         <button className="adm-logout" onClick={() => { signOut(); setCurrentUser(null); sessionStorage.removeItem(CACHE_KEY); }}>
           Sign Out
         </button>
