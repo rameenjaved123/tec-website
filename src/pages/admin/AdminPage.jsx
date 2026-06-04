@@ -8,6 +8,8 @@ import {
   updateSubmissionInDB,
   getS3ViewUrl,
   FORM_REGISTRY,
+  NOTIFY_EMAILS,
+  sendEmailNotification,
 } from '../../config/forms';
 import {
   getCurrentSession,
@@ -488,6 +490,7 @@ function EntryModal({ entry, onClose, onDelete, onStatusChange, onUpdate }) {
   const [emailTo, setEmailTo]       = useState('');
   const [emailSent, setEmailSent]   = useState(false);
   const [sheetsStatus, setSheetsStatus] = useState('');
+  const [resendStatus, setResendStatus] = useState(''); // '', 'sending', 'sent', 'error'
   const [currentStatus, setCurrentStatus] = useState(entry.status || 'new');
   const [editing, setEditing]       = useState(false);
   const [editData, setEditData]     = useState({ ...entry });
@@ -614,6 +617,23 @@ function EntryModal({ entry, onClose, onDelete, onStatusChange, onUpdate }) {
                   🔗 Open Sheet
                 </a>
               )}
+              <button
+                className="adm-action-btn"
+                style={{ background: '#e8f0fe', color: '#1a56a0', border: '1px solid #b3cdf5' }}
+                disabled={resendStatus === 'sending'}
+                title={`Resend notification to ${FORM_REGISTRY[entry.formType]?.notifyEmail || NOTIFY_EMAILS.default}`}
+                onClick={async () => {
+                  setResendStatus('sending');
+                  const ok = await sendEmailNotification(entry);
+                  setResendStatus(ok ? 'sent' : 'error');
+                  setTimeout(() => setResendStatus(''), 3500);
+                }}
+              >
+                {resendStatus === 'sending' ? '⏳ Sending…'
+                  : resendStatus === 'sent'    ? '✅ Sent!'
+                  : resendStatus === 'error'   ? '❌ Failed'
+                  : `📧 Resend to ${FORM_REGISTRY[entry.formType]?.notifyEmail || NOTIFY_EMAILS.default}`}
+              </button>
               <button className="adm-action-btn adm-btn-delete" onClick={handleDelete}>
                 🗑 Delete
               </button>

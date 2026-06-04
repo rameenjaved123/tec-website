@@ -119,7 +119,7 @@
 .adm-sidebar {
   width: 252px;
   flex-shrink: 0;
-  background: linear-gradient(180deg, #111418 0%, #1c2128 60%, #161b22 100%);
+  background: linear-gradient(180deg, var(--tec-green-dark) 0%, var(--tec-green) 100%);
   display: flex;
   flex-direction: column;
   padding: 0 0 24px;
@@ -127,7 +127,7 @@
   top: 0;
   height: 100vh;
   overflow-y: auto;
-  border-right: 1px solid rgba(255,255,255,0.05);
+  border-right: 1px solid rgba(255,255,255,0.06);
 }
 
 .adm-sidebar-logo {
@@ -222,8 +222,8 @@
 }
 
 .adm-nav-item:hover {
-  background: rgba(255,255,255,0.07);
-  color: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.1);
+  color: #fff;
 }
 
 .adm-nav-item.active {
@@ -342,11 +342,11 @@
   align-items: center;
   gap: 5px;
   padding: 6px 12px;
-  background: #1c2128;
-  color: #cdd9e5;
+  background: var(--tec-green-dark);
+  color: #cde8d8;
   font-size: 0.75rem;
   font-weight: 600;
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
   border-radius: 7px;
   cursor: pointer;
   white-space: nowrap;
@@ -355,7 +355,7 @@
 }
 
 .adm-export-btn:hover {
-  background: #2d333b;
+  background: var(--tec-green);
   transform: translateY(-1px);
 }
 
@@ -830,16 +830,16 @@
 }
 
 .adm-page-btn--active {
-  background: #1c2128;
-  border-color: #1c2128;
-  color: #e6edf3;
+  background: var(--tec-green-dark);
+  border-color: var(--tec-green-dark);
+  color: #cde8d8;
   font-weight: 700;
 }
 
 .adm-page-btn--active:hover {
-  background: #2d333b !important;
-  border-color: #2d333b !important;
-  color: #e6edf3 !important;
+  background: var(--tec-green) !important;
+  border-color: var(--tec-green) !important;
+  color: #cde8d8 !important;
 }
 
 .adm-page-ellipsis {
@@ -860,8 +860,8 @@
   width: 38px;
   height: 38px;
   font-size: 1.3rem;
-  background: #1c2128;
-  color: #e6edf3;
+  background: var(--tec-green-dark);
+  color: #cde8d8;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -869,7 +869,7 @@
   transition: background 0.15s;
 }
 
-.adm-sidebar-toggle:hover { background: #2d333b; }
+.adm-sidebar-toggle:hover { background: var(--tec-green); }
 
 .adm-sidebar-close {
   display: none; /* hidden on desktop */
