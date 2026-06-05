@@ -4,3 +4,11 @@ dist
 .env.local
 .DS_Store
 public/uploads
+
+# Personal data — historical Gravity Forms imports & recovery snapshots
+# (contain names, emails, NIN numbers etc. — must NOT be served publicly)
+public/tec-import.json
+public/tec-applications-import.json
+public/tec-partnerships-import.json
+scripts/wiped-file-keys-manifest.json
+src/data/seedData.js

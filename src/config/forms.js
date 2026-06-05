@@ -97,7 +97,6 @@ export const FORM_REGISTRY = {
       proofOfIdUrl:         'Proof of ID',
       p45Url:               'P45',
       submittedAt:          'Submitted At',
-      status:               'Status',
     },
   },
   'Partnerships & Collaborations': {
@@ -126,7 +125,6 @@ export const FORM_REGISTRY = {
       service:       'Service',
       tellUsMore:    'Tell Us More',
       submittedAt:   'Submitted At',
-      status:        'Status',
     },
   },
   'Application Form': {
@@ -184,6 +182,20 @@ export const FORM_REGISTRY = {
       benefitsType:           'If yes, what type of benefits you are recieving*',
       hearAbout:              'How did you hear about us?',
       referralName:           'Referral Name',
+      // ── Documents (file uploads) ─────────────────────────────
+      passportFileUrl:        'Passport / National ID',
+      idBackFileUrl:          'ID Back Picture',
+      qualificationsFileUrl:  'Qualifications / Work reference / P60',
+      certificatesFileUrl:    'Certificates / Transcripts',
+      proofOfAddressUrl:      'Proof of Address',
+      proofOfAddress2Url:     'Proof of Address (second)',
+      rightToStudyUrl:        'Right to Study',
+      ninFileUrl:             'National Insurance Number (file)',
+      cvFileUrl:              'CV',
+      workReferenceUrl:       'Work Reference',
+      // ── Declarations ─────────────────────────────────────────
+      signature:              'Signature',
+      signatureDate:          'Signature Date',
       privacyAgreed:          'Terms & Conditions',
       notes:                  'Notes (Staff Use Only)',
     },
@@ -224,7 +236,6 @@ export const FORM_REGISTRY = {
       convictionDetails:    'If yes, please give details',
       cvFileUrl:            'CV',
       submittedAt:          'Entry Date',
-      status:               'Status',
     },
   },
 
@@ -265,7 +276,6 @@ export const FORM_REGISTRY = {
       privacyAgreed:          'Terms & Conditions (Consent)',
       coursePrice:            'Courses Price',
       submittedAt:            'Entry Date',
-      status:                 'Status',
     },
   },
   'Enquiry Form': {
@@ -285,7 +295,6 @@ export const FORM_REGISTRY = {
       enquiringAbout: 'Enquiring About',
       otherCourses:   'Other Courses',
       submittedAt:    'Entry Date',
-      status:         'Status',
     },
   },
   'Enrolment Form': {
@@ -366,7 +375,6 @@ export const FORM_REGISTRY = {
       signature:                  'Signature',
       signatureDate:              'Signature Date',
       submittedAt:                'Entry Date',
-      status:                     'Status',
     },
   },
 
@@ -432,7 +440,6 @@ export const FORM_REGISTRY = {
       hearAbout:                   'How did you hear about us?',
       referralName:                'Referral Name',
       submittedAt:                 'Entry Date',
-      status:                      'Status',
     },
   },
 
@@ -945,10 +952,16 @@ export async function sendEmailNotification(entry) {
       return String(v);
     };
 
-    const skip = new Set(['id', 'status', 'formType']);
+    const skip = new Set(['id', 'status', 'formType', 'wpEntryId']);
 
-    const rows = Object.entries(entry)
-      .filter(([k]) => !skip.has(k))
+    // Order by columnMap definition; anything not in map goes at the end
+    const mapKeys  = Object.keys(labelMap).filter(k => !skip.has(k));
+    const extraKeys = Object.keys(entry).filter(k => !skip.has(k) && !mapKeys.includes(k));
+    const allKeys  = [...mapKeys, ...extraKeys];
+
+    const rows = allKeys
+      .map(k => [k, entry[k]])
+      .filter(([, v]) => v !== undefined && v !== null && v !== '')
       .map(([k, v], i) => {
         const bg = i % 2 === 0 ? '#f7f7f7' : '#ffffff';
         return `<tr style="background:${bg};">

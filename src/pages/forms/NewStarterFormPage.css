@@ -654,3 +654,41 @@ textarea.nsf-input {
     font-size: 1.45rem;
   }
 }
+
+/* ── Application Form additions ──────────────────────────── */
+.nsf-section-sub {
+  color: #5a6e60;
+  font-size: 0.92rem;
+  margin: -10px 0 22px;
+  line-height: 1.6;
+}
+
+.nsf-hint {
+  font-size: 0.78rem;
+  color: #4caf50;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+.nsf-file-input {
+  padding: 9px 12px;
+  background: #fafafa;
+  cursor: pointer;
+}
+
+.nsf-file-input::file-selector-button {
+  background: #1a4d2e;
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-right: 12px;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.nsf-file-input::file-selector-button:hover {
+  background: #2d6b41;
+}

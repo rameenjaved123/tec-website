@@ -1,5 +1,5 @@
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { DynamoDBDocumentClient, ScanCommand, PutCommand, UpdateCommand, DeleteCommand } from '@aws-sdk/lib-dynamodb';
+import { DynamoDBDocumentClient, ScanCommand, PutCommand, UpdateCommand, DeleteCommand, GetCommand } from '@aws-sdk/lib-dynamodb';
 
 const client = DynamoDBDocumentClient.from(new DynamoDBClient({ region: 'us-east-1' }));
 const TABLE = 'tec-form-submissions';
@@ -135,7 +135,14 @@ export const handler = async (event) => {
           ExpressionAttributeValues: { ':s': body.status },
         }));
       } else {
-        await client.send(new PutCommand({ TableName: TABLE, Item: body }));
+        // MERGE: load the existing item and overlay the provided fields, so a
+        // partial update (e.g. just a file URL) never wipes the rest of the entry.
+        const existing = await client.send(new GetCommand({
+          TableName: TABLE,
+          Key: { id: body.id },
+        }));
+        const merged = { ...(existing.Item || {}), ...body };
+        await client.send(new PutCommand({ TableName: TABLE, Item: merged }));
       }
 
       return respond(200, { ok: true });

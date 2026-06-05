@@ -10,6 +10,7 @@ import {
   FORM_REGISTRY,
   NOTIFY_EMAILS,
   sendEmailNotification,
+  sendConfirmationEmail,
 } from '../../config/forms';
 import {
   getCurrentSession,
@@ -446,20 +447,79 @@ async function generatePDF(entry) {
 async function openS3File(fileUrl) {
   if (!fileUrl) return;
   try {
-    // WordPress / legacy URLs — open directly (may break when WP is deleted)
-    if (fileUrl.includes('wp-content') || fileUrl.includes('gravity_forms') || !fileUrl.includes('amazonaws.com')) {
+    const lower = fileUrl.toLowerCase();
+    let fileKey;
+
+    if (!lower.startsWith('http')) {
+      // Bare S3 key (e.g. "migrated/job-application/file.docx") — use directly
+      fileKey = fileUrl;
+    } else if (lower.includes('amazonaws.com')) {
+      // Full S3 URL — extract key from path
+      fileKey = new URL(fileUrl).pathname.slice(1);
+    } else {
+      // Legacy wp-content / gravity_forms URL — open directly
       window.open(fileUrl, '_blank');
       return;
     }
-    // S3 URLs — generate a presigned view URL
-    const url = new URL(fileUrl);
-    const fileKey = url.pathname.slice(1); // remove leading /
+
     const viewUrl = await getS3ViewUrl(fileKey);
     window.open(viewUrl, '_blank');
   } catch (err) {
     alert('Could not open file: ' + err.message);
   }
 }
+
+// ── Short label for a file field key ──────────────────────
+function fileLabel(key, index) {
+  const map = {
+    proofOfIdUrl: 'ID', p45Url: 'P45', cvFileUrl: 'CV',
+    passportFileUrl: 'Passport', qualificationsFileUrl: 'Qualifications',
+    experienceLetterUrl: 'Experience',
+  };
+  const base = map[key] || key.replace(/Url$/i, '').replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase()).trim();
+  return index ? `${base} ${index}` : base;
+}
+
+// ── Display labels (DB stores internal form-type strings; show these instead) ─
+const FORM_LABEL = {
+  'Application Form': 'Student Application Form',
+};
+const labelFor = (formType) => FORM_LABEL[formType] || formType;
+
+// ── Form-specific table columns ───────────────────────────
+// Each form shows its own relevant columns (besides Name / Date / Files).
+// key = entry field, label = column header.
+const FORM_COLUMNS = {
+  'New Starter Form': [
+    { key: 'jobTitle',     label: 'Job Title' },
+    { key: 'siteLocation', label: 'Site Location' },
+  ],
+  'Partnerships & Collaborations': [
+    { key: 'companyName', label: 'Company' },
+    { key: 'service',     label: 'Service' },
+  ],
+  'Application Form': [
+    { key: 'course',      label: 'Course' },
+    { key: 'studyCentre', label: 'Study Centre' },
+  ],
+  'Job Application': [
+    { key: 'jobTitle',     label: 'Job Title' },
+    { key: 'siteLocation', label: 'Preferred Location' },
+  ],
+  'English & IELTS Application': [
+    { key: 'course', label: 'Course' },
+  ],
+  'Enquiry Form': [
+    { key: 'enquiringAbout', label: 'Enquiring About' },
+  ],
+  'Enrolment Form': [
+    { key: 'programmeTitle', label: 'Programme' },
+  ],
+  'International Application': [
+    { key: 'course',      label: 'Course' },
+    { key: 'studyCentre', label: 'Study Centre' },
+  ],
+};
 
 // ── Status badge ──────────────────────────────────────────
 const STATUS_CONFIG = {
@@ -488,13 +548,42 @@ function StatusBadge({ status }) {
 // ── Entry detail modal ────────────────────────────────────
 function EntryModal({ entry, onClose, onDelete, onStatusChange, onUpdate }) {
   const [emailTo, setEmailTo]       = useState('');
-  const [emailSent, setEmailSent]   = useState(false);
+  const [emailSent, setEmailSent]       = useState(false);
+  const [emailSending, setEmailSending] = useState(false);
   const [sheetsStatus, setSheetsStatus] = useState('');
-  const [resendStatus, setResendStatus] = useState(''); // '', 'sending', 'sent', 'error'
+  const [resendStatus, setResendStatus]         = useState(''); // '', 'sending', 'sent', 'error'
+  const [resendUserStatus, setResendUserStatus] = useState(''); // '', 'sending', 'sent', 'error'
   const [currentStatus, setCurrentStatus] = useState(entry.status || 'new');
   const [editing, setEditing]       = useState(false);
   const [editData, setEditData]     = useState({ ...entry });
   const [saving, setSaving]         = useState(false);
+
+  // ── Staff notes (independent of full edit mode) ─────────
+  const [notesDraft, setNotesDraft]   = useState(entry.notes || '');
+  const [notesSaving, setNotesSaving] = useState(false);
+  const [notesSaved, setNotesSaved]   = useState(false);
+  const notesChanged = (notesDraft || '') !== (entry.notes || '');
+
+  const saveNotes = async () => {
+    setNotesSaving(true);
+    try {
+      // Send the FULL entry merged with the new notes so the still-deployed
+      // replace-Lambda doesn't wipe other fields.
+      const merged = { ...entry, notes: notesDraft.trim() };
+      const ok = await updateSubmissionInDB(merged);
+      if (ok) {
+        setNotesSaved(true);
+        onUpdate?.(merged);
+        setTimeout(() => setNotesSaved(false), 2500);
+      } else {
+        alert('Failed to save note.');
+      }
+    } catch (err) {
+      alert('Failed to save note: ' + err.message);
+    } finally {
+      setNotesSaving(false);
+    }
+  };
 
   const INTERNAL = new Set(['id', 'formType', 'submittedAt']);
   const isFileKey = (k) => k.toLowerCase().endsWith('url');
@@ -507,17 +596,75 @@ function EntryModal({ entry, onClose, onDelete, onStatusChange, onUpdate }) {
     }
   };
 
-  const handleEmail = () => {
+  const handleEmail = async () => {
     if (!emailTo) { alert('Enter an email address'); return; }
-    const subject = encodeURIComponent(`TEC ${entry.formType} - ${entry.firstName || ''} ${entry.lastName || ''}`);
-    const body = encodeURIComponent(
-      Object.entries(entry)
-        .filter(([k]) => !['id'].includes(k))
-        .map(([k, v]) => `${k}: ${v}`)
-        .join('\n')
-    );
-    window.open(`mailto:${emailTo}?subject=${subject}&body=${body}`);
-    setEmailSent(true);
+    setEmailSending(true);
+    setEmailSent(false);
+    try {
+      // Reuse the notification email builder but send to the custom address
+      const { SES_CONFIG, FORM_REGISTRY: FR } = await import('../../config/forms');
+      const formConfig = FR[entry.formType] || {};
+      const labelMap = {};
+      if (formConfig.columnMap) {
+        Object.entries(formConfig.columnMap).forEach(([k, label]) => { labelMap[k] = label; });
+      }
+      const toLabel = k => labelMap[k] || k.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase());
+      const isUrl   = v => typeof v === 'string' && (v.startsWith('http://') || v.startsWith('https://'));
+      const fmtVal  = v => {
+        if (!v && v !== 0) return '<em style="color:#999">—</em>';
+        if (typeof v === 'boolean') return v ? 'Yes' : 'No';
+        if (Array.isArray(v)) return v.join(', ');
+        if (isUrl(v)) return `<a href="${v}" style="color:#1a56a0">View File</a>`;
+        return String(v);
+      };
+      const skip = new Set(['id', 'status', 'formType', 'wpEntryId']);
+
+      // Order by columnMap definition, remainder at end — same as admin modal
+      const mapKeys   = Object.keys(labelMap).filter(k => !skip.has(k));
+      const extraKeys = Object.keys(entry).filter(k => !skip.has(k) && !mapKeys.includes(k));
+      const allKeys   = [...mapKeys, ...extraKeys];
+
+      const rows = allKeys
+        .map(k => [k, entry[k]])
+        .filter(([, v]) => v !== undefined && v !== null && v !== '')
+        .map(([k, v], i) => `<tr style="background:${i%2===0?'#f7f7f7':'#fff'}">
+          <td style="padding:9px 14px;font-weight:600;color:#333;width:38%;border-bottom:1px solid #eee">${toLabel(k)}</td>
+          <td style="padding:9px 14px;color:#444;border-bottom:1px solid #eee">${fmtVal(v)}</td>
+        </tr>`).join('');
+      const logo = 'https://vlebucket.s3.eu-west-2.amazonaws.com/Untitled+design+(12).jpg';
+      const html = `<div style="max-width:680px;margin:auto;font-family:Arial,sans-serif;background:#fff;border:1px solid #ddd;border-radius:8px;overflow:hidden">
+        <img src="${logo}" alt="TEC" style="width:100%;height:auto;display:block"/>
+        <div style="padding:24px">
+          <h2 style="color:#333399;margin:0 0 4px">${entry.formType} — ${entry.firstName || ''} ${entry.lastName || ''}</h2>
+          <p style="color:#777;font-size:13px;margin:0 0 20px">Submitted: ${entry.submittedAt ? new Date(entry.submittedAt).toLocaleString('en-GB') : 'N/A'}</p>
+          <table style="width:100%;border-collapse:collapse;font-size:14px">${rows}</table>
+          <p style="font-size:12px;color:#aaa;margin-top:20px">Sent from Trent Education Centre Admin Dashboard</p>
+        </div>
+      </div>`;
+      const res = await fetch(SES_CONFIG.endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: emailTo,
+          from: SES_CONFIG.fromEmail,
+          fromName: 'TEC Admin',
+          replyTo: SES_CONFIG.fromEmail,
+          subject: `${entry.formType} — ${entry.firstName || ''} ${entry.lastName || ''}`,
+          html,
+        }),
+      });
+      setEmailSending(false);
+      if (res.ok) {
+        setEmailSent(true);
+        setTimeout(() => setEmailSent(false), 3000);
+      } else {
+        alert('Failed to send email — check the address and try again.');
+      }
+    } catch (err) {
+      setEmailSending(false);
+      console.error('handleEmail error:', err);
+      alert('Something went wrong sending the email.');
+    }
   };
 
   const handleSheets = async () => {
@@ -558,8 +705,19 @@ function EntryModal({ entry, onClose, onDelete, onStatusChange, onUpdate }) {
     return String(val);
   };
 
-  const skip = ['id'];
-  const rows = Object.entries(editing ? editData : entry).filter(([k]) => !skip.includes(k));
+  // Fields to always hide from the detail view
+  const skip = ['id', 'status', 'formType', 'wpEntryId'];
+
+  // Order fields by columnMap definition order; anything not in columnMap goes at the end
+  const formConfig  = FORM_REGISTRY[entry.formType];
+  const columnMap   = formConfig?.columnMap || {};
+  const orderedKeys = Object.keys(columnMap).filter(k => !skip.includes(k));
+  const dataKeys    = Object.keys(editing ? editData : entry).filter(k => !skip.includes(k) && !orderedKeys.includes(k));
+  const allKeys     = [...orderedKeys, ...dataKeys];
+
+  const rows = allKeys
+    .map(k => [k, (editing ? editData : entry)[k]])
+    .filter(([, v]) => v !== undefined);
 
   return (
     <div className="adm-modal-backdrop" onClick={e => e.target === e.currentTarget && onClose()}>
@@ -567,8 +725,7 @@ function EntryModal({ entry, onClose, onDelete, onStatusChange, onUpdate }) {
         <div className="adm-modal-header">
           <div>
             <h3 style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              {entry.formType}
-              <StatusBadge status={currentStatus} />
+              {labelFor(entry.formType)}
               {editing && <span style={{ fontSize: '0.72rem', background: '#fff3e0', color: '#e65100', padding: '2px 8px', borderRadius: 50, fontWeight: 700 }}>Editing</span>}
             </h3>
             <span className="adm-modal-sub">
@@ -579,49 +736,43 @@ function EntryModal({ entry, onClose, onDelete, onStatusChange, onUpdate }) {
           <button className="adm-modal-close" onClick={onClose}>✕</button>
         </div>
 
-        {/* Status management */}
-        <div className="adm-modal-status">
-          <span className="adm-status-label">Status:</span>
-          {Object.entries(STATUS_CONFIG).map(([key, cfg]) => (
-            <button
-              key={key}
-              className={`adm-status-btn${currentStatus === key ? ' adm-status-btn--active' : ''}`}
-              style={currentStatus === key ? { background: cfg.bg, color: cfg.color, borderColor: cfg.color } : {}}
-              onClick={() => handleStatusChange(key)}
-            >
-              {cfg.label}
-            </button>
-          ))}
-        </div>
 
         <div className="adm-modal-actions">
           {!editing ? (
             <>
-              <button className="adm-action-btn" style={{ background: '#e3f2fd', color: '#1565c0', border: '1px solid #1565c0' }} onClick={() => setEditing(true)}>
+              {/* Edit */}
+              <button className="adm-action-btn adm-btn-edit" onClick={() => setEditing(true)}>
                 ✏️ Edit
               </button>
+
+              {/* PDF */}
               <button className="adm-action-btn adm-btn-pdf" onClick={() => generatePDF(entry)}>
                 📄 PDF
               </button>
-              <button className="adm-action-btn adm-btn-sheets" onClick={handleSheets}>
-                📊 {sheetsStatus || 'Sheets'}
-              </button>
+
+              {/* Sheets — only shown if this form has a linked sheet */}
               {FORM_REGISTRY[entry.formType]?.sheetsUrl && (
-                <a
-                  className="adm-action-btn adm-btn-sheets"
-                  href={FORM_REGISTRY[entry.formType].sheetsUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}
-                >
-                  🔗 Open Sheet
-                </a>
+                <>
+                  <button className="adm-action-btn adm-btn-sheets" onClick={handleSheets}>
+                    📊 {sheetsStatus || 'Export Sheet'}
+                  </button>
+                  <a
+                    className="adm-action-btn adm-btn-sheets"
+                    href={FORM_REGISTRY[entry.formType].sheetsUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ textDecoration: 'none' }}
+                  >
+                    🔗 Open Sheet
+                  </a>
+                </>
               )}
+
+              {/* Resend notification to staff */}
               <button
-                className="adm-action-btn"
-                style={{ background: '#e8f0fe', color: '#1a56a0', border: '1px solid #b3cdf5' }}
+                className="adm-action-btn adm-btn-resend-staff"
                 disabled={resendStatus === 'sending'}
-                title={`Resend notification to ${FORM_REGISTRY[entry.formType]?.notifyEmail || NOTIFY_EMAILS.default}`}
+                title={`Resend to ${FORM_REGISTRY[entry.formType]?.notifyEmail || NOTIFY_EMAILS.default}`}
                 onClick={async () => {
                   setResendStatus('sending');
                   const ok = await sendEmailNotification(entry);
@@ -629,11 +780,33 @@ function EntryModal({ entry, onClose, onDelete, onStatusChange, onUpdate }) {
                   setTimeout(() => setResendStatus(''), 3500);
                 }}
               >
-                {resendStatus === 'sending' ? '⏳ Sending…'
-                  : resendStatus === 'sent'    ? '✅ Sent!'
-                  : resendStatus === 'error'   ? '❌ Failed'
-                  : `📧 Resend to ${FORM_REGISTRY[entry.formType]?.notifyEmail || NOTIFY_EMAILS.default}`}
+                {resendStatus === 'sending' ? <><span className="adm-spinner" /> Sending…</>
+                  : resendStatus === 'sent'  ? '✅ Notified!'
+                  : resendStatus === 'error' ? '❌ Failed'
+                  : '📨 Notify Staff'}
               </button>
+
+              {/* Resend confirmation to the applicant */}
+              {entry.email && (
+                <button
+                  className="adm-action-btn adm-btn-resend-user"
+                  disabled={resendUserStatus === 'sending'}
+                  title={`Resend confirmation to ${entry.email}`}
+                  onClick={async () => {
+                    setResendUserStatus('sending');
+                    const ok = await sendConfirmationEmail(entry);
+                    setResendUserStatus(ok ? 'sent' : 'error');
+                    setTimeout(() => setResendUserStatus(''), 3500);
+                  }}
+                >
+                  {resendUserStatus === 'sending' ? <><span className="adm-spinner" /> Sending…</>
+                    : resendUserStatus === 'sent'  ? '✅ Sent!'
+                    : resendUserStatus === 'error' ? '❌ Failed'
+                    : '✉️ Email Applicant'}
+                </button>
+              )}
+
+              {/* Delete */}
               <button className="adm-action-btn adm-btn-delete" onClick={handleDelete}>
                 🗑 Delete
               </button>
@@ -665,20 +838,52 @@ function EntryModal({ entry, onClose, onDelete, onStatusChange, onUpdate }) {
             <input
               className="adm-email-input"
               type="email"
-              placeholder="Send entry to email address…"
+              placeholder="Forward this entry to any email address…"
               value={emailTo}
               onChange={e => setEmailTo(e.target.value)}
             />
-            <button className="adm-action-btn adm-btn-email" onClick={handleEmail}>
-              ✉️ {emailSent ? 'Sent!' : 'Send'}
+            <button className="adm-action-btn adm-btn-email" onClick={handleEmail} disabled={emailSending || emailSent}>
+              {emailSending ? <><span className="adm-spinner" /> Sending…</> : emailSent ? '✅ Sent!' : '📤 Send'}
             </button>
           </div>
         )}
 
+        {/* Staff notes — quick, independent of full edit mode */}
+        <div className="adm-notes">
+          <div className="adm-notes-header">
+            <span className="adm-notes-label">📝 Staff Notes</span>
+            <span className="adm-notes-hint">e.g. “Passport missing — needs uploading”</span>
+          </div>
+          <textarea
+            className="adm-notes-input"
+            placeholder="Add a note for this applicant…"
+            value={notesDraft}
+            onChange={e => setNotesDraft(e.target.value)}
+            rows={2}
+          />
+          <div className="adm-notes-actions">
+            {notesSaved && <span className="adm-notes-saved">✓ Saved</span>}
+            <button
+              className="adm-action-btn adm-btn-notes"
+              onClick={saveNotes}
+              disabled={!notesChanged || notesSaving}
+            >
+              {notesSaving ? <><span className="adm-spinner" /> Saving…</>
+                : notesChanged ? '💾 Save Note'
+                : '✓ Up to date'}
+            </button>
+          </div>
+        </div>
+
         <div className="adm-modal-body">
-          {rows.map(([key, val]) => (
+          {rows
+            // The dedicated notes panel above handles this field — skip it from the generic list.
+            .filter(([key]) => key !== 'notes')
+            .map(([key, val]) => (
             <div key={key} className="adm-detail-row">
-              <span className="adm-detail-key">{key.replace(/([A-Z])/g, ' $1').trim()}</span>
+              <span className="adm-detail-key">
+                {columnMap[key] || key.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase()).trim()}
+              </span>
               <span className="adm-detail-val">
                 {isFileKey(key) && val ? (
                   <span style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
@@ -749,7 +954,7 @@ export default function AdminPage() {
   const [authChecked, setAuthChecked] = useState(false);
   const [entries, setEntries]         = useState([]);
   const [selected, setSelected]       = useState(null);
-  const [filter, setFilter]           = useState('All');
+  const [filter, setFilter]           = useState('');
   const [search, setSearch]           = useState('');
   const [loading, setLoading]         = useState(false);
   const [dbMode, setDbMode]           = useState(false);
@@ -838,15 +1043,22 @@ export default function AdminPage() {
     return () => clearInterval(interval);
   }, [currentUser]);
 
-  // All form types visible to this user
+  // All form types visible to this user — sorted A→Z by DISPLAY label,
+  // so renamed forms (e.g. "Student Application Form") sit in their visible alphabetical spot.
   const visibleFormTypes = [
-    'All',
     ...new Set(
       entries
         .map(e => e.formType)
         .filter(t => allowedForms === null || allowedForms.includes(t))
     ),
-  ];
+  ].sort((a, b) => labelFor(a).localeCompare(labelFor(b)));
+
+  // Once entries load, default to the first available form (instead of "All")
+  useEffect(() => {
+    if (!filter && visibleFormTypes.length > 0) {
+      setFilter(visibleFormTypes[0]);
+    }
+  }, [visibleFormTypes.length, filter]);
 
   const filtered = entries.filter(e => {
     // RBAC: hide entries the user has no permission to see
@@ -889,7 +1101,7 @@ export default function AdminPage() {
         <button className="adm-sidebar-close" onClick={() => setSidebarOpen(false)}>✕</button>
         <div className="adm-sidebar-logo">
           <img
-            src="/assets/logos/tec-logo-transparent.png"
+            src="/assets/logos/tec-crest.png"
             alt="Trent Education Centre"
             className="adm-sidebar-logo-img"
           />
@@ -909,27 +1121,16 @@ export default function AdminPage() {
             <span className="adm-nav-chevron">{entriesOpen ? '▾' : '▸'}</span>
           </button>
 
-          {entriesOpen && (
-            <>
-              <button
-                className={`adm-nav-item${filter === 'All' ? ' active' : ''}`}
-                onClick={() => { setFilterAndReset('All'); setSidebarOpen(false); }}
-              >
-                <span>All Submissions</span>
-                <span className="adm-badge">{filtered.length}</span>
-              </button>
-              {visibleFormTypes.slice(1).map(t => (
-                <button
-                  key={t}
-                  className={`adm-nav-item${filter === t ? ' active' : ''}`}
-                  onClick={() => { setFilterAndReset(t); setSidebarOpen(false); }}
-                >
-                  <span>{t}</span>
-                  <span className="adm-badge">{entries.filter(e => e.formType === t && (allowedForms === null || allowedForms.includes(e.formType))).length}</span>
-                </button>
-              ))}
-            </>
-          )}
+          {entriesOpen && visibleFormTypes.map(t => (
+            <button
+              key={t}
+              className={`adm-nav-item${filter === t ? ' active' : ''}`}
+              onClick={() => { setFilterAndReset(t); setSidebarOpen(false); }}
+            >
+              <span>{labelFor(t)}</span>
+              <span className="adm-badge">{entries.filter(e => e.formType === t && (allowedForms === null || allowedForms.includes(e.formType))).length}</span>
+            </button>
+          ))}
 
           {/* ── FORM LINKS (collapsible) ── */}
           <button
@@ -941,18 +1142,21 @@ export default function AdminPage() {
             <span className="adm-nav-chevron">{formsOpen ? '▾' : '▸'}</span>
           </button>
 
-          {formsOpen && Object.entries(FORM_REGISTRY).map(([name, cfg]) => cfg.path ? (
-            <a
-              key={name}
-              href={cfg.path}
-              target="_blank"
-              rel="noreferrer"
-              className="adm-nav-item adm-nav-link"
-            >
-              <span>{name}</span>
-              <span className="adm-nav-arrow">↗</span>
-            </a>
-          ) : null)}
+          {formsOpen && Object.entries(FORM_REGISTRY)
+            .filter(([, cfg]) => cfg.path)
+            .sort(([a], [b]) => labelFor(a).localeCompare(labelFor(b)))
+            .map(([name, cfg]) => (
+              <a
+                key={name}
+                href={cfg.path}
+                target="_blank"
+                rel="noreferrer"
+                className="adm-nav-item adm-nav-link"
+              >
+                <span>{labelFor(name)}</span>
+                <span className="adm-nav-arrow">↗</span>
+              </a>
+            ))}
 
 
         </nav>
@@ -987,11 +1191,9 @@ export default function AdminPage() {
           {/* Mobile sidebar toggle */}
           <button className="adm-sidebar-toggle" onClick={() => setSidebarOpen(true)}>☰</button>
           <div>
-            <h1 className="adm-title">
-              {filter === 'All' ? 'All Submissions' : filter}
-            </h1>
+            <h1 className="adm-title">{filter ? labelFor(filter) : 'Loading…'}</h1>
             <p className="adm-subtitle">
-              {loading ? 'Loading…' : `${filtered.length} entries`}
+              {loading ? 'Refreshing…' : `${filtered.length} entries`}
             </p>
           </div>
           <div className="adm-topbar-right">
@@ -1005,9 +1207,10 @@ export default function AdminPage() {
             <button
               className="adm-export-btn"
               onClick={() => { sessionStorage.removeItem(CACHE_KEY); load(); }}
+              disabled={loading}
               title="Refresh from DynamoDB"
             >
-              🔄 Refresh
+              {loading ? <><span className="adm-spinner" /> Refreshing…</> : '🔄 Refresh'}
             </button>
             {filtered.length > 0 && (
               <button
@@ -1021,45 +1224,61 @@ export default function AdminPage() {
           </div>
         </div>
 
-        {/* Stat cards */}
-        {entries.length > 0 && (
-          <div className="adm-stats">
-            {[
-              { label: 'Total',    value: entries.length },
-              { label: 'New',      value: entries.filter(e => (e.status || 'new') === 'new').length },
-              { label: 'Reviewed', value: entries.filter(e => e.status === 'reviewed').length },
-              { label: 'Actioned', value: entries.filter(e => e.status === 'actioned').length },
-            ].map(s => (
-              <div key={s.label} className="adm-stat-card">
-                <div className="adm-stat-val">{s.value}</div>
-                <div className="adm-stat-label">{s.label}</div>
-              </div>
-            ))}
-          </div>
-        )}
 
-        {filtered.length === 0 ? (
+        {loading && entries.length === 0 ? (
+          <div className="adm-loading">
+            <div className="adm-spinner adm-spinner--lg" />
+            <p>Loading submissions…</p>
+          </div>
+        ) : filtered.length === 0 ? (
           <div className="adm-empty">
             <div className="adm-empty-icon">📭</div>
             <p>No submissions yet.</p>
             <p className="adm-empty-sub">Entries will appear here after forms are submitted.</p>
           </div>
-        ) : (
-          <div className="adm-table-wrap">
+        ) : (() => {
+          // Form-specific columns (only when a single form is selected)
+          const formCols = (FORM_COLUMNS[filter] || []);
+          // Collect any file URLs from an entry (fields ending in "url")
+          const getFiles = (entry) =>
+            Object.entries(entry)
+              .filter(([k, v]) => k.toLowerCase().endsWith('url') && typeof v === 'string' && v)
+              .flatMap(([k, v]) =>
+                String(v).split(',').map(u => u.trim()).filter(Boolean)
+                  .map((u, i, arr) => ({ url: u, label: fileLabel(k, arr.length > 1 ? i + 1 : null) }))
+              );
+          // Files column: always shown so missing uploads are visible (empty = needs upload).
+          // Hidden only for forms that genuinely have no file fields at all.
+          const FORMS_WITHOUT_FILES = new Set([
+            'Partnerships & Collaborations',
+            'Enquiry Form',
+          ]);
+          const showFiles = !FORMS_WITHOUT_FILES.has(filter);
+
+          return (
+          <div className="adm-table-wrap" style={{ position: 'relative' }}>
+            {loading && (
+              <div className="adm-table-overlay">
+                <div className="adm-spinner adm-spinner--lg" />
+                <span>Refreshing…</span>
+              </div>
+            )}
             <table className="adm-table">
               <thead>
                 <tr>
                   <th>Name</th>
-                  <th>Form</th>
-                  <th>Status</th>
+                  {filter === 'All' && <th>Form</th>}
                   <th>Date</th>
-                  <th>Location</th>
-                  <th>Files</th>
+                  {formCols.map(c => <th key={c.key}>{c.label}</th>)}
+                  {showFiles && <th>Files</th>}
+                  <th>Notes</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {paginated.map(entry => (
+                {paginated.map(entry => {
+                  const files = getFiles(entry);
+                  return (
                   <tr key={entry.id} onClick={() => setSelected(entry)} className="adm-row">
                     <td className="adm-td-name">
                       <div className="adm-avatar">{(entry.firstName?.[0] || '?').toUpperCase()}</div>
@@ -1068,13 +1287,22 @@ export default function AdminPage() {
                         <div className="adm-email">{entry.email || '—'}</div>
                       </div>
                     </td>
-                    <td><span className="adm-tag">{entry.formType}</span></td>
-                    <td><StatusBadge status={entry.status || 'new'} /></td>
+                    {filter === 'All' && <td><span className="adm-tag">{entry.formType}</span></td>}
                     <td className="adm-date">{new Date(entry.submittedAt).toLocaleDateString('en-GB')}</td>
-                    <td>{entry.siteLocation || '—'}</td>
-                    <td onClick={e => e.stopPropagation()}>
-                      {entry.proofOfIdUrl && <button className="adm-file-link" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} onClick={() => openS3File(entry.proofOfIdUrl)}>📎 ID</button>}
-                      {entry.p45Url && <button className="adm-file-link" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }} onClick={() => openS3File(entry.p45Url)}>📎 P45</button>}
+                    {formCols.map(c => <td key={c.key}>{entry[c.key] || '—'}</td>)}
+                    {showFiles && (
+                      <td onClick={e => e.stopPropagation()}>
+                        {files.length === 0 ? (
+                          <span className="adm-files-missing" title="No files uploaded">⚠ Missing</span>
+                        ) : files.map((f, i) => (
+                          <button key={i} className="adm-file-link" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, display: 'block', textAlign: 'left' }} onClick={() => openS3File(f.url)}>📎 {f.label}</button>
+                        ))}
+                      </td>
+                    )}
+                    <td className="adm-td-notes">
+                      {entry.notes
+                        ? <span className="adm-notes-cell" title={entry.notes}>{entry.notes}</span>
+                        : <span className="adm-notes-cell adm-notes-cell--empty">—</span>}
                     </td>
                     <td onClick={e => e.stopPropagation()}>
                       <div className="adm-row-actions">
@@ -1084,7 +1312,8 @@ export default function AdminPage() {
                       </div>
                     </td>
                   </tr>
-                ))}
+                  );
+                })}
               </tbody>
             </table>
 
@@ -1137,7 +1366,8 @@ export default function AdminPage() {
               </div>
             )}
           </div>
-        )}
+          );
+        })()}
       </main>
 
       {selected && (

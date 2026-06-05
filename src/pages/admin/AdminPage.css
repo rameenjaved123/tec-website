@@ -133,31 +133,42 @@
 .adm-sidebar-logo {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 26px 18px 22px;
-  border-bottom: 1px solid rgba(255,255,255,0.07);
+  gap: 10px;
+  padding: 18px 16px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
   margin-bottom: 10px;
+  min-width: 0; /* allow flex children to shrink */
 }
 
 .adm-sidebar-logo-img {
-  height: 38px;
-  width: auto;
+  width: 34px;
+  height: 34px;
   object-fit: contain;
   flex-shrink: 0;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+}
+
+.adm-sidebar-logo > div {
+  min-width: 0; /* allow text to shrink/wrap */
 }
 
 .adm-sidebar-title {
-  font-size: 0.9rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: #e6edf3;
-  letter-spacing: -0.01em;
+  letter-spacing: 0em;
+  line-height: 1.3;
+  white-space: normal;   /* allow wrapping */
+  word-break: break-word;
 }
 
 .adm-sidebar-sub {
-  font-size: 0.7rem;
-  color: rgba(255,255,255,0.35);
-  margin-top: 2px;
-  letter-spacing: 0.01em;
+  font-size: 0.6rem;
+  color: rgba(255,255,255,0.3);
+  margin-top: 3px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .adm-nav {
@@ -668,10 +679,186 @@
   transform: translateY(-1px);
 }
 
-.adm-btn-pdf    { background: #fff; color: #1a1a1a; border: 1.5px solid #ddd; }
-.adm-btn-sheets { background: #fff; color: #1a1a1a; border: 1.5px solid #ddd; }
-.adm-btn-email  { background: #fff; color: #1a1a1a; border: 1.5px solid #ddd; }
-.adm-btn-delete { background: #fff; color: #b91c1c; border: 1.5px solid #f5c0c0; }
+/* ── Spinner ── */
+@keyframes adm-spin { to { transform: rotate(360deg); } }
+.adm-spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: adm-spin 0.7s linear infinite;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.adm-spinner--lg {
+  width: 38px;
+  height: 38px;
+  border-width: 3px;
+  border-color: var(--tec-green-dark, #122618);
+  border-top-color: transparent;
+  margin: 0 0 12px;
+}
+
+/* Centered loading panel (when there are no entries cached yet) */
+.adm-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 96px 24px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  color: #555;
+  font-size: 0.95rem;
+}
+
+/* ── Staff notes panel (modal) ──────────────────────────── */
+.adm-notes {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin: 6px 0 18px;
+}
+
+.adm-notes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.adm-notes-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #92400e;
+  letter-spacing: 0.02em;
+}
+
+.adm-notes-hint {
+  font-size: 0.7rem;
+  color: #a16207;
+  font-style: italic;
+}
+
+.adm-notes-input {
+  width: 100%;
+  border: 1px solid #fcd34d;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  color: #1a1a1a;
+  background: #fff;
+  resize: vertical;
+  min-height: 48px;
+  box-sizing: border-box;
+}
+
+.adm-notes-input:focus {
+  outline: none;
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245,158,11,0.18);
+}
+
+.adm-notes-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.adm-notes-saved {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #15803d;
+}
+
+.adm-btn-notes {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1.5px solid #fcd34d;
+}
+
+.adm-btn-notes:hover:not(:disabled) {
+  background: #fde68a;
+}
+
+/* ── Notes column (table) ───────────────────────────────── */
+.adm-td-notes {
+  max-width: 220px;
+}
+
+.adm-notes-cell {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: #5a4318;
+  background: #fffbeb;
+  border-left: 3px solid #f59e0b;
+  padding: 4px 8px;
+  border-radius: 0 6px 6px 0;
+  cursor: help;
+  word-break: break-word;
+}
+
+.adm-notes-cell--empty {
+  color: #ccc;
+  background: transparent;
+  border-left: none;
+  padding: 0;
+  font-style: italic;
+}
+
+.adm-files-missing {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #b91c1c;
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  padding: 3px 8px;
+  letter-spacing: 0.02em;
+}
+
+/* Translucent overlay shown over the existing table during refresh */
+.adm-table-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.78);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  border-radius: 16px;
+  pointer-events: all;
+  color: #333;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.adm-btn-edit         { background: #eef2ff; color: #3730a3; border: 1.5px solid #c7d2fe; }
+.adm-btn-pdf          { background: #fff7ed; color: #c2410c; border: 1.5px solid #fed7aa; }
+.adm-btn-sheets       { background: #f0fdf4; color: #166534; border: 1.5px solid #bbf7d0; }
+.adm-btn-email        { background: #fff; color: #1a1a1a; border: 1.5px solid #ddd; }
+.adm-btn-resend-staff { background: #eff6ff; color: #1d4ed8; border: 1.5px solid #bfdbfe; }
+.adm-btn-resend-user  { background: #fdf4ff; color: #7e22ce; border: 1.5px solid #e9d5ff; }
+.adm-btn-delete       { background: #fff; color: #b91c1c; border: 1.5px solid #f5c0c0; }
 
 /* ── Status bar ───────────────────────────────────────────────── */
 .adm-modal-status {
@@ -1000,12 +1187,9 @@
     font-size: 1.4rem;
   }
 
-  /* ── Table: hide less important columns ── */
-  .adm-table th:nth-child(5),
-  .adm-table td:nth-child(5),
-  .adm-table th:nth-child(6),
-  .adm-table td:nth-child(6) {
-    display: none;
+  /* ── Table: columns are dynamic per form, so allow horizontal scroll ── */
+  .adm-table {
+    min-width: 640px;
   }
 
   .adm-table th,

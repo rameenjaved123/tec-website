@@ -43,6 +43,7 @@ import EducationOfficerPage from './pages/jobs/EducationOfficerPage';
 import AcademicManagerPage from './pages/jobs/AcademicManagerPage';
 import EnquiryFormPage from './pages/forms/EnquiryFormPage';
 import EnrolmentFormPage from './pages/forms/EnrolmentFormPage';
+import ApplicationFormPage from './pages/forms/ApplicationFormPage';
 import JobApplicationFormPage from './pages/forms/JobApplicationFormPage';
 import InternationalApplicationFormPage from './pages/forms/InternationalApplicationFormPage';
 import EnglishIELTSFormPage from './pages/forms/EnglishIELTSFormPage';
@@ -124,7 +125,7 @@ function AppLayout() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/new-starter-form" element={<NewStarterFormPage />} />
           <Route path="/partnerships-form" element={<PartnershipsFormPage />} />
-          <Route path="/application-form" element={<JobApplicationFormPage />} />
+          <Route path="/application-form" element={<ApplicationFormPage />} />
           <Route path="/job-application" element={<JobApplicationFormPage />} />
           <Route path="/english-ielts-application" element={<EnglishIELTSFormPage />} />
           <Route path="/enquiry-form" element={<EnquiryFormPage />} />
