@@ -21,23 +21,27 @@ export default function ComplaintPage() {
             {/* How to complain */}
             <h2 style={{ color: 'var(--tec-green)', marginBottom: '12px' }}>How to complain?</h2>
             <p style={{ lineHeight: 1.9, color: 'var(--tec-text-light)', marginBottom: '20px' }}>
-              If you have a complaint, please email us at{' '}
+              If you are a student or if you are applying to study at Trent Education Centre (TEC),
+              you can complain to us about anything you are not satisfied with here:{' '}
               <a href="mailto:complaints@trenteducation.co.uk" style={{ color: 'var(--tec-gold)', fontWeight: 600 }}>
                 complaints@trenteducation.co.uk
               </a>.
-              Your complaint should include:
+            </p>
+
+            <p style={{ lineHeight: 1.9, color: 'var(--tec-text-light)', marginBottom: '14px' }}>
+              When you submit a complaint by email, you need to give us the following information:
             </p>
 
             <ul style={{ lineHeight: 1.9, color: 'var(--tec-text-light)', paddingLeft: '20px', marginBottom: '28px' }}>
-              <li style={{ marginBottom: '8px' }}>Your name and student number (if applicable)</li>
-              <li style={{ marginBottom: '8px' }}>A clear explanation of your complaint</li>
-              <li style={{ marginBottom: '8px' }}>Details of any informal steps you have already taken to resolve the issue</li>
-              <li style={{ marginBottom: '8px' }}>What outcome you are seeking</li>
-              <li style={{ marginBottom: '8px' }}>Any supporting evidence or documentation</li>
+              <li style={{ marginBottom: '8px' }}>Tell us your name and student number if you have one</li>
+              <li style={{ marginBottom: '8px' }}>Explain your concern or complaint</li>
+              <li style={{ marginBottom: '8px' }}>State what if any steps you have taken to resolve the matter informally</li>
+              <li style={{ marginBottom: '8px' }}>State what you want to see happen</li>
+              <li style={{ marginBottom: '8px' }}>Add any supporting evidence you may have (e.g., relevant emails or documents)</li>
             </ul>
 
-            <p style={{ lineHeight: 1.9, color: 'var(--tec-text-light)', marginBottom: '28px' }}>
-              Alternatively, you can submit your complaint using our online{' '}
+            <p style={{ lineHeight: 1.9, color: 'var(--tec-text-light)', marginBottom: '20px' }}>
+              If you prefer, you may find it easier to fill in the{' '}
               <a
                 href="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAABGlEu5URE5ZMFgzNElHWDJFVkJUMVM1MzdRWkU4QS4u"
                 target="_blank"
@@ -45,25 +49,43 @@ export default function ComplaintPage() {
                 style={{ color: 'var(--tec-gold)', fontWeight: 600 }}
               >
                 Complaint Form
-              </a>.
-              We aim to acknowledge all complaints within 3 working days.
+              </a>{' '}
+              on our website instead.
             </p>
 
-            <p style={{ lineHeight: 1.9, color: 'var(--tec-text-light)', marginBottom: '40px' }}>
-              All complaints are treated in strict confidence. For full details of our process, please
-              read our{' '}
+            <p style={{ lineHeight: 1.9, color: 'var(--tec-text-light)', marginBottom: '20px' }}>
+              We will respond to you within three days after receiving your email or complaint form
+              and let you know what steps we will take to try and resolve the issue.
+            </p>
+
+            <p style={{ lineHeight: 1.9, color: 'var(--tec-text-light)', marginBottom: '20px' }}>
+              Please read our{' '}
               <a
                 href="/assets/documents/policies/complaints-and-appeals.pdf"
                 target="_blank"
                 rel="noreferrer"
                 style={{ color: 'var(--tec-gold)', fontWeight: 600 }}
               >
-                Complaints and Appeals Policy (PDF)
-              </a>.
+                Complaints and Appeals Policy
+              </a>{' '}
+              for more information.
+            </p>
+
+            <p style={{ lineHeight: 1.9, color: 'var(--tec-text-light)', marginBottom: '40px' }}>
+              Where possible, your details will remain confidential, and you will not be penalised
+              for making a complaint. We welcome fair and constructive criticism from students and
+              applicants that helps us to improve our services.
             </p>
 
             {/* What will happen next */}
             <h2 style={{ color: 'var(--tec-green)', marginBottom: '20px' }}>What will happen next?</h2>
+
+            <p style={{ lineHeight: 1.9, color: 'var(--tec-text-light)', marginBottom: '24px' }}>
+              After you have sent us your complaint by email or using the complaint form, we will
+              contact you within three days to let you know the next steps and how long it might take.
+              We aim to resolve all complaints within 10 days if possible and no later than a maximum
+              of 21 days in total.
+            </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '40px' }}>
 
@@ -72,10 +94,10 @@ export default function ComplaintPage() {
                   <Mail size={22} />
                 </div>
                 <div>
-                  <strong style={{ color: 'var(--tec-green)', display: 'block', marginBottom: '6px' }}>Acknowledgement</strong>
+                  <strong style={{ color: 'var(--tec-green)', display: 'block', marginBottom: '6px' }}>Initial response</strong>
                   <p style={{ color: 'var(--tec-text-light)', lineHeight: 1.8, margin: 0, fontSize: '0.92rem' }}>
-                    We will acknowledge receipt of your complaint within <strong>3 working days</strong> and
-                    let you know who will be handling it.
+                    We will contact you within <strong>3 days</strong> of receiving your complaint to
+                    let you know the next steps and how long it might take.
                   </p>
                 </div>
               </div>
@@ -85,11 +107,10 @@ export default function ComplaintPage() {
                   <Clock size={22} />
                 </div>
                 <div>
-                  <strong style={{ color: 'var(--tec-green)', display: 'block', marginBottom: '6px' }}>Investigation</strong>
+                  <strong style={{ color: 'var(--tec-green)', display: 'block', marginBottom: '6px' }}>Resolution timeframe</strong>
                   <p style={{ color: 'var(--tec-text-light)', lineHeight: 1.8, margin: 0, fontSize: '0.92rem' }}>
-                    We aim to resolve all complaints within <strong>10 working days</strong>. In complex
-                    cases this may be extended to a maximum of <strong>21 working days</strong>, and we
-                    will keep you informed throughout.
+                    We aim to resolve all complaints within <strong>10 days</strong> if possible — and
+                    no later than a maximum of <strong>21 days</strong> in total.
                   </p>
                 </div>
               </div>
@@ -99,10 +120,10 @@ export default function ComplaintPage() {
                   <CheckCircle size={22} />
                 </div>
                 <div>
-                  <strong style={{ color: 'var(--tec-green)', display: 'block', marginBottom: '6px' }}>Resolution</strong>
+                  <strong style={{ color: 'var(--tec-green)', display: 'block', marginBottom: '6px' }}>Confidentiality</strong>
                   <p style={{ color: 'var(--tec-text-light)', lineHeight: 1.8, margin: 0, fontSize: '0.92rem' }}>
-                    You will receive a full written response outlining the outcome of your complaint and
-                    any actions we have taken or plan to take.
+                    Where possible, your details will remain confidential, and you will not be
+                    penalised for making a complaint.
                   </p>
                 </div>
               </div>

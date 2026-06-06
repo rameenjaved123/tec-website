@@ -24,7 +24,7 @@ const ALL_PAGES = [
   { label: 'Complaints', path: '/complaint' },
   { label: 'Contact Us', path: '/contact' },
   { label: 'Admission', path: '/admission' },
-  { label: 'Enrolment / Apply', path: '/apply' },
+  { label: 'Apply', path: '/apply' },
   { label: 'English Language Courses', path: '/english-language-courses' },
   { label: 'Policies for English Language Courses', path: '/policies-english' },
   { label: 'Higher Education Courses', path: '/higher-education' },
@@ -116,7 +116,7 @@ const navItems = [
     path: '/admission',
     children: [
       { label: 'Overview', path: '/admission' },
-      { label: 'Enrolment', path: '/apply' },
+      { label: 'Apply', path: '/apply' },
     ],
   },
   {
@@ -131,6 +131,7 @@ const navItems = [
     label: 'Higher Education Courses',
     path: '/higher-education',
     children: [
+      { label: 'All Courses', path: '/higher-education' },
       {
         label: 'ATHE Level 4 & 5 Extended Diploma in Business',
         path: '/athe-level-4-5',
@@ -146,6 +147,7 @@ const navItems = [
     label: 'Further Education Courses',
     path: '/further-education',
     children: [
+      { label: 'All Courses', path: '/further-education' },
       { label: 'ATHE Level 3 Diploma in Business', path: '/athe-level-3' },
       { label: 'NCFE Level 1 Functional Skills in Maths', path: '/ncfe-maths-l1' },
       { label: 'NCFE Level 2 Functional Skills in Maths', path: '/ncfe-maths-l2' },
@@ -167,6 +169,7 @@ const navItems = [
         label: 'Approvals',
         path: '/approvals',
         children: [
+          { label: 'All Approvals', path: '/approvals' },
           { label: 'Awarding Organisations', path: '/awarding-organisations' },
           { label: 'Accreditations', path: '/accreditations' },
           { label: 'Approved Supplier Status', path: '/approved-supplier-status' },

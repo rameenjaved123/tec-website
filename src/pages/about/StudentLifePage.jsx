@@ -16,42 +16,27 @@ export default function StudentLifePage() {
       <section className="sl-council-section">
         <div className="container">
           <div className="sl-section-label">Our Students</div>
-          <h2 className="sl-section-heading">Shaping TEC Together:<br/>The Student Council</h2>
-          <div className="sl-section-rule" />
 
-          <div className="sl-council-grid">
-            {[
-              { title: 'Student Voice',     desc: 'A formal body that gives students a real voice in shaping their educational experience at TEC.' },
-              { title: 'Elected Leadership', desc: 'Led by a Student President and Vice-President, elected by peers and represented on the Board of Governors.' },
-              { title: 'Community Impact',  desc: 'Meets regularly to raise welfare concerns, organise events, and collaborate with staff on life at TEC.' },
-            ].map(({ title, desc }) => (
-              <div key={title} className="sl-council-card">
-                <div className="sl-council-card-accent" />
-                <h3>{title}</h3>
-                <p>{desc}</p>
-              </div>
-            ))}
+          {/* Two-column header: heading on left, intro paragraph on right (with green divider) */}
+          <div className="sl-council-hero">
+            <h2 className="sl-section-heading">Shaping TEC Together: The Student Council</h2>
+            <div className="sl-council-hero-text">
+              <p>
+                Trent Education Centre (TEC) has a Student Council consisting of a Student President
+                and other student representatives from Study Centres in Nottingham, Leicester, and Birmingham.
+              </p>
+            </div>
           </div>
 
-          <blockquote className="sl-council-quote">
-            At Trent Education Centre, we believe that students are at the heart of everything
-            we do. Whether it's feeding back on teaching quality, driving community outreach,
-            or shaping institutional policy — our Student Council is a powerful force for
-            positive change.
-          </blockquote>
-
           <div className="sl-council-body">
-            <p>
-              Trent Education Centre (TEC) has a Student Council consisting of a Student President
-              and other student representatives from Study Centres in Nottingham, Leicester, and Birmingham.
-            </p>
             <p>
               The Student Council meets throughout the year and the Student President and
               Vice-President are members of the TEC Board of Governors and Academic Board.
               This demonstrates our commitment to engaging students in our decision-making
               processes and enhancing the holistic education we provide. The Student Council
               receives training and support in how to effectively represent their fellow
-              students and develops an annual calendar of social and educational events.
+              students. The Student Council develops an annual calendar of social and
+              educational events that meet the needs and preferences of students.
             </p>
           </div>
         </div>

@@ -110,12 +110,12 @@ export default function NCFEMathsL1Page() {
       {/* How to Apply */}
       <div className="al4-apply-wrap">
         <div className="container">
-          <h2 className="al4-section-title" style={{ textAlign: 'center' }}>How to Apply?</h2>
+          <h2 className="al4-section-title" style={{ textAlign: 'center' }}>How to Apply</h2>
           <div className="al4-apply-grid">
             <div className="al4-apply-step">
               <span className="al4-apply-icon"><FileText size={26} /></span>
-              <h3>You Apply</h3>
-              <p>Tell us a little about yourself, and we&rsquo;ll take care of the rest. Our convenient online application form takes just 10 minutes to complete.</p>
+              <h3>Apply Online</h3>
+              <p>Complete the online Student Application Form to share your details, course choice, and supporting documents. It takes around 20 minutes.</p>
             </div>
             <div className="al4-apply-step">
               <span className="al4-apply-icon">
@@ -123,8 +123,8 @@ export default function NCFEMathsL1Page() {
                   <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                 </svg>
               </span>
-              <h3>We Connect</h3>
-              <p>After you submit your application, an admissions representative will contact you to help you complete the process.</p>
+              <h3>We Review</h3>
+              <p>Our admissions team reviews your application and supporting documents against the entry requirements for your chosen course.</p>
             </div>
             <div className="al4-apply-step">
               <span className="al4-apply-icon">

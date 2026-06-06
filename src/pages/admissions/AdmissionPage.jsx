@@ -5,6 +5,19 @@ import '../InnerPage.css';
 import './AdmissionPage.css';
 import PageHero from '../../components/PageHero';
 
+// ── Helper: turn any email address inside a string into a clickable
+//    `mailto:` link styled blue. Splitting with a capture group means odd-indexed
+//    parts are the matches, even-indexed ones are the surrounding text.
+function linkifyEmails(text) {
+  if (!text) return text;
+  const parts = String(text).split(/([a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,})/gi);
+  return parts.map((part, i) =>
+    i % 2 === 1
+      ? <a key={i} href={`mailto:${part}`} className="adm-email-link">{part}</a>
+      : part
+  );
+}
+
 const commitmentLeft = [
   'We welcome applicants regardless of age, marital status, race, nationality, ethnic or national origin, sexual orientation, religious beliefs, disability, family circumstances, and parental status.',
   'Applicants will receive the support and information they need to make well-informed decisions before joining a course at the College.',
@@ -116,7 +129,7 @@ export default function AdmissionPage() {
           <h2>Apply for 2024</h2>
           <p>
             Admissions for Spring 2024 are now open! Start your application today and get connected to our Admissions Team{' '}
-            <a href="mailto:admissions@trenteducation.co.uk">admissions@trenteducation.co.uk</a>{' '}
+            <a href="mailto:admissions@trenteducation.co.uk" className="adm-email-link">admissions@trenteducation.co.uk</a>{' '}
             so you can see if Trent Education Centre has the right courses and support for you.
           </p>
           <a href="/application-form" className="adm-apply-btn">
@@ -134,7 +147,7 @@ export default function AdmissionPage() {
               {commitmentLeft.map((item, i) => (
                 <div key={i} className="adm-commit-item">
                   <CheckCircle size={19} className="adm-check" />
-                  <p>{item}</p>
+                  <p>{linkifyEmails(item)}</p>
                 </div>
               ))}
             </div>
@@ -142,7 +155,7 @@ export default function AdmissionPage() {
               {commitmentRight.map((item, i) => (
                 <div key={i} className="adm-commit-item">
                   <CheckCircle size={19} className="adm-check" />
-                  <p>{item}</p>
+                  <p>{linkifyEmails(item)}</p>
                 </div>
               ))}
             </div>
@@ -163,7 +176,7 @@ export default function AdmissionPage() {
           </p>
           <p style={{ marginTop: 16 }}>
             Please contact our Admissions Team{' '}
-            <a href="mailto:admissions@trenteducation.co.uk">admissions@trenteducation.co.uk</a>{' '}
+            <a href="mailto:admissions@trenteducation.co.uk" className="adm-email-link">admissions@trenteducation.co.uk</a>{' '}
             in order to enquire about your eligibility for student finance, and how you can apply for grants, loans, scholarships and bursaries to support your studies.
           </p>
         </div>
@@ -175,7 +188,7 @@ export default function AdmissionPage() {
         <p style={{ lineHeight: 1.8, color: '#444', marginBottom: 32 }}>
           The College welcomes eligible candidates to apply for a Scholarship or Bursary to help them fund their studies. The College sets aside £100,000 per annum for scholarships and bursaries. Funds for Scholarships and Bursaries will be provided to applicants on an individual basis. Once the fund has been spent for the academic year, students will not be able to apply until the next academic year.<br /><br />
           Please ask the Admissions Team{' '}
-          <a href="mailto:admissions@trenteducation.co.uk" style={{ color: 'var(--tec-green)' }}>admissions@trenteducation.co.uk</a>{' '}
+          <a href="mailto:admissions@trenteducation.co.uk" className="adm-email-link">admissions@trenteducation.co.uk</a>{' '}
           to see if there are funds available for Scholarships or Bursaries in the current academic year before submitting your application.
         </p>
 
@@ -193,7 +206,7 @@ export default function AdmissionPage() {
         <h3 style={{ fontSize: '1.2rem', fontWeight: 700, margin: '40px 0 12px' }}>Eligibility and Application Process</h3>
         <p style={{ lineHeight: 1.8, color: '#444', marginBottom: 32 }}>
           We offer Scholarships and Bursaries for all our fee-paying courses. Anyone applying for a Scholarship or Bursary must meet the entry requirements for the course and must complete the usual application process. Request for a scholarship or bursary should be sent to{' '}
-          <a href="mailto:admissions@trenteducation.co.uk" style={{ color: 'var(--tec-green)' }}>admissions@trenteducation.co.uk</a>{' '}
+          <a href="mailto:admissions@trenteducation.co.uk" className="adm-email-link">admissions@trenteducation.co.uk</a>{' '}
           along with a 500-word essay explaining in English why you should be a TEC Scholarship Student, or why you should be considered for a Bursary. Applicants for a Bursary may be required to provide evidence that they cannot finance the course themselves.<br /><br />
           You must submit your request for a Scholarship or Bursary at least one month before the term starts. Your request will be considered by the Senior Management Team (SMT) and you will receive their decision two weeks after you have sent your request.
         </p>
@@ -225,7 +238,7 @@ export default function AdmissionPage() {
               <div className="adm-flow-num">{f.num}</div>
               <div className="adm-flow-connector" />
               <h4 className="adm-flow-title">{f.step}</h4>
-              <p className="adm-flow-desc">{f.desc}</p>
+              <p className="adm-flow-desc">{linkifyEmails(f.desc)}</p>
             </div>
           ))}
         </div>
@@ -278,10 +291,10 @@ export default function AdmissionPage() {
       <div className="adm-cta">
         <div className="adm-cta-inner">
           <div className="adm-cta-icon"><ClipboardList size={36} /></div>
-          <h2>Begin Your Enrolment Today</h2>
-          <p>Our admissions team is ready to support you from your first enquiry through to enrolment. The process is simple, transparent, and designed around you.</p>
-          <Link to="/apply" className="adm-cta-btn">
-            Start Your Enrolment <ArrowRight size={18} />
+          <h2>Ready to Apply?</h2>
+          <p>Complete the online Student Application Form to share your details, course choice, and supporting documents. Our admissions team will review your application and be in touch shortly.</p>
+          <Link to="/application-form" className="adm-cta-btn">
+            Start Your Application <ArrowRight size={18} />
           </Link>
         </div>
       </div>

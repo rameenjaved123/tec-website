@@ -384,6 +384,27 @@ export default function HomePage() {
       <section className="news-section">
         <div className="container">
           <h2 className="section-title text-center">News &amp; Events</h2>
+
+          {/* Instagram profile header (mirrors original WordPress layout) */}
+          <a
+            href="https://www.instagram.com/trent_education_centre/"
+            target="_blank"
+            rel="noreferrer"
+            className="news-ig-header"
+            aria-label="Visit our Instagram profile"
+          >
+            <div className="news-ig-avatar">
+              <img src="/assets/logos/tec-crest.png" alt="Trent Education Centre" />
+            </div>
+            <div className="news-ig-meta">
+              <div className="news-ig-handle">trent_education_centre</div>
+              <div className="news-ig-bio">
+                Diverse training provider in the field of further and higher education all across the UK
+                📍 Nottingham, Leicester &amp; Birmingham
+              </div>
+            </div>
+          </a>
+
           <div className="news-grid">
             {newsPosts.map((post, i) => (
               <a key={i} href={post.link} target="_blank" rel="noreferrer" className="news-item">
@@ -431,10 +452,10 @@ export default function HomePage() {
       <section className="cta-section">
         <div className="cta-inner">
           <div className="cta-icon"><ClipboardList size={36} /></div>
-          <h2>Begin Your Enrolment Today</h2>
-          <p>Our admissions team is ready to guide you from your first enquiry through to enrolment. Simple, transparent, and designed around you.</p>
-          <Link to="/apply" className="cta-btn">
-            Start Your Enrolment <ArrowRight size={18} />
+          <h2>Ready to Apply?</h2>
+          <p>Complete the online Student Application Form to share your details, course choice, and supporting documents. Our admissions team will be in touch shortly.</p>
+          <Link to="/application-form" className="cta-btn">
+            Start Your Application <ArrowRight size={18} />
           </Link>
         </div>
       </section>

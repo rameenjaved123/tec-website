@@ -346,6 +346,22 @@
   overflow-wrap: break-word;
 }
 
+/* Email mailto-links inside flowchart/body copy */
+.adm-email-link {
+  color: #1d4ed8;
+  text-decoration: underline;
+  text-decoration-color: rgba(29,78,216,0.4);
+  text-underline-offset: 2px;
+  font-weight: 500;
+  transition: color 0.15s, text-decoration-color 0.15s;
+  word-break: break-all;
+}
+
+.adm-email-link:hover {
+  color: #1e40af;
+  text-decoration-color: #1e40af;
+}
+
 /* ── Admission Policy Banner ── */
 .adm-policy-banner {
   background: linear-gradient(135deg, var(--tec-green) 0%, #1e5c3a 100%);

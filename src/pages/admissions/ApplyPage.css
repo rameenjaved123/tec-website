@@ -263,3 +263,148 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ── Document checklist sub-notes ─────────────────────── */
+.apply-requirements ul li {
+  align-items: flex-start;
+}
+
+.apply-req-note {
+  font-size: 0.78rem;
+  color: #777;
+  margin-top: 2px;
+  line-height: 1.5;
+}
+
+/* ── Who Can Apply section ────────────────────────────── */
+.apply-eligibility {
+  background: #f7f9f7;
+  padding: 72px 0;
+}
+
+.apply-eligibility-intro {
+  text-align: center;
+  color: #555;
+  max-width: 640px;
+  margin: 0 auto 40px;
+  line-height: 1.75;
+  font-size: 0.98rem;
+}
+
+.apply-eligibility-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.apply-eligibility-card {
+  background: #fff;
+  border: 1px solid #e6ede7;
+  border-radius: 14px;
+  padding: 28px 22px;
+  text-align: center;
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+
+.apply-eligibility-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.07);
+}
+
+.apply-eligibility-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(201,162,39,0.12);
+  color: var(--tec-gold, #c9a227);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
+}
+
+.apply-eligibility-card h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--tec-green-dark, #122618);
+  margin-bottom: 6px;
+}
+
+.apply-eligibility-card p {
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── What Happens Next section ─────────────────────────── */
+.apply-next {
+  background: #fff;
+  padding: 72px 0;
+}
+
+.apply-next-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 760px;
+  margin: 32px auto 0;
+}
+
+.apply-next-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  background: #fafbfa;
+  border: 1px solid #e6ede7;
+  border-radius: 12px;
+  padding: 18px 22px;
+  transition: background 0.18s;
+}
+
+.apply-next-item:hover {
+  background: #f0f6f1;
+}
+
+.apply-next-step {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--tec-green-dark, #122618);
+  color: var(--tec-gold, #c9a227);
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.apply-next-item h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--tec-green-dark, #122618);
+  margin: 0 0 4px;
+}
+
+.apply-next-item p {
+  font-size: 0.88rem;
+  color: #555;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .apply-eligibility-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .apply-eligibility-grid {
+    grid-template-columns: 1fr;
+  }
+  .apply-next-item {
+    padding: 14px 16px;
+  }
+}

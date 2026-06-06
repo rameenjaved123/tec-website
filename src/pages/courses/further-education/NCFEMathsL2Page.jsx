@@ -109,12 +109,12 @@ export default function NCFEMathsL2Page() {
       {/* How to Apply */}
       <div className="al4-apply-wrap">
         <div className="container">
-          <h2 className="al4-section-title" style={{ textAlign: 'center' }}>How to Apply?</h2>
+          <h2 className="al4-section-title" style={{ textAlign: 'center' }}>How to Apply</h2>
           <div className="al4-apply-grid">
             <div className="al4-apply-step">
               <span className="al4-apply-icon"><FileText size={26} /></span>
-              <h3>You Apply</h3>
-              <p>Tell us a little about yourself, and we&rsquo;ll take care of the rest. Our convenient online application form takes just 10 minutes to complete.</p>
+              <h3>Apply Online</h3>
+              <p>Complete the online Student Application Form to share your details, course choice, and supporting documents. It takes around 20 minutes.</p>
             </div>
             <div className="al4-apply-step">
               <span className="al4-apply-icon">
@@ -122,8 +122,8 @@ export default function NCFEMathsL2Page() {
                   <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                 </svg>
               </span>
-              <h3>We Connect</h3>
-              <p>After you submit your application, an admissions representative will contact you to help you complete the process.</p>
+              <h3>We Review</h3>
+              <p>Our admissions team reviews your application and supporting documents against the entry requirements for your chosen course.</p>
             </div>
             <div className="al4-apply-step">
               <span className="al4-apply-icon">
@@ -131,12 +131,12 @@ export default function NCFEMathsL2Page() {
                   <rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
                 </svg>
               </span>
-              <h3>Enrolment</h3>
-              <p>Once you&rsquo;ve completed your application and connected with an admissions representative, you&rsquo;re ready to create your schedule.</p>
+              <h3>Offer &amp; Start</h3>
+              <p>We'll email you a conditional or unconditional offer. Once accepted, you can enrol and begin your studies at your preferred study centre.</p>
             </div>
           </div>
           <div style={{ textAlign: 'center', marginTop: 36 }}>
-            <Link to="/apply" className="btn-gold" style={{ display: 'inline-block', padding: '14px 40px', fontSize: '1rem' }}>Apply Now</Link>
+            <Link to="/application-form" className="btn-gold" style={{ display: 'inline-block', padding: '14px 40px', fontSize: '1rem' }}>Start Your Application</Link>
           </div>
         </div>
       </div>

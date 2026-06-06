@@ -58,7 +58,10 @@ export default function StrategicPlanPage() {
             gainful employment and contributes to the growth of the local and national economy. This
             strategy is fully aligned with the following UK Government statement of belief: "all students
             should expect their higher education studies to advance them on the ladder of opportunity and
-            lead them into gainful employment."
+            lead them into gainful employment." The UK Government further states that "higher education
+            qualifications should be of a high quality, give students the skills they need to improve
+            their outcomes in life, and support the growth of our economy by embedding careers-based
+            learning throughout the course of their studies." (Department for Education, 2023, p. 5).
           </p>
         </div>
 

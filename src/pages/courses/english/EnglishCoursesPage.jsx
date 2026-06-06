@@ -168,8 +168,8 @@ const esolSections = [
         <p style={{ marginTop: 12 }}><strong>International students</strong> will need to pay an extra fee of <strong>£250</strong> to book their place on a course before travelling to the UK. This fee covers the extra administrative work for visas. TEC admissions staff will tell you the booking fee when you apply.</p>
         <p style={{ marginTop: 12 }}>Please read the following carefully before you enrol into a course:</p>
         <ul className="eng-bullets" style={{ marginTop: 8 }}>
-          <li><a href="https://trenteducation.co.uk/terms-and-conditions" target="_blank" rel="noreferrer" style={{ color: 'var(--tec-green)' }}>Terms and Conditions</a></li>
-          <li><a href="https://trenteducation.co.uk/tuition-fees-refunds-and-compensation-policy" target="_blank" rel="noreferrer" style={{ color: 'var(--tec-green)' }}>Tuition Fees, Refunds and Compensation Policy</a></li>
+          <li><a href="https://trenteducation.co.uk/terms-and-conditions" target="_blank" rel="noreferrer" className="eng-link">Terms and Conditions</a></li>
+          <li><a href="https://trenteducation.co.uk/tuition-fees-refunds-and-compensation-policy" target="_blank" rel="noreferrer" className="eng-link">Tuition Fees, Refunds and Compensation Policy</a></li>
         </ul>
       </div>
     ),
@@ -205,7 +205,7 @@ const esolSections = [
           <li>Maximum class size: <strong>16 students</strong></li>
           <li>Lessons take place between <strong>10:00 and 16:30</strong></li>
           <li>Holiday dates for classes starting on <strong>25 Feb 2026</strong>: 08 &amp; 09 April; 24 &amp; 25 June; 01 &amp; 02 Jul; 19 &amp; 20 Aug; 26 &amp; 27 Aug</li>
-          <li>Full details of the Ascentis ESOL Qualification can be found on the <a href="https://www.ascentis.co.uk" target="_blank" rel="noreferrer" style={{ color: 'var(--tec-green)' }}>Ascentis website</a></li>
+          <li>Full details of the Ascentis ESOL Qualification can be found on the <a href="https://www.ascentis.co.uk" target="_blank" rel="noreferrer" className="eng-link">Ascentis website</a></li>
         </ul>
       </div>
     ),
@@ -317,8 +317,8 @@ const ncfeSections = [
         <p style={{ marginTop: 12 }}><strong>International students</strong> will need to pay an extra fee of <strong>£250</strong> to book their place on a course before travelling to the UK. This fee covers the extra administrative work for visas. TEC admissions staff will tell you the booking fee when you apply.</p>
         <p style={{ marginTop: 12 }}>Please read the following carefully before you enrol into a course:</p>
         <ul className="eng-bullets" style={{ marginTop: 8 }}>
-          <li><a href="https://trenteducation.co.uk/terms-and-conditions" target="_blank" rel="noreferrer" style={{ color: 'var(--tec-green)' }}>Terms and Conditions</a></li>
-          <li><a href="https://trenteducation.co.uk/tuition-fees-refunds-and-compensation-policy" target="_blank" rel="noreferrer" style={{ color: 'var(--tec-green)' }}>Tuition Fees, Refunds and Compensation Policy</a></li>
+          <li><a href="https://trenteducation.co.uk/terms-and-conditions" target="_blank" rel="noreferrer" className="eng-link">Terms and Conditions</a></li>
+          <li><a href="https://trenteducation.co.uk/tuition-fees-refunds-and-compensation-policy" target="_blank" rel="noreferrer" className="eng-link">Tuition Fees, Refunds and Compensation Policy</a></li>
         </ul>
       </div>
     ),
@@ -369,7 +369,7 @@ const ncfeSections = [
           <li>Maximum class size: <strong>16 students</strong></li>
           <li>Lessons take place between <strong>10:00 and 16:30</strong></li>
           <li>This is a six-week course so there are <strong>no holidays</strong></li>
-          <li>Full details of the NCFE Functional Skills English can be found on the <a href="https://www.ncfe.org.uk" target="_blank" rel="noreferrer" style={{ color: 'var(--tec-green)' }}>NCFE website</a></li>
+          <li>Full details of the NCFE Functional Skills English can be found on the <a href="https://www.ncfe.org.uk" target="_blank" rel="noreferrer" className="eng-link">NCFE website</a></li>
         </ul>
       </div>
     ),
@@ -487,14 +487,37 @@ export default function EnglishCoursesPage() {
       />
 
       {/* ── Intro ── */}
-      <div className="container" style={{ padding: '72px 20px 40px', textAlign: 'center' }}>
-        <p style={{ fontSize: '1rem', lineHeight: 1.85, color: '#333' }}>
-          Our English Language courses are delivered at our Castle Boulevard campus in Nottingham.
-          We offer two nationally recognised qualifications — the <strong>Ascentis ESOL</strong> programme
-          for speakers of other languages, and <strong>NCFE Functional Skills English</strong> for
-          learners who want a GCSE-equivalent qualification. Both courses are taught by experienced
-          tutors in a supportive, inclusive environment with modern facilities.
+      <div className="container eng-intro">
+        <div className="eng-intro-eyebrow">About Our Courses</div>
+        <h2 className="eng-intro-headline">
+          Learn English for life, work, and study in the UK.
+        </h2>
+        <p className="eng-intro-body">
+          We offer English language courses for adults at our Castle Boulevard campus in Nottingham.
+          These courses help you improve your English for everyday life, work, and future study.
         </p>
+
+        <h3 className="eng-intro-subheading">We offer two types of courses</h3>
+        <div className="eng-intro-courses">
+          <div className="eng-intro-course">
+            <span className="eng-intro-course-tag">ESOL</span>
+            <h4>Ascentis ESOL <span className="eng-intro-course-lvl">(Entry 1 to Level 2)</span></h4>
+            <p>For people living in the UK who want to improve their English.</p>
+          </div>
+          <div className="eng-intro-course">
+            <span className="eng-intro-course-tag">Functional Skills</span>
+            <h4>NCFE Functional Skills English <span className="eng-intro-course-lvl">(Level 1 &amp; Level 2)</span></h4>
+            <p>For people who need an English qualification for work or further study.</p>
+          </div>
+        </div>
+
+        <div className="eng-intro-mission">
+          <span className="eng-intro-mission-label">Our Mission</span>
+          <p>
+            To provide students in local and international communities with the
+            holistic education they need to enhance their life chances.
+          </p>
+        </div>
       </div>
 
       {/* ── Course cards strip ── */}
@@ -657,10 +680,10 @@ export default function EnglishCoursesPage() {
           <div className="eng-fees-policies">
             <p>Please read the following carefully before you enrol:</p>
             <div className="eng-fees-policy-links">
-              <a href="https://trenteducation.co.uk/terms-and-conditions" target="_blank" rel="noreferrer">
+              <a href="https://trenteducation.co.uk/terms-and-conditions" target="_blank" rel="noreferrer" className="eng-link">
                 <ArrowRight size={14} /> Terms and Conditions
               </a>
-              <a href="https://trenteducation.co.uk/tuition-fees-refunds-and-compensation-policy" target="_blank" rel="noreferrer">
+              <a href="https://trenteducation.co.uk/tuition-fees-refunds-and-compensation-policy" target="_blank" rel="noreferrer" className="eng-link">
                 <ArrowRight size={14} /> Tuition Fees, Refunds and Compensation Policy
               </a>
             </div>
@@ -673,11 +696,17 @@ export default function EnglishCoursesPage() {
       <div className="eng-leisure-section">
         <div className="container" style={{ maxWidth: 1100 }}>
           <h2 className="eng-plain-title eng-plain-title--center">Leisure Programme</h2>
-          <p style={{ lineHeight: 1.85, color: '#444', textAlign: 'center', maxWidth: 680, margin: '0 auto 40px' }}>
-            In addition to our accredited English courses, we run a leisure programme — day trips,
-            activities and events — to help students practise their English, experience British
-            culture and enjoy life in Nottingham. Take a look at some of our recent activities below!
-          </p>
+
+          <div className="eng-leisure-copy">
+            <p>See some of our recent student events and activities here.</p>
+            <p>
+              We are planning more events and activities. We will ask students what they want.
+              If we can, we will try to organise the activities you ask for.
+            </p>
+            <p>
+              You will not pay any extra fees for these activities. More information will be added soon.
+            </p>
+          </div>
           <div className="eng-video-grid">
             {[
               { id: 'F9H23TxCe5g', url: 'https://youtube.com/shorts/F9H23TxCe5g', label: 'TEC Eid Party' },

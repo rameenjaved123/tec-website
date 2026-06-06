@@ -5,7 +5,7 @@ const items = [
   {
     name: 'Skills Funding Agency',
     logo: '/assets/logos/sfa.jpg',
-    desc: 'The Skills Funding Agency (SFA) was a UK government body responsible for funding further education and skills training. It played a crucial role in supporting adult learners, apprenticeships, and vocational education by managing funding to colleges, training organisations, and employers.',
+    desc: 'The Skills Funding Agency (SFA) was a UK government body responsible for funding further education and skills training. It played a crucial role in supporting adult learners, apprenticeships, and vocational education by managing funding to colleges, training organisations, and employers. The agency worked to ensure that individuals could access high-quality training to improve their skills and employment prospects.',
     link: 'http://www.gov.uk/government/organisations/education-and-skills-funding-agency',
   },
   {

@@ -107,6 +107,28 @@ const BASE = '/assets/images/news/';
 /* ─── news data ─────────────────────────────────────────────────── */
 const news = [
   {
+    day: '05', month: 'Mar', year: '2026',
+    title: 'World Book Day at TEC 📖✨',
+    desc: 'What’s on your reading list this World Book Day? Our teachers have handpicked their favourite reads for students studying Business, ESOL/English, and Mathematics — designed to support your learning journey and help you succeed.',
+    location: 'Nottingham',
+    media: { type: 'carousel', images: [
+      BASE + '2026/03/world-book-day-1.jpeg',
+      BASE + '2026/03/world-book-day-2.jpeg',
+      BASE + '2026/03/world-book-day-3.jpeg',
+      BASE + '2026/03/world-book-day-4.jpeg',
+      BASE + '2026/03/world-book-day-5.jpeg',
+    ]},
+    instaLink: 'https://www.instagram.com/p/DVf69XMjAPi/?img_index=1',
+  },
+  {
+    day: '19', month: 'Jan', year: '2026',
+    title: 'Celebrating Advance HE Fellowship Success 🎓✨',
+    desc: 'We are delighted to share that our colleagues have been successful in achieving Advance HE Fellowship — a significant professional achievement recognising their commitment to teaching excellence, reflective practice, and impact within higher education.',
+    location: 'Nottingham',
+    media: { type: 'image', src: BASE + '2026/01/advance-he-fellowship.jpg' },
+    instaLink: 'https://www.instagram.com/p/DTsERF-DNmP/',
+  },
+  {
     day: '03', month: 'Dec', year: '2025',
     title: 'Team Birmingham Brings the Festive Spirit to Campus! 🎄✨',
     desc: 'Our Birmingham Study Centre came alive with festive cheer as students and staff gathered to celebrate the season together — sharing food, laughter, and community spirit.',
@@ -364,9 +386,11 @@ export default function NewsEventsPage() {
 
       <div className="container inner-content">
 
-        <p style={{ fontSize: '1rem', color: 'var(--tec-text-light)', lineHeight: 1.8, margin: '0 0 40px', textAlign: 'center' }}>
-          From student milestones and cultural events to accreditations and professional development
-          — here you'll find a record of what makes TEC such a vibrant place to learn and work.
+        <p style={{ fontSize: '1rem', color: 'var(--tec-text-light)', lineHeight: 1.8, margin: '0 0 40px', textAlign: 'center', maxWidth: 880, marginLeft: 'auto', marginRight: 'auto' }}>
+          At Trent Education Centre (TEC), we love celebrating achievements, sharing updates,
+          and keeping our community informed. From highlights of recent events to exciting
+          announcements and student successes, this is the place to stay connected with everything
+          happening at TEC.
         </p>
 
         <div style={{
@@ -458,8 +482,18 @@ export default function NewsEventsPage() {
                   {item.title}
                 </h3>
 
-                {/* Description */}
-                <p style={{ fontSize: '0.8rem', color: 'var(--tec-text-light)', lineHeight: 1.7, margin: 0, flex: 1 }}>
+                {/* Description — clamped to 5 lines so cards stay a consistent height */}
+                <p style={{
+                  fontSize: '0.8rem',
+                  color: 'var(--tec-text-light)',
+                  lineHeight: 1.7,
+                  margin: 0,
+                  flex: 1,
+                  display: '-webkit-box',
+                  WebkitLineClamp: 5,
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden',
+                }}>
                   {item.desc}
                 </p>
 
