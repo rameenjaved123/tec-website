@@ -26,7 +26,7 @@ const ADMIN_USER  = process.env.ADMIN_USERNAME || 'admin';
 const ADMIN_PASS  = process.env.ADMIN_PASSWORD || 'changeme';
 const CORS_ORIGINS = (process.env.CORS_ORIGINS || '').split(',').map(s => s.trim());
 
-const GEMINI_CHAT_URL  = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=`;
+const GEMINI_CHAT_URL  = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=`;
 const GEMINI_EMBED_URL = `https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key=`;
 const GEMINI_BATCH_EMBED_URL = `https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:batchEmbedContents?key=`;
 
