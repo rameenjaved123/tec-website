@@ -53,6 +53,18 @@ import PoliciesPage from './pages/policies/PoliciesPage';
 import PrivacyPolicyPage from './pages/policies/PrivacyPolicyPage';
 import ComplaintPage from './pages/policies/ComplaintPage';
 import ContactPage from './pages/contact/ContactPage';
+import InternationalPage from './pages/international/InternationalPage';
+import ApplicationProcessPage from './pages/international/ApplicationProcessPage';
+import FeesFundingPage from './pages/international/FeesFundingPage';
+import StudentSupportPage from './pages/international/StudentSupportPage';
+import OfferChecklistPage from './pages/international/OfferChecklistPage';
+import PreArrivalPage from './pages/international/PreArrivalPage';
+import PostArrivalPage from './pages/international/PostArrivalPage';
+import ThingsToDoPage from './pages/international/ThingsToDoPage';
+import EatOutPage from './pages/international/EatOutPage';
+import PersonalStatementPage from './pages/international/PersonalStatementPage';
+import TrentLanguageHubPage from './pages/TrentLanguageHubPage';
+import IELTSPage from './pages/IELTSPage';
 import AdminPage from './pages/admin/AdminPage';
 import GenericPage from './pages/GenericPage';
 import CookieConsent from './components/CookieConsent';
@@ -123,6 +135,18 @@ function AppLayout() {
           <Route path="/news-events" element={<NewsEventsPage />} />
           <Route path="/complaint" element={<ComplaintPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/international" element={<InternationalPage />} />
+          <Route path="/application-process" element={<ApplicationProcessPage />} />
+          <Route path="/fees-and-funding" element={<FeesFundingPage />} />
+          <Route path="/student-support" element={<StudentSupportPage />} />
+          <Route path="/offer-checklist" element={<OfferChecklistPage />} />
+          <Route path="/pre-arrival" element={<PreArrivalPage />} />
+          <Route path="/post-arrival" element={<PostArrivalPage />} />
+          <Route path="/things-to-do-nottingham" element={<ThingsToDoPage />} />
+          <Route path="/eat-out-nottingham" element={<EatOutPage />} />
+          <Route path="/personal-statement" element={<PersonalStatementPage />} />
+          <Route path="/trent-language-hub" element={<TrentLanguageHubPage />} />
+          <Route path="/ielts-exam-preparation" element={<IELTSPage />} />
           <Route path="/new-starter-form" element={<NewStarterFormPage />} />
           <Route path="/partnerships-form" element={<PartnershipsFormPage />} />
           <Route path="/application-form" element={<ApplicationFormPage />} />

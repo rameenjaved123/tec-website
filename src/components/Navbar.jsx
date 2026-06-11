@@ -38,6 +38,9 @@ const ALL_PAGES = [
   { label: 'SIA Level 2 Award for Door Supervisors', path: '/sia-door-supervisors' },
   { label: 'Digital Skills for Beginners', path: '/digital-skills' },
   { label: 'Policies', path: '/policies' },
+  { label: 'How to Write a Personal Statement', path: '/personal-statement' },
+  { label: 'Trent Language Hub', path: '/trent-language-hub' },
+  { label: 'IELTS Exam Preparation', path: '/ielts-exam-preparation' },
 ];
 
 function DevSearch() {

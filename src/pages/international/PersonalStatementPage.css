@@ -1,0 +1,123 @@
+/* ════════════════════════════════════════════════════════════
+   Personal Statement page — quote section
+   ════════════════════════════════════════════════════════════ */
+
+.ps-quote-section {
+  position: relative;
+  margin: 0 0 64px;
+  border-radius: 24px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* photo background */
+.ps-quote-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    url('https://trenteducation.co.uk/wp-content/uploads/2025/06/cropped-photo-attractive-young-man-office-working-scaled.jpg');
+  background-size: cover;
+  background-position: center 30%;
+  filter: brightness(0.22) saturate(0.6);
+  z-index: 0;
+}
+
+/* subtle gold gradient overlay */
+.ps-quote-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(18, 38, 24, 0.55) 0%,
+    rgba(201, 162, 39, 0.08) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.ps-quote-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 44px 48px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+}
+
+/* decorative quote mark */
+.ps-quote-mark {
+  display: block;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 5rem;
+  line-height: 0.7;
+  color: var(--tec-gold, #c9a227);
+  margin-bottom: 4px;
+  opacity: 0.9;
+  user-select: none;
+}
+
+.ps-quote-text {
+  font-size: 1.15rem;
+  font-weight: 600;
+  font-style: italic;
+  color: #fff;
+  line-height: 1.65;
+  margin: 0 0 24px;
+  letter-spacing: -0.01em;
+}
+
+/* footer row: gold bar + attribution */
+.ps-quote-footer {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.ps-quote-bar {
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: var(--tec-gold, #c9a227);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.ps-quote-attribution {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ps-quote-name {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.01em;
+}
+
+.ps-quote-role {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--tec-gold, #c9a227);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .ps-quote-inner {
+    padding: 48px 28px 44px;
+  }
+
+  .ps-quote-mark {
+    font-size: 6rem;
+  }
+
+  .ps-quote-text {
+    font-size: 1.2rem;
+  }
+}
