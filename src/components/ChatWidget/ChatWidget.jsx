@@ -8,25 +8,6 @@ function formatTime(date) {
   return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
 
-function parseSSELines(raw) {
-  const events = [];
-  const blocks = raw.split('\n\n');
-  for (const block of blocks) {
-    const lines = block.split('\n');
-    let eventType = 'message';
-    let dataStr = '';
-    for (const line of lines) {
-      if (line.startsWith('event: ')) eventType = line.slice(7).trim();
-      if (line.startsWith('data: ')) dataStr = line.slice(6).trim();
-    }
-    if (dataStr) {
-      try { events.push({ type: eventType, data: JSON.parse(dataStr) }); }
-      catch {}
-    }
-  }
-  return events;
-}
-
 export default function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [minimised, setMinimised] = useState(false);
@@ -70,8 +51,6 @@ export default function ChatWidget() {
     const controller = new AbortController();
     abortRef.current = controller;
 
-    let assistantText = '';
-
     try {
       const resp = await fetch(`${API_BASE}/api/chat`, {
         method: 'POST',
@@ -80,72 +59,24 @@ export default function ChatWidget() {
         signal: controller.signal,
       });
 
-      if (!resp.ok) throw new Error(`Server error ${resp.status}`);
+      const data = await resp.json();
 
-      const reader = resp.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = '';
-      let streamingStarted = false;
+      if (!resp.ok) throw new Error(data.error || `Server error ${resp.status}`);
 
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        buffer += decoder.decode(value, { stream: true });
-
-        // Parse complete SSE blocks (separated by \n\n)
-        const parts = buffer.split('\n\n');
-        buffer = parts.pop(); // keep incomplete last part
-
-        for (const part of parts) {
-          const events = parseSSELines(part + '\n\n');
-          for (const ev of events) {
-            if (ev.type === 'delta' && ev.data.text !== undefined) {
-              if (!streamingStarted) {
-                streamingStarted = true;
-                setTyping(false);
-                setMessages(prev => [...prev, { role: 'assistant', content: '', ts: new Date(), streaming: true }]);
-              }
-              assistantText += ev.data.text;
-              setMessages(prev => {
-                const copy = [...prev];
-                copy[copy.length - 1] = { ...copy[copy.length - 1], content: assistantText };
-                return copy;
-              });
-            } else if (ev.type === 'done') {
-              setMessages(prev => {
-                const copy = [...prev];
-                const last = copy[copy.length - 1];
-                if (last?.streaming) copy[copy.length - 1] = { ...last, streaming: false };
-                return copy;
-              });
-            } else if (ev.type === 'error') {
-              setTyping(false);
-              setMessages(prev => [
-                ...prev,
-                { role: 'assistant', content: ev.data.message || 'Sorry, something went wrong.', ts: new Date() },
-              ]);
-            }
-          }
-        }
-      }
-
-      // Finalise if stream ended without done event
-      setTyping(false);
-      setMessages(prev => {
-        const copy = [...prev];
-        const last = copy[copy.length - 1];
-        if (last?.streaming) copy[copy.length - 1] = { ...last, streaming: false };
-        return copy;
-      });
-
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: data.text,
+        ts: new Date(),
+      }]);
     } catch (err) {
       if (err.name === 'AbortError') return;
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: "Sorry, I couldn't connect right now. Please try again.",
+        ts: new Date(),
+      }]);
+    } finally {
       setTyping(false);
-      setMessages(prev => [
-        ...prev,
-        { role: 'assistant', content: "Sorry, I couldn't connect. Please check your connection and try again.", ts: new Date() },
-      ]);
     }
   }, [input, typing, messages, sessionId]);
 
@@ -197,10 +128,7 @@ export default function ChatWidget() {
                   <img src={BOT_AVATAR} alt="TEC" className="chat-msg-avatar" onError={e => { e.target.style.display = 'none'; }} />
                 )}
                 <div className="chat-msg-body">
-                  <div className="chat-bubble">
-                    {msg.content}
-                    {msg.streaming && <span className="chat-cursor" />}
-                  </div>
+                  <div className="chat-bubble">{msg.content}</div>
                   <div className="chat-ts">{formatTime(msg.ts)}</div>
                 </div>
               </div>

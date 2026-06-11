@@ -49,5 +49,10 @@ app.use((err, _req, res, _next) => {
   res.status(err.status || 500).json({ error: err.message || 'Internal server error' });
 });
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`TEC Chatbot API listening on port ${PORT}`));
+// Only start HTTP server when running directly (not on Lambda)
+if (require.main === module) {
+  const PORT = process.env.PORT || 3001;
+  app.listen(PORT, () => console.log(`TEC Chatbot API listening on port ${PORT}`));
+}
+
+module.exports = app;
