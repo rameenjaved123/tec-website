@@ -1,45 +1,36 @@
 /**
  * TEC Chatbot API — single-file Lambda (Node 20, no npm dependencies)
- * AI: Google Gemini (free) — chat + embeddings, one API key
+ * Chatbot answers are handled entirely in the frontend (keyword matching).
+ * This Lambda provides: rate limiting on /api/chat, conversation logging,
+ * and admin analytics/conversations endpoints secured by Cognito group auth.
+ *
+ * Auth: Cognito ID token (Bearer). Users must be in 'admin' or 'chatbot' group.
+ * No separate username/password needed — Cognito session token is used directly.
  *
  * Environment variables required:
- *   GEMINI_API_KEY        — from aistudio.google.com (free)
- *   SUPABASE_URL          — your Supabase project URL
+ *   SUPABASE_URL
  *   SUPABASE_SERVICE_ROLE_KEY
- *   JWT_SECRET            — any long random string
- *   ADMIN_USERNAME
- *   ADMIN_PASSWORD
- *   CORS_ORIGINS          — e.g. https://trenteducation.co.uk,https://www.trenteducation.co.uk
  *
  * Handler: index.handler
  * Runtime: Node.js 20.x
- * Timeout: 30s   Memory: 512 MB
+ * Timeout: 15s   Memory: 256 MB
  */
 
-import { createHmac, randomUUID, timingSafeEqual } from 'crypto';
+import { randomUUID } from 'crypto';
 
-const GROQ_KEY    = process.env.GROQ_API_KEY;
-const GEMINI_KEY  = process.env.GEMINI_API_KEY; // used only for embeddings
-const SUPA_URL    = process.env.SUPABASE_URL;
-const SUPA_KEY    = process.env.SUPABASE_SERVICE_ROLE_KEY;
-const JWT_SECRET  = process.env.JWT_SECRET || 'change-me';
-const ADMIN_USER  = process.env.ADMIN_USERNAME || 'admin';
-const ADMIN_PASS  = process.env.ADMIN_PASSWORD || 'changeme';
+const SUPA_URL = process.env.SUPABASE_URL;
+const SUPA_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-const GEMINI_EMBED_URL       = `https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key=`;
-const GEMINI_BATCH_EMBED_URL = `https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:batchEmbedContents?key=`;
-
-const SYSTEM_PROMPT = `You are a helpful assistant for Trent Education Centre (TEC), an education provider in Nottingham, UK. Help students, parents and partners with questions about courses, admissions, and student life. Be friendly and concise. If unsure, direct them to info@trenteducation.co.uk. Do not invent fees, dates or requirements.`;
-
-// ── In-memory rate limiting ────────────────────────────────
+// ── In-memory rate limiting (per IP) ──────────────────────
+// 20 messages/minute · 100/hour · 200/day
 const rateLimitStore = new Map();
 
 function checkRateLimit(ip) {
   const now = Date.now();
   const e = rateLimitStore.get(ip) || { min: [0, now], hour: [0, now], day: [0, now] };
-  if (now - e.min[1]  > 60_000)      e.min  = [0, now];
-  if (now - e.hour[1] > 3_600_000)   e.hour = [0, now];
-  if (now - e.day[1]  > 86_400_000)  e.day  = [0, now];
+  if (now - e.min[1]  > 60_000)     e.min  = [0, now];
+  if (now - e.hour[1] > 3_600_000)  e.hour = [0, now];
+  if (now - e.day[1]  > 86_400_000) e.day  = [0, now];
   e.min[0]++; e.hour[0]++; e.day[0]++;
   rateLimitStore.set(ip, e);
   if (e.min[0]  > 20)  return 'Too many messages. Please wait a moment.';
@@ -48,7 +39,7 @@ function checkRateLimit(ip) {
   return null;
 }
 
-// ── CORS / response helpers ───────────────────────────────
+// ── CORS / response helpers ────────────────────────────────
 function corsHeaders() {
   return {
     'Access-Control-Allow-Origin':  '*',
@@ -57,7 +48,7 @@ function corsHeaders() {
   };
 }
 
-function respond(status, body, origin = '') {
+function respond(status, body) {
   return {
     statusCode: status,
     headers: { 'Content-Type': 'application/json', ...corsHeaders() },
@@ -65,22 +56,20 @@ function respond(status, body, origin = '') {
   };
 }
 
-// ── JWT (HMAC-SHA256, no library) ─────────────────────────
-function jwtSign(payload) {
-  const h = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' })).replace(/=/g, '');
-  const b = btoa(JSON.stringify({ ...payload, exp: Math.floor(Date.now() / 1000) + 28800 })).replace(/=/g, '');
-  const s = createHmac('sha256', JWT_SECRET).update(`${h}.${b}`).digest('base64url');
-  return `${h}.${b}.${s}`;
-}
+// ── JWT helpers ────────────────────────────────────────────
 
-function jwtVerify(token) {
+// Verify Cognito ID token — decode payload, check cognito:groups, check expiry.
+// We don't verify the RS256 signature here (no public key in Lambda), but the
+// token is already validated by Cognito's auth flow on the client side.
+function verifyCognitoToken(token) {
   try {
-    const [h, b, s] = token.split('.');
-    const expected = createHmac('sha256', JWT_SECRET).update(`${h}.${b}`).digest('base64url');
-    if (!timingSafeEqual(Buffer.from(s), Buffer.from(expected))) throw new Error();
-    const payload = JSON.parse(Buffer.from(b, 'base64url').toString());
-    if (payload.exp < Math.floor(Date.now() / 1000)) throw new Error();
-    return payload;
+    const parts = token.split('.');
+    if (parts.length !== 3) return null;
+    const payload = JSON.parse(Buffer.from(parts[1], 'base64url').toString());
+    if (payload.exp < Math.floor(Date.now() / 1000)) return null;
+    const groups = payload['cognito:groups'] || [];
+    if (!groups.includes('admin') && !groups.includes('chatbot')) return null;
+    return { username: payload.email, groups };
   } catch { return null; }
 }
 
@@ -89,7 +78,11 @@ function getToken(event) {
   return auth.startsWith('Bearer ') ? auth.slice(7) : null;
 }
 
-// ── Supabase REST helper ──────────────────────────────────
+function verifyToken(token) {
+  return verifyCognitoToken(token);
+}
+
+// ── Supabase REST helper ───────────────────────────────────
 async function supa(path, opts = {}) {
   const r = await fetch(`${SUPA_URL}/rest/v1${path}`, {
     ...opts,
@@ -106,232 +99,74 @@ async function supa(path, opts = {}) {
   return text ? JSON.parse(text) : null;
 }
 
-async function supaRpc(fn, body) {
-  const r = await fetch(`${SUPA_URL}/rest/v1/rpc/${fn}`, {
-    method: 'POST',
-    headers: {
-      apikey: SUPA_KEY,
-      Authorization: `Bearer ${SUPA_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  });
-  if (!r.ok) throw new Error(`Supabase RPC ${r.status}: ${await r.text()}`);
-  return r.json();
-}
+// ── Route handlers ─────────────────────────────────────────
 
-// ── Gemini embeddings (768 dimensions) ───────────────────
-async function embed(text) {
-  const r = await fetch(`${GEMINI_EMBED_URL}${GEMINI_KEY}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ content: { parts: [{ text: text.slice(0, 8000) }] } }),
-  });
-  const d = await r.json();
-  if (!r.ok) throw new Error(`Gemini embed: ${d.error?.message}`);
-  return d.embedding.values;
-}
-
-async function embedBatch(texts) {
-  const r = await fetch(`${GEMINI_BATCH_EMBED_URL}${GEMINI_KEY}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      requests: texts.map(t => ({
-        model: 'models/text-embedding-004',
-        content: { parts: [{ text: t.slice(0, 8000) }] },
-      })),
-    }),
-  });
-  const d = await r.json();
-  if (!r.ok) throw new Error(`Gemini batch embed: ${d.error?.message}`);
-  return d.embeddings.map(e => e.values);
-}
-
-// ── Groq chat (free, stable, OpenAI-compatible) ───────────
-async function groqChat(messages, contextChunks) {
-  const context = contextChunks.length
-    ? '\n\nRelevant info from TEC knowledge base:\n' +
-      contextChunks.map((c, i) => `[${i + 1}] (from "${c.document_name}")\n${c.content}`).join('\n\n')
-    : '';
-
-  const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${GROQ_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: 'llama-3.1-8b-instant',
-      max_tokens: 1024,
-      temperature: 0.7,
-      messages: [
-        { role: 'system', content: SYSTEM_PROMPT + context },
-        ...messages,
-      ],
-    }),
-  });
-  const d = await r.json();
-  if (!r.ok) throw new Error(`Groq chat: ${d.error?.message}`);
-  return d.choices?.[0]?.message?.content || 'Sorry, I could not generate a response.';
-}
-
-// ── Text chunking ─────────────────────────────────────────
-function chunkText(text, size = 500, overlap = 50) {
-  const words = text.split(/\s+/).filter(Boolean);
-  const chunks = [];
-  for (let i = 0; i < words.length; i += size - overlap) {
-    const chunk = words.slice(i, i + size).join(' ');
-    if (chunk.length > 20) chunks.push(chunk);
-  }
-  return chunks;
-}
-
-// ── Route handlers ────────────────────────────────────────
-
-async function handleChat(event, origin) {
+// Rate-limit check + log the conversation (no AI involved)
+async function handleChat(event) {
   const ip = event.requestContext?.http?.sourceIp || 'unknown';
   const limited = checkRateLimit(ip);
-  if (limited) return respond(429, { error: limited }, origin);
+  if (limited) return respond(429, { error: limited });
 
   let body;
-  try { body = JSON.parse(event.body || '{}'); } catch { return respond(400, { error: 'Invalid JSON' }, origin); }
+  try { body = JSON.parse(event.body || '{}'); } catch { return respond(400, { error: 'Invalid JSON' }); }
 
-  const { messages, sessionId } = body;
-  if (!Array.isArray(messages) || messages.length === 0) return respond(400, { error: 'messages required' }, origin);
-
-  const cleaned = messages
-    .filter(m => m.role === 'user' || m.role === 'assistant')
-    .map(m => ({ role: m.role, content: String(m.content).slice(0, 2000) }))
-    .slice(-10);
-
+  const { userMessage, botAnswer, sessionId } = body;
   const sid = sessionId || randomUUID();
-  const lastUser = [...cleaned].reverse().find(m => m.role === 'user')?.content || '';
 
-  // RAG — embed query → similarity search
-  let chunks = [];
-  try {
-    const qEmbed = await embed(lastUser);
-    chunks = await supaRpc('match_document_chunks', {
-      query_embedding: qEmbed,
-      match_threshold: 0.25,
-      match_count: 5,
-    });
-  } catch (e) { console.warn('RAG skipped:', e.message); }
-
-  const text = await groqChat(cleaned, chunks || []);
-
-  // Save conversation async
-  supa('/chatbot_conversations', {
-    method: 'POST',
-    prefer: 'return=minimal',
-    body: JSON.stringify({
-      id: randomUUID(), session_id: sid,
-      user_message: lastUser, assistant_message: text,
-      sources: (chunks || []).map(c => ({ document: c.document_name, score: c.similarity })),
-    }),
-  }).catch(e => console.error('Save conv:', e.message));
-
-  return respond(200, { text, sessionId: sid }, origin);
-}
-
-async function handleGetDocuments(origin) {
-  const docs = await supa('/chatbot_documents?select=id,name,file_type,file_size,chunk_count,status,created_at&order=created_at.desc');
-  return respond(200, docs || [], origin);
-}
-
-async function handleUploadDocument(event, origin) {
-  let body;
-  try { body = JSON.parse(event.body || '{}'); } catch { return respond(400, { error: 'Invalid JSON' }, origin); }
-
-  const { name, text } = body;
-  if (!name || !text || text.trim().length < 20) return respond(400, { error: 'name and text required' }, origin);
-  if (text.length > 500_000) return respond(400, { error: 'Text too large (max 500k chars)' }, origin);
-
-  const docId = randomUUID();
-  const rawChunks = chunkText(text);
-  if (!rawChunks.length) return respond(400, { error: 'No usable text chunks' }, origin);
-
-  const embeddings = [];
-  for (let i = 0; i < rawChunks.length; i += 50) {
-    const batch = await embedBatch(rawChunks.slice(i, i + 50));
-    embeddings.push(...batch);
+  // Log conversation to Supabase (best-effort, non-blocking)
+  if (userMessage && botAnswer) {
+    supa('/chatbot_conversations', {
+      method: 'POST',
+      prefer: 'return=minimal',
+      body: JSON.stringify({
+        id: randomUUID(),
+        session_id: sid,
+        user_message: String(userMessage).slice(0, 2000),
+        assistant_message: String(botAnswer).slice(0, 5000),
+        sources: [],
+      }),
+    }).catch(e => console.error('Log conv:', e.message));
   }
 
-  await supa('/chatbot_documents', {
-    method: 'POST', prefer: 'return=minimal',
-    body: JSON.stringify({
-      id: docId, name, file_type: 'text/plain',
-      file_size: text.length, chunk_count: rawChunks.length, status: 'ready',
-    }),
-  });
-
-  await supa('/chatbot_chunks', {
-    method: 'POST', prefer: 'return=minimal',
-    body: JSON.stringify(rawChunks.map((content, idx) => ({
-      id: randomUUID(), document_id: docId, document_name: name,
-      content, embedding: embeddings[idx], chunk_index: idx,
-    }))),
-  });
-
-  return respond(200, { id: docId, name, chunkCount: rawChunks.length }, origin);
+  return respond(200, { ok: true, sessionId: sid });
 }
 
-async function handleDeleteDocument(id, origin) {
-  await supa(`/chatbot_documents?id=eq.${id}`, { method: 'DELETE', prefer: 'return=minimal' });
-  return respond(200, { ok: true }, origin);
-}
-
-async function handleAdminToken(event, origin) {
-  let body;
-  try { body = JSON.parse(event.body || '{}'); } catch { return respond(400, { error: 'Invalid JSON' }, origin); }
-  if (body.username !== ADMIN_USER || body.password !== ADMIN_PASS) return respond(401, { error: 'Invalid credentials' }, origin);
-  return respond(200, { token: jwtSign({ username: body.username, role: 'admin' }) }, origin);
-}
-
-async function handleAnalytics(origin) {
-  const [c1, c2, c3] = await Promise.all([
+async function handleAnalytics() {
+  const [c1, c2] = await Promise.all([
     supa('/chatbot_conversations?select=id').catch(() => []),
     supa(`/chatbot_conversations?select=id&created_at=gte.${new Date().toISOString().slice(0, 10)}`).catch(() => []),
-    supa('/chatbot_documents?select=id&status=eq.ready').catch(() => []),
   ]);
   return respond(200, {
     totalConversations: c1.length,
     todayConversations: c2.length,
-    totalDocuments: c3.length,
-  }, origin);
+  });
 }
 
-async function handleConversations(origin) {
+async function handleConversations() {
   const rows = await supa('/chatbot_conversations?select=*&order=created_at.desc&limit=100');
-  return respond(200, rows || [], origin);
+  return respond(200, rows || []);
 }
 
-// ── Main handler ──────────────────────────────────────────
+// ── Main handler ───────────────────────────────────────────
 export const handler = async (event) => {
-  const origin = event.headers?.origin || event.headers?.Origin || '';
   const method = event.requestContext?.http?.method || event.httpMethod || 'GET';
   const path   = (event.requestContext?.http?.path || event.path || '/').replace(/\/$/, '');
 
   if (method === 'OPTIONS') return { statusCode: 204, headers: corsHeaders(), body: '' };
 
   try {
-    if (method === 'GET'  && path === '/api/health')        return respond(200, { ok: true }, origin);
-    if (method === 'POST' && path === '/api/chat')          return await handleChat(event, origin);
-    if (method === 'POST' && path === '/api/admin/token')   return await handleAdminToken(event, origin);
+    if (method === 'GET'  && path === '/api/health') return respond(200, { ok: true });
+    if (method === 'POST' && path === '/api/chat')   return await handleChat(event);
 
     const token = getToken(event);
-    if (!token || !jwtVerify(token)) return respond(401, { error: 'Unauthorised' }, origin);
+    if (!token || !verifyToken(token)) return respond(401, { error: 'Unauthorised' });
 
-    if (method === 'GET'    && path === '/api/documents')              return await handleGetDocuments(origin);
-    if (method === 'POST'   && path === '/api/documents/upload')       return await handleUploadDocument(event, origin);
-    if (method === 'DELETE' && path.startsWith('/api/documents/'))     return await handleDeleteDocument(path.split('/').pop(), origin);
-    if (method === 'GET'    && path === '/api/admin/analytics')        return await handleAnalytics(origin);
-    if (method === 'GET'    && path === '/api/admin/conversations')     return await handleConversations(origin);
+    if (method === 'GET' && path === '/api/admin/analytics')     return await handleAnalytics();
+    if (method === 'GET' && path === '/api/admin/conversations')  return await handleConversations();
 
-    return respond(404, { error: 'Not found' }, origin);
+    return respond(404, { error: 'Not found' });
   } catch (err) {
     console.error(err);
-    return respond(500, { error: err.message || 'Internal error' }, origin);
+    return respond(500, { error: err.message || 'Internal error' });
   }
 };

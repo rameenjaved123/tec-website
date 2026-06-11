@@ -2,6 +2,16 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import './ChatWidget.css';
 
 const BOT_AVATAR = '/assets/logos/tec-crest.png';
+const LAMBDA_URL = 'https://htabzeqaghsn4zoe5z5hruppe40ckfyh.lambda-url.us-east-1.on.aws';
+
+// Fire-and-forget — logs the conversation for admin panel, also triggers rate limiting
+function logConversation(userMessage, botAnswer, sessionId) {
+  fetch(`${LAMBDA_URL}/api/chat`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ userMessage, botAnswer, sessionId }),
+  }).catch(() => {}); // never throw — this is non-critical
+}
 
 // ── FAQ knowledge base (purely from TEC site content) ─────────────────────────
 const FAQS = [
@@ -132,6 +142,7 @@ export default function ChatWidget() {
   const [input, setInput] = useState('');
   const [typing, setTyping] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(true);
+  const [sessionId] = useState(() => crypto.randomUUID());
   const bottomRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -154,12 +165,10 @@ export default function ChatWidget() {
 
     setTimeout(() => {
       const answer = findAnswer(trimmed);
-      setMessages(prev => [...prev, {
-        role: 'assistant',
-        content: answer || FALLBACK,
-        ts: new Date(),
-      }]);
+      const botAnswer = answer || FALLBACK;
+      setMessages(prev => [...prev, { role: 'assistant', content: botAnswer, ts: new Date() }]);
       setTyping(false);
+      logConversation(trimmed, botAnswer, sessionId);
     }, 450);
   }, [input, typing]);
 
