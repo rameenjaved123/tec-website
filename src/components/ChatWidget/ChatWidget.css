@@ -259,6 +259,35 @@
 .chat-footer a { color: #aaa; text-decoration: underline; }
 .chat-footer a:hover { color: var(--tec-green, #1a4a2e); }
 
+/* ── Suggested questions ─────────────────────────────────── */
+.chat-suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 4px 0 2px;
+}
+.chat-suggestions-label {
+  font-size: 0.72rem;
+  color: #999;
+  margin: 0 0 2px 4px;
+}
+.chat-suggestion-btn {
+  background: #f3f4f6;
+  border: 1.5px solid #e0e0dc;
+  border-radius: 20px;
+  padding: 7px 14px;
+  font-size: 0.82rem;
+  color: var(--tec-green, #1a4a2e);
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s, border-color 0.15s;
+  font-weight: 500;
+}
+.chat-suggestion-btn:hover {
+  background: #e8f0eb;
+  border-color: var(--tec-green, #1a4a2e);
+}
+
 /* ── Mobile ──────────────────────────────────────────────── */
 @media (max-width: 500px) {
   .chat-widget {
