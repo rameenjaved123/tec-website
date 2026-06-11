@@ -112,10 +112,12 @@
   justify-content: space-between;
   gap: 8px;
   color: rgba(255,255,255,0.88);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   padding: 9px 18px;
   transition: background 0.15s, color 0.15s;
   white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .dropdown-link:hover {
@@ -162,7 +164,8 @@
   cursor: pointer;
 }
 
-.mobile-link a {
+.mobile-link a,
+.mobile-link span {
   color: white;
   font-size: 0.9rem;
   font-weight: 500;
