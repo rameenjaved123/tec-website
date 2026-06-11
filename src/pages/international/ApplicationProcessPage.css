@@ -1,0 +1,424 @@
+/* ════════════════════════════════════════════════════════════
+   Application and Admissions Process page
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Two-column intro (heading + paragraph) ───────────────── */
+.aap-intro-split {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 40px;
+  align-items: center;
+  padding: 12px 0 32px;
+  border-bottom: 1px solid #eef0ee;
+  margin-bottom: 48px;
+}
+
+.aap-intro-split h2 {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--tec-green-dark, #122618);
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.aap-intro-split p {
+  font-size: 1rem;
+  color: var(--tec-text-light);
+  line-height: 1.85;
+  margin: 0 0 10px;
+}
+
+.aap-intro-split p:last-child { margin-bottom: 0; }
+
+/* ── Image + body split (Applying to TEC) ─────────────────── */
+.aap-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  background: #fff;
+  border: 1px solid #e8ede8;
+  border-radius: 18px;
+  overflow: hidden;
+  margin-bottom: 64px;
+}
+
+.aap-split-img {
+  position: relative;
+  min-height: 340px;
+}
+
+.aap-split-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.aap-split-body {
+  padding: 44px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+}
+
+.aap-split-eyebrow {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tec-gold);
+}
+
+.aap-split-body h3 {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--tec-green-dark, #122618);
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.aap-split-body p {
+  font-size: 0.98rem;
+  color: var(--tec-text-light);
+  line-height: 1.8;
+  margin: 0;
+}
+
+.aap-split-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--tec-green-dark, #122618);
+  color: var(--tec-gold);
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  padding: 12px 22px;
+  border-radius: 50px;
+  text-decoration: none;
+  margin-top: 6px;
+  width: max-content;
+  transition: transform 0.18s, background 0.18s;
+}
+
+.aap-split-btn:hover {
+  transform: translateY(-2px);
+  background: var(--tec-green, #1a3a2a);
+}
+
+/* ── Section heading ──────────────────────────────────────── */
+.aap-section-head {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.aap-section-head .aap-eyebrow {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tec-gold);
+  margin-bottom: 8px;
+}
+
+.aap-section-head h2 {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--tec-green-dark, #122618);
+  letter-spacing: -0.02em;
+  margin: 0 0 10px;
+}
+
+.aap-section-head p {
+  max-width: 1100px;
+  margin: 0 auto;
+  color: var(--tec-text-light);
+  font-size: 0.98rem;
+  line-height: 1.8;
+}
+
+/* ── Accordion ────────────────────────────────────────────── */
+.aap-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 56px;
+}
+
+.aap-acc-item {
+  background: #fff;
+  border: 1px solid #e8ede8;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+
+.aap-acc-item.open {
+  border-color: var(--tec-gold);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.06);
+}
+
+.aap-acc-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  padding: 18px 22px;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+}
+
+.aap-acc-num {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(201,162,39,0.15);
+  color: var(--tec-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.aap-acc-item.open .aap-acc-num {
+  background: var(--tec-gold);
+  color: #fff;
+}
+
+.aap-acc-title {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--tec-green-dark, #122618);
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+}
+
+.aap-acc-chev {
+  color: var(--tec-text-light);
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.aap-acc-item.open .aap-acc-chev {
+  transform: rotate(180deg);
+  color: var(--tec-gold);
+}
+
+.aap-acc-body {
+  padding: 0 22px 20px 70px;
+  font-size: 0.95rem;
+  color: var(--tec-text-light);
+  line-height: 1.85;
+}
+
+.aap-acc-body p { margin: 0 0 10px; }
+.aap-acc-body p:last-child { margin-bottom: 0; }
+
+.aap-acc-body ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+
+.aap-acc-body li { margin-bottom: 6px; }
+
+.aap-acc-body strong { color: var(--tec-green-dark, #122618); }
+
+.aap-acc-inline-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--tec-green-dark, #122618);
+  color: var(--tec-gold);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 8px 16px;
+  border-radius: 50px;
+  text-decoration: none;
+  margin-top: 10px;
+  transition: background 0.18s;
+}
+
+.aap-acc-inline-btn:hover {
+  background: var(--tec-green, #1a3a2a);
+}
+
+.aap-acc-checks {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.aap-acc-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.aap-acc-check-icon {
+  color: var(--tec-gold);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+/* ── What Happens After You Apply (call-out) ──────────────── */
+.aap-callout {
+  background: linear-gradient(135deg, var(--tec-green-dark, #122618) 0%, var(--tec-green, #1a3a2a) 100%);
+  color: #fff;
+  border-radius: 18px;
+  padding: 34px 40px;
+  margin-bottom: 56px;
+  position: relative;
+  overflow: hidden;
+}
+
+.aap-callout::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(201,162,39,0.10) 0%, transparent 55%),
+    radial-gradient(circle at 0% 100%, rgba(255,255,255,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.aap-callout > * { position: relative; }
+
+.aap-callout-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tec-gold);
+  margin-bottom: 8px;
+}
+
+.aap-callout h3 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 10px;
+}
+
+.aap-callout p {
+  font-size: 0.96rem;
+  line-height: 1.85;
+  color: rgba(255,255,255,0.88);
+  margin: 0;
+}
+
+/* ── Learn more cards (4-up) ──────────────────────────────── */
+.aap-learn-head {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--tec-green-dark, #122618);
+  letter-spacing: -0.01em;
+  margin: 0 0 22px;
+}
+
+.aap-cards-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 32px;
+}
+
+.aap-cards-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 32px;
+}
+
+.aap-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid #e8ede8;
+  border-radius: 14px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+}
+
+.aap-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--tec-gold);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.07);
+}
+
+.aap-card-img {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+.aap-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.aap-card:hover .aap-card-img img {
+  transform: scale(1.05);
+}
+
+.aap-card-body {
+  padding: 16px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.aap-card-title {
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: var(--tec-green-dark, #122618);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.aap-card-desc {
+  font-size: 0.84rem;
+  color: var(--tec-text-light);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .aap-cards-4 { grid-template-columns: 1fr 1fr; }
+  .aap-cards-3 { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 980px) {
+  .aap-intro-split,
+  .aap-split { grid-template-columns: 1fr; }
+  .aap-split-body { padding: 28px 24px; }
+  .aap-split-img { min-height: 240px; }
+  .aap-callout { padding: 28px 24px; }
+  .aap-acc-body { padding: 0 22px 20px 22px; }
+}
+
+@media (max-width: 600px) {
+  .aap-cards-4,
+  .aap-cards-3 { grid-template-columns: 1fr; }
+  .aap-intro-split h2,
+  .aap-section-head h2 { font-size: 1.3rem; }
+}

@@ -1,0 +1,75 @@
+/* ── Layout ── */
+.elp-container {
+  padding: 72px 20px 80px;
+  max-width: 1100px;
+}
+
+.elp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px 60px;
+  align-items: start;
+}
+
+/* ── Column heading ── */
+.elp-col-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--tec-green-dark);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid var(--tec-gold);
+}
+
+/* ── Document list ── */
+.elp-doc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.elp-doc-list li {
+  border-bottom: 1px solid #eaeaea;
+}
+
+.elp-doc-list li:last-child {
+  border-bottom: none;
+}
+
+.elp-doc-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 10px;
+  color: #333;
+  text-decoration: none;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  transition: background 0.18s, color 0.18s, padding-left 0.18s;
+  border-radius: 4px;
+}
+
+.elp-doc-link:hover {
+  background: #f3f8f3;
+  color: var(--tec-green-dark);
+  padding-left: 16px;
+}
+
+.elp-doc-icon {
+  color: #c0392b;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .elp-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .elp-container {
+    padding: 48px 20px 60px;
+  }
+}

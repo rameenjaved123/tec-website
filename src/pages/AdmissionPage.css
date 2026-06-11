@@ -1,0 +1,610 @@
+/* ── Hero ── */
+.adm-hero {
+  position: relative;
+  height: 520px;
+  background-size: cover;
+  background-position: center top;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 0;
+}
+
+.adm-hero-box {
+  background: var(--tec-green-mid);
+  padding: 20px 80px;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.adm-hero-box h1 {
+  color: #fff;
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+/* ── Apply Banner — professional gradient design ── */
+.adm-apply-banner {
+  position: relative;
+  padding: 100px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 360px;
+  background: linear-gradient(135deg, var(--tec-green-dark) 0%, #1e5c3a 50%, #2a7a50 100%);
+  overflow: hidden;
+}
+
+/* decorative geometric shapes */
+.adm-apply-banner::before {
+  content: '';
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  border: 60px solid rgba(201,162,39,0.12);
+  top: -120px;
+  right: -80px;
+  pointer-events: none;
+}
+
+.adm-apply-banner::after {
+  content: '';
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  border: 40px solid rgba(255,255,255,0.06);
+  bottom: -80px;
+  left: 60px;
+  pointer-events: none;
+}
+
+.adm-apply-content {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  color: #fff;
+  text-align: center;
+}
+
+.adm-apply-content h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.adm-apply-content p {
+  line-height: 1.8;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.9);
+}
+
+.adm-apply-content a {
+  color: var(--tec-gold);
+}
+
+.adm-apply-btn {
+  display: inline-block;
+  margin-top: 28px;
+  padding: 14px 36px;
+  background: var(--tec-gold);
+  color: var(--tec-green-dark) !important;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: 4px;
+  text-decoration: none !important;
+  transition: opacity 0.2s;
+}
+
+.adm-apply-btn:hover {
+  opacity: 0.88;
+}
+
+/* ── Our Commitment ── */
+.adm-commitment {
+  background: #f7f9f7;
+  padding: 80px 20px;
+  border-top: 1px solid #e5ece5;
+  border-bottom: 1px solid #e5ece5;
+}
+
+.adm-commitment-title {
+  color: var(--tec-green-dark);
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+/* gold underline accent */
+.adm-commitment-title::after {
+  content: '';
+  display: block;
+  width: 56px;
+  height: 3px;
+  background: var(--tec-gold);
+  margin: 12px auto 48px;
+  border-radius: 2px;
+}
+
+.adm-commitment-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 24px;
+}
+
+.adm-commit-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: #fff;
+  border: 1px solid #e0ebe0;
+  border-left: 4px solid var(--tec-green);
+  border-radius: 0 8px 8px 0;
+  padding: 20px 22px;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.adm-commit-item:hover {
+  box-shadow: 0 4px 18px rgba(26,58,42,0.09);
+  border-left-color: var(--tec-gold);
+}
+
+.adm-check {
+  color: var(--tec-green);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.adm-commit-item p {
+  color: #3a3a3a;
+  line-height: 1.75;
+  margin: 0;
+  font-size: 0.93rem;
+}
+
+/* ── Student Finance — full-width parallax bg ── */
+.adm-finance {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.adm-finance-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 28, 14, 0.72);
+}
+
+/* centred container — text left-aligned inside, matches .container width */
+.adm-finance-text {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  color: #fff;
+  padding: 72px 24px;
+}
+
+.adm-finance-text h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.adm-finance-text p {
+  line-height: 1.8;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.9);
+}
+
+.adm-finance-text a {
+  color: var(--tec-gold);
+}
+
+/* ── Scholarships & Bursaries ── */
+.adm-sb-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.adm-sb-card {
+  background: #f8f8f8;
+  border-left: 4px solid var(--tec-green-mid);
+  padding: 24px;
+  border-radius: 0 8px 8px 0;
+}
+
+.adm-sb-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--tec-green);
+  margin-bottom: 12px;
+}
+
+.adm-sb-card p {
+  line-height: 1.7;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+/* ── Criteria ── */
+.adm-criteria-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 48px;
+}
+
+.adm-criteria-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--tec-green);
+  margin-bottom: 12px;
+}
+
+.adm-criteria-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.adm-criteria-list li {
+  padding: 8px 0 8px 20px;
+  border-bottom: 1px solid #eee;
+  color: #444;
+  font-size: 0.93rem;
+  line-height: 1.6;
+  position: relative;
+}
+
+.adm-criteria-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--tec-green-mid);
+  font-weight: 700;
+}
+
+/* ── Flowchart ── */
+.adm-flowchart {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid #e0ebe0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 4px 24px rgba(26,58,42,0.07);
+}
+
+.adm-flow-item {
+  padding: 36px 32px;
+  border-right: 1px solid #e0ebe0;
+  position: relative;
+}
+
+.adm-flow-item:last-child {
+  border-right: none;
+}
+
+/* top gold accent bar */
+.adm-flow-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--tec-gold);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.adm-flow-item:hover::before {
+  opacity: 1;
+}
+
+.adm-flow-num {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: #e8f0e8;
+  line-height: 1;
+  margin-bottom: 12px;
+  font-family: Georgia, serif;
+}
+
+.adm-flow-connector {
+  display: none;
+}
+
+.adm-flow-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--tec-green-dark);
+  margin-bottom: 12px;
+}
+
+.adm-flow-desc {
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: #555;
+  margin: 0;
+}
+
+/* ── Admission Policy Banner ── */
+.adm-policy-banner {
+  background: linear-gradient(135deg, var(--tec-green) 0%, #1e5c3a 100%);
+  padding: 48px 24px;
+  border-top: 4px solid var(--tec-gold);
+}
+
+.adm-policy-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.adm-policy-text h3 {
+  color: var(--tec-gold);
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.adm-policy-text p {
+  color: rgba(255,255,255,0.85);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  max-width: 680px;
+  margin: 0;
+}
+
+.adm-policy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 30px;
+  background: var(--tec-gold);
+  color: var(--tec-green-dark) !important;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  text-decoration: none !important;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: opacity 0.2s;
+}
+
+.adm-policy-btn:hover {
+  opacity: 0.88;
+}
+
+/* ── Accordion ── */
+.adm-accordion {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.adm-acc-item {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.adm-acc-item:last-child {
+  border-bottom: none;
+}
+
+.adm-acc-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--tec-green);
+  text-align: left;
+  transition: background 0.2s;
+}
+
+.adm-acc-header:hover {
+  background: #f5f9f5;
+}
+
+.adm-acc-item.open .adm-acc-header {
+  background: var(--tec-green);
+  color: #fff;
+}
+
+.adm-acc-item.open .adm-acc-header svg {
+  color: #fff;
+}
+
+.adm-acc-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--tec-gold);
+  color: var(--tec-green-dark);
+  font-weight: 800;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.adm-acc-header svg {
+  margin-left: auto;
+  color: var(--tec-green);
+}
+
+.adm-acc-body {
+  padding: 20px 24px 20px 72px;
+  background: #f9fdf9;
+}
+
+.adm-acc-body ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.adm-acc-body li {
+  padding: 6px 0 6px 20px;
+  border-bottom: 1px solid #eee;
+  color: #444;
+  font-size: 0.93rem;
+  line-height: 1.6;
+  position: relative;
+}
+
+.adm-acc-body li::before {
+  content: '•';
+  position: absolute;
+  left: 4px;
+  color: var(--tec-green-mid);
+}
+
+.adm-acc-body li:last-child {
+  border-bottom: none;
+}
+
+/* ── CTA ── */
+.adm-cta {
+  background: linear-gradient(135deg, var(--tec-green-dark) 0%, #1a4a2e 60%, #0f2d1c 100%);
+  padding: 80px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.adm-cta::before {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  border: 70px solid rgba(201,162,39,0.07);
+  top: -180px;
+  left: -100px;
+  pointer-events: none;
+}
+
+.adm-cta::after {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 50px solid rgba(255,255,255,0.04);
+  bottom: -100px;
+  right: 80px;
+  pointer-events: none;
+}
+
+.adm-cta-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.adm-cta-icon {
+  width: 72px;
+  height: 72px;
+  background: rgba(201,162,39,0.15);
+  border: 2px solid rgba(201,162,39,0.4);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 28px;
+  color: var(--tec-gold);
+}
+
+.adm-cta h2 {
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 auto 16px;
+  line-height: 1.3;
+}
+
+.adm-cta p {
+  color: rgba(255,255,255,0.75);
+  font-size: 0.97rem;
+  line-height: 1.8;
+  margin-bottom: 36px;
+}
+
+.adm-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: var(--tec-gold);
+  color: var(--tec-green-dark) !important;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 6px;
+  text-decoration: none !important;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.adm-cta-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .adm-commitment-grid,
+  .adm-sb-grid,
+  .adm-criteria-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .adm-finance-text {
+    padding: 48px 24px;
+  }
+
+  .adm-apply-banner {
+    padding: 72px 24px;
+  }
+
+  .adm-flowchart {
+    grid-template-columns: 1fr;
+  }
+
+  .adm-flow-item {
+    border-right: none;
+    border-bottom: 1px solid #e0ebe0;
+  }
+
+  .adm-flow-item:last-child {
+    border-bottom: none;
+  }
+}

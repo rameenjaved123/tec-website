@@ -1,0 +1,116 @@
+/* ════════════════════════════════════════════════════════════
+   Pre-Arrival Information — page-specific extras
+   (re-uses .aap-* styles from ApplicationProcessPage.css
+    and .oc-step style from OfferChecklistPage.css)
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Info card (used for paragraph blocks like Family/Pack) ─ */
+.pa-info {
+  background: #fff;
+  border: 1px solid #e8ede8;
+  border-radius: 14px;
+  padding: 26px 28px;
+  margin-bottom: 18px;
+}
+
+.pa-info-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.pa-info-icon {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: rgba(201,162,39,0.14);
+  color: var(--tec-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pa-info-head h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--tec-green-dark, #122618);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.pa-info p {
+  font-size: 0.95rem;
+  color: var(--tec-text-light);
+  line-height: 1.75;
+  margin: 0 0 10px;
+}
+
+.pa-info p:last-child { margin-bottom: 0; }
+
+.pa-info ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+
+.pa-info li {
+  margin-bottom: 6px;
+  color: var(--tec-text-light);
+  line-height: 1.7;
+}
+
+.pa-info a {
+  color: var(--tec-gold);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.pa-info a:hover { text-decoration: underline; }
+
+/* ── Two-column layout (When to arrive / Right to Study) ─── */
+.pa-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin-bottom: 24px;
+}
+
+.pa-two-col > * { margin: 0; }
+
+/* ── Section heading inside info card ─────────────────────── */
+.pa-sub {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--tec-green-dark, #122618);
+  letter-spacing: -0.01em;
+  margin: 18px 0 10px;
+}
+
+/* ── Compact accordion (smaller variant for sub-cards) ────── */
+.pa-info .aap-accordion {
+  margin-bottom: 0;
+}
+
+.pa-info .aap-acc-head {
+  padding: 14px 18px;
+}
+
+.pa-info .aap-acc-title {
+  font-size: 0.92rem;
+}
+
+.pa-info .aap-acc-body {
+  padding: 0 18px 16px 56px;
+  font-size: 0.9rem;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .pa-two-col { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .pa-info { padding: 22px 20px; }
+  .pa-info .aap-acc-body { padding: 0 18px 16px 18px; }
+}

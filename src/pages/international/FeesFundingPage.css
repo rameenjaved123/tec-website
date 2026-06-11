@@ -1,0 +1,151 @@
+/* ════════════════════════════════════════════════════════════
+   Fees and Funding — page-specific extras
+   (re-uses .aap-* styles from ApplicationProcessPage.css)
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Course fee highlight ─────────────────────────────────── */
+.ff-fee-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: linear-gradient(135deg, rgba(201,162,39,0.12), rgba(201,162,39,0.04));
+  border: 1px solid rgba(201,162,39,0.35);
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin: 8px 0 18px;
+}
+
+.ff-fee-icon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: var(--tec-gold);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ff-fee-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ff-fee-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tec-green-dark, #122618);
+}
+
+.ff-fee-amount {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--tec-green-dark, #122618);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Sub-heading inside accordion body ────────────────────── */
+.ff-subhead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--tec-green-dark, #122618);
+  letter-spacing: -0.01em;
+  margin: 18px 0 10px;
+}
+
+.ff-subhead svg { color: var(--tec-gold); }
+
+/* ── Monthly cost grid ────────────────────────────────────── */
+.ff-cost-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+  margin: 10px 0 6px;
+}
+
+.ff-cost-tile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #e8ede8;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.ff-cost-tile-label {
+  font-size: 0.85rem;
+  color: var(--tec-text-light);
+}
+
+.ff-cost-tile-val {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: var(--tec-green-dark, #122618);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Accommodation highlight strip ────────────────────────── */
+.ff-acc-strip {
+  background: rgba(201,162,39,0.08);
+  border-left: 3px solid var(--tec-gold);
+  padding: 12px 16px;
+  margin: 12px 0;
+  border-radius: 0 8px 8px 0;
+}
+
+.ff-acc-strip strong {
+  color: var(--tec-green-dark, #122618);
+  font-size: 1.05rem;
+}
+
+/* ── Flywire button (official asset) ──────────────────────── */
+.ff-fly-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border: 1.5px solid #e8ede8;
+  border-radius: 50px;
+  padding: 10px 22px;
+  margin: 10px 0;
+  text-decoration: none;
+  color: var(--tec-green-dark, #122618);
+  font-weight: 800;
+  font-size: 0.9rem;
+  transition: transform 0.18s, border-color 0.18s;
+}
+
+.ff-fly-btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--tec-gold);
+}
+
+.ff-fly-btn-badge {
+  background: var(--tec-gold);
+  color: #fff;
+  padding: 3px 9px;
+  border-radius: 50px;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ── Closing line ─────────────────────────────────────────── */
+.ff-closer {
+  text-align: center;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--tec-green-dark, #122618);
+  margin: 24px auto 48px;
+  max-width: 720px;
+  line-height: 1.6;
+}

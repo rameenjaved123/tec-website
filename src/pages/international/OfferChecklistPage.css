@@ -1,0 +1,194 @@
+/* ════════════════════════════════════════════════════════════
+   Offer Checklist — page-specific extras
+   (re-uses .aap-* styles from ApplicationProcessPage.css)
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Offer comparison (conditional vs unconditional) ───────── */
+.oc-offer-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin: 18px 0 28px;
+}
+
+.oc-offer-card {
+  background: #fff;
+  border: 1px solid #e8ede8;
+  border-radius: 14px;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+
+.oc-offer-card:hover {
+  border-color: var(--tec-gold);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+}
+
+.oc-offer-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tec-gold);
+}
+
+.oc-offer-card h4 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--tec-green-dark, #122618);
+  letter-spacing: -0.01em;
+  margin: 4px 0 0;
+}
+
+.oc-offer-card p {
+  font-size: 0.92rem;
+  color: var(--tec-text-light);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── "What's next?" banner ────────────────────────────────── */
+.oc-next-banner {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  padding: 56px 48px;
+  margin-bottom: 48px;
+  color: #fff;
+  background:
+    linear-gradient(120deg, rgba(18,38,24,0.85) 0%, rgba(18,38,24,0.55) 60%, rgba(18,38,24,0.35) 100%),
+    url('https://trenteducation.co.uk/wp-content/uploads/2025/06/tec-website-photos-35-x-15-cm-2.jpg') center/cover no-repeat;
+}
+
+.oc-next-banner-inner {
+  max-width: 700px;
+}
+
+.oc-next-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tec-gold);
+  margin-bottom: 10px;
+}
+
+.oc-next-banner h3 {
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+
+.oc-next-banner p {
+  font-size: 0.98rem;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.9);
+  margin: 0;
+}
+
+/* ── Step block (Upload docs / Advance payment / Visa) ────── */
+.oc-step {
+  background: #fff;
+  border: 1px solid #e8ede8;
+  border-radius: 14px;
+  padding: 26px 28px;
+  margin-bottom: 18px;
+}
+
+.oc-step-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.oc-step-icon {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: rgba(201,162,39,0.14);
+  color: var(--tec-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.oc-step-head h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--tec-green-dark, #122618);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.oc-step p {
+  font-size: 0.95rem;
+  color: var(--tec-text-light);
+  line-height: 1.75;
+  margin: 0 0 10px;
+}
+
+.oc-step p:last-child { margin-bottom: 0; }
+
+.oc-step ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+
+.oc-step ul li {
+  margin-bottom: 6px;
+  color: var(--tec-text-light);
+  line-height: 1.7;
+}
+
+.oc-step a {
+  color: var(--tec-gold);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.oc-step a:hover { text-decoration: underline; }
+
+/* ── Deadline strip ───────────────────────────────────────── */
+.oc-deadline {
+  display: flex;
+  gap: 14px;
+  background: rgba(201,162,39,0.08);
+  border-left: 3px solid var(--tec-gold);
+  padding: 14px 18px;
+  border-radius: 0 10px 10px 0;
+  margin: 14px 0;
+}
+
+.oc-deadline-icon {
+  color: var(--tec-gold);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.oc-deadline-text {
+  font-size: 0.95rem;
+  color: var(--tec-green-dark, #122618);
+  line-height: 1.7;
+}
+
+.oc-deadline-text strong { color: var(--tec-green-dark, #122618); }
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 760px) {
+  .oc-offer-pair { grid-template-columns: 1fr; }
+  .oc-next-banner { padding: 40px 24px; }
+  .oc-next-banner h3 { font-size: 1.4rem; }
+  .oc-step { padding: 22px 20px; }
+}
