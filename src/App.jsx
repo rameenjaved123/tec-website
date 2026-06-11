@@ -178,6 +178,7 @@ export default function App() {
       <Routes>
         {/* Admin — no navbar/footer */}
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin/chatbot" element={<AdminPage />} />
         {/* Everything else — with navbar/footer */}
         <Route path="*" element={<AppLayout />} />
       </Routes>

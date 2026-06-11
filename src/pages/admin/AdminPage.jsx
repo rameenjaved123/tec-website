@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './AdminPage.css';
 import {
   getAllSubmissionsFromDB,
@@ -953,11 +954,14 @@ async function exportToExcel(entries, label) {
 const CHATBOT_API = 'https://htabzeqaghsn4zoe5z5hruppe40ckfyh.lambda-url.us-east-1.on.aws';
 
 function ChatbotPanel() {
-  const [tab, setTab] = useState('analytics');
   const [analytics, setAnalytics] = useState(null);
-  const [conversations, setConversations] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [sessions, setSessions]   = useState([]);
+  const [page, setPage]           = useState(1);
+  const [totalSessions, setTotalSessions] = useState(0);
+  const [expandedSid, setExpandedSid]     = useState(null);
+  const [loading, setLoading]     = useState(false);
+  const [error, setError]         = useState('');
+  const CONV_LIMIT = 20;
 
   async function authFetch(path) {
     const token = await getIdToken();
@@ -969,84 +973,195 @@ function ChatbotPanel() {
     return r.json();
   }
 
-  useEffect(() => {
-    setLoading(true);
-    setError('');
-    authFetch('/api/admin/analytics')
-      .then(a => setAnalytics(a))
-      .catch(e => setError(e.message))
-      .finally(() => setLoading(false));
-  }, []);
+  // Normalise whatever the Lambda returns into the sessions format.
+  // Old Lambda: flat array [{id, session_id, user_message, assistant_message, created_at}]
+  // New Lambda: {sessions:[{sessionId, latestAt, messages:[]}], totalSessions, page}
+  function normaliseConvResponse(data) {
+    if (Array.isArray(data)) {
+      // Old flat format — group by session_id client-side
+      const map = new Map();
+      for (const row of data) {
+        const sid = row.session_id || 'unknown';
+        if (!map.has(sid)) map.set(sid, []);
+        map.get(sid).push(row);
+      }
+      const sessions = [...map.entries()].map(([sid, msgs]) => ({
+        sessionId: sid,
+        latestAt: msgs[msgs.length - 1]?.created_at || msgs[0]?.created_at,
+        messages: msgs,
+      })).sort((a, b) => new Date(b.latestAt) - new Date(a.latestAt));
+      return { sessions, totalSessions: sessions.length, page: 1 };
+    }
+    return { sessions: data.sessions || [], totalSessions: data.totalSessions || 0, page: data.page || 1 };
+  }
 
-  async function loadConversations() {
+  async function loadAll(p = 1) {
     setLoading(true);
     setError('');
-    authFetch('/api/admin/conversations')
-      .then(setConversations)
+    try {
+      const [analyticsData, convRaw] = await Promise.all([
+        authFetch('/api/admin/analytics'),
+        authFetch(`/api/admin/conversations?page=${p}&limit=${CONV_LIMIT}`),
+      ]);
+      setAnalytics(analyticsData);
+      const { sessions: s, totalSessions: t, page: pg } = normaliseConvResponse(convRaw);
+      setSessions(s);
+      setTotalSessions(t);
+      setPage(pg);
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => { loadAll(1); }, []);
+
+  const totalPages = Math.max(1, Math.ceil(totalSessions / CONV_LIMIT));
+
+  function goToPage(p) {
+    setExpandedSid(null);
+    setLoading(true);
+    setError('');
+    authFetch(`/api/admin/conversations?page=${p}&limit=${CONV_LIMIT}`)
+      .then(raw => {
+        const { sessions: s, totalSessions: t, page: pg } = normaliseConvResponse(raw);
+        setSessions(s);
+        setTotalSessions(t);
+        setPage(pg);
+      })
       .catch(e => setError(e.message))
       .finally(() => setLoading(false));
   }
 
-  useEffect(() => {
-    if (tab === 'conversations') loadConversations();
-  }, [tab]);
-
-  const tabs = ['analytics', 'conversations'];
-
   return (
     <div style={{ padding: '20px 24px' }}>
-      <div style={{ display: 'flex', gap: 8, marginBottom: 24, borderBottom: '2px solid #eee', paddingBottom: 0 }}>
-        {tabs.map(t => (
-          <button key={t} onClick={() => setTab(t)} style={{
-            background: 'none', border: 'none', padding: '8px 18px 10px',
-            borderBottom: tab === t ? '2px solid var(--tec-green)' : '2px solid transparent',
-            color: tab === t ? 'var(--tec-green)' : '#666',
-            fontWeight: tab === t ? 700 : 500, fontSize: '0.88rem',
-            textTransform: 'uppercase', letterSpacing: '0.04em', cursor: 'pointer', marginBottom: -2,
-          }}>{t}</button>
+
+      {/* ── Stats bar ── */}
+      <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 24 }}>
+        {[
+          { label: 'Total Conversations', value: analytics?.totalConversations },
+          { label: "Today's Conversations", value: analytics?.todayConversations },
+        ].map(({ label, value }) => (
+          <div key={label} style={{ background: '#fff', border: '1.5px solid #eee', borderRadius: 12, padding: '16px 24px', minWidth: 150, flex: '1 1 150px' }}>
+            <div style={{ fontSize: '1.9rem', fontWeight: 800, color: 'var(--tec-green)' }}>{value ?? '—'}</div>
+            <div style={{ fontSize: '0.78rem', color: '#888', marginTop: 3 }}>{label}</div>
+          </div>
         ))}
       </div>
 
       {loading && <div style={{ color: '#888', fontSize: '0.85rem', marginBottom: 12 }}>Loading…</div>}
       {error && <div style={{ color: '#c0392b', fontSize: '0.85rem', marginBottom: 12, background: '#fef0f0', padding: '10px 14px', borderRadius: 8 }}>{error}</div>}
 
-      {tab === 'analytics' && analytics && (
-        <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-          {[
-            { label: 'Total Conversations', value: analytics.totalConversations },
-            { label: "Today's Conversations", value: analytics.todayConversations },
-          ].map(({ label, value }) => (
-            <div key={label} style={{ background: '#fff', border: '1.5px solid #eee', borderRadius: 12, padding: '20px 28px', minWidth: 160, flex: '1 1 160px' }}>
-              <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--tec-green)' }}>{value ?? '—'}</div>
-              <div style={{ fontSize: '0.8rem', color: '#888', marginTop: 4 }}>{label}</div>
-            </div>
-          ))}
-        </div>
-      )}
+      {/* ── Toolbar ── */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 14, alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
+        <span style={{ fontSize: '0.85rem', color: '#666', fontWeight: 600 }}>
+          Conversations
+          {totalSessions > 0 && <span style={{ fontWeight: 400, color: '#aaa', marginLeft: 6 }}>({totalSessions} sessions · page {page} of {totalPages})</span>}
+        </span>
+        <button onClick={() => loadAll(page)} style={{ background: 'var(--tec-green)', color: '#fff', border: 'none', borderRadius: 7, padding: '6px 14px', cursor: 'pointer', fontSize: '0.82rem' }}>
+          Refresh
+        </button>
+      </div>
 
-      {tab === 'conversations' && (
-        <div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 14, alignItems: 'center' }}>
-            <span style={{ fontSize: '0.85rem', color: '#666' }}>{conversations.length} conversations</span>
-            <button onClick={loadConversations} style={{ background: 'var(--tec-green)', color: '#fff', border: 'none', borderRadius: 7, padding: '6px 14px', cursor: 'pointer', fontSize: '0.82rem' }}>Refresh</button>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-            {conversations.map(c => (
-              <div key={c.id} style={{ background: '#fff', border: '1.5px solid #eee', borderRadius: 10, padding: '14px 16px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-                  <span style={{ fontSize: '0.72rem', color: '#aaa' }}>{new Date(c.created_at).toLocaleString('en-GB')}</span>
-                  <span style={{ fontSize: '0.72rem', color: '#bbb' }}>Session: {c.session_id?.slice(0, 8)}…</span>
+      {/* ── Session cards ── */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {sessions.map((s) => {
+          const isOpen = expandedSid === s.sessionId;
+          const firstMsg = s.messages[0];
+          const msgCount = s.messages.length;
+          return (
+            <div key={s.sessionId} style={{ background: '#fff', border: `1.5px solid ${isOpen ? 'var(--tec-green)' : '#eee'}`, borderRadius: 10, overflow: 'hidden', transition: 'border-color 0.15s' }}>
+              <button
+                onClick={() => setExpandedSid(isOpen ? null : s.sessionId)}
+                style={{ width: '100%', background: isOpen ? '#f8fdf9' : 'none', border: 'none', padding: '12px 16px', cursor: 'pointer', display: 'flex', alignItems: 'flex-start', gap: 10, textAlign: 'left' }}
+              >
+                <span style={{ fontSize: '0.85rem', flexShrink: 0, color: '#aaa', marginTop: 2 }}>{isOpen ? '▾' : '▸'}</span>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  {/* Session ID row */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
+                    <span style={{ fontSize: '0.68rem', background: isOpen ? '#d8eadc' : '#f0f0f0', color: isOpen ? '#1a4a2e' : '#888', borderRadius: 4, padding: '2px 7px', fontFamily: 'monospace', fontWeight: 600, letterSpacing: '0.03em', flexShrink: 0 }}>
+                      Session {s.sessionId?.slice(0, 8) ?? 'unknown'}
+                    </span>
+                    <span style={{ fontSize: '0.7rem', color: '#bbb' }}>
+                      {new Date(s.latestAt).toLocaleString('en-GB')}
+                    </span>
+                    <span style={{ fontSize: '0.7rem', background: '#f3f4f6', color: '#999', borderRadius: 10, padding: '1px 8px', marginLeft: 'auto' }}>
+                      {msgCount} msg{msgCount !== 1 ? 's' : ''}
+                    </span>
+                  </div>
+                  {/* First message preview */}
+                  <div style={{ fontSize: '0.86rem', color: '#333', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    <span style={{ color: '#999', fontSize: '0.78rem', marginRight: 4 }}>Q:</span>
+                    {firstMsg?.user_message || '(no message)'}
+                  </div>
                 </div>
-                <div style={{ fontSize: '0.88rem', marginBottom: 6 }}><strong>User:</strong> {c.user_message}</div>
-                <div style={{ fontSize: '0.85rem', color: '#444', borderLeft: '3px solid var(--tec-green)', paddingLeft: 10 }}>{c.assistant_message?.slice(0, 200)}{c.assistant_message?.length > 200 ? '…' : ''}</div>
-              </div>
-            ))}
-            {conversations.length === 0 && !loading && !error && <div style={{ color: '#bbb', fontSize: '0.85rem' }}>No conversations yet.</div>}
-          </div>
+              </button>
+
+              {isOpen && (
+                <div style={{ borderTop: '2px solid #e8f0eb', background: '#fbfdfb' }}>
+                  {/* Full session ID */}
+                  <div style={{ padding: '8px 16px 4px', fontSize: '0.68rem', color: '#aaa', fontFamily: 'monospace', borderBottom: '1px solid #f0f0f0' }}>
+                    Full Session ID: {s.sessionId}
+                  </div>
+                  {s.messages.map((m, i) => (
+                    <div key={m.id || i} style={{ padding: '12px 16px', borderBottom: i < s.messages.length - 1 ? '1px solid #eef0ee' : 'none' }}>
+                      {/* User bubble */}
+                      <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+                        <span style={{ fontSize: '0.7rem', fontWeight: 700, color: '#888', background: '#f0f0f0', borderRadius: 4, padding: '2px 7px', flexShrink: 0, height: 'fit-content', marginTop: 2 }}>USER</span>
+                        <div style={{ fontSize: '0.86rem', color: '#222', lineHeight: 1.5 }}>{m.user_message}</div>
+                      </div>
+                      {/* Bot bubble */}
+                      <div style={{ display: 'flex', gap: 8 }}>
+                        <span style={{ fontSize: '0.7rem', fontWeight: 700, color: '#fff', background: 'var(--tec-green)', borderRadius: 4, padding: '2px 7px', flexShrink: 0, height: 'fit-content', marginTop: 2 }}>BOT</span>
+                        <div style={{ fontSize: '0.84rem', color: '#444', lineHeight: 1.55 }}>
+                          {m.assistant_message?.slice(0, 400)}{m.assistant_message?.length > 400 ? '…' : ''}
+                        </div>
+                      </div>
+                      <div style={{ fontSize: '0.67rem', color: '#ccc', marginTop: 6, textAlign: 'right' }}>
+                        {new Date(m.created_at).toLocaleString('en-GB')}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+        {sessions.length === 0 && !loading && !error && (
+          <div style={{ color: '#bbb', fontSize: '0.85rem', padding: '32px 0', textAlign: 'center' }}>No conversations yet.</div>
+        )}
+      </div>
+
+      {/* ── Pagination ── */}
+      {totalPages > 1 && (
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 20 }}>
+          <button onClick={() => goToPage(1)} disabled={page === 1} style={pgBtn(page === 1)}>«</button>
+          <button onClick={() => goToPage(page - 1)} disabled={page === 1} style={pgBtn(page === 1)}>‹</button>
+          {Array.from({ length: totalPages }, (_, i) => i + 1)
+            .filter(p => p === 1 || p === totalPages || Math.abs(p - page) <= 1)
+            .reduce((acc, p, i, arr) => { if (i > 0 && p - arr[i - 1] > 1) acc.push('…'); acc.push(p); return acc; }, [])
+            .map((p, i) => p === '…'
+              ? <span key={`e${i}`} style={{ color: '#aaa', padding: '0 4px' }}>…</span>
+              : <button key={p} onClick={() => goToPage(p)} style={pgBtn(false, p === page)}>{p}</button>
+            )}
+          <button onClick={() => goToPage(page + 1)} disabled={page === totalPages} style={pgBtn(page === totalPages)}>›</button>
+          <button onClick={() => goToPage(totalPages)} disabled={page === totalPages} style={pgBtn(page === totalPages)}>»</button>
         </div>
       )}
     </div>
   );
+}
+
+function pgBtn(disabled, active = false) {
+  return {
+    minWidth: 32, height: 32, padding: '0 8px',
+    background: active ? 'var(--tec-green)' : disabled ? '#f5f5f5' : '#fff',
+    color: active ? '#fff' : disabled ? '#ccc' : '#333',
+    border: `1px solid ${active ? 'var(--tec-green)' : '#ddd'}`,
+    borderRadius: 6, cursor: disabled ? 'default' : 'pointer',
+    fontSize: '0.85rem', fontWeight: active ? 700 : 400,
+  };
 }
 
 // ── Main Dashboard ────────────────────────────────────────
@@ -1058,11 +1173,13 @@ export default function AdminPage() {
   const [filter, setFilter]           = useState('');
   const [search, setSearch]           = useState('');
   const [loading, setLoading]         = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
   const [dbMode, setDbMode]           = useState(false);
   const [entriesOpen, setEntriesOpen] = useState(true);
   const [formsOpen, setFormsOpen]     = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('entries'); // 'entries' | 'chatbot'
+  const activeSection = location.pathname === '/admin/chatbot' ? 'chatbot' : 'entries';
   const [page, setPage]               = useState(1);
   const PER_PAGE                      = 25;
 
@@ -1226,8 +1343,8 @@ export default function AdminPage() {
           {entriesOpen && visibleFormTypes.map(t => (
             <button
               key={t}
-              className={`adm-nav-item${filter === t ? ' active' : ''}`}
-              onClick={() => { setFilterAndReset(t); setSidebarOpen(false); }}
+              className={`adm-nav-item${activeSection === 'entries' && filter === t ? ' active' : ''}`}
+              onClick={() => { if (activeSection === 'chatbot') navigate('/admin'); setFilterAndReset(t); setSidebarOpen(false); }}
             >
               <span>{labelFor(t)}</span>
               <span className="adm-badge">{entries.filter(e => e.formType === t && (allowedForms === null || allowedForms.includes(e.formType))).length}</span>
@@ -1264,12 +1381,14 @@ export default function AdminPage() {
           {/* ── CHATBOT — only for admin or chatbot group ── */}
           {(currentUser.groups.includes('admin') || currentUser.groups.includes('chatbot')) && (
             <button
-              className={`adm-nav-section${activeSection === 'chatbot' ? ' active' : ''}`}
-              onClick={() => { setActiveSection('chatbot'); setSidebarOpen(false); }}
-              style={{ marginTop: 8, justifyContent: 'flex-start', gap: 8 }}
+              className={`adm-nav-item${activeSection === 'chatbot' ? ' active' : ''}`}
+              onClick={() => { navigate('/admin/chatbot'); setSidebarOpen(false); }}
+              style={{ marginTop: 10 }}
             >
-              <span>🤖</span>
-              <span>CHATBOT</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span>🤖</span>
+                <span>Chatbot</span>
+              </span>
             </button>
           )}
 
@@ -1308,7 +1427,7 @@ export default function AdminPage() {
               <button className="adm-sidebar-toggle" onClick={() => setSidebarOpen(true)}>☰</button>
               <div>
                 <h1 className="adm-title">Chatbot Management</h1>
-                <p className="adm-subtitle">Knowledge base, conversations &amp; analytics</p>
+                <p className="adm-subtitle">Conversations &amp; analytics · <span style={{ fontSize: '0.7rem', color: '#aaa' }}>🗑 Messages older than 3 months are auto-deleted</span></p>
               </div>
             </div>
             <ChatbotPanel />

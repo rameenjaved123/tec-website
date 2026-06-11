@@ -25,11 +25,12 @@
 13. [Admin Dashboard](#13-admin-dashboard)
 14. [Forms System](#14-forms-system)
 15. [Frontend Architecture](#15-frontend-architecture)
-16. [GDPR & Privacy Compliance](#16-gdpr--privacy-compliance)
-17. [What Has Been Achieved](#17-what-has-been-achieved)
-18. [Known Issues & Limitations](#18-known-issues--limitations)
-19. [Future Roadmap](#19-future-roadmap)
-20. [Runbook — How to Replicate This Project](#20-runbook--how-to-replicate-this-project)
+16. [Chatbot System](#16-chatbot-system)
+17. [GDPR & Privacy Compliance](#17-gdpr--privacy-compliance)
+18. [What Has Been Achieved](#18-what-has-been-achieved)
+19. [Known Issues & Limitations](#19-known-issues--limitations)
+20. [Future Roadmap](#20-future-roadmap)
+21. [Runbook — How to Replicate This Project](#21-runbook--how-to-replicate-this-project)
 
 ---
 
@@ -913,7 +914,393 @@ A `<DevSearch>` component is shown in the navbar **only in development mode** (`
 
 ---
 
-## 16. GDPR & Privacy Compliance
+## 16. Chatbot System
+
+The TEC website includes a floating chat widget that answers common student questions entirely on the frontend using keyword matching — no AI, no external API calls for answers. Conversations are logged to Supabase (PostgreSQL) via a dedicated AWS Lambda function URL.
+
+---
+
+### Architecture Overview
+
+```
+User visits TEC website
+        │
+        ▼
+ChatWidget.jsx (React — always mounted)
+        │
+        ├── User types a question
+        │         │
+        │         ▼
+        │   findAnswer(input)         ← pure keyword matching, no API call
+        │         │
+        │         ▼
+        │   Match found? ──Yes──► Show answer from FAQS array
+        │         │
+        │         No
+        │         ▼
+        │   Show FALLBACK message (phone + email)
+        │
+        └── After every answer: logConversation() ──► fire-and-forget POST
+                                                              │
+                                                              ▼
+                                               Lambda Function URL (AWS)
+                                                              │
+                                                   ┌──────────┴──────────┐
+                                                   │  Rate limit check    │
+                                                   │  (per IP, in-memory) │
+                                                   └──────────┬──────────┘
+                                                              │
+                                                              ▼
+                                                   Supabase (PostgreSQL)
+                                                   chatbot_conversations
+                                                   chatbot_sessions
+```
+
+---
+
+### Frontend — ChatWidget
+
+**File:** `src/components/ChatWidget/ChatWidget.jsx`
+
+The widget is mounted globally (in `App.jsx`) and appears on every page as a fixed floating button in the bottom-right corner.
+
+#### How answers work
+
+```javascript
+// 1. User types a question
+// 2. findAnswer() lowercases input and scores each FAQ entry
+// 3. Each FAQ has an array of keywords — multi-word keywords score higher
+// 4. The FAQ with the highest score is returned if score > 0
+// 5. If no FAQ scores, FALLBACK is shown
+
+const FALLBACK = "I don't have information about that. Please contact "
+               + "(+44) 1157950171 / info@trenteducation.co.uk";
+```
+
+#### FAQ topics covered (15 entries)
+
+| Topic | Keywords include |
+|---|---|
+| Courses available | course, study, offer, programme |
+| GCSEs | gcse — explicitly states TEC does NOT offer GCSEs |
+| How to apply | apply, application, enrol, sign up |
+| Fees | fee, cost, price, pay, tuition |
+| Locations | location, centre, address, nottingham, leicester, birmingham |
+| Entry requirements | requirement, qualify, eligible, level |
+| Scholarships & bursaries | scholarship, bursary, funding, financial support |
+| English language courses | english, esol, ielts, language |
+| BTEC HND | btec, hnd, higher national, level 4, level 5 |
+| Contact | contact, phone, email, call, reach |
+| International students | international, overseas, visa, foreign |
+| Digital Skills | digital, computer, it skills, beginner |
+| SIA / Door Supervisors | sia, door supervisor, security, licence |
+| Maths | maths, mathematics, functional skills maths |
+| ATHE Level 3 | athe, level 3, diploma, business |
+
+#### Suggested questions
+
+Six clickable suggestion buttons are shown when the chat opens:
+
+1. What courses do you offer?
+2. How do I apply?
+3. What are the fees?
+4. Do you offer GCSEs?
+5. Where are you located?
+6. How can I contact TEC?
+
+#### Session ID
+
+Each chat session generates a UUID on widget mount:
+
+```javascript
+const [sessionId] = useState(() => crypto.randomUUID());
+```
+
+This UUID groups all messages from one browser visit into one session in the database.
+
+#### Conversation logging
+
+After every answer, a fire-and-forget POST is sent to Lambda — it never throws or blocks the UI:
+
+```javascript
+async function logConversation(userMessage, botAnswer, sessionId) {
+  try {
+    await fetch(`${LAMBDA_URL}/api/chat`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userMessage, botAnswer, sessionId }),
+    });
+  } catch { /* silent — never affects the user */ }
+}
+```
+
+---
+
+### Backend — Lambda Function URL
+
+**File:** `lambda/tec-chatbot-api/index.mjs`  
+**URL:** `https://htabzeqaghsn4zoe5z5hruppe40ckfyh.lambda-url.us-east-1.on.aws`  
+**Runtime:** Node.js 20.x · single file · no npm dependencies  
+**Env vars required:** `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`
+
+This Lambda uses a **Function URL** (not API Gateway) — it has a direct HTTPS endpoint with no extra routing layer.
+
+#### Routes
+
+| Method | Path | Auth | Description |
+|---|---|---|---|
+| `GET` | `/api/health` | None | Health check |
+| `POST` | `/api/chat` | None | Rate limit + log conversation |
+| `GET` | `/api/admin/analytics` | Cognito Bearer | Session counts + today's messages |
+| `GET` | `/api/admin/conversations` | Cognito Bearer | Paginated session list with messages |
+
+#### Rate limiting
+
+In-memory rate limiting per IP address (resets on Lambda cold start):
+
+| Window | Limit | Error message |
+|---|---|---|
+| Per minute | 20 messages | "Too many messages. Please wait a moment." |
+| Per hour | 100 messages | "Hourly limit reached. Please try again later." |
+| Per day | 200 messages | "Daily limit reached. Please contact TEC directly." |
+
+The rate limit store is a `Map` keyed by IP. Lambda cold starts reset all counters (acceptable trade-off for simplicity — no Redis needed).
+
+#### Authentication (admin endpoints)
+
+Admin endpoints require a Cognito ID token as `Authorization: Bearer <token>`. The Lambda decodes the JWT payload (no RS256 signature verification — token already issued by Cognito), checks expiry, and verifies the user is in the `admin` or `chatbot` Cognito group:
+
+```
+Admin visits /admin/chatbot
+        │
+        ▼
+AdminPage.jsx calls getIdToken() from cognitoAuth.js
+        │
+        ▼
+Cognito session → returns JWT IdToken string
+        │
+        ▼
+authFetch('/api/admin/conversations') sends Bearer token
+        │
+        ▼
+Lambda decodes JWT payload → checks cognito:groups
+        │
+   ┌────┴────┐
+   │         │
+admin or   Neither
+chatbot    group
+group       │
+   │        ▼
+   │    401 Unauthorised
+   ▼
+Proceed with request
+```
+
+#### Session upsert logic
+
+When `/api/chat` receives a message, it:
+1. Inserts a row into `chatbot_conversations`
+2. Checks if the session ID already exists in `chatbot_sessions`
+   - If yes → PATCH `last_message_at` and increment `message_count`
+   - If no → INSERT new session row
+
+Both operations are fire-and-forget (non-blocking).
+
+---
+
+### Database — Supabase (PostgreSQL)
+
+**Provider:** Supabase (hosted PostgreSQL)  
+**Auth method used by Lambda:** `service_role` key (bypasses RLS entirely)  
+**RLS:** Enabled on both tables — no public access via `anon` or `authenticated` keys
+
+#### Table: `chatbot_conversations`
+
+Stores every individual message exchange.
+
+```sql
+create table chatbot_conversations (
+  id                 uuid primary key,
+  session_id         text,                      -- groups messages into sessions
+  user_message       text,                      -- what the user typed (max 2000 chars)
+  assistant_message  text,                      -- what the bot answered (max 5000 chars)
+  sources            jsonb default '[]',        -- legacy field, always empty array
+  created_at         timestamptz default now()
+);
+
+create index chatbot_conversations_created_idx  on chatbot_conversations(created_at desc);
+create index chatbot_conversations_session_idx  on chatbot_conversations(session_id);
+```
+
+#### Table: `chatbot_sessions`
+
+One row per unique chat session. Enables fast, accurate pagination without scanning conversations.
+
+```sql
+create table chatbot_sessions (
+  id               text primary key,            -- same UUID as session_id in conversations
+  created_at       timestamptz default now(),
+  last_message_at  timestamptz default now(),   -- updated on every new message
+  message_count    int default 0               -- incremented on every new message
+);
+
+create index chatbot_sessions_last_msg_idx on chatbot_sessions(last_message_at desc);
+```
+
+#### Relationship diagram
+
+```
+chatbot_sessions
+  id (PK, text)
+  created_at
+  last_message_at ◄── updated on every message
+  message_count   ◄── incremented on every message
+        │
+        │ 1 session : N conversations
+        │
+chatbot_conversations
+  id (PK, uuid)
+  session_id ──────────────────────────► chatbot_sessions.id
+  user_message
+  assistant_message
+  sources
+  created_at
+```
+
+#### Why two tables?
+
+Without `chatbot_sessions`, paginating sessions requires fetching all conversations, grouping them in code, then slicing — this breaks at scale (page 5 would require scanning the first 100+ conversations).
+
+With `chatbot_sessions`, pagination is a direct `LIMIT / OFFSET` on a small indexed table:
+
+```
+Page request for sessions 21–40:
+  Step 1: SELECT * FROM chatbot_sessions ORDER BY last_message_at DESC LIMIT 20 OFFSET 20
+  Step 2: SELECT * FROM chatbot_conversations WHERE session_id IN (those 20 IDs)
+  → 2 queries, always fast regardless of total data size
+```
+
+---
+
+### Data Retention — Automatic Cleanup
+
+Old chatbot data is deleted automatically by a **Supabase pg_cron scheduled job**, not by the Lambda. This ensures cleanup happens even if the admin panel is never opened.
+
+#### Step 1 — Enable pg_cron extension
+
+1. Supabase Dashboard → **Database → Extensions**
+2. Search for `pg_cron` → toggle **ON**
+3. When prompted to select a schema, choose **`pg_catalog`** (the only valid option — this is correct)
+4. Confirm
+
+#### Step 2 — Create the scheduled job
+
+Run this in **Database → SQL Editor**:
+
+```sql
+select cron.schedule(
+  'delete-old-chatbot-data',
+  '0 2 * * 0',           -- every Sunday at 2:00am UTC
+  $$
+    delete from chatbot_conversations
+    where created_at < now() - interval '90 days';
+
+    delete from chatbot_sessions
+    where created_at < now() - interval '90 days';
+  $$
+);
+```
+
+#### Monitoring scheduled jobs
+
+**Supabase Dashboard → Database → Cron Jobs** shows all jobs, last run time, next run time and status.
+
+Or query directly in the SQL editor:
+
+```sql
+-- All scheduled jobs
+select * from cron.job;
+
+-- Recent run history (time, status, rows affected)
+select * from cron.job_run_details order by start_time desc limit 20;
+```
+
+| Setting | Value |
+|---|---|
+| Retention period | 90 days (3 months) |
+| Schedule | Every Sunday, 2:00am UTC |
+| Managed by | Supabase pg_cron (installed in `pg_catalog` schema) |
+| Tables affected | `chatbot_conversations`, `chatbot_sessions` |
+
+---
+
+### Admin Panel — Chatbot Management
+
+Accessible at `/admin/chatbot` (requires `admin` or `chatbot` Cognito group).
+
+#### Features
+
+| Feature | Description |
+|---|---|
+| **Stats bar** | Total sessions and today's message count, loaded in parallel with conversations |
+| **Session cards** | Each session shown as a collapsible card — session ID badge, timestamp, message count, first question preview |
+| **Expand session** | Click a card to see full conversation thread with USER / BOT labels |
+| **Pagination** | 20 sessions per page, page controls with ellipsis for large sets |
+| **Refresh** | Reloads current page from API |
+| **URL routing** | `/admin/chatbot` — page reload preserves the section |
+
+#### Access control
+
+The Chatbot nav item in the admin sidebar is only shown to users in the `admin` or `chatbot` Cognito group:
+
+```jsx
+{(currentUser.groups.includes('admin') || currentUser.groups.includes('chatbot')) && (
+  <button onClick={() => navigate('/admin/chatbot')}>
+    🤖 Chatbot
+  </button>
+)}
+```
+
+The `chatbot` group is for staff who only need chatbot visibility — they cannot see form submissions.
+
+---
+
+### Code Structure — Chatbot Files
+
+```
+tec-website/
+├── src/
+│   ├── components/
+│   │   └── ChatWidget/
+│   │       ├── ChatWidget.jsx        # Widget UI + keyword matching + logging
+│   │       └── ChatWidget.css        # Styles (launcher, bubbles, suggestions)
+│   │
+│   └── pages/
+│       └── admin/
+│           └── AdminPage.jsx         # ChatbotPanel component (analytics + conversations)
+│
+└── lambda/
+    └── tec-chatbot-api/
+        └── index.mjs                 # Lambda: rate limiting, logging, admin API
+```
+
+---
+
+### Cognito Groups for Chatbot
+
+| Group | Can see chatbot panel | Can see form submissions |
+|---|---|---|
+| `admin` | ✅ | ✅ |
+| `chatbot` | ✅ | ❌ |
+| Any other group | ❌ | Depends on group |
+
+To grant a staff member chatbot-only access:
+1. AWS Cognito Console → User pools → `eu-west-2_sbCIAMB5c`
+2. Users → select user → Add to group → `chatbot`
+
+---
+
+## 17. GDPR & Privacy Compliance
 
 ### What Has Been Done
 
@@ -956,7 +1343,7 @@ A `<DevSearch>` component is shown in the navbar **only in development mode** (`
 
 ---
 
-## 17. What Has Been Achieved
+## 18. What Has Been Achieved
 
 ### Infrastructure
 - ✅ Full AWS serverless backend (API Gateway + Lambda + DynamoDB + SES + S3)
@@ -999,7 +1386,7 @@ A `<DevSearch>` component is shown in the navbar **only in development mode** (`
 
 ---
 
-## 18. Known Issues & Limitations
+## 19. Known Issues & Limitations
 
 | Issue | Impact | Fix |
 |---|---|---|
@@ -1014,7 +1401,7 @@ A `<DevSearch>` component is shown in the navbar **only in development mode** (`
 
 ---
 
-## 19. Future Roadmap
+## 20. Future Roadmap
 
 ### Short Term (Before Full Go-Live)
 
@@ -1042,7 +1429,7 @@ A `<DevSearch>` component is shown in the navbar **only in development mode** (`
 
 ---
 
-## 20. Runbook — How to Replicate This Project
+## 21. Runbook — How to Replicate This Project
 
 This section is a step-by-step guide for any developer (human or AI) building a similar project from scratch.
 

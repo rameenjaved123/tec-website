@@ -56,11 +56,9 @@ function respond(status, body) {
   };
 }
 
-// ── JWT helpers ────────────────────────────────────────────
-
-// Verify Cognito ID token — decode payload, check cognito:groups, check expiry.
-// We don't verify the RS256 signature here (no public key in Lambda), but the
-// token is already validated by Cognito's auth flow on the client side.
+// ── Cognito token verification ─────────────────────────────
+// Decodes JWT payload, checks cognito:groups and expiry.
+// Signature not verified here — token is already issued by Cognito.
 function verifyCognitoToken(token) {
   try {
     const parts = token.split('.');
@@ -76,10 +74,6 @@ function verifyCognitoToken(token) {
 function getToken(event) {
   const auth = event.headers?.authorization || event.headers?.Authorization || '';
   return auth.startsWith('Bearer ') ? auth.slice(7) : null;
-}
-
-function verifyToken(token) {
-  return verifyCognitoToken(token);
 }
 
 // ── Supabase REST helper ───────────────────────────────────
@@ -99,9 +93,30 @@ async function supa(path, opts = {}) {
   return text ? JSON.parse(text) : null;
 }
 
+// ── Upsert session row ─────────────────────────────────────
+// Insert new session or bump last_message_at + message_count on existing one.
+async function upsertSession(sid, now) {
+  const existing = await supa(`/chatbot_sessions?id=eq.${encodeURIComponent(sid)}&select=message_count`);
+  if (existing?.length) {
+    await supa(`/chatbot_sessions?id=eq.${encodeURIComponent(sid)}`, {
+      method: 'PATCH',
+      prefer: 'return=minimal',
+      body: JSON.stringify({
+        last_message_at: now,
+        message_count: (existing[0].message_count || 0) + 1,
+      }),
+    });
+  } else {
+    await supa('/chatbot_sessions', {
+      method: 'POST',
+      prefer: 'return=minimal',
+      body: JSON.stringify({ id: sid, last_message_at: now, message_count: 1 }),
+    });
+  }
+}
+
 // ── Route handlers ─────────────────────────────────────────
 
-// Rate-limit check + log the conversation (no AI involved)
 async function handleChat(event) {
   const ip = event.requestContext?.http?.sourceIp || 'unknown';
   const limited = checkRateLimit(ip);
@@ -112,9 +127,10 @@ async function handleChat(event) {
 
   const { userMessage, botAnswer, sessionId } = body;
   const sid = sessionId || randomUUID();
+  const now = new Date().toISOString();
 
-  // Log conversation to Supabase (best-effort, non-blocking)
   if (userMessage && botAnswer) {
+    // Log conversation row
     supa('/chatbot_conversations', {
       method: 'POST',
       prefer: 'return=minimal',
@@ -126,25 +142,67 @@ async function handleChat(event) {
         sources: [],
       }),
     }).catch(e => console.error('Log conv:', e.message));
+
+    // Keep sessions table in sync (fire-and-forget)
+    upsertSession(sid, now).catch(e => console.error('Session upsert:', e.message));
   }
 
   return respond(200, { ok: true, sessionId: sid });
 }
 
 async function handleAnalytics() {
+  // Old data cleanup is handled by Supabase pg_cron (runs every Sunday at 2am UTC).
+  // No manual deletion here.
   const [c1, c2] = await Promise.all([
-    supa('/chatbot_conversations?select=id').catch(() => []),
+    supa('/chatbot_sessions?select=id').catch(() => []),
     supa(`/chatbot_conversations?select=id&created_at=gte.${new Date().toISOString().slice(0, 10)}`).catch(() => []),
   ]);
+
   return respond(200, {
-    totalConversations: c1.length,
-    todayConversations: c2.length,
+    totalConversations: c1.length,   // total unique sessions
+    todayConversations: c2.length,   // individual messages today
   });
 }
 
-async function handleConversations() {
-  const rows = await supa('/chatbot_conversations?select=*&order=created_at.desc&limit=100');
-  return respond(200, rows || []);
+// Proper pagination: page directly from chatbot_sessions, then fetch only
+// the messages belonging to that page's sessions — 2 queries, always exact.
+async function handleConversations(event) {
+  const qs     = event.queryStringParameters || {};
+  const page   = Math.max(1, parseInt(qs.page)  || 1);
+  const limit  = Math.min(50, parseInt(qs.limit) || 20);
+  const offset = (page - 1) * limit;
+
+  // Step 1 — paginate sessions (fast index scan on last_message_at)
+  const [sessionRows, countRows] = await Promise.all([
+    supa(`/chatbot_sessions?order=last_message_at.desc&limit=${limit}&offset=${offset}`),
+    supa('/chatbot_sessions?select=id'),
+  ]);
+
+  if (!sessionRows?.length) {
+    return respond(200, { sessions: [], page, limit, totalSessions: countRows?.length || 0 });
+  }
+
+  // Step 2 — fetch messages for only this page's sessions
+  const ids = sessionRows.map(s => `"${s.id}"`).join(',');
+  const messages = await supa(
+    `/chatbot_conversations?session_id=in.(${ids})&order=created_at.asc&limit=1000`
+  );
+
+  // Group messages by session_id
+  const msgMap = new Map();
+  for (const m of messages || []) {
+    if (!msgMap.has(m.session_id)) msgMap.set(m.session_id, []);
+    msgMap.get(m.session_id).push(m);
+  }
+
+  const sessions = sessionRows.map(s => ({
+    sessionId:    s.id,
+    latestAt:     s.last_message_at,
+    messageCount: s.message_count,
+    messages:     msgMap.get(s.id) || [],
+  }));
+
+  return respond(200, { sessions, page, limit, totalSessions: countRows?.length || 0 });
 }
 
 // ── Main handler ───────────────────────────────────────────
@@ -159,10 +217,10 @@ export const handler = async (event) => {
     if (method === 'POST' && path === '/api/chat')   return await handleChat(event);
 
     const token = getToken(event);
-    if (!token || !verifyToken(token)) return respond(401, { error: 'Unauthorised' });
+    if (!token || !verifyCognitoToken(token)) return respond(401, { error: 'Unauthorised' });
 
-    if (method === 'GET' && path === '/api/admin/analytics')     return await handleAnalytics();
-    if (method === 'GET' && path === '/api/admin/conversations')  return await handleConversations();
+    if (method === 'GET' && path === '/api/admin/analytics')    return await handleAnalytics();
+    if (method === 'GET' && path === '/api/admin/conversations') return await handleConversations(event);
 
     return respond(404, { error: 'Not found' });
   } catch (err) {
