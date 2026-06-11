@@ -129,54 +129,70 @@ function formatTime(date) {
   return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
 
+const INITIAL_MESSAGE = {
+  role: 'assistant',
+  content: "Hello! 👋 I'm the TEC assistant. I can answer questions about our courses, admissions, fees, locations, and more.\n\nWhat would you like to know?",
+  ts: new Date(),
+};
+
+function freshState() {
+  return {
+    messages: [{ ...INITIAL_MESSAGE, ts: new Date() }],
+    showSuggestions: true,
+    sessionId: crypto.randomUUID(),
+  };
+}
+
 export default function ChatWidget() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen]           = useState(false);
   const [minimised, setMinimised] = useState(false);
-  const [messages, setMessages] = useState([
-    {
-      role: 'assistant',
-      content: "Hello! 👋 I'm the TEC assistant. I can answer questions about our courses, admissions, fees, locations, and more.\n\nWhat would you like to know?",
-      ts: new Date(),
-    },
-  ]);
-  const [input, setInput] = useState('');
-  const [typing, setTyping] = useState(false);
+  const [messages, setMessages]   = useState(freshState().messages);
   const [showSuggestions, setShowSuggestions] = useState(true);
-  const [sessionId] = useState(() => crypto.randomUUID());
+  const [sessionId, setSessionId] = useState(() => crypto.randomUUID());
+  const [input, setInput]         = useState('');
+  const [typing, setTyping]       = useState(false);
   const bottomRef = useRef(null);
-  const inputRef = useRef(null);
+  const inputRef  = useRef(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, typing]);
+  }, [messages, typing, showSuggestions]);
 
   useEffect(() => {
     if (open && !minimised) inputRef.current?.focus();
   }, [open, minimised]);
+
+  function resetChat() {
+    const s = freshState();
+    setMessages(s.messages);
+    setShowSuggestions(true);
+    setSessionId(s.sessionId);
+    setInput('');
+    setTyping(false);
+  }
 
   const sendMessage = useCallback((textArg) => {
     const trimmed = (typeof textArg === 'string' ? textArg : input).trim();
     if (!trimmed || typing) return;
     setInput('');
     setShowSuggestions(false);
-
     setMessages(prev => [...prev, { role: 'user', content: trimmed, ts: new Date() }]);
     setTyping(true);
 
     setTimeout(() => {
       const answer = findAnswer(trimmed);
+      const isFallback = !answer;
       const botAnswer = answer || FALLBACK;
       setMessages(prev => [...prev, { role: 'assistant', content: botAnswer, ts: new Date() }]);
       setTyping(false);
+      // Show suggestions again after a fallback so user knows what the bot CAN answer
+      if (isFallback) setShowSuggestions(true);
       logConversation(trimmed, botAnswer, sessionId);
     }, 450);
-  }, [input, typing]);
+  }, [input, typing, sessionId]);
 
   const handleKey = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
-    }
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
   };
 
   if (!open) {
@@ -190,6 +206,8 @@ export default function ChatWidget() {
     );
   }
 
+  const hasConversation = messages.length > 1;
+
   return (
     <div className={`chat-widget${minimised ? ' chat-widget--min' : ''}`}>
       <div className="chat-header">
@@ -202,12 +220,15 @@ export default function ChatWidget() {
           </span>
         </div>
         <div className="chat-header-actions">
+          {hasConversation && (
+            <button className="chat-icon-btn" onClick={resetChat} aria-label="New conversation" title="Start new conversation">
+              ↺
+            </button>
+          )}
           <button className="chat-icon-btn" onClick={() => setMinimised(m => !m)} aria-label={minimised ? 'Expand' : 'Minimise'}>
             {minimised ? '▲' : '▼'}
           </button>
-          <button className="chat-icon-btn" onClick={() => setOpen(false)} aria-label="Close">
-            ✕
-          </button>
+          <button className="chat-icon-btn" onClick={() => setOpen(false)} aria-label="Close">✕</button>
         </div>
       </div>
 
@@ -230,21 +251,32 @@ export default function ChatWidget() {
               <div className="chat-msg chat-msg--assistant">
                 <img src={BOT_AVATAR} alt="TEC" className="chat-msg-avatar" onError={e => { e.target.style.display = 'none'; }} />
                 <div className="chat-msg-body">
-                  <div className="chat-bubble chat-bubble--typing">
-                    <span /><span /><span />
-                  </div>
+                  <div className="chat-bubble chat-bubble--typing"><span /><span /><span /></div>
                 </div>
               </div>
             )}
 
+            {/* Suggestions panel — shows on open, after fallback, or when user toggles */}
             {showSuggestions && !typing && (
               <div className="chat-suggestions">
-                <p className="chat-suggestions-label">Common questions:</p>
+                <div className="chat-suggestions-header">
+                  <p className="chat-suggestions-label">Common questions</p>
+                  {hasConversation && (
+                    <button className="chat-suggestions-close" onClick={() => setShowSuggestions(false)} aria-label="Hide suggestions">✕</button>
+                  )}
+                </div>
                 {SUGGESTED_QUESTIONS.map((q, i) => (
-                  <button key={i} className="chat-suggestion-btn" onClick={() => sendMessage(q)}>
-                    {q}
-                  </button>
+                  <button key={i} className="chat-suggestion-btn" onClick={() => sendMessage(q)}>{q}</button>
                 ))}
+              </div>
+            )}
+
+            {/* Show suggestions toggle when hidden and not typing */}
+            {!showSuggestions && !typing && (
+              <div style={{ textAlign: 'center', padding: '4px 0 2px' }}>
+                <button className="chat-suggestions-toggle" onClick={() => setShowSuggestions(true)}>
+                  💡 Common questions
+                </button>
               </div>
             )}
 

@@ -266,11 +266,27 @@
   gap: 6px;
   padding: 4px 0 2px;
 }
+.chat-suggestions-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 2px 4px;
+}
 .chat-suggestions-label {
   font-size: 0.72rem;
   color: #999;
-  margin: 0 0 2px 4px;
+  margin: 0;
 }
+.chat-suggestions-close {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 0.7rem;
+  cursor: pointer;
+  padding: 0 2px;
+  line-height: 1;
+}
+.chat-suggestions-close:hover { color: #999; }
 .chat-suggestion-btn {
   background: #f3f4f6;
   border: 1.5px solid #e0e0dc;
@@ -286,6 +302,20 @@
 .chat-suggestion-btn:hover {
   background: #e8f0eb;
   border-color: var(--tec-green, #1a4a2e);
+}
+.chat-suggestions-toggle {
+  background: none;
+  border: 1px solid #e8e8e4;
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 0.75rem;
+  color: #888;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.chat-suggestions-toggle:hover {
+  background: #f3f4f6;
+  color: var(--tec-green, #1a4a2e);
 }
 
 /* ── Mobile ──────────────────────────────────────────────── */
