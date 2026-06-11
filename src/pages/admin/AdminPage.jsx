@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './AdminPage.css';
 import {
   getAllSubmissionsFromDB,
@@ -948,6 +948,208 @@ async function exportToExcel(entries, label) {
   writeFile(wb, filename);
 }
 
+// ── Chatbot Panel ─────────────────────────────────────────
+const CHATBOT_API = import.meta.env.VITE_CHATBOT_API_URL || 'http://localhost:3001';
+
+function ChatbotPanel() {
+  const [tab, setTab] = useState('analytics');
+  const [analytics, setAnalytics] = useState(null);
+  const [conversations, setConversations] = useState([]);
+  const [documents, setDocuments] = useState([]);
+  const [uploading, setUploading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [apiToken, setApiToken] = useState('');
+  const [loginUser, setLoginUser] = useState('');
+  const [loginPass, setLoginPass] = useState('');
+  const [loginErr, setLoginErr] = useState('');
+  const fileRef = useRef(null);
+
+  async function doLogin(e) {
+    e.preventDefault();
+    setLoginErr('');
+    try {
+      const r = await fetch(`${CHATBOT_API}/api/admin/token`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: loginUser, password: loginPass }),
+      });
+      if (!r.ok) { setLoginErr('Invalid credentials'); return; }
+      const { token } = await r.json();
+      setApiToken(token);
+    } catch { setLoginErr('Cannot reach chatbot API server'); }
+  }
+
+  async function authFetch(path, opts = {}) {
+    const r = await fetch(`${CHATBOT_API}${path}`, {
+      ...opts,
+      headers: { ...opts.headers, Authorization: `Bearer ${apiToken}` },
+    });
+    if (!r.ok) throw new Error(`API error ${r.status}`);
+    return r.json();
+  }
+
+  useEffect(() => {
+    if (!apiToken) return;
+    setLoading(true);
+    Promise.all([
+      authFetch('/api/admin/analytics'),
+      authFetch('/api/documents'),
+    ]).then(([a, d]) => { setAnalytics(a); setDocuments(d); })
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, [apiToken]);
+
+  async function loadConversations() {
+    setLoading(true);
+    authFetch('/api/admin/conversations')
+      .then(setConversations)
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }
+
+  useEffect(() => {
+    if (apiToken && tab === 'conversations') loadConversations();
+  }, [tab, apiToken]);
+
+  async function uploadDoc(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploading(true);
+    const fd = new FormData();
+    fd.append('file', file);
+    try {
+      const r = await fetch(`${CHATBOT_API}/api/documents/upload`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${apiToken}` },
+        body: fd,
+      });
+      const data = await r.json();
+      if (!r.ok) throw new Error(data.error);
+      alert(`Uploaded "${data.name}" (${data.chunkCount} chunks)`);
+      const docs = await authFetch('/api/documents');
+      setDocuments(docs);
+    } catch (err) {
+      alert(`Upload failed: ${err.message}`);
+    } finally {
+      setUploading(false);
+      if (fileRef.current) fileRef.current.value = '';
+    }
+  }
+
+  async function deleteDoc(id, name) {
+    if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
+    try {
+      await authFetch(`/api/documents/${id}`, { method: 'DELETE' });
+      setDocuments(d => d.filter(x => x.id !== id));
+    } catch (err) { alert(`Delete failed: ${err.message}`); }
+  }
+
+  if (!apiToken) {
+    return (
+      <div style={{ maxWidth: 360, margin: '60px auto', padding: 32, background: '#fff', borderRadius: 12, boxShadow: '0 2px 20px rgba(0,0,0,0.08)' }}>
+        <h2 style={{ marginBottom: 4, fontSize: '1.1rem' }}>Chatbot API Login</h2>
+        <p style={{ fontSize: '0.8rem', color: '#888', marginBottom: 20 }}>Separate from your admin panel login — uses ADMIN_USERNAME/ADMIN_PASSWORD from the server .env</p>
+        <form onSubmit={doLogin} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <input placeholder="Username" value={loginUser} onChange={e => setLoginUser(e.target.value)} required style={{ padding: '9px 12px', border: '1.5px solid #ddd', borderRadius: 8, fontSize: '0.9rem' }} />
+          <input placeholder="Password" type="password" value={loginPass} onChange={e => setLoginPass(e.target.value)} required style={{ padding: '9px 12px', border: '1.5px solid #ddd', borderRadius: 8, fontSize: '0.9rem' }} />
+          {loginErr && <div style={{ color: '#c0392b', fontSize: '0.82rem' }}>{loginErr}</div>}
+          <button type="submit" style={{ background: 'var(--tec-green)', color: '#fff', border: 'none', borderRadius: 8, padding: '10px', cursor: 'pointer', fontWeight: 600 }}>Sign In</button>
+        </form>
+      </div>
+    );
+  }
+
+  const tabs = ['analytics', 'conversations', 'documents'];
+
+  return (
+    <div style={{ padding: '20px 24px' }}>
+      <div style={{ display: 'flex', gap: 8, marginBottom: 24, borderBottom: '2px solid #eee', paddingBottom: 0 }}>
+        {tabs.map(t => (
+          <button key={t} onClick={() => setTab(t)} style={{
+            background: 'none', border: 'none', padding: '8px 18px 10px',
+            borderBottom: tab === t ? '2px solid var(--tec-green)' : '2px solid transparent',
+            color: tab === t ? 'var(--tec-green)' : '#666',
+            fontWeight: tab === t ? 700 : 500, fontSize: '0.88rem',
+            textTransform: 'uppercase', letterSpacing: '0.04em', cursor: 'pointer', marginBottom: -2,
+          }}>{t}</button>
+        ))}
+      </div>
+
+      {loading && <div style={{ color: '#888', fontSize: '0.85rem', marginBottom: 12 }}>Loading…</div>}
+
+      {tab === 'analytics' && analytics && (
+        <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+          {[
+            { label: 'Total Conversations', value: analytics.totalConversations },
+            { label: "Today's Conversations", value: analytics.todayConversations },
+            { label: 'Knowledge Base Docs', value: analytics.totalDocuments },
+          ].map(({ label, value }) => (
+            <div key={label} style={{ background: '#fff', border: '1.5px solid #eee', borderRadius: 12, padding: '20px 28px', minWidth: 160, flex: '1 1 160px' }}>
+              <div style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--tec-green)' }}>{value}</div>
+              <div style={{ fontSize: '0.8rem', color: '#888', marginTop: 4 }}>{label}</div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {tab === 'conversations' && (
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 14, alignItems: 'center' }}>
+            <span style={{ fontSize: '0.85rem', color: '#666' }}>{conversations.length} conversations</span>
+            <button onClick={loadConversations} style={{ background: 'var(--tec-green)', color: '#fff', border: 'none', borderRadius: 7, padding: '6px 14px', cursor: 'pointer', fontSize: '0.82rem' }}>Refresh</button>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {conversations.map(c => (
+              <div key={c.id} style={{ background: '#fff', border: '1.5px solid #eee', borderRadius: 10, padding: '14px 16px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+                  <span style={{ fontSize: '0.72rem', color: '#aaa' }}>{new Date(c.created_at).toLocaleString()}</span>
+                  <span style={{ fontSize: '0.72rem', color: '#bbb' }}>Session: {c.session_id?.slice(0, 8)}…</span>
+                </div>
+                <div style={{ fontSize: '0.88rem', marginBottom: 6 }}><strong>User:</strong> {c.user_message}</div>
+                <div style={{ fontSize: '0.85rem', color: '#444', borderLeft: '3px solid var(--tec-green)', paddingLeft: 10 }}>{c.assistant_message?.slice(0, 200)}{c.assistant_message?.length > 200 ? '…' : ''}</div>
+              </div>
+            ))}
+            {conversations.length === 0 && !loading && <div style={{ color: '#bbb', fontSize: '0.85rem' }}>No conversations yet.</div>}
+          </div>
+        </div>
+      )}
+
+      {tab === 'documents' && (
+        <div>
+          <div style={{ marginBottom: 18 }}>
+            <input ref={fileRef} type="file" accept=".pdf,.doc,.docx,.txt" id="doc-upload" style={{ display: 'none' }} onChange={uploadDoc} />
+            <label htmlFor="doc-upload" style={{
+              display: 'inline-block', background: 'var(--tec-green)', color: '#fff',
+              border: 'none', borderRadius: 8, padding: '9px 20px', cursor: uploading ? 'default' : 'pointer',
+              fontSize: '0.88rem', fontWeight: 600, opacity: uploading ? 0.6 : 1,
+            }}>
+              {uploading ? 'Processing…' : '+ Upload Document'}
+            </label>
+            <span style={{ marginLeft: 12, fontSize: '0.78rem', color: '#aaa' }}>PDF, DOCX, TXT — max 20 MB</span>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {documents.map(d => (
+              <div key={d.id} style={{ background: '#fff', border: '1.5px solid #eee', borderRadius: 10, padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 12 }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontWeight: 600, fontSize: '0.88rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{d.name}</div>
+                  <div style={{ fontSize: '0.74rem', color: '#aaa', marginTop: 3 }}>
+                    {d.chunk_count} chunks · {(d.file_size / 1024).toFixed(0)} KB · {new Date(d.created_at).toLocaleDateString()}
+                  </div>
+                </div>
+                <span style={{ fontSize: '0.72rem', background: '#d1fae5', color: '#065f46', borderRadius: 20, padding: '2px 10px', fontWeight: 600, flexShrink: 0 }}>
+                  {d.status}
+                </span>
+                <button onClick={() => deleteDoc(d.id, d.name)} style={{ background: 'none', border: 'none', color: '#e74c3c', cursor: 'pointer', fontSize: '1rem', padding: '2px 6px', borderRadius: 6, flexShrink: 0 }}>✕</button>
+              </div>
+            ))}
+            {documents.length === 0 && !loading && <div style={{ color: '#bbb', fontSize: '0.85rem' }}>No documents uploaded yet. Upload PDFs, DOCX, or TXT files to power the chatbot knowledge base.</div>}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ── Main Dashboard ────────────────────────────────────────
 export default function AdminPage() {
   const [currentUser, setCurrentUser] = useState(null);  // { email, name, groups }
@@ -961,6 +1163,7 @@ export default function AdminPage() {
   const [entriesOpen, setEntriesOpen] = useState(true);
   const [formsOpen, setFormsOpen]     = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('entries'); // 'entries' | 'chatbot'
   const [page, setPage]               = useState(1);
   const PER_PAGE                      = 25;
 
@@ -1159,6 +1362,16 @@ export default function AdminPage() {
             ))}
 
 
+          {/* ── CHATBOT ── */}
+          <button
+            className={`adm-nav-section${activeSection === 'chatbot' ? ' active' : ''}`}
+            onClick={() => { setActiveSection('chatbot'); setSidebarOpen(false); }}
+            style={{ marginTop: 8, justifyContent: 'flex-start', gap: 8 }}
+          >
+            <span>🤖</span>
+            <span>CHATBOT</span>
+          </button>
+
         </nav>
 
         {/* ── User info ── */}
@@ -1187,7 +1400,21 @@ export default function AdminPage() {
 
       {/* Main */}
       <main className="adm-main">
-        <div className="adm-topbar">
+
+        {activeSection === 'chatbot' ? (
+          <>
+            <div className="adm-topbar">
+              <button className="adm-sidebar-toggle" onClick={() => setSidebarOpen(true)}>☰</button>
+              <div>
+                <h1 className="adm-title">Chatbot Management</h1>
+                <p className="adm-subtitle">Knowledge base, conversations &amp; analytics</p>
+              </div>
+            </div>
+            <ChatbotPanel />
+          </>
+        ) : (
+
+        <><div className="adm-topbar">
           {/* Mobile sidebar toggle */}
           <button className="adm-sidebar-toggle" onClick={() => setSidebarOpen(true)}>☰</button>
           <div>
@@ -1368,6 +1595,8 @@ export default function AdminPage() {
           </div>
           );
         })()}
+        </>
+        )}
       </main>
 
       {selected && (

@@ -68,6 +68,7 @@ import IELTSPage from './pages/IELTSPage';
 import AdminPage from './pages/admin/AdminPage';
 import GenericPage from './pages/GenericPage';
 import CookieConsent from './components/CookieConsent';
+import ChatWidget from './components/ChatWidget/ChatWidget';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -166,6 +167,7 @@ function AppLayout() {
       </main>
       <Footer />
       <CookieConsent />
+      <ChatWidget />
     </div>
   );
 }
