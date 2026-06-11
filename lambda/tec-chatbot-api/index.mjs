@@ -39,19 +39,33 @@ function checkRateLimit(ip) {
   return null;
 }
 
-// ── CORS / response helpers ────────────────────────────────
-function corsHeaders() {
+// ── Allowed origins ────────────────────────────────────────
+const ALLOWED_ORIGINS = new Set([
+  'https://trenteducation.co.uk',
+  'https://www.trenteducation.co.uk',
+  'https://dev.trenteducation.co.uk',
+  'http://localhost:5173',
+]);
+
+function corsHeaders(origin) {
+  const allowed = ALLOWED_ORIGINS.has(origin) ? origin : 'https://trenteducation.co.uk';
   return {
-    'Access-Control-Allow-Origin':  '*',
+    'Access-Control-Allow-Origin':  allowed,
     'Access-Control-Allow-Headers': 'Content-Type,Authorization',
     'Access-Control-Allow-Methods': 'GET,POST,DELETE,OPTIONS',
+    'Vary': 'Origin',
   };
 }
 
-function respond(status, body) {
+function isAllowedOrigin(event) {
+  const origin = event.headers?.origin || event.headers?.Origin || '';
+  return ALLOWED_ORIGINS.has(origin);
+}
+
+function respond(status, body, origin = '') {
   return {
     statusCode: status,
-    headers: { 'Content-Type': 'application/json', ...corsHeaders() },
+    headers: { 'Content-Type': 'application/json', ...corsHeaders(origin) },
     body: JSON.stringify(body),
   };
 }
@@ -117,20 +131,19 @@ async function upsertSession(sid, now) {
 
 // ── Route handlers ─────────────────────────────────────────
 
-async function handleChat(event) {
+async function handleChat(event, origin = '') {
   const ip = event.requestContext?.http?.sourceIp || 'unknown';
   const limited = checkRateLimit(ip);
-  if (limited) return respond(429, { error: limited });
+  if (limited) return respond(429, { error: limited }, origin);
 
   let body;
-  try { body = JSON.parse(event.body || '{}'); } catch { return respond(400, { error: 'Invalid JSON' }); }
+  try { body = JSON.parse(event.body || '{}'); } catch { return respond(400, { error: 'Invalid JSON' }, origin); }
 
   const { userMessage, botAnswer, sessionId } = body;
   const sid = sessionId || randomUUID();
   const now = new Date().toISOString();
 
   if (userMessage && botAnswer) {
-    // Log conversation row
     supa('/chatbot_conversations', {
       method: 'POST',
       prefer: 'return=minimal',
@@ -143,14 +156,13 @@ async function handleChat(event) {
       }),
     }).catch(e => console.error('Log conv:', e.message));
 
-    // Keep sessions table in sync (fire-and-forget)
     upsertSession(sid, now).catch(e => console.error('Session upsert:', e.message));
   }
 
-  return respond(200, { ok: true, sessionId: sid });
+  return respond(200, { ok: true, sessionId: sid }, origin);
 }
 
-async function handleAnalytics() {
+async function handleAnalytics(origin = '') {
   // Old data cleanup is handled by Supabase pg_cron (runs every Sunday at 2am UTC).
   // No manual deletion here.
   const [c1, c2] = await Promise.all([
@@ -159,14 +171,14 @@ async function handleAnalytics() {
   ]);
 
   return respond(200, {
-    totalConversations: c1.length,   // total unique sessions
-    todayConversations: c2.length,   // individual messages today
-  });
+    totalConversations: c1.length,
+    todayConversations: c2.length,
+  }, origin);
 }
 
 // Proper pagination: page directly from chatbot_sessions, then fetch only
 // the messages belonging to that page's sessions — 2 queries, always exact.
-async function handleConversations(event) {
+async function handleConversations(event, origin = '') {
   const qs     = event.queryStringParameters || {};
   const page   = Math.max(1, parseInt(qs.page)  || 1);
   const limit  = Math.min(50, parseInt(qs.limit) || 20);
@@ -179,7 +191,7 @@ async function handleConversations(event) {
   ]);
 
   if (!sessionRows?.length) {
-    return respond(200, { sessions: [], page, limit, totalSessions: countRows?.length || 0 });
+    return respond(200, { sessions: [], page, limit, totalSessions: countRows?.length || 0 }, origin);
   }
 
   // Step 2 — fetch messages for only this page's sessions
@@ -202,29 +214,36 @@ async function handleConversations(event) {
     messages:     msgMap.get(s.id) || [],
   }));
 
-  return respond(200, { sessions, page, limit, totalSessions: countRows?.length || 0 });
+  return respond(200, { sessions, page, limit, totalSessions: countRows?.length || 0 }, origin);
 }
 
 // ── Main handler ───────────────────────────────────────────
 export const handler = async (event) => {
   const method = event.requestContext?.http?.method || event.httpMethod || 'GET';
   const path   = (event.requestContext?.http?.path || event.path || '/').replace(/\/$/, '');
+  const origin = event.headers?.origin || event.headers?.Origin || '';
 
-  if (method === 'OPTIONS') return { statusCode: 204, headers: corsHeaders(), body: '' };
+  if (method === 'OPTIONS') return { statusCode: 204, headers: corsHeaders(origin), body: '' };
 
   try {
-    if (method === 'GET'  && path === '/api/health') return respond(200, { ok: true });
-    if (method === 'POST' && path === '/api/chat')   return await handleChat(event);
+    if (method === 'GET' && path === '/api/health') return respond(200, { ok: true }, origin);
 
+    // Block requests not coming from allowed origins on the public chat endpoint
+    if (method === 'POST' && path === '/api/chat') {
+      if (!isAllowedOrigin(event)) return respond(403, { error: 'Forbidden' }, origin);
+      return await handleChat(event, origin);
+    }
+
+    // Admin endpoints — Cognito token check (origin not enforced, admin uses same domains anyway)
     const token = getToken(event);
-    if (!token || !verifyCognitoToken(token)) return respond(401, { error: 'Unauthorised' });
+    if (!token || !verifyCognitoToken(token)) return respond(401, { error: 'Unauthorised' }, origin);
 
-    if (method === 'GET' && path === '/api/admin/analytics')    return await handleAnalytics();
-    if (method === 'GET' && path === '/api/admin/conversations') return await handleConversations(event);
+    if (method === 'GET' && path === '/api/admin/analytics')    return await handleAnalytics(origin);
+    if (method === 'GET' && path === '/api/admin/conversations') return await handleConversations(event, origin);
 
-    return respond(404, { error: 'Not found' });
+    return respond(404, { error: 'Not found' }, origin);
   } catch (err) {
     console.error(err);
-    return respond(500, { error: err.message || 'Internal error' });
+    return respond(500, { error: err.message || 'Internal error' }, origin);
   }
 };
