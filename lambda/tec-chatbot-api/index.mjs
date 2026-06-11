@@ -18,16 +18,15 @@
 
 import { createHmac, randomUUID, timingSafeEqual } from 'crypto';
 
-const GEMINI_KEY  = process.env.GEMINI_API_KEY;
+const GROQ_KEY    = process.env.GROQ_API_KEY;
+const GEMINI_KEY  = process.env.GEMINI_API_KEY; // used only for embeddings
 const SUPA_URL    = process.env.SUPABASE_URL;
 const SUPA_KEY    = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const JWT_SECRET  = process.env.JWT_SECRET || 'change-me';
 const ADMIN_USER  = process.env.ADMIN_USERNAME || 'admin';
 const ADMIN_PASS  = process.env.ADMIN_PASSWORD || 'changeme';
-const CORS_ORIGINS = (process.env.CORS_ORIGINS || '').split(',').map(s => s.trim());
 
-const GEMINI_CHAT_URL  = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=`;
-const GEMINI_EMBED_URL = `https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key=`;
+const GEMINI_EMBED_URL       = `https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key=`;
 const GEMINI_BATCH_EMBED_URL = `https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:batchEmbedContents?key=`;
 
 const SYSTEM_PROMPT = `You are a helpful assistant for Trent Education Centre (TEC), an education provider in Nottingham, UK. Help students, parents and partners with questions about courses, admissions, and student life. Be friendly and concise. If unsure, direct them to info@trenteducation.co.uk. Do not invent fees, dates or requirements.`;
@@ -149,31 +148,32 @@ async function embedBatch(texts) {
   return d.embeddings.map(e => e.values);
 }
 
-// ── Gemini chat ───────────────────────────────────────────
-async function geminiChat(messages, contextChunks) {
+// ── Groq chat (free, stable, OpenAI-compatible) ───────────
+async function groqChat(messages, contextChunks) {
   const context = contextChunks.length
     ? '\n\nRelevant info from TEC knowledge base:\n' +
       contextChunks.map((c, i) => `[${i + 1}] (from "${c.document_name}")\n${c.content}`).join('\n\n')
     : '';
 
-  // Convert messages to Gemini format
-  const contents = messages.map(m => ({
-    role: m.role === 'assistant' ? 'model' : 'user',
-    parts: [{ text: m.content }],
-  }));
-
-  const r = await fetch(`${GEMINI_CHAT_URL}${GEMINI_KEY}`, {
+  const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      Authorization: `Bearer ${GROQ_KEY}`,
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify({
-      systemInstruction: { parts: [{ text: SYSTEM_PROMPT + context }] },
-      contents,
-      generationConfig: { maxOutputTokens: 1024, temperature: 0.7 },
+      model: 'llama-3.1-8b-instant',
+      max_tokens: 1024,
+      temperature: 0.7,
+      messages: [
+        { role: 'system', content: SYSTEM_PROMPT + context },
+        ...messages,
+      ],
     }),
   });
   const d = await r.json();
-  if (!r.ok) throw new Error(`Gemini chat: ${d.error?.message}`);
-  return d.candidates?.[0]?.content?.parts?.[0]?.text || 'Sorry, I could not generate a response.';
+  if (!r.ok) throw new Error(`Groq chat: ${d.error?.message}`);
+  return d.choices?.[0]?.message?.content || 'Sorry, I could not generate a response.';
 }
 
 // ── Text chunking ─────────────────────────────────────────
@@ -219,7 +219,7 @@ async function handleChat(event, origin) {
     });
   } catch (e) { console.warn('RAG skipped:', e.message); }
 
-  const text = await geminiChat(cleaned, chunks || []);
+  const text = await groqChat(cleaned, chunks || []);
 
   // Save conversation async
   supa('/chatbot_conversations', {
