@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import './ChatWidget.css';
 
-const API_BASE = import.meta.env.VITE_CHATBOT_API_URL || 'http://localhost:3001';
+const API_BASE = import.meta.env.VITE_CHATBOT_API_URL || 'https://htabzeqaghsn4zoe5z5hruppe40ckfyh.lambda-url.us-east-1.on.aws';
 const BOT_AVATAR = '/assets/logos/tec-crest.png';
 
 function formatTime(date) {
