@@ -29,6 +29,8 @@ jobs:
 
       - name: Build app
         run: npm run build
+        env:
+          VITE_CHATBOT_API_URL: ${{ secrets.VITE_CHATBOT_API_URL }}
 
       - name: Check dist folder exists
         run: |
