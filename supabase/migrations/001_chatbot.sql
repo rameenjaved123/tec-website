@@ -12,13 +12,13 @@ create table if not exists chatbot_documents (
   created_at   timestamptz default now()
 );
 
--- ── Chunks with vector embeddings ────────────────────────
+-- ── Chunks — 768 dimensions (Gemini text-embedding-004) ──
 create table if not exists chatbot_chunks (
   id            uuid primary key,
   document_id   uuid not null references chatbot_documents(id) on delete cascade,
   document_name text,
   content       text not null,
-  embedding     vector(1536),
+  embedding     vector(768),
   chunk_index   int,
   created_at    timestamptz default now()
 );
@@ -27,7 +27,7 @@ create index if not exists chatbot_chunks_embedding_idx
   on chatbot_chunks using ivfflat (embedding vector_cosine_ops)
   with (lists = 100);
 
--- ── Conversations log ────────────────────────────────────
+-- ── Conversations log ─────────────────────────────────────
 create table if not exists chatbot_conversations (
   id                 uuid primary key,
   session_id         text,
@@ -37,15 +37,12 @@ create table if not exists chatbot_conversations (
   created_at         timestamptz default now()
 );
 
-create index if not exists chatbot_conversations_session_idx
-  on chatbot_conversations(session_id);
-
 create index if not exists chatbot_conversations_created_idx
   on chatbot_conversations(created_at desc);
 
--- ── Similarity search function ───────────────────────────
+-- ── Similarity search function ────────────────────────────
 create or replace function match_document_chunks(
-  query_embedding  vector(1536),
+  query_embedding  vector(768),
   match_threshold  float,
   match_count      int
 )
