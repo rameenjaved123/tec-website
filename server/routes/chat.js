@@ -8,10 +8,25 @@ const { handleValidation } = require('../middleware/validate');
 
 const router = express.Router();
 
+// 20 messages per minute per IP
 router.use(rateLimit({
   windowMs: 60 * 1000,
   max: 20,
-  message: { error: 'Chat rate limit reached. Please wait a moment.' },
+  message: { error: 'Too many messages. Please wait a moment.' },
+}));
+
+// 100 messages per hour per IP
+router.use(rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 100,
+  message: { error: 'Hourly limit reached. Please try again later.' },
+}));
+
+// 200 messages per day per IP
+router.use(rateLimit({
+  windowMs: 24 * 60 * 60 * 1000,
+  max: 200,
+  message: { error: 'Daily limit reached. Please contact TEC directly for further help.' },
 }));
 
 const validate = [
