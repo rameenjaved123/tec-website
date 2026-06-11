@@ -50,10 +50,9 @@ function checkRateLimit(ip) {
 }
 
 // ── CORS / response helpers ───────────────────────────────
-function corsHeaders(origin) {
-  const allowed = CORS_ORIGINS.includes(origin) ? origin : (CORS_ORIGINS[0] || '*');
+function corsHeaders() {
   return {
-    'Access-Control-Allow-Origin':  allowed,
+    'Access-Control-Allow-Origin':  '*',
     'Access-Control-Allow-Headers': 'Content-Type,Authorization',
     'Access-Control-Allow-Methods': 'GET,POST,DELETE,OPTIONS',
   };
@@ -62,7 +61,7 @@ function corsHeaders(origin) {
 function respond(status, body, origin = '') {
   return {
     statusCode: status,
-    headers: { 'Content-Type': 'application/json', ...corsHeaders(origin) },
+    headers: { 'Content-Type': 'application/json', ...corsHeaders() },
     body: JSON.stringify(body),
   };
 }
@@ -314,7 +313,7 @@ export const handler = async (event) => {
   const method = event.requestContext?.http?.method || event.httpMethod || 'GET';
   const path   = (event.requestContext?.http?.path || event.path || '/').replace(/\/$/, '');
 
-  if (method === 'OPTIONS') return { statusCode: 204, headers: corsHeaders(origin), body: '' };
+  if (method === 'OPTIONS') return { statusCode: 204, headers: corsHeaders(), body: '' };
 
   try {
     if (method === 'GET'  && path === '/api/health')        return respond(200, { ok: true }, origin);
