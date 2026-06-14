@@ -1,3 +1,109 @@
+
+/* ── English Courses Hero ── */
+.eng-hero {
+  background: linear-gradient(135deg, #0d1e13 0%, #1b3d28 50%, #0d2b1a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 72px clamp(24px, 18%, 260px);
+  min-height: 320px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle decorative circle */
+.eng-hero::before {
+  content: '';
+  position: absolute;
+  right: -80px;
+  top: -80px;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: rgba(201, 168, 76, 0.06);
+  pointer-events: none;
+}
+
+.eng-hero-left {
+  flex: 1;
+  max-width: 620px;
+}
+
+.eng-hero-eyebrow {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--tec-gold, #c9a84c);
+  margin-bottom: 14px;
+}
+
+.eng-hero-title {
+  font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.15;
+  margin: 0 0 16px;
+  letter-spacing: -0.01em;
+}
+
+.eng-hero-sub {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.7;
+  margin: 0;
+  max-width: 500px;
+}
+
+.eng-hero-right {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.eng-hero-badge {
+  width: 190px;
+  height: auto;
+  display: block;
+  background: #fff;
+  border-radius: 10px;
+  padding: 18px 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+}
+
+.eng-hero-badge-caption {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin: 0;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .eng-hero {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    padding: 48px 20px;
+    min-height: unset;
+  }
+
+  .eng-hero-right {
+    align-self: center;
+  }
+
+  .eng-hero-badge {
+    width: 150px;
+    padding: 14px 16px;
+  }
+}
+
 /* ── Course overview strip ── */
 .eng-course-strip {
   background: var(--tec-green-dark);

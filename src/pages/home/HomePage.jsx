@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, MapPin, Target, Eye, ArrowRight, CheckCircle, Play, ClipboardList } from 'lucide-react';
+import { ChevronLeft, ChevronRight, MapPin, Target, Eye, ArrowRight, CheckCircle, Play, ClipboardList, Users, BookOpen, Building2, Heart } from 'lucide-react';
 import './HomePage.css';
 
 const heroSlides = [
+  { imageOnly: true, src: '/assets/images/banners/englishBanner.png', alt: 'Accredited by the British Council for the teaching of English in the UK' },
   { imageOnly: true, src: '/assets/images/banners/he-banner-4.jpg',                                                          alt: 'TEC Higher Education', link: '/english-language-courses' },
   { imageOnly: true, src: '/assets/images/banners/he-banner-3.jpg',                                                          alt: 'ESOL Courses', link: '/english-language-courses' },
   { imageOnly: true, src: '/assets/images/general/bio-link.jpg',  alt: 'TEC Courses' },
@@ -20,16 +21,15 @@ const courseCategories = [
 const courses = {
   english: [
     {
-      title: 'Ascentis Entry Level 2 ESOL',
-      duration: 'Flexible / Onsite',
-      img: 'https://images.unsplash.com/photo-1543269664-76bc3997d9ea?w=600&q=80',
+      title: 'Ascentis Entry 2 English for Speakers of Other Languages (ESOL)',
+      img: '/assets/images/courses/esol-entry2.jpg',
       link: '/english-language-courses',
       cta: 'View Course',
     },
     {
       title: 'NCFE Functional Skills English',
       duration: '6 Weeks / Onsite',
-      img: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&q=80',
+      img: '/assets/images/courses/ncfe-functional-english.jpg',
       link: '/english-language-courses',
       cta: 'View Course',
     },
@@ -38,14 +38,16 @@ const courses = {
     {
       title: 'ATHE Level 4 & 5 Extended Diploma in Business and Management',
       duration: '1 Year / Blended',
-      img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80',
-      link: '/athe-level-4-5',
-      cta: 'View Course',
+      img: '/assets/images/courses/athe-level4-5-business.jpg',
+      levels: [
+        { label: 'Level 4', link: '/athe-level-4-5' },
+        { label: 'Level 5', link: '/athe-level-4-5' },
+      ],
     },
     {
-      title: 'Pearson BTEC Level 4 & 5 HND in Business',
+      title: 'Pearson BTEC Level 5 Higher National Diploma in Business',
       duration: '2 Years / Onsite',
-      img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=80',
+      img: '/assets/images/courses/btec-hnd-business.jpg',
       link: '/btec-hnd',
       cta: 'View Course',
     },
@@ -54,14 +56,14 @@ const courses = {
     {
       title: 'ATHE Level 3 Diploma in Business',
       duration: '12 Weeks / Onsite',
-      img: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80',
+      img: '/assets/images/courses/athe-level3-business.jpg',
       link: '/athe-level-3',
       cta: 'View Course',
     },
     {
-      title: 'NCFE Level 1 & 2 Functional Skills in Maths',
+      title: 'NCFE Level 1 & 2 Functional Skills Qualification in Maths',
       duration: '6 Weeks / Onsite',
-      img: 'https://images.unsplash.com/photo-1509228468518-180dd4864904?w=600&q=80',
+      img: '/assets/images/courses/ncfe-functional-english.jpg',
       levels: [
         { label: 'Level 1', link: '/ncfe-maths-l1' },
         { label: 'Level 2', link: '/ncfe-maths-l2' },
@@ -70,14 +72,14 @@ const courses = {
     {
       title: 'SIA Level 2 Award for Door Supervisors (BIIAB)',
       duration: '6 Days + 1 Day First Aid / Onsite',
-      img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
+      img: '/assets/images/courses/sia-door-supervisors.jpg',
       link: '/sia-door-supervisors',
       cta: 'View Course',
     },
     {
       title: 'Digital Skills for Beginners',
       duration: '6 Weeks / Onsite',
-      img: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80',
+      img: '/assets/images/courses/digital-skills.jpg',
       link: '/digital-skills',
       cta: 'View Course',
     },
@@ -136,7 +138,27 @@ export default function HomePage() {
       {/* ── Hero Slider ── */}
       <section className="hero">
         {heroSlides.map((s, i) =>
-          s.imageOnly ? (
+          s.britishCouncil ? (
+            /* ── British Council Accreditation Slide ── */
+            <div key={i} className={`hero-slide hero-slide--bc ${i === slide ? 'active' : ''}`}>
+              <div className="bc-left">
+                <p className="bc-breaking">BREAKING NEWS!</p>
+                <p className="bc-intro">
+                  We are pleased to announce that{' '}
+                  <span className="bc-tec-name">Trent Education Centre</span> has been
+                </p>
+                <div className="bc-logo-box">
+                  <p className="bc-accredited-by">Accredited by the</p>
+                  <img src="/assets/logos/partners/british-council.png" alt="British Council" className="bc-logo" />
+                  <p className="bc-subtitle">for the teaching<br />of English in the UK</p>
+                </div>
+              </div>
+              <div className="bc-right">
+                <img src="/assets/images/general/bio-link.jpg" alt="TEC Students" className="bc-photo" />
+                <div className="bc-photo-overlay" />
+              </div>
+            </div>
+          ) : s.imageOnly ? (
             /* Full pre-designed image slide — no overlay */
             <div
               key={i}
@@ -212,95 +234,163 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Study Centres + Vision & Mission ── */}
-      <section className="centres-section">
-        <div className="container centres-grid">
-          <div className="centres-text">
-            <div className="centres-icon"><MapPin size={32} /></div>
-            <h3>Study Centres</h3>
-            <p>
-              We aim to provide education that meets the needs of local communities, which is why we
-              have established study centres in three cities across the UK:{' '}
-              <strong>Nottingham</strong>, <strong>Leicester</strong>, and <strong>Birmingham</strong>.
-            </p>
-            <p>
-              Having study centres in these cities enables us to widen participation among people from
-              under-represented communities, who often lack the confidence and support needed to
-              achieve academic and career success.
-            </p>
-            <Link to="/study-centres" className="link-arrow">
-              Discover More <ArrowRight size={16} />
-            </Link>
+      {/* ── Find the Right Course ── */}
+      <section className="courses-section">
+        <div className="cs-inner">
+          <div className="cs-header">
+            <span className="cs-eyebrow">Explore Courses</span>
+            <h2 className="cs-heading">Find the Right Course for You</h2>
+            <div className="cs-tabs">
+              {courseCategories.map((cat) => (
+                <button
+                  key={cat.id}
+                  className={`cs-tab ${activeCategory === cat.id ? 'active' : ''}`}
+                  onClick={() => setActiveCategory(cat.id)}
+                >
+                  {cat.label}
+                </button>
+              ))}
+            </div>
           </div>
-
-          <div className="centres-images">
-            {campuses.map((c, i) => (
-              <div key={i} className="campus-thumb">
-                <img src={c.img} alt={c.label} />
-                <span className="campus-label"><MapPin size={13} /> {c.label}</span>
+          <div className="cs-grid">
+            {courses[activeCategory].map((course, i) => (
+              <div key={i} className="cs-card">
+                <div className="cs-card-img">
+                  <img src={course.img} alt={course.title} />
+                  {course.duration && <span className="cs-card-badge">{course.duration}</span>}
+                </div>
+                <div className="cs-card-body">
+                  <h4 className="cs-card-title">{course.title}</h4>
+                  <div className="cs-card-actions">
+                    {course.levels ? (
+                      course.levels.map((lv, j) => (
+                        <Link key={j} to={lv.link} className="cs-btn">{lv.label}</Link>
+                      ))
+                    ) : (
+                      <Link to={course.link} className="cs-btn">View Course <ArrowRight size={13} /></Link>
+                    )}
+                  </div>
+                </div>
               </div>
             ))}
-          </div>
-
-          <div className="vm-cards">
-            <div className="vm-card">
-              <Eye size={28} className="vm-icon" />
-              <h4>Our Vision</h4>
-              <p>
-                To become a leading provider of lifelong learning, supporting adults from basic skills
-                and further education through to higher education and sustained career success.
-              </p>
-              <Link to="/mission-values" className="link-arrow">Read More <ArrowRight size={14} /></Link>
-            </div>
-            <div className="vm-card">
-              <Target size={28} className="vm-icon" />
-              <h4>Our Mission</h4>
-              <p>
-                To provide students in local and international communities with the holistic education
-                they need to enhance their life chances.
-              </p>
-              <Link to="/mission-values" className="link-arrow">Read More <ArrowRight size={14} /></Link>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* ── Find the Right Course ── */}
-      <section className="courses-section">
+      {/* ── Study Centres ── */}
+      <section className="centres-section">
         <div className="container">
-          <h2 className="section-title text-center">Find the Right Course for You</h2>
-          <div className="course-tabs">
-            {courseCategories.map((cat) => (
-              <button
-                key={cat.id}
-                className={`course-tab ${activeCategory === cat.id ? 'active' : ''}`}
-                onClick={() => setActiveCategory(cat.id)}
-              >
-                {cat.label}
-              </button>
-            ))}
+
+          {/* Section label */}
+          <div className="centres-label">
+            <span className="centres-eyebrow"><MapPin size={13} /> Our Locations</span>
           </div>
-          <div className="course-grid">
-            {courses[activeCategory].map((course, i) => (
-              <div key={i} className="course-card">
-                <div className="course-img">
-                  <img src={course.img} alt={course.title} />
-                </div>
-                <div className="course-body">
-                  <h4>{course.title}</h4>
-                  {course.duration && <p className="course-duration">{course.duration}</p>}
-                  {course.levels ? (
-                    <div className="course-levels">
-                      {course.levels.map((lv, j) => (
-                        <Link key={j} to={lv.link} className="course-btn">{lv.label}</Link>
-                      ))}
-                    </div>
-                  ) : (
-                    <Link to={course.link} className="course-btn">{course.cta}</Link>
-                  )}
-                </div>
+
+          {/* Main split: text left, image grid right */}
+          <div className="centres-body">
+
+            {/* Left: text panel */}
+            <div className="centres-text-panel">
+              <h2 className="centres-headline">Study Centres<br />Across the UK</h2>
+              <p>We aim to provide education that meets the needs of local communities, which is why we have established study centres in three cities across the UK.</p>
+              <div className="centres-cities">
+                {['Nottingham', 'Leicester', 'Birmingham'].map(c => (
+                  <span key={c} className="centres-city-tag"><MapPin size={11} /> {c}</span>
+                ))}
               </div>
-            ))}
+              <p className="centres-text-sub">Having study centres in these cities enables us to widen participation among people from under-represented communities, who often lack the confidence and support needed to achieve academic and career success.</p>
+              <Link to="/study-centres" className="centres-discover-btn">
+                Discover More <ArrowRight size={15} />
+              </Link>
+            </div>
+
+            {/* Right: image grid */}
+            <div className="centres-img-grid">
+              {/* Featured large */}
+              <div className="cig-featured">
+                <img src={campuses[0].img} alt={campuses[0].label} />
+                <span className="cig-label"><MapPin size={11} /> {campuses[0].label}</span>
+              </div>
+              {/* 2x2 small */}
+              <div className="cig-small-grid">
+                {campuses.slice(1).map((c, i) => (
+                  <div key={i} className="cig-small">
+                    <img src={c.img} alt={c.label} />
+                    <span className="cig-label"><MapPin size={10} /> {c.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── Study Centre Environment ── */}
+      <section className="environment-section">
+        <div className="container">
+          <div className="env-header">
+            <span className="section-eyebrow">Campus Life</span>
+            <h2 className="env-heading">Our Study Centre Environment</h2>
+            <p className="env-subtext">
+              Each of our Study Centres fosters the same warm and vibrant community of students and staff,
+              working together to achieve shared goals.
+            </p>
+          </div>
+
+          <div className="env-features">
+            <div className="env-feature">
+              <div className="env-feature-icon"><Users size={22} /></div>
+              <h4>Supportive Staff</h4>
+              <p>Staff ready to support and guide you at every step of your learning journey.</p>
+            </div>
+            <div className="env-feature">
+              <div className="env-feature-icon"><BookOpen size={22} /></div>
+              <h4>Quality Education</h4>
+              <p>Academic faculty delivering high-quality, fully accredited programmes.</p>
+            </div>
+            <div className="env-feature">
+              <div className="env-feature-icon"><Building2 size={22} /></div>
+              <h4>Great Facilities</h4>
+              <p>Well-equipped facilities with everything you need to learn to your full potential.</p>
+            </div>
+            <div className="env-feature">
+              <div className="env-feature-icon"><Heart size={22} /></div>
+              <h4>Vibrant Community</h4>
+              <p>A warm and inclusive community that celebrates shared goals and diverse backgrounds.</p>
+            </div>
+          </div>
+
+          <div className="env-council">
+            <div className="env-council-icon"><CheckCircle size={26} /></div>
+            <div className="env-council-body">
+              <h5>TEC Student Council</h5>
+              <p>We are establishing a Student Council for all Study Centres in Nottingham, Leicester, and Birmingham — developing an annual calendar of social and educational events that reflect students' needs and interests.</p>
+            </div>
+            <Link to="/study-centres" className="env-council-btn">
+              Learn More <ArrowRight size={14} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Vision & Mission ── */}
+      <section className="vm-section">
+        <div className="container">
+          <div className="vm-row">
+            <div className="vm-item">
+              <div className="vm-item-icon"><Eye size={20} /></div>
+              <h4>Our Vision</h4>
+              <p>To become a leading provider of lifelong learning, supporting adults from basic skills and further education through to higher education and sustained career success.</p>
+              <Link to="/mission-values" className="link-arrow">Read More <ArrowRight size={13} /></Link>
+            </div>
+            <div className="vm-sep" />
+            <div className="vm-item">
+              <div className="vm-item-icon"><Target size={20} /></div>
+              <h4>Our Mission</h4>
+              <p>To provide students in local and international communities with the holistic education they need to enhance their life chances.</p>
+              <Link to="/mission-values" className="link-arrow">Read More <ArrowRight size={13} /></Link>
+            </div>
           </div>
         </div>
       </section>
@@ -344,32 +434,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Study Centre Environment ── */}
-      <section className="environment-section">
-        <div className="container env-grid">
-          <div className="env-text">
-            <h2>Our Study Centre Environment</h2>
-            <p>
-              Each of our Study Centres fosters the same warm and vibrant community of students and
-              staff, working together to achieve shared goals. You will find staff ready to support and
-              guide you, academic faculty delivering high-quality education, and well-equipped
-              facilities with everything you need to learn to the best of your ability.
-            </p>
-            <Link to="/study-centres" className="btn-gold" style={{ marginTop: '20px', display: 'inline-block' }}>
-              Read More
-            </Link>
-          </div>
-          <div className="env-card">
-            <CheckCircle size={32} className="env-icon" />
-            <p>
-              We are establishing a TEC Student Council for all Study Centres in Nottingham, Leicester,
-              and Birmingham. The Student Council will develop an annual calendar of social and
-              educational events that reflect students' needs and interests.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* ── Photo Strip ── */}
       <section className="photo-strip">
         <div className="photo-strip-track">
@@ -383,40 +447,34 @@ export default function HomePage() {
       {/* ── News & Events ── */}
       <section className="news-section">
         <div className="container">
-          <h2 className="section-title text-center">News &amp; Events</h2>
-
-          {/* Instagram profile header (mirrors original WordPress layout) */}
-          <a
-            href="https://www.instagram.com/trent_education_centre/"
-            target="_blank"
-            rel="noreferrer"
-            className="news-ig-header"
-            aria-label="Visit our Instagram profile"
-          >
-            <div className="news-ig-avatar">
-              <img src="/assets/logos/tec-crest.png" alt="Trent Education Centre" />
+          <div className="news-top">
+            <div className="section-header-centered">
+              <span className="section-eyebrow">Stay Updated</span>
+              <h2 className="section-title">News &amp; Events</h2>
             </div>
-            <div className="news-ig-meta">
-              <div className="news-ig-handle">trent_education_centre</div>
-              <div className="news-ig-bio">
-                Diverse training provider in the field of further and higher education all across the UK
-                📍 Nottingham, Leicester &amp; Birmingham
-              </div>
-            </div>
-          </a>
+            <a
+              href="https://www.instagram.com/trent_education_centre/"
+              target="_blank"
+              rel="noreferrer"
+              className="news-ig-badge"
+            >
+              <img src="/assets/logos/tec-crest.png" alt="TEC" />
+              <span className="news-ig-handle">@trent_education_centre</span>
+              <span className="news-ig-follow">Follow Us ↗</span>
+            </a>
+          </div>
 
           <div className="news-grid">
             {newsPosts.map((post, i) => (
               <a key={i} href={post.link} target="_blank" rel="noreferrer" className="news-item">
-                <img src={post.src} alt="TEC Instagram post" />
-                {post.isVideo && (
-                  <div className="news-video-icon"><Play size={22} fill="white" /></div>
-                )}
+                <img src={post.src} alt="TEC post" />
+                {post.isVideo && <div className="news-video-icon"><Play size={20} fill="white" /></div>}
                 <div className="news-overlay"><span>View on Instagram</span></div>
               </a>
             ))}
           </div>
-          <div style={{ textAlign: 'center', marginTop: 28 }}>
+
+          <div className="news-cta">
             <Link to="/news-events" className="btn-gold">View All News &amp; Events</Link>
           </div>
         </div>
@@ -425,7 +483,10 @@ export default function HomePage() {
       {/* ── Application Process ── */}
       <section className="apply-section">
         <div className="container">
-          <h2 className="section-title text-center">Application Process</h2>
+          <div className="section-header-centered">
+            <span className="section-eyebrow">Getting Started</span>
+            <h2 className="section-title">Application Process</h2>
+          </div>
           <div className="apply-steps">
             <div className="apply-step">
               <div className="step-num">1</div>
@@ -450,13 +511,17 @@ export default function HomePage() {
 
       {/* ── CTA Banner ── */}
       <section className="cta-section">
-        <div className="cta-inner">
-          <div className="cta-icon"><ClipboardList size={36} /></div>
-          <h2>Ready to Apply?</h2>
-          <p>Complete the online Student Application Form to share your details, course choice, and supporting documents. Our admissions team will be in touch shortly.</p>
-          <Link to="/application-form" className="cta-btn">
-            Start Your Application <ArrowRight size={18} />
-          </Link>
+        <div className="container cta-inner">
+          <div className="cta-text">
+            <span className="cta-eyebrow">Getting Started</span>
+            <h2 className="cta-heading">Ready to Apply?</h2>
+            <p className="cta-desc">Complete the online Student Application Form to share your details, course choice, and supporting documents. Our admissions team will be in touch shortly.</p>
+          </div>
+          <div className="cta-actions">
+            <Link to="/application-form" className="cta-btn-primary">
+              Start Your Application <ArrowRight size={16} />
+            </Link>
+          </div>
         </div>
       </section>
     </div>

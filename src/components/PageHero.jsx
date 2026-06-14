@@ -10,7 +10,7 @@ const DEFAULT_BG = '/assets/images/general/student-unsplash.jpg';
  *   bgImage   – optional URL; falls back to DEFAULT_BG
  *   centered  – when true, title box sits centred inside the banner (no bottom overlap)
  */
-export default function PageHero({ title, subtitle, bgImage, bgPosition, bgSize, children, centered }) {
+export default function PageHero({ title, subtitle, bgImage, bgPosition, bgSize, children, centered, badge }) {
   const bannerStyle = {
     backgroundImage: `url(${bgImage || DEFAULT_BG})`,
     backgroundPosition: bgPosition || 'center top',
@@ -42,6 +42,7 @@ export default function PageHero({ title, subtitle, bgImage, bgPosition, bgSize,
     <>
       <div className="ph-banner" style={bannerStyle}>
         <div className="ph-overlay" />
+        {badge && <div className="ph-badge">{badge}</div>}
       </div>
 
       {/* green title box overlaps the bottom of the banner */}

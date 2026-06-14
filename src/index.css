@@ -18,10 +18,14 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   color: var(--tec-text);
   background: #fff;
   line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
 }
 
 a {
@@ -76,10 +80,30 @@ img {
 }
 
 .section-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--tec-green);
+  font-size: clamp(1.7rem, 2.8vw, 2.2rem);
+  font-weight: 900;
+  color: #0d1e13;
   margin-bottom: 1rem;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: var(--tec-gold);
+  border-radius: 2px;
+  margin-top: 10px;
+}
+
+.text-center .section-title::after,
+.section-title.text-center::after {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .section-subtitle {

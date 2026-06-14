@@ -7,7 +7,6 @@ import {
 } from 'lucide-react';
 import '../../InnerPage.css';
 import './EnglishCoursesPage.css';
-import PageHero from '../../../components/PageHero';
 
 /* ── Accordion data: ESOL ── */
 const esolSections = [
@@ -480,11 +479,24 @@ export default function EnglishCoursesPage() {
     <div className="inner-page page-enter">
 
       {/* ── Hero ── */}
-      <PageHero
-        title="English Language Courses"
-        bgImage="/assets/images/campus/castle-boulevard/general.jpg"
-        bgPosition="center center"
-      />
+      <div className="eng-hero">
+        <div className="eng-hero-left">
+          <span className="eng-hero-eyebrow">Trent Education Centre</span>
+          <h1 className="eng-hero-title">English Language Courses</h1>
+          <p className="eng-hero-sub">
+            Professionally taught English courses for adults in Nottingham —
+            from beginner ESOL to advanced Functional Skills.
+          </p>
+        </div>
+        <div className="eng-hero-right">
+          <img
+            src="/assets/badges/british-council-badge.png"
+            alt="Accredited by the British Council for the teaching of English in the UK"
+            className="eng-hero-badge"
+          />
+          <p className="eng-hero-badge-caption">Official British Council Accreditation</p>
+        </div>
+      </div>
 
       {/* ── Intro ── */}
       <div className="container eng-intro">

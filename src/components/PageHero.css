@@ -78,6 +78,37 @@
   line-height: 1.75;
 }
 
+/* ── Badge overlay (bottom-left of banner) ── */
+.ph-badge {
+  position: absolute;
+  bottom: 32px;
+  left: clamp(20px, 11%, 140px);
+  z-index: 3;
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px 20px;
+  box-shadow: 0 6px 28px rgba(0,0,0,0.28);
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.ph-badge img {
+  width: 160px;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .ph-badge { bottom: 20px; left: 20px; padding: 12px 16px; }
+  .ph-badge img { width: 120px; }
+}
+
+@media (max-width: 560px) {
+  .ph-badge { bottom: 14px; left: 12px; padding: 10px 12px; }
+  .ph-badge img { width: 96px; }
+}
+
 /* ── Centred variant: title box sits inside the banner ── */
 .ph-banner.ph-centered {
   margin-bottom: 0;
