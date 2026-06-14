@@ -1131,9 +1131,9 @@
 }
 
 .partner-logo--big img {
-  height: 70px !important;
+  height: 90px !important;
   width: auto;
-  max-width: 160px;
+  max-width: 180px;
   object-fit: contain;
 }
 
@@ -1161,8 +1161,8 @@
 }
 
 .memberships-section .partner-logo--big img {
-  height: 60px !important;
-  max-width: 150px;
+  height: 80px !important;
+  max-width: 170px;
 }
 
 /* ── Campus thumbnail in Study Centres ── */
@@ -1789,8 +1789,8 @@
   .hero-btns { flex-direction: column; gap: 10px; }
   .btn-outline-light { text-align: center; }
   .news-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-  .partner-logo--big img { height: 50px !important; }
-  .memberships-section .partner-logo--big img { height: 46px !important; }
+  .partner-logo--big img { height: 64px !important; }
+  .memberships-section .partner-logo--big img { height: 58px !important; }
 }
 
 /* ── Photo Strip ── */
