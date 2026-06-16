@@ -1181,7 +1181,42 @@ export default function AdminPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const activeSection = location.pathname === '/admin/chatbot' ? 'chatbot' : 'entries';
   const [page, setPage]               = useState(1);
+  const [subFilters, setSubFilters]   = useState({});
   const PER_PAGE                      = 25;
+
+  // ── Per-form filter fields ───────────────────────────────────
+  const FILTER_CONFIG = {
+    'Application Form': [
+      { key: 'course',       label: 'Course' },
+      { key: 'studyCentre',  label: 'Study Centre' },
+    ],
+    'English & IELTS Application': [
+      { key: 'course', label: 'Course' },
+    ],
+    'Enrolment Form': [
+      { key: 'programmeTitle', label: 'Course' },
+    ],
+    'International Application': [
+      { key: 'course',      label: 'Course' },
+      { key: 'studyCentre', label: 'Study Centre' },
+    ],
+    'Job Application': [
+      { key: 'jobTitle',     label: 'Job Title' },
+      { key: 'siteLocation', label: 'Location' },
+    ],
+    'New Starter Form': [
+      { key: 'siteLocation', label: 'Site Location' },
+      { key: 'contractType', label: 'Contract Type' },
+    ],
+    'Enquiry Form': [
+      { key: 'enquiringAbout', label: 'Enquiring About' },
+    ],
+    'Partnerships & Collaborations': [
+      { key: 'legalStatus', label: 'Legal Status' },
+      { key: 'country',     label: 'Country' },
+      { key: 'service',     label: 'Service' },
+    ],
+  };
 
   // Which form names this user can see (null = all)
   const allowedForms = currentUser ? getAllowedForms(currentUser.groups) : [];
@@ -1285,7 +1320,10 @@ export default function AdminPage() {
     const matchType = filter === 'All' || e.formType === filter;
     const q = search.toLowerCase();
     const matchSearch = !q || JSON.stringify(e).toLowerCase().includes(q);
-    return matchType && matchSearch;
+    const matchSub = Object.entries(subFilters).every(([key, val]) =>
+      !val || String(e[key] || '').toLowerCase() === val.toLowerCase()
+    );
+    return matchType && matchSearch && matchSub;
   });
 
   const totalPages  = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
@@ -1293,7 +1331,7 @@ export default function AdminPage() {
   const paginated   = filtered.slice((safePage - 1) * PER_PAGE, safePage * PER_PAGE);
 
   // Reset to page 1 whenever filter or search changes
-  const setFilterAndReset = (f) => { setFilter(f); setPage(1); };
+  const setFilterAndReset = (f) => { setFilter(f); setPage(1); setSubFilters({}); };
   const setSearchAndReset = (s) => { setSearch(s); setPage(1); };
 
   // Still checking Cognito session
@@ -1471,6 +1509,34 @@ export default function AdminPage() {
           </div>
         </div>
 
+
+        {/* ── Sub-filters bar ── */}
+        {FILTER_CONFIG[filter]?.length > 0 && entries.some(e => e.formType === filter) && (
+          <div className="adm-subfilters">
+            {FILTER_CONFIG[filter].map(({ key, label }) => {
+              const opts = [...new Set(
+                entries.filter(e => e.formType === filter).map(e => e[key]).filter(Boolean)
+              )].sort();
+              if (opts.length === 0) return null;
+              return (
+                <select
+                  key={key}
+                  className="adm-subfilter-select"
+                  value={subFilters[key] || ''}
+                  onChange={e => { setSubFilters(prev => ({ ...prev, [key]: e.target.value })); setPage(1); }}
+                >
+                  <option value="">All {label}s</option>
+                  {opts.map(o => <option key={o} value={o}>{o}</option>)}
+                </select>
+              );
+            })}
+            {Object.values(subFilters).some(Boolean) && (
+              <button className="adm-subfilter-clear" onClick={() => { setSubFilters({}); setPage(1); }}>
+                ✕ Clear Filters
+              </button>
+            )}
+          </div>
+        )}
 
         {loading && entries.length === 0 ? (
           <div className="adm-loading">
