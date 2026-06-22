@@ -3,7 +3,6 @@
 //  All forms, credentials, and utilities in one place.
 //  To add a new form: add an entry to FORM_REGISTRY below.
 // ════════════════════════════════════════════════════════════
-import { getIdToken } from '../utils/cognitoAuth';
 
 // ── AWS Config ───────────────────────────────────────────────
 export const AWS_CONFIG = {
@@ -533,119 +532,14 @@ export async function saveSubmissionToDB(entry) {
  * Makes multiple small requests (500 records each) instead of one
  * giant request — avoids Lambda/API Gateway timeout regardless of
  * how many records exist.
- * Sends Cognito JWT so the Lambda filters by the user's assigned groups.
- * Returns sorted array on success, null on error.
+ * Admin submission management has moved to the VLE frontend (tec-cms).
+ * These stubs exist so any remaining imports don't break at runtime.
  */
-export async function getAllSubmissionsFromDB(onProgress) {
-  if (!AWS_CONFIG.dynamoGetUrl) return null;
-  try {
-    const idToken = await getIdToken();
-    if (!idToken) throw new Error('Not authenticated');
-
-    const PAGE = 500;
-    let allItems = [];
-    let nextKey  = null;
-
-    do {
-      const url = new URL(AWS_CONFIG.dynamoGetUrl);
-      url.searchParams.set('limit', PAGE);
-      if (nextKey) url.searchParams.set('startKey', nextKey);
-
-      const res = await fetch(url.toString(), {
-        headers: { 'Authorization': `Bearer ${idToken}` },
-      });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const body = await res.json();
-
-      allItems = allItems.concat(body.items || []);
-      nextKey  = body.nextKey || null;
-
-      // Optional progress callback so the UI can update as pages arrive
-      if (onProgress) onProgress(allItems);
-    } while (nextKey);
-
-    // Sort newest first (client-side, across all pages)
-    allItems.sort((a, b) => new Date(b.submittedAt) - new Date(a.submittedAt));
-    return allItems;
-  } catch (err) {
-    console.error('DynamoDB fetch failed:', err);
-    return null;
-  }
-}
-
-/** Update full entry in DynamoDB (no emails sent) */
-export async function updateSubmissionInDB(entry) {
-  if (!AWS_CONFIG.dynamoUpdateUrl) return false;
-  try {
-    const idToken = await getIdToken();
-    const res = await fetch(AWS_CONFIG.dynamoUpdateUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(idToken ? { 'Authorization': `Bearer ${idToken}` } : {}),
-      },
-      body: JSON.stringify(entry),
-    });
-    return res.ok;
-  } catch (err) {
-    console.error('DynamoDB full update failed:', err);
-    return false;
-  }
-}
-
-/** Update status in DynamoDB */
-export async function updateSubmissionStatusInDB(id, status) {
-  if (!AWS_CONFIG.dynamoUpdateUrl) return false;
-  try {
-    const idToken = await getIdToken();
-    const res = await fetch(AWS_CONFIG.dynamoUpdateUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(idToken ? { 'Authorization': `Bearer ${idToken}` } : {}),
-      },
-      body: JSON.stringify({ id, status }),
-    });
-    return res.ok;
-  } catch (err) {
-    console.error('DynamoDB update failed:', err);
-    return false;
-  }
-}
-
-/** Delete from DynamoDB */
-export async function deleteSubmissionFromDB(id) {
-  if (!AWS_CONFIG.dynamoDeleteUrl) return false;
-  try {
-    const idToken = await getIdToken();
-    const res = await fetch(AWS_CONFIG.dynamoDeleteUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(idToken ? { 'Authorization': `Bearer ${idToken}` } : {}),
-      },
-      body: JSON.stringify({ id }),
-    });
-    return res.ok;
-  } catch (err) {
-    console.error('DynamoDB delete failed:', err);
-    return false;
-  }
-}
-
-/** Push all localStorage entries to DynamoDB (one-time migration). */
-export async function migrateLocalStorageToDB(onProgress) {
-  if (!AWS_CONFIG.dynamoSaveUrl) return { success: 0, failed: 0, error: 'No endpoint configured' };
-  const all = getAllSubmissions();
-  let success = 0;
-  let failed = 0;
-  for (let i = 0; i < all.length; i++) {
-    const ok = await saveSubmissionToDB(all[i]);
-    if (ok) success++; else failed++;
-    if (onProgress) onProgress(i + 1, all.length);
-  }
-  return { success, failed };
-}
+export async function getAllSubmissionsFromDB() { return null; }
+export async function updateSubmissionInDB() { return false; }
+export async function updateSubmissionStatusInDB() { return false; }
+export async function deleteSubmissionFromDB() { return false; }
+export async function migrateLocalStorageToDB() { return { success: 0, failed: 0 }; }
 
 // ── Export to Google Sheets (Apps Script) ────────────────────
 export async function exportToSheets(entry) {
