@@ -65,7 +65,7 @@ import EatOutPage from './pages/international/EatOutPage';
 import PersonalStatementPage from './pages/international/PersonalStatementPage';
 import TrentLanguageHubPage from './pages/TrentLanguageHubPage';
 import IELTSPage from './pages/IELTSPage';
-import AdminPage from './pages/admin/AdminPage';
+// AdminPage removed — form management moved to VLE frontend (tec-cms)
 import GenericPage from './pages/GenericPage';
 import CookieConsent from './components/CookieConsent';
 import ChatWidget from './components/ChatWidget/ChatWidget';
@@ -176,9 +176,6 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Admin — no navbar/footer */}
-        <Route path="/admin" element={<AdminPage />} />
-        <Route path="/admin/chatbot" element={<AdminPage />} />
         {/* Everything else — with navbar/footer */}
         <Route path="*" element={<AppLayout />} />
       </Routes>

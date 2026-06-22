@@ -3,7 +3,6 @@ dist
 .env
 .env.local
 .DS_Store
-public/uploads
 
 # Personal data — historical Gravity Forms imports & recovery snapshots
 # (contain names, emails, NIN numbers etc. — must NOT be served publicly)

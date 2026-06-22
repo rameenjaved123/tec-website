@@ -77,26 +77,6 @@ const jobs = [
     learnLink: '/job-academic-manager',
     learnDisabled: true,
   },
-  {
-    title: 'Education Officer',
-    positions: null,
-    status: 'closed',
-    openedDate: '25th Dec 2023',
-    closedDate: '1st Feb 2023',
-    desc: 'Develops educational materials, programs, and initiatives to enhance the learning environment and educational outcomes for students.',
-    applyLink: null,
-    learnLink: null,
-  },
-  {
-    title: 'Financial Account Manager',
-    positions: null,
-    status: 'closed',
-    openedDate: '1st Feb 2023',
-    closedDate: '15th March 2023',
-    desc: 'Oversees financial accounts, ensuring accurate reporting and compliance with regulations. Develops financial strategies, prepares statements, and analyses data to support business growth and the organisation\'s educational mission.',
-    applyLink: null,
-    learnLink: null,
-  },
 ];
 
 export default function CareersPage() {
@@ -114,7 +94,7 @@ export default function CareersPage() {
 
       <div className="container inner-content">
         <p style={{ fontSize: '1rem', color: 'var(--tec-text-light)', lineHeight: '1.8', margin: '0 0 12px', textAlign: 'center' }}>
-          Trent Education Centre (TEC) will be advertising new job opportunities from January 2024.
+          Check the Current Vacancies below for any new job opportunities.
           Our job adverts will include a job description, person specification and details of how to
           apply for each vacancy. We welcome applications from people of all backgrounds.
         </p>

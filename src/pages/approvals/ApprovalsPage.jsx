@@ -56,6 +56,7 @@ const awardingOrgs = [
 
 const accreditations = [
   { src: '/assets/badges/asic.jpg', name: 'ASIC Accreditation' },
+  { src: '/assets/badges/british-council-badge.png', name: 'British Council' },
   { src: '/assets/badges/dwp.jpg', name: 'DWP Approved Provider' },
   { src: '/assets/badges/armed-forces.jpg', name: 'Armed Forces Covenant Bronze' },
 ];

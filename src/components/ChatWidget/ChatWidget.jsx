@@ -1,16 +1,17 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import './ChatWidget.css';
+import { logChat, getRecaptchaToken } from '../../utils/api';
 
 const BOT_AVATAR = '/assets/logos/tec-crest.png';
-const LAMBDA_URL = 'https://htabzeqaghsn4zoe5z5hruppe40ckfyh.lambda-url.us-east-1.on.aws';
 
-// Fire-and-forget — logs the conversation for admin panel, also triggers rate limiting
-function logConversation(userMessage, botAnswer, sessionId) {
-  fetch(`${LAMBDA_URL}/api/chat`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ userMessage, botAnswer, sessionId }),
-  }).catch(() => {}); // never throw — this is non-critical
+// Fire-and-forget — logs the conversation to FastAPI backend for admin panel
+async function logConversation(userMessage, botAnswer, sessionId) {
+  try {
+    const recaptchaToken = await getRecaptchaToken('chat');
+    await logChat(userMessage, botAnswer, sessionId, recaptchaToken);
+  } catch {
+    // never throw — this is non-critical logging
+  }
 }
 
 // ── FAQ knowledge base (purely from TEC site content) ─────────────────────────

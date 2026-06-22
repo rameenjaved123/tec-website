@@ -208,16 +208,14 @@ export default function HomePage() {
 
       {/* ── Announcement Banner ── */}
       <div className="announcement-banner">
-        <p>
-          See our{' '}
-          <a
-            href="/assets/documents/terms/access-participation-2026.pdf"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Latest Access and Participation Statement 2026-27
-          </a>
-        </p>
+        See our{' '}
+        <a
+          href="/assets/documents/terms/access-participation-2026.pdf"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Latest Access and Participation Statement 2026-27
+        </a>
       </div>
 
       {/* ── About Intro ── */}

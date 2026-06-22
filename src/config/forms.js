@@ -3,22 +3,29 @@
 //  All forms, credentials, and utilities in one place.
 //  To add a new form: add an entry to FORM_REGISTRY below.
 // ════════════════════════════════════════════════════════════
+import {
+  submitForm as apiSubmitForm,
+  uploadToS3 as apiUploadToS3,
+  getS3ViewUrl as apiGetS3ViewUrl,
+  sendEmail as apiSendEmail,
+  listSubmissions,
+  updateSubmission as apiUpdateSubmission,
+  deleteSubmission as apiDeleteSubmission,
+  getRecaptchaToken,
+} from '../utils/api';
 
-// ── AWS Config ───────────────────────────────────────────────
-export const AWS_CONFIG = {
-  apiUrl:          'https://0yx963nwb7.execute-api.us-east-1.amazonaws.com',
-  bucket:          'tec-form-uploads',
-  region:          'us-east-1',
-  // ── DynamoDB API ──────────────────────────────────────────────
-  dynamoSaveUrl:   'https://0yx963nwb7.execute-api.us-east-1.amazonaws.com/save-submission',
-  dynamoGetUrl:    'https://0yx963nwb7.execute-api.us-east-1.amazonaws.com/get-submissions',
-  dynamoUpdateUrl: 'https://0yx963nwb7.execute-api.us-east-1.amazonaws.com/update-submission',
-  dynamoDeleteUrl: 'https://0yx963nwb7.execute-api.us-east-1.amazonaws.com/delete-submission',
+// ── Form type → FastAPI slug mapping ─────────────────────────
+const FORM_SLUG = {
+  'Enquiry Form':                'enquiry',
+  'Application Form':            'application',
+  'Enrolment Form':              'enrolment',
+  'International Application':   'international-application',
+  'Job Application':             'job-application',
+  'New Starter Form':            'new-starter',
+  'Partnerships & Collaborations': 'partnerships',
+  'English & IELTS Application': 'english-ielts',
+  'Complaint Form':              'complaint',
 };
-
-// ── Admin password ────────────────────────────────────────────
-// Change this before going live
-export const ADMIN_PASSWORD = 'tec-admin-2024';
 
 // ── Notification emails ───────────────────────────────────────
 // Who gets emailed when each form is submitted
@@ -33,13 +40,6 @@ export const NOTIFY_EMAILS = {
   'International Application':      'internationaladmissions@trenteducation.co.uk',
   'Contact':                        'info@trenteducation.co.uk',
   'default':                        'info@trenteducation.co.uk',
-};
-
-// ── AWS SES (via Lambda) ──────────────────────────────────────
-export const SES_CONFIG = {
-  endpoint: 'https://ouu9vyqahf.execute-api.us-east-1.amazonaws.com/tec-send-email',
-  fromEmail: 'noreply@trenteducation.co.uk',
-  fromName:  'Trent Education Centre',
 };
 
 // ── Google Sheets (Apps Script) ───────────────────────────────
@@ -458,39 +458,12 @@ export const FORM_REGISTRY = {
 
 // ── Get presigned view URL for a file in S3 ──────────────────
 export async function getS3ViewUrl(fileKey) {
-  const res = await fetch(`${AWS_CONFIG.apiUrl}/get-upload-url`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action: 'get-view-url', fileKey }),
-  });
-  if (!res.ok) throw new Error('Failed to get view URL');
-  const { viewUrl } = await res.json();
-  return viewUrl;
+  return apiGetS3ViewUrl(fileKey);
 }
 
 // ── Upload file to S3 ────────────────────────────────────────
 export async function uploadToS3(file, folder = 'uploads') {
-  const res = await fetch(`${AWS_CONFIG.apiUrl}/get-upload-url`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      fileName: file.name,
-      fileType: file.type,
-      folder,
-    }),
-  });
-  if (!res.ok) throw new Error('Failed to get S3 upload URL. Check your Lambda function is deployed.');
-  const { uploadUrl, fileKey } = await res.json();
-
-  const uploadRes = await fetch(uploadUrl, {
-    method: 'PUT',
-    headers: { 'Content-Type': file.type },
-    body: file,
-  });
-  if (!uploadRes.ok) throw new Error('File upload to S3 failed. Check bucket CORS settings.');
-
-  const fileUrl = `https://${AWS_CONFIG.bucket}.s3.${AWS_CONFIG.region}.amazonaws.com/${fileKey}`;
-  return { fileKey, fileUrl };
+  return apiUploadToS3(file, folder);
 }
 
 // ════════════════════════════════════════════════════════════
@@ -510,36 +483,123 @@ export function saveSubmission(formType, data) {
 
 // ── DynamoDB helpers ─────────────────────────────────────────
 
-/** POST one entry to DynamoDB. Called fire-and-forget on submit. */
+/**
+ * Submit a form entry to the FastAPI backend.
+ * `entry` must have a `formType` field matching a key in FORM_REGISTRY.
+ * Returns { id, status } on success, false on failure.
+ */
 export async function saveSubmissionToDB(entry) {
-  if (!AWS_CONFIG.dynamoSaveUrl) return false;
   try {
-    const res = await fetch(AWS_CONFIG.dynamoSaveUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(entry),
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return true;
+    const slug = FORM_SLUG[entry.formType];
+    if (!slug) throw new Error(`Unknown form type: ${entry.formType}`);
+    const recaptchaToken = await getRecaptchaToken('form_submit');
+    const result = await apiSubmitForm(slug, entry, recaptchaToken);
+    return result?.data ?? result ?? true;
   } catch (err) {
-    console.error('DynamoDB save failed:', err);
+    console.error('Form submission failed:', err);
     return false;
   }
 }
 
 /**
- * Fetch ALL entries from DynamoDB using server-side pagination.
- * Makes multiple small requests (500 records each) instead of one
- * giant request — avoids Lambda/API Gateway timeout regardless of
- * how many records exist.
- * Admin submission management has moved to the VLE frontend (tec-cms).
- * These stubs exist so any remaining imports don't break at runtime.
+ * Fetch all submissions from the FastAPI backend for all form types.
+ * Calls onProgress with accumulated items after each form type loads.
+ * Returns sorted array on success, null on error.
  */
-export async function getAllSubmissionsFromDB() { return null; }
-export async function updateSubmissionInDB() { return false; }
-export async function updateSubmissionStatusInDB() { return false; }
-export async function deleteSubmissionFromDB() { return false; }
-export async function migrateLocalStorageToDB() { return { success: 0, failed: 0 }; }
+export async function getAllSubmissionsFromDB(onProgress) {
+  try {
+    const formTypes = Object.keys(FORM_SLUG);
+    const allItems = [];
+
+    for (const label of formTypes) {
+      const slug = FORM_SLUG[label];
+      try {
+        let offset = 0;
+        const PAGE = 50;
+        while (true) {
+          const res = await listSubmissions(slug, { offset, limit: PAGE });
+          const items = (res?.data?.items || []).map(item => ({
+            ...item.data,
+            id:          item.id,
+            formType:    label,
+            status:      item.status,
+            notes:       item.notes,
+            submittedAt: item.submitted_at,
+            _fapiId:     item.id,
+            _fapiSlug:   slug,
+          }));
+          allItems.push(...items);
+          if (onProgress) onProgress([...allItems]);
+          if (items.length < PAGE) break;
+          offset += PAGE;
+        }
+      } catch {
+        // skip form types that fail (e.g. no table yet)
+      }
+    }
+
+    allItems.sort((a, b) => new Date(b.submittedAt) - new Date(a.submittedAt));
+    return allItems;
+  } catch (err) {
+    console.error('Submissions fetch failed:', err);
+    return null;
+  }
+}
+
+/** Update full entry — patches notes and status via FastAPI */
+export async function updateSubmissionInDB(entry) {
+  try {
+    const slug = entry._fapiSlug || FORM_SLUG[entry.formType];
+    if (!slug) return false;
+    await apiUpdateSubmission(slug, entry._fapiId || entry.id, {
+      notes: entry.notes,
+      status: entry.status,
+    });
+    return true;
+  } catch (err) {
+    console.error('Submission update failed:', err);
+    return false;
+  }
+}
+
+/** Update just the status field of a submission */
+export async function updateSubmissionStatusInDB(id, newStatus, formTypeLabel) {
+  try {
+    const slug = FORM_SLUG[formTypeLabel];
+    if (!slug) return false;
+    await apiUpdateSubmission(slug, id, { status: newStatus });
+    return true;
+  } catch (err) {
+    console.error('Status update failed:', err);
+    return false;
+  }
+}
+
+/** Permanently delete a submission */
+export async function deleteSubmissionFromDB(id, formTypeLabel) {
+  try {
+    const slug = FORM_SLUG[formTypeLabel];
+    if (!slug) return false;
+    await apiDeleteSubmission(slug, id);
+    return true;
+  } catch (err) {
+    console.error('Submission delete failed:', err);
+    return false;
+  }
+}
+
+/** Push all localStorage entries to the FastAPI backend (one-time migration). */
+export async function migrateLocalStorageToDB(onProgress) {
+  const all = getAllSubmissions();
+  let success = 0;
+  let failed = 0;
+  for (let i = 0; i < all.length; i++) {
+    const ok = await saveSubmissionToDB(all[i]);
+    if (ok) success++; else failed++;
+    if (onProgress) onProgress(i + 1, all.length);
+  }
+  return { success, failed };
+}
 
 // ── Export to Google Sheets (Apps Script) ────────────────────
 export async function exportToSheets(entry) {
@@ -794,7 +854,7 @@ function buildConfirmationHtml(entry) {
   }
 }
 
-// ── Send confirmation email to the submitter (via SES Lambda) ─
+// ── Send confirmation email to the submitter (via FastAPI → SES) ─
 export async function sendConfirmationEmail(entry) {
   if (!entry.email) {
     console.warn('No submitter email — skipping confirmation.');
@@ -802,20 +862,15 @@ export async function sendConfirmationEmail(entry) {
   }
   try {
     const { subject, fromName, html } = buildConfirmationHtml(entry);
-    const res = await fetch(SES_CONFIG.endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        to:       entry.email,
-        from:     SES_CONFIG.fromEmail,
-        fromName,
-        replyTo:  'hr@trenteducation.co.uk',
-        subject,
-        html,
-      }),
+    await apiSendEmail({
+      to:       entry.email,
+      subject,
+      html,
+      fromName,
+      replyTo:  'hr@trenteducation.co.uk',
     });
     console.log('Confirmation email sent to', entry.email);
-    return res.ok;
+    return true;
   } catch (err) {
     console.error('Confirmation email failed:', err);
     return false;
@@ -879,20 +934,15 @@ export async function sendEmailNotification(entry) {
         </div>
       </div>`;
 
-    const res = await fetch(SES_CONFIG.endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        to:       notifyEmail,
-        from:     SES_CONFIG.fromEmail,
-        fromName: 'Trent Enrol Admissions',
-        replyTo:  entry.email || SES_CONFIG.fromEmail,
-        subject:  `New ${entry.formType || 'Form'} Submission`,
-        html,
-      }),
+    await apiSendEmail({
+      to:       notifyEmail,
+      subject:  `New ${entry.formType || 'Form'} Submission`,
+      html,
+      fromName: 'Trent Enrol Admissions',
+      replyTo:  entry.email || 'noreply@trenteducation.co.uk',
     });
     console.log('Notification sent to', notifyEmail);
-    return res.ok;
+    return true;
   } catch (err) {
     console.error('Email notification failed:', err);
     return false;
