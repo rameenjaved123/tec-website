@@ -9,7 +9,7 @@ const jobs = [
     positions: '1 Position',
     status: 'open',
     desc: 'Plans and delivers effective marketing campaigns to promote products and services, supporting brand growth and customer engagement.',
-    applyLink: 'https://trenteducation.co.uk/enrol/job-application/?job=Marketing%20Executive',
+    applyLink: '/job-application?job=Marketing%20Executive',
     learnLink: '/marketing-executive',
   },
   {
@@ -17,7 +17,7 @@ const jobs = [
     positions: null,
     status: 'open',
     desc: 'Responsible for delivering lectures, designing curriculum, and assessing student performance in a specific subject area at a tertiary level.',
-    applyLink: 'https://trenteducation.co.uk/enrol/job-application/?job=Lecturer',
+    applyLink: '/job-application?job=Lecturer',
     learnLink: '/job-lecturer',
   },
   {
@@ -25,7 +25,7 @@ const jobs = [
     positions: '5 Positions',
     status: 'open',
     desc: 'Assists lecturers in preparing and delivering educational content, grading assignments, and supporting students in their academic journey.',
-    applyLink: 'https://trenteducation.co.uk/enrol/job-application/?job=Teaching%20Assistant',
+    applyLink: '/job-application?job=Teaching%20Assistant',
     learnLink: '/job-teaching-assistant',
   },
   {
@@ -33,7 +33,7 @@ const jobs = [
     positions: null,
     status: 'open',
     desc: 'Provides guidance and support to students on various issues, including academic advice, mental health support, and career counseling',
-    applyLink: 'https://trenteducation.co.uk/enrol/job-application/?job=Student%20Support%20Officer',
+    applyLink: '/job-application?job=Student%20Support%20Officer',
     learnLink: '/job-student-support-officer',
   },
   {
@@ -41,7 +41,7 @@ const jobs = [
     positions: null,
     status: 'closed',
     desc: 'Designs and implements digital marketing campaigns, manages social media profiles, and analyses digital data to optimise marketing strategies.',
-    applyLink: 'https://trenteducation.co.uk/enrol/job-application/?job=Digital%20Marketing%20Executive',
+    applyLink: '/job-application?job=Digital%20Marketing%20Executive',
     learnLink: '/digital-marketing-executive',
   },
   {

@@ -136,28 +136,28 @@ const learnMoreCards = [
   {
     title: 'Fees and Funding',
     desc: 'Tuition fees and payment plans, opening a UK bank account, scholarships and funding opportunities.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/06/Multi-faith-6.jpg',
+    img: '/uploads/2025/06/Multi-faith-6.jpg',
     href: '/fees-and-funding',
     internal: true,
   },
   {
     title: 'Student Support Services',
     desc: 'Academic Support, International Student Support, Disability and Wellbeing Services.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2024/08/smiling-females-wearing-headphones-around-neck-looking-laptop-scaled.jpg',
+    img: '/uploads/2024/08/smiling-females-wearing-headphones-around-neck-looking-laptop-scaled.jpg',
     href: '/student-support',
     internal: true,
   },
   {
     title: 'Pre-Arrival Information',
     desc: 'Pre-departure checklist, packing essentials, important documents, airport transfers, accommodation.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/03/10.jpg',
+    img: '/uploads/2025/03/10.jpg',
     href: '/pre-arrival',
     internal: true,
   },
   {
     title: 'Post-Arrival Information',
     desc: 'Complete your enrolment, collect your student ID, attend orientation sessions, and explore the campus.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/04/tec-website-photos-3.jpg',
+    img: '/uploads/2025/04/tec-website-photos-3.jpg',
     href: '/post-arrival',
     internal: true,
   },
@@ -214,7 +214,7 @@ export default function ApplicationProcessPage() {
       <PageHero
         title="The Application and Admissions Process"
         subtitle="Step-by-step guidance for international applicants — from preparing your documents to accepting your offer."
-        bgImage="https://trenteducation.co.uk/wp-content/uploads/2025/04/Multi-faith-5.jpg"
+        bgImage="/uploads/2025/04/Multi-faith-5.jpg"
         bgPosition="center 40%"
       />
 
@@ -236,7 +236,7 @@ export default function ApplicationProcessPage() {
         <div className="aap-split">
           <div className="aap-split-img">
             <img
-              src="https://trenteducation.co.uk/wp-content/uploads/2025/04/Multi-faith-5.jpg"
+              src="/uploads/2025/04/Multi-faith-5.jpg"
               alt="Students at Trent Education Centre"
               loading="lazy"
             />

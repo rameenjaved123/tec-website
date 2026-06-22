@@ -65,7 +65,7 @@ export default function MarketingExecutivePage() {
               <h3 style={{ color: 'var(--tec-green)', fontSize: '1.1rem', fontWeight: 700, marginBottom: '8px' }}>Marketing Executive</h3>
               <p style={{ color: 'var(--tec-gold)', fontWeight: 600, fontSize: '0.9rem', marginBottom: '24px' }}>Now Hiring: 1 Position</p>
               <a
-                href="https://trenteducation.co.uk/enrol/job-application/?job=Marketing%20Executive"
+                href="/job-application?job=Marketing%20Executive"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{

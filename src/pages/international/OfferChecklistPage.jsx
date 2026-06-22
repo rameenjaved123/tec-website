@@ -40,28 +40,28 @@ const learnMoreCards = [
   {
     title: 'How to write a Personal Statement',
     desc: 'No one can tell your story better than you. Share your ambitions, strengths, and experiences in your own words.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/06/cropped-photo-attractive-young-man-office-working-scaled.jpg',
+    img: '/uploads/2025/06/cropped-photo-attractive-young-man-office-working-scaled.jpg',
     href: '/personal-statement',
     internal: true,
   },
   {
     title: 'Fees and Funding',
     desc: 'Tuition fees and payment plans, opening a UK bank account, scholarships and funding opportunities.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/06/Multi-faith-6.jpg',
+    img: '/uploads/2025/06/Multi-faith-6.jpg',
     href: '/fees-and-funding',
     internal: true,
   },
   {
     title: 'Things to do in Nottingham',
     desc: 'Sightseeing, tours, museums, parks, and markets.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/03/5.jpg',
+    img: '/uploads/2025/03/5.jpg',
     href: '/things-to-do-nottingham',
     internal: true,
   },
   {
     title: 'Where to Eat Out in Nottingham',
     desc: 'Discover essential tips on where to find diverse and affordable food options in Nottingham.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/03/6-1.jpg',
+    img: '/uploads/2025/03/6-1.jpg',
     href: '/eat-out-nottingham',
     internal: true,
   },
@@ -118,7 +118,7 @@ export default function OfferChecklistPage() {
       <PageHero
         title="Offer Checklist"
         subtitle="Now you have your offer — here is what to do next to secure your place at TEC."
-        bgImage="https://trenteducation.co.uk/wp-content/uploads/2025/06/tec-website-photos-29.7-x-21-cm.jpg"
+        bgImage="/uploads/2025/06/tec-website-photos-29.7-x-21-cm.jpg"
         bgPosition="center 40%"
       />
 

@@ -12,16 +12,7 @@ const courses = [
     fee: '£4,000 per year (UK students)',
     description:
       'A 120-credit qualification equivalent to the first year of a university degree. Covers 8 units across a wide range of business and management topics. Students progress to Level 5 upon completion.',
-    modules: [
-      'Business Organisations in a Global Context',
-      'People in Organisations',
-      'Financial and Management Accounting Techniques for Managers',
-      'Communication Skills for Business',
-      'Marketing Mix',
-      'Managing a Work-Based Team',
-      'Entrepreneurship',
-      'Customer Relationship Management',
-    ],
+    modules: [],
     link: '/athe-level-4',
   },
   {
@@ -32,16 +23,7 @@ const courses = [
     fee: '£4,000 per year (UK students)',
     description:
       'A 120-credit qualification building on Level 4. Covers advanced business and management topics, preparing students for senior roles or a Level 6 top-up degree at a partner university.',
-    modules: [
-      'Business Organisations in a Global Context',
-      'People Management',
-      'Finance for Managers',
-      'Research Project',
-      'Managing Communication',
-      'Manage Sustainability in an Organisation',
-      'Business Ethics',
-      'Planning a New Business Venture',
-    ],
+    modules: [],
     link: '/athe-level-5',
   },
   {
@@ -51,7 +33,7 @@ const courses = [
     intake: 'January / September',
     fee: '£4,000 per year (UK students)',
     description:
-      'A two-year programme (240 credits) providing a thorough grounding in key business concepts and practical skills. Graduates may enter the second or third year of a bachelor\'s degree at partner universities.',
+      'A two-year programme (240 credits) providing a thorough grounding in key business concepts and practical skills. Graduates may enter the second or third year of a bachelor\'s degree at many universities.',
     modules: [
       'The Contemporary Business Environment',
       'Marketing Processes and Planning',
@@ -113,15 +95,19 @@ export default function HigherEducationPage() {
             <p style={{ color: 'var(--tec-text-light)', lineHeight: '1.8', marginBottom: '20px' }}>
               {course.description}
             </p>
-            <h4 style={{ fontWeight: 700, color: 'var(--tec-green)', marginBottom: '12px' }}>Key Modules</h4>
-            <div className="course-modules">
-              {course.modules.map((m, j) => (
-                <div key={j} className="module-item">
-                  <CheckCircle size={15} />
-                  {m}
+            {course.modules.length > 0 && (
+              <>
+                <h4 style={{ fontWeight: 700, color: 'var(--tec-green)', marginBottom: '12px' }}>Key Modules</h4>
+                <div className="course-modules">
+                  {course.modules.map((m, j) => (
+                    <div key={j} className="module-item">
+                      <CheckCircle size={15} />
+                      {m}
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </>
+            )}
             <div style={{ display: 'flex', gap: '12px', marginTop: '16px', flexWrap: 'wrap' }}>
               <Link to={course.link} className="btn-gold" style={{ display: 'inline-block' }}>
                 Course Details

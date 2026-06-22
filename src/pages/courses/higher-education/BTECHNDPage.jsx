@@ -294,22 +294,30 @@ export default function BTECHNDPage() {
 
         {activeTab === 'Overview' && (
           <div className="al4-overview">
-            <p><strong>The Pearson BTEC Level 4 &amp; 5 Higher National Diploma (HND) in Business is a two-year programme equivalent to the first two years of a university degree.</strong></p>
-            <p>This rewarding and challenging programme is designed to provide learners with a thorough grounding in the key concepts and practical skills essential to business. BTEC Higher Nationals offer a strong emphasis on practical skills alongside the development of essential knowledge and understanding required in today&rsquo;s business environment.</p>
-            <p>Learners benefit from a comprehensive academic and practical programme, which develops key skills and knowledge tailored to their individual progression needs — whether into employment, starting their own business, or continuing into higher education.</p>
+            <p><strong>Welcome to Trent Education Centre's Higher National Diploma (HND) in Business (Entrepreneurship and Small Business Management).</strong> This rewarding and challenging programme is designed to provide learners with a thorough grounding in the key concepts and practical skills essential to business.</p>
+            <p>BTEC Higher Nationals offer a strong emphasis on practical skills alongside the development of the essential knowledge and understanding required in today&rsquo;s business environment. Learners benefit from this comprehensive academic and practical programme, which develops key skills and knowledge tailored to their individual progression needs — whether that be into employment, starting their own business, or continuing into higher education, including a top-up year for a university degree or other professional courses.</p>
+            <p>A major progression route for learners of the BTEC Higher National Certificate (HNC) and Diploma (HND) is direct entry to the second or third year of an honours degree programme, depending on how well the BTEC units align with the prerequisites of the chosen degree.</p>
             <p className="al4-subhead">Programme Structure:</p>
             <ul className="al4-bullets">
-              <li>120 credits at Level 4 — 8 units × 15 credits (Year 1)</li>
-              <li>120 credits at Level 5 — 6 × 15 credits + 1 × 30 credits (Year 2)</li>
-              <li>Total: 240 credits across two years</li>
-              <li>No formal examinations — assessment by assignments and projects</li>
+              <li>120 credits at Level 4 — 6 core units and 2 optional units (8 units, each worth 15 credits)</li>
+              <li>120 credits at Level 5 — 5 core units (4 units at 15 credits and 1 unit at 30 credits) and 2 optional units at 15 credits</li>
+              <li><strong>Total Qualification Time:</strong> 2,400 hours</li>
+              <li><strong>Guided Learning Hours:</strong> 960 hours</li>
+              <li><strong>Independent Study Hours:</strong> 1,440 hours</li>
             </ul>
-            <p className="al4-subhead">Career Opportunities:</p>
+            <p><strong>Qualification Code:</strong> 603/6838/X<br />
+            <strong>Awarding Body:</strong> Pearson BTEC Level 5 HND Diploma in Business (Entrepreneurship and Small Business Management) (RQF)<br />
+            <strong>Course mode:</strong> Blended learning — one session per week online, one session in-person</p>
+            <p className="al4-subhead">Progression Routes:</p>
+            <p>Many universities allow advanced entry to the second or third year of the course. The Level 5 Higher National Diploma is recognised by Higher Education providers as meeting admission requirements to many relevant business-related courses, for example:</p>
             <ul className="al4-bullets">
-              <li><strong>Direct Employment:</strong> Equips you with the skills for roles in management, marketing, HR, finance and entrepreneurship.</li>
-              <li><strong>Progression to Degree:</strong> Many universities allow advanced entry to Year 2 or Year 3 of related degree programmes, including BA Business Management, BA International Business, BA Business Administration, and more.</li>
+              <li>BA (Hons) Business Management</li>
+              <li>BA International Business</li>
+              <li>BA Business Administration</li>
+              <li>BA (Hons) Business Entrepreneurship and Innovation</li>
+              <li>BA (Hons) Global Business Management</li>
+              <li>BA (Hons) Accounting and Finance</li>
             </ul>
-            <p><strong>Course mode:</strong> Blended learning — one session per week online, one session in-person</p>
           </div>
         )}
 
@@ -383,18 +391,18 @@ export default function BTECHNDPage() {
       {/* Entry Requirement */}
       <div className="container al4-section">
         <h2 className="al4-section-title">Entry Requirement</h2>
-        <p><strong>Age:</strong> 18+</p>
-        <p style={{ marginTop: 16 }}><strong>Qualifications:</strong></p>
-        <p style={{ marginTop: 8 }}>For learners who have recently been in education or training the entry profile is likely to include one of the following:</p>
+        <p>For Learners who have recently been in education, the entry profile is likely to include one of the following:</p>
         <ul className="al4-bullets" style={{ marginTop: 8 }}>
-          <li>A BTEC Level 3 qualification in Business or a related subject</li>
-          <li>A GCE Advanced Level profile showing attainment in a relevant subject</li>
+          <li>A BTEC Level 3 qualification in Business</li>
+          <li>A GCE Advanced Level profile demonstrating strong performance in a relevant subject or adequate performance across multiple GCE subjects</li>
           <li>Other related Level 3 qualifications</li>
-          <li>An Access to Higher Education Certificate</li>
+          <li>At least one GCE A Level pass in a relevant subject, supported by appropriate GCSE passes</li>
+          <li>An Access to Higher Education Certificate awarded by an approved Further Education institution</li>
           <li>Appropriate work experience</li>
-          <li>Other equivalent international qualifications at Level 3</li>
+          <li>Learners aged 18 or over applying for HND courses</li>
+          <li>An international equivalent of the above qualifications</li>
         </ul>
-        <p style={{ marginTop: 16 }}><strong>All entry decisions are taken on an individual basis.</strong></p>
+        <p style={{ marginTop: 16 }}>Trent Education Centre (TEC) will consider applicants&rsquo; prior learning when assessing their suitability for BTEC Higher Nationals, through Recognition of Prior Learning (RPL).</p>
       </div>
 
       {/* English Language */}
@@ -417,9 +425,9 @@ export default function BTECHNDPage() {
       {/* Why TEC */}
       <div className="container al4-section">
         <h2 className="al4-section-title">Why TEC?</h2>
-        <p style={{ marginBottom: 16 }}><strong>Qualified Teachers:</strong> Our teachers hold relevant qualifications and are experienced in teaching the subject to adults. They will find out about your individual needs and make sure that you are able to get the best out of the course.</p>
-        <p style={{ marginBottom: 16 }}><strong>Individual Focus:</strong> At Trent Education Centre, we believe in the power of individual attention. Our teaching and support staff will assess your needs and monitor your development throughout the course. We will provide you with extra support if needed. We won&rsquo;t treat you like a face in the crowd, but an individual with unique learning needs and interests.</p>
-        <p><strong>Path to Progression:</strong> TEC has a strong reputation in delivering quality education, with experienced faculty, modern facilities, and connections to local businesses for networking and internship opportunities. TEC is partnered with recognised accreditation bodies and universities, strengthening the credibility of its HND programmes.</p>
+        <p style={{ marginBottom: 16 }}>Trent Education Centre (TEC) has a strong reputation and extensive experience in delivering quality education, particularly in areas that align with the practical and vocational focus of the HND. TEC provides essential resources, including experienced faculty, modern facilities, and an up-to-date curriculum designed to effectively support HND programmes.</p>
+        <p style={{ marginBottom: 16 }}>As a career-oriented provider, TEC&rsquo;s connections with local businesses and industries offer valuable networking, internship, and job opportunities for Learners. Its convenient location makes TEC an accessible choice for learners pursuing higher education locally or internationally.</p>
+        <p>TEC is also partnered with recognised accreditation bodies and universities, which strengthens the credibility of its HND programmes and ensures they meet established academic and industry standards.</p>
       </div>
 
       {/* How to Apply */}

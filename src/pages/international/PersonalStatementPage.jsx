@@ -41,21 +41,21 @@ const learnMoreCards = [
   {
     title: 'Fees and Funding',
     desc: 'Tuition fees and payment plans, opening a UK bank account, scholarships and funding opportunities.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/06/Multi-faith-6.jpg',
+    img: '/uploads/2025/06/Multi-faith-6.jpg',
     href: '/fees-and-funding',
     internal: true,
   },
   {
     title: 'Things to do in Nottingham',
     desc: 'Sightseeing, tours, museums, parks, and markets.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/03/5.jpg',
+    img: '/uploads/2025/03/5.jpg',
     href: '/things-to-do-nottingham',
     internal: true,
   },
   {
     title: 'What to Eat Out in Nottingham',
     desc: 'Discover essential tips on where to find diverse and affordable food options in Nottingham.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/03/6-1.jpg',
+    img: '/uploads/2025/03/6-1.jpg',
     href: '/eat-out-nottingham',
     internal: true,
   },
@@ -67,7 +67,7 @@ export default function PersonalStatementPage() {
       <PageHero
         title="How to Write a Personal Statement"
         subtitle="Guidance from Trent Education Centre — share your ambitions, strengths, and experiences in your own words."
-        bgImage="https://trenteducation.co.uk/wp-content/uploads/2025/06/cropped-photo-attractive-young-man-office-working-scaled.jpg"
+        bgImage="/uploads/2025/06/cropped-photo-attractive-young-man-office-working-scaled.jpg"
         bgPosition="center 40%"
       />
 
@@ -173,7 +173,7 @@ export default function PersonalStatementPage() {
         <div className="aap-split">
           <div className="aap-split-img">
             <img
-              src="https://trenteducation.co.uk/wp-content/uploads/2025/06/cropped-photo-attractive-young-man-office-working-scaled.jpg"
+              src="/uploads/2025/06/cropped-photo-attractive-young-man-office-working-scaled.jpg"
               alt="Student writing a personal statement"
               loading="lazy"
             />
