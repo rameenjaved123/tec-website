@@ -14,7 +14,7 @@ const sections = [
     name: 'Governance',
     items: [
       { title: 'Access and Participation Statement 2026–27',                  link: '/assets/documents/terms/access-participation-2026.pdf', badge: 'new' },
-      { title: 'Archived Access and Participation Statement 2025–26 (superseded)', link: '/assets/documents/terms/access-participation-2025.pdf', badge: 'archived' },
+      { title: 'Archived Access and Participation Statement 2025–26 (superseded)', link: '/assets/documents/terms/access-participation-2025-archived.pdf', badge: 'archived' },
       { title: 'Conflict of Interest Policy',                                 link: '/assets/documents/policies/conflict-of-interest.pdf' },
       { title: 'Contingency and Adverse Effects Policy',                      link: '/assets/documents/policies/contingency.pdf' },
       { title: 'Equality, Diversity & Inclusion Policy',                      link: '/assets/documents/policies/equality-diversity-inclusion.pdf' },
@@ -24,7 +24,7 @@ const sections = [
       { title: 'Risk Management Policy',                                      link: '/assets/documents/policies/risk-management.pdf' },
       { title: 'Safeguarding & Prevent Policy',                               link: '/assets/documents/policies/safeguarding-prevent.pdf' },
       { title: 'Sexual Harassment Policy',                                    link: '/assets/documents/policies/sexual-harassment.pdf' },
-      { title: 'Strategic Plan (2024–28)',                                    link: '/assets/documents/policies/strategic-plan-v2.pdf' },
+      { title: 'Strategic Plan (2024–28)',                                    link: '/assets/documents/policies/strategic-plan.pdf' },
       { title: 'Student Protection Plan',                                     link: '/assets/documents/policies/student-protection-plan.pdf' },
       { title: 'Terms and Conditions (Higher Education)',                     link: '/assets/documents/terms/terms-conditions-he.pdf' },
       { title: 'Tuition Fee, Refunds and Compensation Policy (Higher Education)', link: '/assets/documents/terms/tuition-fees-he.pdf' },
@@ -40,7 +40,7 @@ const sections = [
       { title: 'Attendance and Engagement Policy',                            link: '/assets/documents/policies/attendance-engagement.pdf' },
       { title: 'Complaints & Appeals Policy',                                 link: '/assets/documents/policies/complaints-and-appeals.pdf' },
       { title: 'Examinations Policy',                                         link: '/assets/documents/policies/examinations.pdf' },
-      { title: 'Internal Verification & Quality Assurance Policy',            link: '/assets/documents/policies/internal-verification-quality-assurance.pdf' },
+      { title: 'Internal Verification & Quality Assurance Policy',            link: '/assets/documents/policies/internal-verification.pdf' },
       { title: 'Recognition of Prior Learning Policy',                        link: '/assets/documents/policies/recognition-prior-learning.pdf' },
       { title: 'Special Consideration and Reasonable Adjustments Policy',     link: '/assets/documents/policies/special-consideration.pdf' },
       { title: 'Student Disciplinary Policy',                                 link: '/assets/documents/policies/student-disciplinary.pdf' },
@@ -51,7 +51,7 @@ const sections = [
     name: 'Student Admissions and Support',
     items: [
       { title: 'Admission Policy',                                            link: '/assets/documents/policies/admissions.pdf' },
-      { title: 'Student Recruitment, Registration, and Certification Policy', link: '/assets/documents/policies/student-recruitment-registration-certification.pdf' },
+      { title: 'Student Recruitment, Registration, and Certification Policy', link: '/assets/documents/policies/student-recruitment-registration.pdf' },
       { title: 'Anti-Bullying and Harassment (Students) Policy',              link: '/assets/documents/policies/anti-bullying.pdf' },
     ],
   },
@@ -67,25 +67,24 @@ const sections = [
   {
     name: 'Information and Marketing',
     items: [
-      { title: 'Online Safety Statement',                                     link: '/assets/documents/policies/online-safety-statement.pdf' },
+      { title: 'Online Safety Statement',                                     link: '/assets/documents/policies/online-safety.pdf' },
     ],
   },
   {
     name: 'Health & Safety, Facilities and Resources',
     items: [
-      { title: 'Health & Safety Policy',                                      link: '/assets/documents/policies/health-and-safety.pdf' },
+      { title: 'Health & Safety Policy',                                      link: '/assets/documents/policies/health-safety.pdf' },
     ],
   },
   {
     name: 'Policies for English Language Courses',
     items: [
-      { title: 'Contingency and Adverse Effects Policy (EL Courses)',         link: '/assets/documents/policies/contingency-el-2.pdf' },
+      { title: 'Contingency and Adverse Effects Policy (EL Courses)',         link: '/assets/documents/policies/contingency-el.pdf' },
       { title: 'Lesson Observation Policy (EL Courses)',                      link: '/assets/documents/policies/lesson-observation.pdf' },
       { title: 'Sexual Harassment Policy (EL Courses)',                       link: '/assets/documents/policies/sexual-harassment-el.pdf' },
       { title: 'Staff Development Policy (EL Courses)',                       link: '/assets/documents/policies/staff-development-el.pdf' },
       { title: 'Staff Induction Policy (EL Courses)',                         link: '/assets/documents/policies/staff-induction.pdf' },
       { title: 'Staff Recruitment Policy (EL Courses)',                       link: '/assets/documents/policies/staff-recruitment-el.pdf' },
-      { title: 'Strategic Plan 2024–28 (EL Courses)',                         link: '/assets/documents/policies/strategic-plan-el.pdf' },
       { title: 'Student Support Policy (EL Courses)',                         link: '/assets/documents/policies/student-support-el.pdf' },
       { title: 'Student Feedback Policy (EL Courses)',                        link: '/assets/documents/policies/student-feedback.pdf' },
       { title: 'Teacher Cover Policy (EL Courses)',                           link: '/assets/documents/policies/teacher-cover.pdf' },

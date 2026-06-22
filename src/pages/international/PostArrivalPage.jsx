@@ -137,28 +137,28 @@ const learnMoreCards = [
   {
     title: 'Student Support Services',
     desc: 'Academic Support, International Student Support, Disability and Wellbeing Services.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2024/08/smiling-females-wearing-headphones-around-neck-looking-laptop-scaled.jpg',
+    img: '/uploads/2024/08/smiling-females-wearing-headphones-around-neck-looking-laptop-scaled.jpg',
     href: '/student-support',
     internal: true,
   },
   {
     title: 'Pre-Arrival Information',
     desc: 'Pre-departure checklist, packing essentials, important documents to carry, airport transfers and transportation options, accommodation options.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/03/10.jpg',
+    img: '/uploads/2025/03/10.jpg',
     href: '/pre-arrival',
     internal: true,
   },
   {
     title: 'Things to do in Nottingham',
     desc: 'Sightseeing, tours, museums, parks, and markets.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/03/5.jpg',
+    img: '/uploads/2025/03/5.jpg',
     href: '/things-to-do-nottingham',
     internal: true,
   },
   {
     title: 'Where to Eat Out in Nottingham',
     desc: 'Discover essential tips on where to find diverse and affordable food options in Nottingham.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/03/6-1.jpg',
+    img: '/uploads/2025/03/6-1.jpg',
     href: '/eat-out-nottingham',
     internal: true,
   },
@@ -185,7 +185,7 @@ export default function PostArrivalPage() {
       <PageHero
         title="Post-Arrival Information"
         subtitle="Everything you need to know to settle in, complete enrolment, and start your student journey with confidence."
-        bgImage="https://trenteducation.co.uk/wp-content/uploads/2025/04/Multi-faith-4.jpg"
+        bgImage="/uploads/2025/04/Multi-faith-4.jpg"
         bgPosition="center 40%"
       />
 
@@ -217,7 +217,7 @@ export default function PostArrivalPage() {
           </div>
           <div className="aap-split-img">
             <img
-              src="https://trenteducation.co.uk/wp-content/uploads/2025/04/tec-website-photos.jpg"
+              src="/uploads/2025/04/tec-website-photos.jpg"
               alt="International Enrolment Event at TEC"
               loading="lazy"
             />
@@ -253,7 +253,7 @@ export default function PostArrivalPage() {
           className="oc-next-banner"
           style={{
             backgroundImage:
-              'linear-gradient(rgba(18,38,24,0.85), rgba(18,38,24,0.85)), url(https://trenteducation.co.uk/wp-content/uploads/2025/04/Multi-faith-4.jpg)',
+              'linear-gradient(rgba(18,38,24,0.85), rgba(18,38,24,0.85)), url(/uploads/2025/04/Multi-faith-4.jpg)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}

@@ -8,21 +8,21 @@ const courses = [
   {
     title: 'Academic English',
     desc: 'Nationally accredited and designed to develop practical, everyday English. (UK-Based Students)',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/04/2.jpg',
+    img: '/uploads/2025/04/2.jpg',
     href: '/english-language-courses',
     internal: true,
   },
   {
     title: 'ESOL',
     desc: 'English for Speakers of Other Languages. Structured to support learners from diverse backgrounds in developing strong foundational and advanced English communication. (International & UK-Based Students)',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/04/3.jpg',
+    img: '/uploads/2025/04/3.jpg',
     href: '/english-language-courses',
     internal: true,
   },
   {
     title: 'IELTS Exam Preparation',
     desc: 'Prepare for the globally recognised IELTS exam with expert guidance. (International & UK-Based Students)',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/04/Castle-Blvd.-Frames-1.jpg',
+    img: '/uploads/2025/04/Castle-Blvd.-Frames-1.jpg',
     href: '/ielts-exam-preparation',
     internal: true,
   },
@@ -70,7 +70,7 @@ export default function TrentLanguageHubPage() {
       <PageHero
         title="Trent Language Hub"
         subtitle="Here's a complete guide for international students studying at TEC."
-        bgImage="https://trenteducation.co.uk/wp-content/uploads/2025/04/tec-website-photos-5.jpg"
+        bgImage="/uploads/2025/04/tec-website-photos-5.jpg"
         bgPosition="center 40%"
       />
 
@@ -142,7 +142,7 @@ export default function TrentLanguageHubPage() {
         <div className="aap-split" style={{ marginBottom: 56 }}>
           <div className="aap-split-img">
             <img
-              src="https://trenteducation.co.uk/wp-content/uploads/2024/02/young-woman-posing-with-book-scaled.jpg"
+              src="/uploads/2024/02/young-woman-posing-with-book-scaled.jpg"
               alt="Student at Trent Language Hub"
               loading="lazy"
             />
@@ -182,7 +182,7 @@ export default function TrentLanguageHubPage() {
           </div>
           <div className="aap-split-img">
             <img
-              src="https://trenteducation.co.uk/wp-content/uploads/2025/04/Black-and-White-Photo-Night-Worship-YouTube-Thumbnail.jpg"
+              src="/uploads/2025/04/Black-and-White-Photo-Night-Worship-YouTube-Thumbnail.jpg"
               alt="International students guide"
               loading="lazy"
             />

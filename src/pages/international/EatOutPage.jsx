@@ -75,28 +75,28 @@ const learnMoreCards = [
   {
     title: 'Things to do in Nottingham',
     desc: 'Sightseeing, tours, museums, parks, and markets.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/03/5.jpg',
+    img: '/uploads/2025/03/5.jpg',
     href: '/things-to-do-nottingham',
     internal: true,
   },
   {
     title: 'Fees and Funding',
     desc: 'Tuition fees and payment plans, opening a UK bank account, scholarships and funding opportunities.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/06/Multi-faith-6.jpg',
+    img: '/uploads/2025/06/Multi-faith-6.jpg',
     href: '/fees-and-funding',
     internal: true,
   },
   {
     title: 'Student Support Services',
     desc: 'Academic Support, International Student Support, Disability and Wellbeing Services.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2024/08/smiling-females-wearing-headphones-around-neck-looking-laptop-scaled.jpg',
+    img: '/uploads/2024/08/smiling-females-wearing-headphones-around-neck-looking-laptop-scaled.jpg',
     href: '/student-support',
     internal: true,
   },
   {
     title: 'Pre-Arrival Information',
     desc: 'Pre-departure checklist, packing essentials, important documents, transportation and accommodation options.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/03/10.jpg',
+    img: '/uploads/2025/03/10.jpg',
     href: '/pre-arrival',
     internal: true,
   },
@@ -147,7 +147,7 @@ export default function EatOutPage() {
       <PageHero
         title="What to Eat Out in Nottingham"
         subtitle="From local favourites to global flavours — your student guide to grocery shops, street eats and restaurants across the city."
-        bgImage="https://trenteducation.co.uk/wp-content/uploads/2025/07/tec-website-photos-29.7-x-21-cm.jpg"
+        bgImage="/uploads/2025/07/tec-website-photos-29.7-x-21-cm.jpg"
         bgPosition="center 40%"
       />
 
@@ -168,7 +168,7 @@ export default function EatOutPage() {
         <div className="aap-split">
           <div className="aap-split-img">
             <img
-              src="https://trenteducation.co.uk/wp-content/uploads/2025/07/tec-website-photos-29.7-x-21-cm.jpg"
+              src="/uploads/2025/07/tec-website-photos-29.7-x-21-cm.jpg"
               alt="Everyday grocery shopping in Nottingham"
               loading="lazy"
             />

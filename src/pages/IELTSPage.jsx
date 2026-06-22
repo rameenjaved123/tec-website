@@ -61,7 +61,7 @@ export default function IELTSPage() {
       <PageHero
         title="IELTS Exam Preparation"
         subtitle="Prepare for the globally recognised IELTS exam with expert guidance."
-        bgImage="https://trenteducation.co.uk/wp-content/uploads/2025/04/Castle-Blvd.-Frames-1.jpg"
+        bgImage="/uploads/2025/04/Castle-Blvd.-Frames-1.jpg"
         bgPosition="center 40%"
       />
 
@@ -162,7 +162,7 @@ export default function IELTSPage() {
         <div className="aap-split" style={{ marginBottom: 0 }}>
           <div className="aap-split-img">
             <img
-              src="https://trenteducation.co.uk/wp-content/uploads/2025/04/Castle-Blvd.-Frames-1.jpg"
+              src="/uploads/2025/04/Castle-Blvd.-Frames-1.jpg"
               alt="IELTS at Trent Language Hub"
               loading="lazy"
             />

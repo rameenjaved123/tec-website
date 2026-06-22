@@ -167,8 +167,8 @@ const esolSections = [
         <p style={{ marginTop: 12 }}><strong>International students</strong> will need to pay an extra fee of <strong>£250</strong> to book their place on a course before travelling to the UK. This fee covers the extra administrative work for visas. TEC admissions staff will tell you the booking fee when you apply.</p>
         <p style={{ marginTop: 12 }}>Please read the following carefully before you enrol into a course:</p>
         <ul className="eng-bullets" style={{ marginTop: 8 }}>
-          <li><a href="https://trenteducation.co.uk/terms-and-conditions" target="_blank" rel="noreferrer" className="eng-link">Terms and Conditions</a></li>
-          <li><a href="https://trenteducation.co.uk/tuition-fees-refunds-and-compensation-policy" target="_blank" rel="noreferrer" className="eng-link">Tuition Fees, Refunds and Compensation Policy</a></li>
+          <li><a href="/policies" target="_blank" rel="noreferrer" className="eng-link">Terms and Conditions (EL Courses)</a></li>
+          <li><a href="/policies" target="_blank" rel="noreferrer" className="eng-link">Tuition Fees, Refunds and Compensation Policy (EL Courses)</a></li>
         </ul>
       </div>
     ),
@@ -316,8 +316,8 @@ const ncfeSections = [
         <p style={{ marginTop: 12 }}><strong>International students</strong> will need to pay an extra fee of <strong>£250</strong> to book their place on a course before travelling to the UK. This fee covers the extra administrative work for visas. TEC admissions staff will tell you the booking fee when you apply.</p>
         <p style={{ marginTop: 12 }}>Please read the following carefully before you enrol into a course:</p>
         <ul className="eng-bullets" style={{ marginTop: 8 }}>
-          <li><a href="https://trenteducation.co.uk/terms-and-conditions" target="_blank" rel="noreferrer" className="eng-link">Terms and Conditions</a></li>
-          <li><a href="https://trenteducation.co.uk/tuition-fees-refunds-and-compensation-policy" target="_blank" rel="noreferrer" className="eng-link">Tuition Fees, Refunds and Compensation Policy</a></li>
+          <li><a href="/policies" target="_blank" rel="noreferrer" className="eng-link">Terms and Conditions (EL Courses)</a></li>
+          <li><a href="/policies" target="_blank" rel="noreferrer" className="eng-link">Tuition Fees, Refunds and Compensation Policy (EL Courses)</a></li>
         </ul>
       </div>
     ),
@@ -484,8 +484,7 @@ export default function EnglishCoursesPage() {
           <span className="eng-hero-eyebrow">Trent Education Centre</span>
           <h1 className="eng-hero-title">English Language Courses</h1>
           <p className="eng-hero-sub">
-            Professionally taught English courses for adults in Nottingham —
-            from beginner ESOL to advanced Functional Skills.
+            English language courses for adults in Nottingham from ESOL Entry 1 (Beginner) to Level 2 (Advanced) and Functional Skills Level 1 &amp; 2.
           </p>
         </div>
         <div className="eng-hero-right">
@@ -494,7 +493,16 @@ export default function EnglishCoursesPage() {
             alt="Accredited by the British Council for the teaching of English in the UK"
             className="eng-hero-badge"
           />
-          <p className="eng-hero-badge-caption">Official British Council Accreditation</p>
+          <p className="eng-hero-badge-caption">
+            <a
+              href="https://www.britishcouncil.org/sites/default/files/trent_education_centre_full_2026_pub.pdf"
+              target="_blank"
+              rel="noreferrer"
+              className="eng-hero-badge-caption-link"
+            >
+              See our British Council Inspection Report March 2026
+            </a>
+          </p>
         </div>
       </div>
 
@@ -692,10 +700,10 @@ export default function EnglishCoursesPage() {
           <div className="eng-fees-policies">
             <p>Please read the following carefully before you enrol:</p>
             <div className="eng-fees-policy-links">
-              <a href="https://trenteducation.co.uk/terms-and-conditions" target="_blank" rel="noreferrer" className="eng-link">
+              <a href="/policies" target="_blank" rel="noreferrer" className="eng-link">
                 <ArrowRight size={14} /> Terms and Conditions
               </a>
-              <a href="https://trenteducation.co.uk/tuition-fees-refunds-and-compensation-policy" target="_blank" rel="noreferrer" className="eng-link">
+              <a href="/policies" target="_blank" rel="noreferrer" className="eng-link">
                 <ArrowRight size={14} /> Tuition Fees, Refunds and Compensation Policy
               </a>
             </div>

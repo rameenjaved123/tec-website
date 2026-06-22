@@ -113,12 +113,12 @@ export default function AdmissionPage() {
         <p style={{ textAlign: 'center', marginTop: 16 }}>
           Please see our{' '}
           <a
-            href="/assets/documents/terms/access-participation.pdf"
+            href="/assets/documents/terms/access-participation-2026.pdf"
             target="_blank"
             rel="noreferrer"
             style={{ color: '#000', fontWeight: 700, textDecoration: 'underline' }}
           >
-            Access and Participation Statement
+            Access and Participation Statement 2026-27
           </a>
         </p>
       </div>
@@ -126,9 +126,9 @@ export default function AdmissionPage() {
       {/* ── Apply for 2024 ── */}
       <div className="adm-apply-banner">
         <div className="adm-apply-content">
-          <h2>Apply for 2024</h2>
+          <h2>Apply for 2026</h2>
           <p>
-            Admissions for Spring 2024 are now open! Start your application today and get connected to our Admissions Team{' '}
+            Admissions for July 2026 are now open! Start your application today and get connected to our Admissions Team{' '}
             <a href="mailto:admissions@trenteducation.co.uk" className="adm-email-link">admissions@trenteducation.co.uk</a>{' '}
             so you can see if Trent Education Centre has the right courses and support for you.
           </p>

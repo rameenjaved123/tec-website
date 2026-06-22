@@ -191,28 +191,28 @@ const learnMoreCards = [
   {
     title: 'Post-Arrival Information',
     desc: 'Complete your enrolment, collect your student ID, attend orientation sessions, and explore the campus.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/04/tec-website-photos-3.jpg',
+    img: '/uploads/2025/04/tec-website-photos-3.jpg',
     href: '/post-arrival',
     internal: true,
   },
   {
     title: 'Where to Eat Out in Nottingham',
     desc: 'Discover essential tips on where to find diverse and affordable food options in Nottingham.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/03/6-1.jpg',
+    img: '/uploads/2025/03/6-1.jpg',
     href: '/eat-out-nottingham',
     internal: true,
   },
   {
     title: 'Things to do in Nottingham',
     desc: 'Sightseeing, tours, museums, parks, and markets.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/03/5.jpg',
+    img: '/uploads/2025/03/5.jpg',
     href: '/things-to-do-nottingham',
     internal: true,
   },
   {
     title: 'Student Support Services',
     desc: 'Academic Support, International Student Support, Disability and Wellbeing Services.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2024/08/smiling-females-wearing-headphones-around-neck-looking-laptop-scaled.jpg',
+    img: '/uploads/2024/08/smiling-females-wearing-headphones-around-neck-looking-laptop-scaled.jpg',
     href: '/student-support',
     internal: true,
   },
@@ -269,7 +269,7 @@ export default function PreArrivalPage() {
       <PageHero
         title="Pre-Arrival Information"
         subtitle="Get ready for TEC — what to know before you arrive in the UK."
-        bgImage="https://trenteducation.co.uk/wp-content/uploads/2025/04/Multi-faith-13.jpg"
+        bgImage="/uploads/2025/04/Multi-faith-13.jpg"
         bgPosition="center 40%"
       />
 
@@ -291,7 +291,7 @@ export default function PreArrivalPage() {
         <div className="aap-split">
           <div className="aap-split-img">
             <img
-              src="https://trenteducation.co.uk/wp-content/uploads/2025/04/Multi-faith-13.jpg"
+              src="/uploads/2025/04/Multi-faith-13.jpg"
               alt="International students at TEC"
               loading="lazy"
             />

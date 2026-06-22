@@ -122,7 +122,7 @@
   color: #fff;
   background:
     linear-gradient(120deg, rgba(18,38,24,0.88) 0%, rgba(18,38,24,0.55) 60%, rgba(18,38,24,0.35) 100%),
-    url('https://trenteducation.co.uk/wp-content/uploads/2025/05/tec-website-photos-35-x-15-cm-2.jpg') center/cover no-repeat;
+    url('/uploads/2025/05/tec-website-photos-35-x-15-cm-2.jpg') center/cover no-repeat;
   text-align: center;
 }
 

@@ -15,7 +15,7 @@
   position: absolute;
   inset: 0;
   background-image:
-    url('https://trenteducation.co.uk/wp-content/uploads/2025/06/cropped-photo-attractive-young-man-office-working-scaled.jpg');
+    url('/uploads/2025/06/cropped-photo-attractive-young-man-office-working-scaled.jpg');
   background-size: cover;
   background-position: center 30%;
   filter: brightness(0.22) saturate(0.6);

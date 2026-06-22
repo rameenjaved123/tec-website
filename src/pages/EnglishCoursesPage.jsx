@@ -168,8 +168,8 @@ const esolSections = [
         <p style={{ marginTop: 12 }}><strong>International students</strong> will need to pay an extra fee of <strong>£250</strong> to book their place on a course before travelling to the UK. This fee covers the extra administrative work for visas. TEC admissions staff will tell you the booking fee when you apply.</p>
         <p style={{ marginTop: 12 }}>Please read the following carefully before you enrol into a course:</p>
         <ul className="eng-bullets" style={{ marginTop: 8 }}>
-          <li><a href="https://trenteducation.co.uk/terms-and-conditions" target="_blank" rel="noreferrer" style={{ color: 'var(--tec-green)' }}>Terms and Conditions</a></li>
-          <li><a href="https://trenteducation.co.uk/tuition-fees-refunds-and-compensation-policy" target="_blank" rel="noreferrer" style={{ color: 'var(--tec-green)' }}>Tuition Fees, Refunds and Compensation Policy</a></li>
+          <li><a href="/policies" target="_blank" rel="noreferrer" style={{ color: 'var(--tec-green)' }}>Terms and Conditions</a></li>
+          <li><a href="/policies" target="_blank" rel="noreferrer" style={{ color: 'var(--tec-green)' }}>Tuition Fees, Refunds and Compensation Policy</a></li>
         </ul>
       </div>
     ),
@@ -317,8 +317,8 @@ const ncfeSections = [
         <p style={{ marginTop: 12 }}><strong>International students</strong> will need to pay an extra fee of <strong>£250</strong> to book their place on a course before travelling to the UK. This fee covers the extra administrative work for visas. TEC admissions staff will tell you the booking fee when you apply.</p>
         <p style={{ marginTop: 12 }}>Please read the following carefully before you enrol into a course:</p>
         <ul className="eng-bullets" style={{ marginTop: 8 }}>
-          <li><a href="https://trenteducation.co.uk/terms-and-conditions" target="_blank" rel="noreferrer" style={{ color: 'var(--tec-green)' }}>Terms and Conditions</a></li>
-          <li><a href="https://trenteducation.co.uk/tuition-fees-refunds-and-compensation-policy" target="_blank" rel="noreferrer" style={{ color: 'var(--tec-green)' }}>Tuition Fees, Refunds and Compensation Policy</a></li>
+          <li><a href="/policies" target="_blank" rel="noreferrer" style={{ color: 'var(--tec-green)' }}>Terms and Conditions</a></li>
+          <li><a href="/policies" target="_blank" rel="noreferrer" style={{ color: 'var(--tec-green)' }}>Tuition Fees, Refunds and Compensation Policy</a></li>
         </ul>
       </div>
     ),
@@ -657,10 +657,10 @@ export default function EnglishCoursesPage() {
           <div className="eng-fees-policies">
             <p>Please read the following carefully before you enrol:</p>
             <div className="eng-fees-policy-links">
-              <a href="https://trenteducation.co.uk/terms-and-conditions" target="_blank" rel="noreferrer">
+              <a href="/policies" target="_blank" rel="noreferrer">
                 <ArrowRight size={14} /> Terms and Conditions
               </a>
-              <a href="https://trenteducation.co.uk/tuition-fees-refunds-and-compensation-policy" target="_blank" rel="noreferrer">
+              <a href="/policies" target="_blank" rel="noreferrer">
                 <ArrowRight size={14} /> Tuition Fees, Refunds and Compensation Policy
               </a>
             </div>

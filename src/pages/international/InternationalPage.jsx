@@ -24,14 +24,14 @@ const studyPlanCards = [
   {
     title: 'Fees and Funding',
     desc: 'Tuition fees and payment plans, opening a UK bank account, scholarships and funding opportunities.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/04/Multi-faith-6.jpg',
+    img: '/uploads/2025/04/Multi-faith-6.jpg',
     href: '/fees-and-funding',
     internal: true,
   },
   {
     title: 'Student Support Services',
     desc: 'Academic Support, International Student Support, Disability and Wellbeing Services.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2024/08/smiling-females-wearing-headphones-around-neck-looking-laptop-scaled.jpg',
+    img: '/uploads/2024/08/smiling-females-wearing-headphones-around-neck-looking-laptop-scaled.jpg',
     href: '/student-support',
     internal: true,
   },
@@ -41,21 +41,21 @@ const arrivalCards = [
   {
     title: 'Offer Checklist',
     desc: 'Now you have an offer to study with us as an international student, here is what to do next. Follow our step-by-step advice and you will soon be confirming your place at TEC.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/06/tec-website-photos-29.7-x-21-cm.jpg',
+    img: '/uploads/2025/06/tec-website-photos-29.7-x-21-cm.jpg',
     href: '/offer-checklist',
     internal: true,
   },
   {
     title: 'Pre-Arrival Information',
     desc: 'Pre-departure checklist, packing essentials, important documents to carry, airport transfers and transportation options, accommodation options.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/03/10.jpg',
+    img: '/uploads/2025/03/10.jpg',
     href: '/pre-arrival',
     internal: true,
   },
   {
     title: 'Post-Arrival Information',
     desc: 'Complete your enrolment, collect your student ID, attend orientation sessions, and explore the campus.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/04/tec-website-photos-3.jpg',
+    img: '/uploads/2025/04/tec-website-photos-3.jpg',
     href: '/post-arrival',
     internal: true,
   },
@@ -65,14 +65,14 @@ const nottinghamCards = [
   {
     title: 'Things to do in Nottingham',
     desc: 'Sightseeing, tours, galleries & museums, parks, and markets.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/03/5.jpg',
+    img: '/uploads/2025/03/5.jpg',
     href: '/things-to-do-nottingham',
     internal: true,
   },
   {
     title: 'Where to Eat Out in Nottingham',
     desc: 'Discover essential tips on where to find diverse and affordable food options in Nottingham.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/03/6-1.jpg',
+    img: '/uploads/2025/03/6-1.jpg',
     href: '/eat-out-nottingham',
     internal: true,
   },
@@ -104,7 +104,7 @@ export default function InternationalPage() {
       <PageHero
         title="International"
         subtitle="Explore everything about studying at Trent Education Centre (TEC) as an international student — including programmes, applications, and support services to help you succeed."
-        bgImage="https://trenteducation.co.uk/wp-content/uploads/2025/04/Multi-faith-11.jpg"
+        bgImage="/uploads/2025/04/Multi-faith-11.jpg"
         bgPosition="center 40%"
       />
 
@@ -129,7 +129,7 @@ export default function InternationalPage() {
           className="int-banner"
           style={{
             backgroundImage:
-              'url(https://trenteducation.co.uk/wp-content/uploads/2025/04/Multi-faith-11.jpg)',
+              'url(/uploads/2025/04/Multi-faith-11.jpg)',
           }}
         >
           <div className="int-banner-inner">
@@ -158,7 +158,7 @@ export default function InternationalPage() {
         <div className="int-next">
           <div className="int-next-img">
             <img
-              src="https://trenteducation.co.uk/wp-content/uploads/2024/02/laughing-students-sitting-park-ground-1-scaled.jpg"
+              src="/uploads/2024/02/laughing-students-sitting-park-ground-1-scaled.jpg"
               alt="Students celebrating in the park"
               loading="lazy"
             />

@@ -12,7 +12,7 @@ import PageHero from '../../components/PageHero';
 const museums = [
   {
     name: 'Nottingham Castle',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/04/2-1.jpg',
+    img: '/uploads/2025/04/2-1.jpg',
     address: 'Lenton Road, Nottingham NG1 6EL',
     admission: 'Adults £15 (+ booking fee); children (15 years and under) go free (up to 3 per paying adult).',
     hours: 'Daily 10am–5pm',
@@ -20,7 +20,7 @@ const museums = [
   },
   {
     name: 'National Justice Museum',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/04/3-1.jpg',
+    img: '/uploads/2025/04/3-1.jpg',
     address: 'High Pavement, Nottingham NG1 1HN',
     admission: 'Fees apply; check the official website for details.',
     hours: 'Daily 10am–5pm',
@@ -29,7 +29,7 @@ const museums = [
   },
   {
     name: 'Nottingham Contemporary',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/04/4-1.jpg',
+    img: '/uploads/2025/04/4-1.jpg',
     address: 'Weekday Cross, Nottingham NG1 2GB',
     admission: 'Free entry',
     hours: 'Tuesday–Saturday 10am–6pm; Sunday 11am–5pm; closed on Mondays',
@@ -40,13 +40,13 @@ const museums = [
 const markets = [
   {
     name: 'Old Market Square',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/04/1.jpg',
+    img: '/uploads/2025/04/1.jpg',
     address: 'Nottingham NG1 2DT',
     highlights: 'The largest public space in the UK, hosting regular markets, events, and a vibrant atmosphere.',
   },
   {
     name: 'Sneinton Market',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/04/5.jpg',
+    img: '/uploads/2025/04/5.jpg',
     address: 'Gedling Street, Nottingham NG1 1DS',
     hours: 'Varies by event; typically active on weekends',
     highlights: 'A hub for independent traders, artisans, and food vendors, offering a unique shopping experience.',
@@ -56,13 +56,13 @@ const markets = [
 const tours = [
   {
     name: 'The Robin Hood Town Tour',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/04/6.jpg',
+    img: '/uploads/2025/04/6.jpg',
     details: 'Guided walking tour exploring the legends of Robin Hood and historic Nottingham.',
     booking: { label: 'Click this link to book your tickets', href: 'https://www.visit-nottinghamshire.co.uk/whats-on/robin-hood-town-tour-p454981' },
   },
   {
     name: 'City of Caves Tour',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/04/7.jpg',
+    img: '/uploads/2025/04/7.jpg',
     details: 'Discover Nottingham’s hidden underground caves with guided tours.',
     booking: { label: 'Click this link to book your tickets', href: 'https://www.nationaljusticemuseum.org.uk/cityofcaves' },
   },
@@ -71,19 +71,19 @@ const tours = [
 const parks = [
   {
     name: 'Wollaton Hall and Park',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/04/8.jpg',
+    img: '/uploads/2025/04/8.jpg',
     address: 'Wollaton, Nottingham NG8 2AE',
     highlights: '500-acre parkland with a stunning Elizabethan mansion, deer park, and lake.',
   },
   {
     name: 'The Arboretum',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/04/9.jpg',
+    img: '/uploads/2025/04/9.jpg',
     address: 'Waverley Street, Nottingham NG7 4HF',
     highlights: 'Nottingham’s oldest public park, featuring beautiful gardens, a lake, and historic monuments.',
   },
   {
     name: 'Highfields Park',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/04/10.jpg',
+    img: '/uploads/2025/04/10.jpg',
     address: 'University Boulevard, Nottingham NG7 2RD',
     highlights: 'Lakeside park offering boating, walking trails, and picturesque landscapes.',
   },
@@ -93,28 +93,28 @@ const learnMoreCards = [
   {
     title: 'Student Support Services',
     desc: 'Academic Support, International Student Support, Disability and Wellbeing Services.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2024/08/smiling-females-wearing-headphones-around-neck-looking-laptop-scaled.jpg',
+    img: '/uploads/2024/08/smiling-females-wearing-headphones-around-neck-looking-laptop-scaled.jpg',
     href: '/student-support',
     internal: true,
   },
   {
     title: 'Pre-Arrival Information',
     desc: 'Pre-departure checklist, packing essentials, important documents to carry, airport transfers and transportation options, accommodation options.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/03/10.jpg',
+    img: '/uploads/2025/03/10.jpg',
     href: '/pre-arrival',
     internal: true,
   },
   {
     title: 'Post-Arrival Information',
     desc: 'Complete your enrolment, collect your student ID, attend orientation sessions, and explore the campus.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/04/tec-website-photos-3.jpg',
+    img: '/uploads/2025/04/tec-website-photos-3.jpg',
     href: '/post-arrival',
     internal: true,
   },
   {
     title: 'Where to Eat Out in Nottingham',
     desc: 'Discover essential tips on where to find diverse and affordable food options in Nottingham.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/03/6-1.jpg',
+    img: '/uploads/2025/03/6-1.jpg',
     href: '/eat-out-nottingham',
     internal: true,
   },
@@ -191,7 +191,7 @@ export default function ThingsToDoPage() {
       <PageHero
         title="Things to do in Nottingham"
         subtitle="Sightseeing, tours, museums, parks, and markets — discover the city beyond your studies."
-        bgImage="https://trenteducation.co.uk/wp-content/uploads/2025/03/5.jpg"
+        bgImage="/uploads/2025/03/5.jpg"
         bgPosition="center 40%"
       />
 

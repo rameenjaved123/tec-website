@@ -259,28 +259,28 @@ const learnMoreCards = [
   {
     title: 'The Application and Admission Process',
     desc: 'Entry requirements, how to apply, visa and immigration guidance.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/03/8.jpg',
+    img: '/uploads/2025/03/8.jpg',
     href: '/application-process',
     internal: true,
   },
   {
     title: 'Student Support Services',
     desc: 'Academic Support, International Student Support, Disability and Wellbeing Services.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2024/08/smiling-females-wearing-headphones-around-neck-looking-laptop-scaled.jpg',
+    img: '/uploads/2024/08/smiling-females-wearing-headphones-around-neck-looking-laptop-scaled.jpg',
     href: '/student-support',
     internal: true,
   },
   {
     title: 'How to write a Personal Statement',
     desc: 'No one can tell your story better than you. Share your ambitions, strengths, and experiences in your own words.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/06/cropped-photo-attractive-young-man-office-working-scaled.jpg',
+    img: '/uploads/2025/06/cropped-photo-attractive-young-man-office-working-scaled.jpg',
     href: '/personal-statement',
     internal: true,
   },
   {
     title: 'Pre-Arrival Information',
     desc: 'Pre-departure checklist, packing essentials, important documents, airport transfers, accommodation.',
-    img: 'https://trenteducation.co.uk/wp-content/uploads/2025/03/10.jpg',
+    img: '/uploads/2025/03/10.jpg',
     href: '/pre-arrival',
     internal: true,
   },
@@ -338,7 +338,7 @@ export default function FeesFundingPage() {
       <PageHero
         title="Fees and Funding"
         subtitle="Invest in your future — affordable course fees and flexible payment options for international students."
-        bgImage="https://trenteducation.co.uk/wp-content/uploads/2025/04/Multi-faith-6.jpg"
+        bgImage="/uploads/2025/04/Multi-faith-6.jpg"
         bgPosition="center 40%"
       />
 
