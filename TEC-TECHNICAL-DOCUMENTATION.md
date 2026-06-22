@@ -1,9 +1,9 @@
 # Trent Education Centre (TEC) Website — Full Technical Documentation
 
-**Version:** 1.0  
-**Last Updated:** June 2026  
-**GitHub Repo:** `rameenjaved123/tec-website`  
-**Live Site:** `https://trenteducation.co.uk`  
+**Version:** 2.0 (FastAPI Migration)
+**Last Updated:** June 2026
+**GitHub Repo:** `rameenjaved123/tec-website`
+**Live Site:** `https://trenteducation.co.uk`
 **Dev/Staging:** `https://dev.trenteducation.co.uk`
 
 ---
@@ -13,30 +13,29 @@
 1. [Project Overview](#1-project-overview)
 2. [Technology Stack](#2-technology-stack)
 3. [Code Structure](#3-code-structure)
-4. [AWS Infrastructure](#4-aws-infrastructure)
+4. [Infrastructure Overview](#4-infrastructure-overview)
 5. [CI/CD Pipeline](#5-cicd-pipeline)
 6. [Domain & DNS Setup — Route 53 & cPanel](#6-domain--dns-setup)
-7. [Authentication — AWS Cognito](#7-authentication--aws-cognito)
-8. [Backend — API Gateway & Lambda](#8-backend--api-gateway--lambda)
-9. [Database — DynamoDB](#9-database--dynamodb)
+7. [Authentication — Keycloak](#7-authentication--keycloak)
+8. [Backend — FastAPI](#8-backend--fastapi)
+9. [Database — MySQL on AWS RDS](#9-database--mysql-on-aws-rds)
 10. [Email — AWS SES](#10-email--aws-ses)
 11. [File Storage — AWS S3](#11-file-storage--aws-s3)
 12. [Analytics — CloudWatch RUM](#12-analytics--cloudwatch-rum)
-13. [Admin Dashboard](#13-admin-dashboard)
-14. [Forms System](#14-forms-system)
-15. [Frontend Architecture](#15-frontend-architecture)
-16. [Chatbot System](#16-chatbot-system)
-17. [GDPR & Privacy Compliance](#17-gdpr--privacy-compliance)
-18. [What Has Been Achieved](#18-what-has-been-achieved)
-19. [Known Issues & Limitations](#19-known-issues--limitations)
-20. [Future Roadmap](#20-future-roadmap)
-21. [Runbook — How to Replicate This Project](#21-runbook--how-to-replicate-this-project)
+13. [Forms System](#13-forms-system)
+14. [Frontend Architecture](#14-frontend-architecture)
+15. [Chatbot System](#15-chatbot-system)
+16. [GDPR & Privacy Compliance](#16-gdpr--privacy-compliance)
+17. [What Has Been Achieved](#17-what-has-been-achieved)
+18. [Known Issues & Limitations](#18-known-issues--limitations)
+19. [Future Roadmap](#19-future-roadmap)
+20. [Runbook — How to Replicate This Project](#20-runbook--how-to-replicate-this-project)
 
 ---
 
 ## 1. Project Overview
 
-Trent Education Centre (TEC) is a UK further and higher education college based in Nottingham. This project is the college's primary public-facing website and internal admin system.
+Trent Education Centre (TEC) is a UK further and higher education college based in Nottingham. This project is the college's primary public-facing website.
 
 ### What the Website Does
 
@@ -45,17 +44,16 @@ Trent Education Centre (TEC) is a UK further and higher education college based 
 - Handles HR forms (job applications, new staff onboarding)
 - Manages partnership/collaboration enquiries
 - Provides an international student application pipeline
-- Includes a fully custom **admin dashboard** for staff to manage all form submissions
-- Tracks real-user behaviour via AWS CloudWatch RUM (analytics)
+- Includes a floating AI-assisted chatbot widget
+- All form management and admin functionality has moved to the **TEC Management VLE** (`tec-cms`)
 
 ### Environments
 
 | Environment | URL | Branch | Purpose |
 |---|---|---|---|
-| **Development** | `https://dev.trenteducation.co.uk` | `main` | Current live staging / testing |
-| **Production** | `https://trenteducation.co.uk` | `main` (when promoted) | Public-facing live site |
-
-> **Note:** At the time of writing, `dev.trenteducation.co.uk` is the working live site. `trenteducation.co.uk` is the intended production domain to switch to at go-live.
+| **Development** | `http://localhost:5173` | `feature/fastapi-migration` | Local development |
+| **Staging** | `https://dev.trenteducation.co.uk` | `feature/fastapi-migration` | Testing against live backend |
+| **Production** | `https://trenteducation.co.uk` | `main` (at go-live) | Public-facing live site |
 
 ---
 
@@ -69,30 +67,33 @@ Trent Education Centre (TEC) is a UK further and higher education college based 
 | **Vite** | 5.4.8 | Build tool & dev server |
 | **React Router DOM** | 6.26.2 | Client-side routing (SPA) |
 | **Lucide React** | 0.383.0 | Icon library |
-| **jsPDF** | 4.2.1 | PDF generation in admin panel |
-| **xlsx** | 0.18.5 | Excel export in admin panel |
 | **aws-rum-web** | 3.1.0 | CloudWatch RUM analytics |
-| **amazon-cognito-identity-js** | 6.3.16 | Cognito auth (no Amplify lib) |
 
-### Backend (AWS Serverless)
+### Backend (TEC Management — FastAPI)
 
 | Service | Purpose |
 |---|---|
-| **AWS Amplify** | Hosting + CI/CD |
-| **AWS Route 53** | DNS hosting, domain delegation, SSL validation |
-| **AWS Cognito** | Admin user authentication & RBAC |
-| **AWS API Gateway** | REST API endpoints for all form operations |
-| **AWS Lambda** | Serverless functions (Node.js ESM) |
-| **AWS DynamoDB** | NoSQL database for all form submissions |
-| **AWS SES** | Transactional emails (form notifications, confirmations) |
-| **AWS S3** | File storage (CVs, ID documents, P45s) |
-| **AWS CloudWatch RUM** | Real-user analytics and error monitoring |
+| **FastAPI** | REST API — all website endpoints at `/api/v1/website/*` |
+| **Keycloak** | Authentication & authorisation (JWT RS256) |
+| **MySQL on AWS RDS** | Relational database — 9 form tables + chatbot tables |
+| **AWS SES** | Transactional emails (notifications, confirmations) |
+| **AWS S3** | File storage (CVs, ID documents, P45s) — bucket `tec-form-uploads` |
+| **Docker** | FastAPI + Keycloak run in Docker on the EC2 instance |
+
+### Hosting & Infrastructure
+
+| Service | Purpose |
+|---|---|
+| **AWS Amplify** | Static site hosting (React build) + CI/CD |
+| **AWS CloudFront** | CDN (served via Amplify) |
+| **AWS Route 53** | DNS hosting |
+| **AWS ACM** | SSL/TLS certificates |
+| **AWS EC2** | Server running Docker (FastAPI on :8000, Keycloak on :8080) |
 
 ### Dev Tooling
 
 | Tool | Purpose |
 |---|---|
-| **Playwright** | End-to-end tests |
 | **GitHub** | Version control + CI/CD trigger |
 | **cPanel** | Domain management / DNS |
 
@@ -115,221 +116,130 @@ tec-website/
 │   │
 │   ├── components/            # Shared UI components
 │   │   ├── Navbar.jsx         # Top navigation (desktop + mobile)
-│   │   ├── Navbar.css
 │   │   ├── Footer.jsx         # Site footer
-│   │   ├── Footer.css
 │   │   ├── PageHero.jsx       # Hero banner used on all inner pages
-│   │   ├── PageHero.css
 │   │   ├── CookieConsent.jsx  # GDPR cookie banner
-│   │   ├── CookieConsent.css
-│   │   └── ErrorBoundary.jsx  # React error boundary
+│   │   ├── ErrorBoundary.jsx  # React error boundary
+│   │   └── ChatWidget/
+│   │       ├── ChatWidget.jsx # Floating chatbot widget
+│   │       └── ChatWidget.css
 │   │
-│   ├── pages/                 # Pages organised by domain into subdirectories
-│   │   ├── InnerPage.css           # Shared inner-page base styles
-│   │   ├── CoursePage.css          # Shared course-page styles
-│   │   ├── GenericPage.jsx         # Generic 404 / fallback
-│   │   │
+│   ├── pages/                 # Pages organised by domain
 │   │   ├── home/
-│   │   │   └── HomePage.jsx / .css
-│   │   │
 │   │   ├── about/
-│   │   │   ├── AboutPage.jsx
-│   │   │   ├── MissionValuesPage.jsx / .css
-│   │   │   ├── StudyCentresPage.jsx / .css
-│   │   │   ├── CarbonReductionPage.jsx
-│   │   │   ├── StudentLifePage.jsx / .css
-│   │   │   ├── StrategicPlanPage.jsx / .css
-│   │   │   ├── NewsEventsPage.jsx
-│   │   │   └── CareersPage.jsx
-│   │   │
 │   │   ├── approvals/
-│   │   │   ├── ApprovalsPage.jsx / .css
-│   │   │   ├── AwardingOrganisationsPage.jsx
-│   │   │   ├── AccreditationsPage.jsx
-│   │   │   ├── ApprovedSupplierStatusPage.jsx
-│   │   │   └── MembershipsPage.jsx / .css
-│   │   │
 │   │   ├── courses/
 │   │   │   ├── english/
-│   │   │   │   ├── EnglishCoursesPage.jsx / .css
-│   │   │   │   └── EnglishPoliciesPage.jsx / .css
 │   │   │   ├── higher-education/
-│   │   │   │   ├── HigherEducationPage.jsx
-│   │   │   │   ├── ATHELevel4Page.jsx / .css
-│   │   │   │   ├── ATHELevel5Page.jsx
-│   │   │   │   └── BTECHNDPage.jsx / .css
 │   │   │   └── further-education/
-│   │   │       ├── FurtherEducationPage.jsx
-│   │   │       ├── ATHELevel3Page.jsx
-│   │   │       ├── NCFEMathsL1Page.jsx
-│   │   │       ├── NCFEMathsL2Page.jsx
-│   │   │       ├── SIADoorSupervisorsPage.jsx
-│   │   │       └── DigitalSkillsPage.jsx
-│   │   │
 │   │   ├── admissions/
-│   │   │   ├── AdmissionPage.jsx / .css
-│   │   │   └── ApplyPage.jsx / .css
-│   │   │
-│   │   ├── forms/
-│   │   │   ├── EnquiryFormPage.jsx
-│   │   │   ├── EnrolmentFormPage.jsx
-│   │   │   ├── JobApplicationFormPage.jsx
-│   │   │   ├── InternationalApplicationFormPage.jsx
-│   │   │   ├── EnglishIELTSFormPage.jsx
-│   │   │   ├── PartnershipsFormPage.jsx
-│   │   │   └── NewStarterFormPage.jsx / .css
-│   │   │
+│   │   ├── forms/             # 9 public-facing form pages
 │   │   ├── jobs/
-│   │   │   ├── LecturerPage.jsx
-│   │   │   ├── TeachingAssistantPage.jsx
-│   │   │   ├── StudentSupportOfficerPage.jsx
-│   │   │   ├── OfficeAdminManagerPage.jsx
-│   │   │   ├── OfficeAdminITAssistantPage.jsx
-│   │   │   ├── HumanResourceOfficerPage.jsx
-│   │   │   ├── FinancialAccountManagerPage.jsx
-│   │   │   ├── MarketingExecutivePage.jsx
-│   │   │   ├── DigitalMarketingExecutivePage.jsx
-│   │   │   ├── EducationOfficerPage.jsx
-│   │   │   └── AcademicManagerPage.jsx
-│   │   │
 │   │   ├── policies/
-│   │   │   ├── PoliciesPage.jsx
-│   │   │   ├── PrivacyPolicyPage.jsx / .css
-│   │   │   └── ComplaintPage.jsx
-│   │   │
 │   │   ├── contact/
-│   │   │   └── ContactPage.jsx
-│   │   │
-│   │   └── admin/
-│   │       ├── AdminPage.jsx       # Full admin dashboard
-│   │       └── AdminPage.css
+│   │   └── international/
 │   │
 │   ├── config/
-│   │   └── forms.js               # Central config: API URLs, form registry,
-│   │                              # SES config, notify emails
+│   │   └── forms.js           # Form registry, API calls, email builders
 │   │
 │   └── utils/
-│       ├── cognitoAuth.js         # Cognito sign-in, sign-up, sessions
-│       ├── rum.js                 # CloudWatch RUM initialisation
-│       └── errorReporter.js       # JS error reporting to CloudWatch
+│       ├── api.js             # Central API client — Keycloak service account token
+│       │                      # management + all public backend calls
+│       ├── rum.js             # CloudWatch RUM initialisation (gated on cookie consent)
+│       └── errorReporter.js   # JS error reporting → FastAPI /website/errors
 │
-├── lambda/                        # Lambda function source code
-│   ├── tec-submissions-api/       # Main CRUD API (DynamoDB)
-│   │   └── index.mjs
-│   ├── tec-send-email/            # SES email notifications
-│   │   └── index.mjs
-│   ├── tec-presigned-url-generator/  # S3 presigned URL generator
-│   │   └── index.mjs
-│   └── tec-website-error-reporter/   # Error reporting handler
-│       └── index.mjs
-│
-├── scripts/                       # Utility/migration scripts
-├── tests/                         # Playwright e2e tests
-├── vite.config.js
+├── vite.config.js             # Vite config — port 5173, uploads folder excluded from watcher
 ├── package.json
 └── index.html
 ```
 
+### Removed From Previous Version
+
+The following no longer exist in this branch:
+
+| Removed | Reason |
+|---|---|
+| `lambda/` folder | Lambda functions replaced by FastAPI |
+| `src/utils/cognitoAuth.js` | Cognito replaced by Keycloak |
+| `src/pages/admin/` | Admin dashboard moved to VLE frontend (`tec-cms`) |
+| `amazon-cognito-identity-js` package | Cognito removed |
+
 ### CSS Architecture
 
-CSS is **not** CSS Modules. Each page has its own `.css` file imported directly in the JSX. Global variables are defined in `src/index.css`:
+CSS is **not** CSS Modules — each page has its own `.css` file imported directly in the JSX. Global variables in `src/index.css`:
 
 ```css
 :root {
   --tec-green:       #2d6a4f;
   --tec-green-dark:  #1a3a2a;
-  --tec-green-mid:   #2d5a3d;
   --tec-gold:        #c9a84c;
   --tec-text-light:  #555;
 }
 ```
 
-Shared inner-page base styles (hero height, page-enter animation, container width) live in `InnerPage.css` and are imported alongside page-specific CSS.
-
 ---
 
-## 4. AWS Infrastructure
-
-### Overview Diagram
+## 4. Infrastructure Overview
 
 ```
-trenteducation.co.uk (domain via cPanel)
-        │
-        │ NS delegation
-        ▼
-AWS Route 53 (DNS)
+trenteducation.co.uk (domain via cPanel → Route 53)
         │
         ▼
 User Browser
     │
-    ├── Static Assets ────────────── AWS Amplify (CDN + Hosting)
-    │                                      │
-    │                                  CloudFront
+    ├── Static Assets ────────────── AWS Amplify (S3 + CloudFront CDN)
+    │                                (React build, no server-side rendering)
     │
-    ├── Form Submissions ─────────── API Gateway (REST)
-    │                                      │
-    │                          ┌───────────┴────────────┐
-    │                          │                        │
-    │                     Lambda (CRUD)           Lambda (Email)
-    │                          │                        │
-    │                       DynamoDB                  AWS SES
+    ├── API Calls ────────────────── AWS EC2 (Docker)
+    │                                    │
+    │                               FastAPI :8000
+    │                               Keycloak :8080
+    │                                    │
+    │                               MySQL RDS (tec_management DB)
     │
-    ├── File Uploads ──────────────── S3 (presigned URLs)
-    │                                      │
-    │                             Lambda (presigned URL generator)
+    ├── File Uploads ──────────────── AWS S3 (tec-form-uploads bucket)
+    │                                (presigned URLs from FastAPI)
     │
-    ├── Admin Auth ────────────────── AWS Cognito (User Pool)
+    ├── Transactional Email ───────── AWS SES (us-east-1)
+    │                                (sent server-side by FastAPI on form submit)
     │
-    └── Analytics ────────────────── CloudWatch RUM
+    └── Analytics ────────────────── CloudWatch RUM (cookie-consent gated)
 ```
 
-### AWS Region
+### AWS Regions
 
-| Resource | Region | Notes |
-|---|---|---|
-| Amplify | `us-east-1` | **Migrate to `eu-west-2` at go-live** (GDPR) |
-| Route 53 | Global | DNS is global — no region applies |
-| API Gateway | `us-east-1` | **Migrate to `eu-west-2` at go-live** |
-| Lambda | `us-east-1` | **Migrate to `eu-west-2` at go-live** |
-| DynamoDB | `us-east-1` | **Migrate to `eu-west-2` at go-live** |
-| SES | `us-east-1` | **Migrate to `eu-west-2` at go-live** |
-| S3 | `us-east-1` | **Migrate to `eu-west-2` at go-live** |
-| CloudWatch RUM | `us-east-1` | Can stay US or move to EU |
-| Cognito | `eu-west-2` | ✅ Already in EU |
-
-> **⚠️ GDPR Action Required:** All AWS resources handling personal data should be in `eu-west-2` (London) before collecting real student data at scale. This is especially important for DynamoDB (stores all form submissions), SES (handles personal data in email), and S3 (stores identity documents).
+| Resource | Region |
+|---|---|
+| Amplify / CloudFront | `us-east-1` (migrate to `eu-west-2` at go-live) |
+| EC2 (FastAPI + Keycloak) | `eu-west-2` |
+| RDS MySQL | `eu-west-2` ✅ |
+| S3 (`tec-form-uploads`) | `eu-west-2` ✅ |
+| SES | `us-east-1` (identity verified here — keep) |
 
 ---
 
 ## 5. CI/CD Pipeline
 
-### How It Works
-
 ```
-Developer writes code locally
-        │
-        ▼
-git push origin main
+Developer pushes code
         │
         ▼
 GitHub (rameenjaved123/tec-website)
         │
         ▼  [webhook trigger]
-AWS Amplify picks up new commit
+AWS Amplify
         │
         ▼
 npm install → npm run build (Vite)
         │
         ▼
-/dist folder deployed to CloudFront CDN
+/dist deployed to CloudFront CDN
         │
         ▼
-Live at dev.trenteducation.co.uk (within ~2–4 minutes)
+Live at dev.trenteducation.co.uk (~2–4 minutes)
 ```
 
-### Amplify Build Settings
-
-In the Amplify Console, the build spec is:
+### Amplify Build Spec
 
 ```yaml
 version: 1
@@ -350,9 +260,25 @@ frontend:
       - node_modules/**/*
 ```
 
+### Environment Variables in Amplify
+
+All `VITE_*` variables must be set in Amplify Console → App settings → Environment variables:
+
+```
+VITE_API_URL              https://api.trenteducation.co.uk/api/v1
+VITE_KC_URL               https://auth.trenteducation.co.uk
+VITE_KC_REALM             tec
+VITE_KC_CLIENT_ID         tec-website
+VITE_KC_SVC_USERNAME      website.service
+VITE_KC_SVC_PASSWORD      <prod password — store in Amplify env, not git>
+VITE_RECAPTCHA_SITE_KEY   <reCAPTCHA v3 site key>
+VITE_S3_WEBSITE_BUCKET    tec-form-uploads
+VITE_AWS_REGION           eu-west-2
+```
+
 ### SPA Redirect Rule
 
-Because this is a React SPA (single-page app), all routes must redirect to `index.html`. In Amplify Console → Rewrites and Redirects:
+In Amplify Console → Rewrites and Redirects:
 
 ```
 Source:   </^[^.]+$|\.(?!(css|gif|ico|jpg|js|png|txt|svg|woff|woff2|ttf|map|json)$)([^.]+$)/>
@@ -360,292 +286,242 @@ Target:   /index.html
 Type:     200 (Rewrite)
 ```
 
-This ensures `/about`, `/admission`, `/admin` etc. all serve `index.html` and React Router handles the routing.
-
-### Lambda Deployment
-
-Lambda functions are **not** automatically deployed via CI/CD. They must be manually deployed:
-
-1. Navigate to `lambda/<function-name>/`
-2. Zip the contents: `zip -r function.zip .`
-3. Upload to AWS Lambda Console → Code → Upload from .zip
-
-> **TODO for future:** Set up GitHub Actions to auto-deploy Lambda functions on changes.
-
 ---
 
 ## 6. Domain & DNS Setup
 
-### Domain Provider
-
-The domain `trenteducation.co.uk` is registered and managed via **cPanel** (the college's existing hosting provider). DNS is managed in two places depending on the record type:
-
-- **cPanel DNS** — Legacy DNS zone for email (MX) and any records not yet migrated
-- **AWS Route 53** — Used for domain delegation and routing traffic to AWS services (Amplify, SES)
-
-### AWS Route 53
-
-**Route 53** is AWS's managed DNS service. It was used in this project to:
-
-1. **Delegate DNS from cPanel to AWS** — The domain's nameservers were pointed from cPanel to Route 53 NS records, giving AWS full control of the DNS zone
-2. **Route traffic to Amplify** — CNAME/A records in Route 53 pointing to the Amplify CloudFront distribution
-3. **SES domain verification records** — TXT and DKIM CNAME records added directly in Route 53 rather than cPanel once delegation was complete
-4. **ACM certificate validation** — Route 53 automatically validates ACM SSL certificates via DNS (CNAME records auto-created by Amplify)
-
-#### How to Set Up Route 53 for This Project
-
-1. **Create a Hosted Zone** in Route 53:
-   - AWS Console → Route 53 → Hosted zones → Create hosted zone
-   - Enter domain: `trenteducation.co.uk`
-   - Type: Public
-   - Route 53 assigns 4 nameservers (NS records)
-
-2. **Update nameservers in cPanel**:
-   - Log in to cPanel → Domains → Nameservers
-   - Replace the existing nameservers with the 4 Route 53 NS values
-   - DNS propagation takes up to 48 hours
-
-3. **Add DNS records in Route 53** (not cPanel, once delegated):
-
-| Record Type | Name | Value | Purpose |
-|---|---|---|---|
-| `CNAME` | `dev.trenteducation.co.uk` | `[Amplify].amplifyapp.com` | Dev subdomain → Amplify |
-| `CNAME` | `www.trenteducation.co.uk` | `[Amplify].amplifyapp.com` | WWW → Amplify |
-| `A` (Alias) | `trenteducation.co.uk` | Amplify distribution | Apex domain → Amplify |
-| `TXT` | `trenteducation.co.uk` | `_amazonses=...` | SES domain ownership proof |
-| `CNAME` | `_dkim1._domainkey...` | SES DKIM value 1 | Email DKIM signing |
-| `CNAME` | `_dkim2._domainkey...` | SES DKIM value 2 | Email DKIM signing |
-| `CNAME` | `_dkim3._domainkey...` | SES DKIM value 3 | Email DKIM signing |
-| `MX` | `trenteducation.co.uk` | Mail server | Email routing |
-| `TXT` | `trenteducation.co.uk` | `v=spf1 include:amazonses.com ~all` | SPF record (SES sending) |
-
-> **Why Route 53 over cPanel DNS?**  
-> Route 53 integrates natively with Amplify and ACM. Amplify can automatically insert certificate validation CNAMEs into Route 53, which it cannot do with third-party DNS providers. Route 53 also offers alias records for apex domains (e.g. `trenteducation.co.uk` without `www`), which standard CNAME records don't support at the root level.
-
-### Custom Domain in Amplify
-
-1. AWS Amplify Console → App → Domain management
-2. Add domain: `trenteducation.co.uk`
-3. If Route 53 hosts the zone: Amplify auto-creates validation records ✅
-4. If using cPanel DNS: manually add the CNAME records Amplify provides
-5. Amplify issues an ACM SSL certificate automatically (HTTPS)
-6. Both `trenteducation.co.uk` and `www.trenteducation.co.uk` are configured as aliases
-
-### SES Domain Verification
-
-To send emails from `noreply@trenteducation.co.uk` via SES:
-
-1. AWS SES → Verified identities → Verify domain
-2. SES provides DNS records to add — add these in **Route 53** (or cPanel if not yet delegated):
-   - 1× TXT record (`_amazonses=...`)
-   - 3× CNAME records (DKIM keys)
-   - 1× TXT SPF record (`v=spf1 include:amazonses.com ~all`)
-3. Request SES production access (moves out of sandbox — required before sending to unverified emails)
-4. Production access approval takes ~24 hours (AWS review)
-
-### DNS Architecture Summary
+### DNS Architecture
 
 ```
-trenteducation.co.uk (domain registered via cPanel)
+trenteducation.co.uk (registered via cPanel)
         │
-        │ nameservers delegated to Route 53
+        │ Nameservers delegated to Route 53
         ▼
 AWS Route 53 (Hosted Zone)
         │
-        ├── dev.trenteducation.co.uk  ──► AWS Amplify (CloudFront)
-        ├── www.trenteducation.co.uk  ──► AWS Amplify (CloudFront)
-        ├── trenteducation.co.uk      ──► AWS Amplify (Alias record)
-        ├── _amazonses TXT            ──► SES domain verification
-        ├── DKIM CNAMEs (×3)          ──► SES email signing
-        ├── SPF TXT                   ──► SES sending authorisation
-        └── MX records                ──► College email server
+        ├── trenteducation.co.uk       ──► AWS Amplify (Alias record)
+        ├── www.trenteducation.co.uk   ──► AWS Amplify
+        ├── dev.trenteducation.co.uk   ──► AWS Amplify
+        ├── api.trenteducation.co.uk   ──► EC2 (FastAPI :8000)
+        ├── auth.trenteducation.co.uk  ──► EC2 (Keycloak :8080)
+        ├── _amazonses TXT             ──► SES domain verification
+        ├── DKIM CNAMEs (×3)           ──► SES email signing
+        └── SPF TXT                    ──► SES sending authorisation
 ```
+
+### SES Domain Verification
+
+To send from `noreply@trenteducation.co.uk`:
+
+1. AWS SES → Verified identities → Verify domain
+2. Add DNS records in Route 53: 1× TXT, 3× DKIM CNAMEs, 1× SPF TXT
+3. Request SES production access (out of sandbox — required before sending to external addresses)
 
 ---
 
-## 7. Authentication — AWS Cognito
+## 7. Authentication — Keycloak
 
-### User Pool Configuration
+### Overview
+
+Authentication is handled by **Keycloak** (`tec` realm) running on EC2. The website does not have user login — instead it uses a **dedicated service account** (`website.service`) to authenticate API calls.
+
+### Website Service Account
 
 | Setting | Value |
 |---|---|
-| **User Pool ID** | `eu-west-2_sbCIAMB5c` |
-| **App Client ID** | `7ksedbont2d0annicgrp3jeua5` |
-| **Region** | `eu-west-2` (London) ✅ |
-| **Sign-in method** | Email + password |
-| **MFA** | Not configured (optional to add) |
+| **Keycloak Client** | `tec-website` (public, ROPC enabled) |
+| **Username** | `website.service` |
+| **Email** | `website.service@tec.ac.uk` |
+| **Role** | `website_public` |
+| **Password** | Stored in `VITE_KC_SVC_PASSWORD` env var |
 
-### Groups & RBAC
+The `website_public` role grants access **only** to public website endpoints:
+- `POST /website/forms/{type}` — submit forms
+- `POST /website/upload-url` — S3 presigned URL
+- `POST /website/send-email` — raw email
+- `POST /website/chat` — log chat
+- `POST /website/chat/lead` — save pre-chat data
+- `POST /website/errors` — report errors
 
-Access to the admin dashboard is role-based. Each Cognito group maps to specific forms:
+It does **not** grant access to staff/student/admin data, VLE endpoints, or form management.
 
-| Cognito Group | Forms Visible |
-|---|---|
-| `admin` | All forms (unrestricted) |
-| `new-starter-form` | New Starter Form only |
-| `partnerships` | Partnerships & Collaborations only |
-| `application-form` | Application Form only |
-| `job-application` | Job Application only |
-| `english-ielts` | English & IELTS Application only |
-| `enquiry-form` | Enquiry Form only |
-| `enrolment-form` | Enrolment Form only |
-| `international-application` | International Application only |
-| `complaint` | Complaint form only |
-
-> Users with **no group** land on a "Pending Approval" screen after signing up. An admin must assign them to a group in the Cognito console.
-
-### Auth Flow
+### Token Flow
 
 ```
-User enters email + password
+Website loads for the first time
         │
         ▼
-cognitoAuth.js → signIn()
+api.js getToken() → POST /realms/tec/protocol/openid-connect/token
+  { grant_type: "password", client_id: "tec-website",
+    username: "website.service", password: "..." }
         │
         ▼
-Cognito User Pool authenticates
+Keycloak returns access_token (expires 30 min) + refresh_token
         │
-   ┌────┴────┐
-   │         │
-New-password  Success
-challenge     │
-   │         ▼
-   │   JWT token returned (IdToken, AccessToken, RefreshToken)
-   │         │
-   ▼         ▼
-Set new     Groups extracted from IdToken payload
-password    ("cognito:groups" claim)
-            │
-            ▼
-        Admin dashboard loads with correct RBAC
+        ▼
+Token cached in memory (not localStorage)
+        │
+        ▼
+All publicFetch() calls include: Authorization: Bearer <token>
+        │
+        ▼
+Token auto-refreshed 60s before expiry using the refresh_token
+If refresh fails → re-login automatically
 ```
 
-### Token Usage
+### Admin / Staff Access
 
-- **IdToken** is sent as `Authorization: Bearer <token>` header on every API request to API Gateway
-- API Gateway validates the token against Cognito automatically (JWT Authorizer)
-- Lambda reads `event.requestContext.authorizer.jwt.claims['cognito:groups']` to enforce RBAC server-side
+Form management (view submissions, update status, export data) is handled in the **VLE frontend** (`tec-cms`), not this website. Staff with `website_admin`, `admin`, or `staff` Keycloak roles log into tec-cms separately.
 
-### Session Persistence
+### Security Note
 
-`amazon-cognito-identity-js` stores tokens in `localStorage`. On page load, `getCurrentSession()` is called to restore the session. Tokens refresh automatically when expired.
+The service account credentials (`VITE_KC_SVC_USERNAME`, `VITE_KC_SVC_PASSWORD`) are bundled into the JavaScript build. This is an accepted trade-off — the `website_public` role is scoped to POST-only public endpoints. Defence-in-depth still applies: CORS origin allowlist + IP rate limiting + optional reCAPTCHA.
 
 ---
 
-## 8. Backend — API Gateway & Lambda
+## 8. Backend — FastAPI
 
-### API Gateway
+### Base URL
 
-**Base URL:** `https://0yx963nwb7.execute-api.us-east-1.amazonaws.com`
-
-All routes are protected by a **Cognito JWT Authorizer** (except OPTIONS for CORS preflight).
-
-| Method | Path | Lambda | Description |
-|---|---|---|---|
-| `POST` | `/save-submission` | `tec-submissions-api` | Save a new form submission to DynamoDB |
-| `GET` | `/get-submissions` | `tec-submissions-api` | Fetch paginated submissions (RBAC filtered) |
-| `POST` | `/update-submission` | `tec-submissions-api` | Update a submission (edit fields or status) |
-| `DELETE` | `/delete-submission` | `tec-submissions-api` | Delete a submission by ID |
-
-**Email API Base URL:** `https://ouu9vyqahf.execute-api.us-east-1.amazonaws.com`
-
-| Method | Path | Lambda | Description |
-|---|---|---|---|
-| `POST` | `/tec-send-email` | `tec-send-email` | Send SES email notification |
-
-### Lambda Functions
-
-#### `tec-submissions-api` (Main CRUD)
-
-- Runtime: Node.js 20.x, ESM (`index.mjs`)
-- Uses `@aws-sdk/client-dynamodb` and `@aws-sdk/lib-dynamodb`
-- Handles all four CRUD operations in a single function (routes by `event.rawPath`)
-- Enforces RBAC: extracts groups from Cognito JWT and filters DynamoDB results
-- Paginated fetch: scans DynamoDB page-by-page and streams results back
-
-```javascript
-// Simplified routing logic
-if (path.includes('save-submission'))   return handleSave(event);
-if (path.includes('get-submissions'))   return handleGet(event);
-if (path.includes('update-submission')) return handleUpdate(event);
-if (path.includes('delete-submission')) return handleDelete(event);
+```
+http://localhost:8000/api/v1       # development
+https://api.trenteducation.co.uk/api/v1  # production
 ```
 
-#### `tec-send-email`
+### Website Endpoints (`/website/`)
 
-- Runtime: Node.js 20.x, ESM
-- Uses `@aws-sdk/client-ses`
-- Sends HTML email to the relevant department when a form is submitted
-- Sends a confirmation email to the applicant
-- Looks up recipient from `NOTIFY_EMAILS` map based on `formType`
+All endpoints require `Authorization: Bearer <token>` with at minimum the `website_public` role. Public-access admin endpoints (GET/PATCH/DELETE) require `admin`, `staff`, or `website_admin` role (managed in tec-cms).
 
-#### `tec-presigned-url-generator`
+#### Form Submission
 
-- Generates short-lived S3 presigned URLs for viewing uploaded files
-- Admin panel calls this when staff click "View File" on an entry
-- URLs expire after 15 minutes (security — files never directly publicly accessible)
+| Method | Endpoint | Auth | Description |
+|---|---|---|---|
+| `POST` | `/website/forms/{type}` | `website_public`+ | Submit a form; auto-sends SES notification + confirmation |
+| `GET` | `/website/forms/{type}` | `admin`/`staff`/`website_admin` | List submissions (paginated, filterable) |
+| `GET` | `/website/forms/{type}/{id}` | `admin`/`staff`/`website_admin` | Get single submission |
+| `PATCH` | `/website/forms/{type}/{id}` | `admin`/`staff`/`website_admin` | Update status or notes |
+| `DELETE` | `/website/forms/{type}/{id}` | `admin` only | Delete a submission |
 
-#### `tec-website-error-reporter`
+Valid `type` values: `enquiry` `application` `enrolment` `international-application` `job-application` `new-starter` `partnerships` `english-ielts` `complaint`
 
-- Receives JavaScript error reports from the frontend (`errorReporter.js`)
-- Logs errors to CloudWatch Logs for debugging
+#### File Storage
 
-### CORS Configuration
+| Method | Endpoint | Auth | Description |
+|---|---|---|---|
+| `POST` | `/website/upload-url` | `website_public`+ | Get S3 presigned PUT URL |
+| `POST` | `/website/view-url` | `admin`/`staff`/`website_admin` | Get S3 presigned GET URL |
 
-All Lambda responses include:
+#### Email
 
-```javascript
-const CORS = {
-  'Access-Control-Allow-Origin':  '*',
-  'Access-Control-Allow-Headers': 'Content-Type,Authorization',
-  'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
-};
+| Method | Endpoint | Auth | Description |
+|---|---|---|---|
+| `POST` | `/website/send-email` | `website_public`+ | Send raw email via SES |
+| `POST` | `/website/admin/send-email` | `admin`/`staff`/`website_admin` | Re-send/forward submission email |
+
+#### Chatbot
+
+| Method | Endpoint | Auth | Description |
+|---|---|---|---|
+| `POST` | `/website/chat` | `website_public`+ | Log a chat turn |
+| `POST` | `/website/chat/lead` | `website_public`+ | Save pre-chat form data |
+| `GET` | `/website/chat/analytics` | `admin`/`staff`/`website_admin` | Usage stats |
+| `GET` | `/website/chat/conversations` | `admin`/`staff`/`website_admin` | Paginated conversation history |
+| `GET` | `/website/chat/leads` | `admin`/`staff`/`website_admin` | Pre-chat leads (auto-purges >30 days) |
+
+#### Errors
+
+| Method | Endpoint | Auth | Description |
+|---|---|---|---|
+| `POST` | `/website/errors` | `website_public`+ | Report a JS error |
+
+### Server-side Security
+
+Beyond JWT auth, public endpoints are further protected:
+
+| Layer | Detail |
+|---|---|
+| **CORS origin check** | `_require_website_origin()` — rejects requests from non-whitelisted origins |
+| **IP rate limiting** | In-memory per-IP: 20/min, 100/hr, 200/day (returns 429) |
+| **reCAPTCHA v3** | Optional — enabled via `RECAPTCHA_ENABLED=true` + `RECAPTCHA_SECRET_KEY` in backend `.env` |
+
+### FastAPI Project Location
+
 ```
-
-> **Security note:** `Allow-Origin: *` is acceptable for an authenticated API (tokens required), but can be tightened to `https://trenteducation.co.uk` at go-live.
+~/Trent Projects/tec-management/
+├── app/
+│   ├── modules/website/
+│   │   ├── routes.py      # All /website/* endpoints
+│   │   ├── schemas.py     # Pydantic request/response models
+│   │   ├── service.py     # Business logic
+│   │   └── models.py      # SQLAlchemy ORM models
+│   └── core/
+│       └── security.py    # JWT validation, require_roles(), website_public role
+└── docker-compose.yml     # Runs tec_app (FastAPI) container
+```
 
 ---
 
-## 9. Database — DynamoDB
+## 9. Database — MySQL on AWS RDS
 
-### Table
+### Connection
 
-| Setting | Value |
-|---|---|
-| **Table name** | `tec-form-submissions` |
-| **Region** | `us-east-1` (migrate to `eu-west-2`) |
-| **Primary key** | `id` (String) — UUID v4 |
-| **Billing mode** | On-demand (pay per request) |
-| **Indexes** | None (full table scan with filter) |
-
-### Item Schema
-
-All form types share the same table. A typical item looks like:
-
-```json
-{
-  "id":           "uuid-v4",
-  "formType":     "Application Form",
-  "submittedAt":  "2024-03-15T10:30:00.000Z",
-  "status":       "new",
-  "firstName":    "Jane",
-  "lastName":     "Smith",
-  "email":        "jane@example.com",
-  "mobile":       "07700000000",
-  "course":       "ATHE Level 4 Extended Diploma in Business",
-  ...all other form fields...
-}
+```
+Host:     tec-management.cte60kycgv9o.eu-west-2.rds.amazonaws.com
+Database: tec_management
+User:     admin
+Region:   eu-west-2 ✅
 ```
 
-### Pagination
+### Form Tables (9 separate tables)
 
-The admin dashboard fetches in pages of 50 items using DynamoDB's `LastEvaluatedKey`. The Lambda streams each page back to the frontend as it arrives, so the UI shows results progressively without waiting for all 800+ records to load.
+Each form type has its own MySQL table. All share the same schema:
 
-### Caching
+```sql
+CREATE TABLE enquiry (    -- one per form type
+  id            VARCHAR(36) PRIMARY KEY,
+  status        ENUM('new','in_progress','completed','rejected','archived') DEFAULT 'new',
+  data          JSON NOT NULL,         -- all form fields as JSON
+  notes         TEXT,
+  reviewed_by_staff_id  VARCHAR(36),  -- FK to staffs.id
+  submitted_at  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at    DATETIME ON UPDATE CURRENT_TIMESTAMP
+);
+```
 
-The admin dashboard caches DynamoDB results in `sessionStorage` with a 5-minute TTL. On load:
-1. If cache is fresh → show immediately, silently refresh in background
-2. If cache is stale or missing → show spinner, fetch, write cache
+Form types: `enquiry` | `application` | `enrolment` | `international_application` | `job_application` | `new_starter` | `partnerships` | `english_ielts` | `complaint`
+
+### Chatbot Tables
+
+```sql
+CREATE TABLE chatbot_sessions (
+  id              VARCHAR(36) PRIMARY KEY,  -- UUID, same as session_id in conversations
+  created_at      DATETIME DEFAULT NOW(),
+  last_message_at DATETIME DEFAULT NOW(),
+  message_count   INT DEFAULT 0
+);
+
+CREATE TABLE chatbot_conversations (
+  id              VARCHAR(36) PRIMARY KEY,
+  session_id      VARCHAR(36) NOT NULL,
+  user_message    TEXT,
+  bot_answer      TEXT,
+  created_at      DATETIME DEFAULT NOW()
+);
+```
+
+Data retention: handled by Alembic or a cron script — chatbot data older than 90 days can be purged.
+
+### Migrations
+
+Schema is managed by **Alembic** in the `tec-management` project:
+
+```bash
+# Apply all pending migrations
+docker exec tec_app alembic upgrade head
+
+# Check current version
+docker exec tec_app alembic current
+```
 
 ---
 
@@ -657,19 +533,18 @@ The admin dashboard caches DynamoDB results in `sessionStorage` with a 5-minute 
 |---|---|
 | **From address** | `noreply@trenteducation.co.uk` |
 | **From name** | `Trent Education Centre` |
-| **Region** | `us-east-1` |
+| **Region** | `us-east-1` (identity verified here) |
 | **Mode** | Production (out of sandbox) |
 
 ### Email Flow
 
-When a form is submitted:
+When a form is submitted via `POST /website/forms/{type}`:
 
-1. Frontend calls `POST /tec-send-email` with form data
-2. Lambda (`tec-send-email`) looks up recipient from `NOTIFY_EMAILS` map
-3. Sends **staff notification email** (HTML) to the relevant department
-4. Sends **applicant confirmation email** to the person who submitted the form
+1. FastAPI saves the record to MySQL
+2. FastAPI calls `WebsiteEmailService.send_submission_notification()` — staff notification to the relevant department (best-effort, errors logged but don't fail the HTTP response)
+3. FastAPI calls `WebsiteEmailService.send_applicant_confirmation()` — confirmation to the applicant
 
-### Notification Email Recipients
+### Notification Recipients
 
 | Form | Recipient |
 |---|---|
@@ -678,11 +553,10 @@ When a form is submitted:
 | Enquiry Form | `digitaladmissions@trenteducation.co.uk` |
 | Job Application | `hr@trenteducation.co.uk` |
 | New Starter Form | `hr@trenteducation.co.uk` |
-| English & IELTS Application | `internationaladmissions@trenteducation.co.uk` |
+| English & IELTS | `internationaladmissions@trenteducation.co.uk` |
 | International Application | `internationaladmissions@trenteducation.co.uk` |
-| Partnerships & Collaborations | `partnerships@trenteducation.co.uk` |
-| Contact / Default | `info@trenteducation.co.uk` |
-
+| Partnerships | `partnerships@trenteducation.co.uk` |
+| Complaint / Default | `info@trenteducation.co.uk` |
 
 ---
 
@@ -693,29 +567,22 @@ When a form is submitted:
 | Setting | Value |
 |---|---|
 | **Bucket name** | `tec-form-uploads` |
-| **Region** | `us-east-1` |
+| **Region** | `eu-west-2` ✅ |
 | **Public access** | Blocked (private) |
 | **Access method** | Presigned URLs only |
 
-### File Types Stored
-
-| Field | Forms Using It |
-|---|---|
-| CV (`cvFileUrl`) | Job Application |
-| Proof of ID (`proofOfIdUrl`) | New Starter Form |
-| P45 (`p45Url`) | New Starter Form |
-
 ### Upload Flow
 
-1. Frontend requests a presigned PUT URL from `tec-presigned-url-generator` Lambda
-2. Browser uploads file directly to S3 using the presigned URL (no file touches the Lambda)
-3. S3 URL stored in DynamoDB as the field value
+1. Frontend calls `POST /website/upload-url` with `{ file_name, file_type, folder }` + Bearer token
+2. FastAPI generates a presigned PUT URL (S3 SDK) and returns it
+3. Browser uploads file directly to S3 using the PUT URL — file never touches FastAPI
+4. File key (S3 path) stored in the form's JSON `data` field in MySQL
 
-### View Flow
+### View Flow (admin, via tec-cms)
 
-1. Admin clicks "📎 View File" in dashboard
-2. Frontend calls `tec-presigned-url-generator` with the S3 key
-3. Lambda returns a presigned GET URL (15-minute expiry)
+1. Staff clicks "View File" in tec-cms
+2. tec-cms calls `POST /website/view-url` with `{ file_key }` + staff JWT
+3. FastAPI generates a presigned GET URL (15-minute expiry)
 4. Browser opens the file in a new tab
 
 ---
@@ -727,22 +594,12 @@ When a form is submitted:
 | Setting | Value |
 |---|---|
 | **Monitor name** | `tec-website` |
-| **Application ID** | `2188d62a-dc82-4a16-90a5-e9af6d50c7a6` |
 | **Region** | `us-east-1` |
-| **Identity Pool** | `us-east-1:2752baff-2a47-408c-bf26-4d303532a5c5` |
-| **Sample rate** | 100% (`sessionSampleRate: 1`) |
 | **Telemetry** | `performance`, `errors`, `http` |
 
 ### GDPR Integration
 
 RUM is **only initialised after the user accepts cookies**. The `CookieConsent` component calls `initRUM()` on accept. If the user declines, RUM is never loaded.
-
-```javascript
-// CookieConsent.jsx
-if (accepted) {
-  initRUM();  // only fires after consent
-}
-```
 
 ### What It Tracks
 
@@ -754,75 +611,27 @@ if (accepted) {
 
 ---
 
-## 13. Admin Dashboard
-
-The admin dashboard is accessible at `/admin`. It is a fully custom-built React application within the same SPA.
-
-### Features
-
-| Feature | Description |
-|---|---|
-| **Auth** | Cognito login (email + password), sign up, email verification, first-login password reset |
-| **RBAC** | Users only see forms they are assigned to via Cognito groups |
-| **All Submissions view** | Paginated table of all entries with avatars, status badges, dates |
-| **Filter by form type** | Sidebar nav filters the table by form |
-| **Search** | Real-time search across all fields |
-| **Status management** | Mark entries as New / Reviewed / Actioned |
-| **Entry detail modal** | Full field-by-field view of any submission |
-| **Edit entries** | Edit any field directly in the modal |
-| **Delete entries** | With confirmation dialog |
-| **PDF export** | Generate a formatted A4 PDF for any entry (jsPDF) |
-| **Excel export** | Export filtered view to .xlsx, one sheet per form type |
-| **Google Sheets sync** | Push entry to connected Google Sheet (Apps Script) |
-| **File viewing** | View uploaded files (CV, ID, P45) via S3 presigned URLs |
-| **Email forwarding** | Forward any entry to a custom email address |
-| **Session cache** | 5-min sessionStorage cache for instant load |
-| **Mobile sidebar** | Collapsible drawer sidebar on mobile |
-| **Refresh** | Manual re-fetch from DynamoDB, clears cache |
-
-### Status Workflow
-
-```
-New (green) → Reviewed (blue) → Actioned (purple)
-```
-
-Staff change status by clicking the buttons in the entry modal. Status is persisted to DynamoDB.
-
-### PDF Generation
-
-Uses `jsPDF` to draw a professional A4 form:
-- TEC logo header
-- Form type + submission date
-- All fields in labelled boxes (auto-wraps long text)
-- Multi-page support
-- Page number + Entry ID footer
-
-Handles all form types with different field layouts.
-
----
-
-## 14. Forms System
+## 13. Forms System
 
 ### Central Configuration (`src/config/forms.js`)
 
 All form configuration lives in one file:
 
-- `AWS_CONFIG` — API endpoint URLs
-- `SES_CONFIG` — Email sending config
+- `FORM_REGISTRY` — Master list of all forms with paths, icons, field mappings
 - `NOTIFY_EMAILS` — Which email gets notified per form type
-- `FORM_REGISTRY` — Master list of all forms with paths, icons, Sheets URLs, field mappings
+- API call wrappers that use `src/utils/api.js`
 
 ### Forms Built
 
 | Form | URL | Stores Files |
 |---|---|---|
-| Application Form | `/apply` | No |
+| Application Form | `/application-form` | No |
 | Enrolment Form | `/enrolment-form` | No |
 | Enquiry Form | `/enquiry-form` | No |
-| Job Application | `/job-application-form` | Yes (CV) |
+| Job Application | `/job-application` | Yes (CV) |
 | New Starter Form | `/new-starter-form` | Yes (ID, P45) |
-| English & IELTS Application | `/english-ielts-form` | No |
-| International Application | `/international-application-form` | No |
+| English & IELTS Application | `/english-ielts-application` | No |
+| International Application | `/international-application` | No |
 | Partnerships & Collaborations | `/partnerships-form` | No |
 | Complaint | `/complaint` | No |
 
@@ -835,30 +644,33 @@ User fills form → Submit
 Frontend validates fields
         │
         ▼
-If file upload: request presigned URL → upload to S3
+api.js getToken() — ensures a valid Bearer token is cached
         │
         ▼
-POST to /save-submission (API Gateway)
-  → Bearer token from Cognito NOT required for public forms
-  → Lambda saves to DynamoDB
-  → Returns { success: true, id: "uuid" }
+If file upload:
+  POST /website/upload-url → S3 presigned PUT URL
+  → Browser uploads directly to S3
+  → File key stored as field value
         │
         ▼
-POST to /tec-send-email (API Gateway)
-  → Staff notification email via SES
-  → Applicant confirmation email via SES
+POST /website/forms/{type}
+  Authorization: Bearer <website_public token>
+  { data: { ...formFields }, recaptcha_token: "..." }
+        │
+        ▼
+FastAPI:
+  → Saves to MySQL (form-type table)
+  → Sends staff notification via SES (best-effort)
+  → Sends applicant confirmation via SES (best-effort)
+  → Returns { id, status }
         │
         ▼
 Success message shown to user
 ```
 
-### Google Sheets Integration
-
-Some forms (New Starter, Partnerships) also push data to Google Sheets via an Apps Script web app URL. This allows staff to view submissions in a spreadsheet alongside the admin dashboard.
-
 ---
 
-## 15. Frontend Architecture
+## 14. Frontend Architecture
 
 ### Routing
 
@@ -868,10 +680,9 @@ All routes defined in `src/App.jsx` using React Router v6:
 <Routes>
   <Route path="/" element={<HomePage />} />
   <Route path="/about" element={<AboutPage />} />
-  <Route path="/admission" element={<AdmissionPage />} />
-  <Route path="/apply" element={<ApplyPage />} />
-  <Route path="/admin" element={<AdminPage />} />
-  // ... 40+ routes total
+  <Route path="/application-form" element={<ApplicationFormPage />} />
+  <Route path="/policies" element={<PoliciesPage />} />
+  // ... 50+ routes total
 </Routes>
 ```
 
@@ -879,14 +690,14 @@ All routes defined in `src/App.jsx` using React Router v6:
 
 The `Navbar` component supports **3-level dropdown menus** on desktop and **fully collapsible accordion menus** on mobile.
 
-Mobile nav key behaviour:
-- Parent items **with children**: render as `<span>` with `onClick` to toggle — does NOT navigate (prevents menu closing before submenu shows)
+Mobile nav behaviour:
+- Parent items **with children**: render as `<span>` with `onClick` to toggle (does not navigate — prevents menu closing before submenu shows)
 - Parent items **without children**: render as `<Link>` for normal navigation
-- Location change auto-closes mobile menu (`useEffect` on `location`)
+- Location change auto-closes mobile menu
 
 ### PageHero
 
-Every inner page starts with a `<PageHero>` component:
+Every inner page starts with `<PageHero>`:
 
 ```jsx
 <PageHero
@@ -895,89 +706,84 @@ Every inner page starts with a `<PageHero>` component:
 />
 ```
 
-The heading box is: `width: 78%; max-width: 1040px` — this is the reference width for all intro text paragraphs below the hero.
-
 ### Dev Search Tool
 
-A `<DevSearch>` component is shown in the navbar **only in development mode** (`import.meta.env.DEV`). It provides a quick page-search overlay to navigate to any route — invisible in production.
+A `<DevSearch>` component is shown in the navbar **only in development mode** (`import.meta.env.DEV`). Invisible in production builds.
 
 ### Cookie Consent
 
 `CookieConsent.jsx` shows a banner on first visit:
 - **Accept**: stores `tecCookiesAccepted=true` in `localStorage`, calls `initRUM()`
 - **Decline**: stores `tecCookiesAccepted=false`, RUM never loads
-- Banner never shows again once a choice is made
 
 ### Error Boundary
 
-`ErrorBoundary.jsx` wraps the app to catch React render errors. Errors are reported to `errorReporter.js` which sends them to a Lambda endpoint for CloudWatch logging.
+`ErrorBoundary.jsx` wraps the entire app. Caught errors are reported to `errorReporter.js` which sends them to `POST /website/errors`.
+
+### API Client (`src/utils/api.js`)
+
+The central API client handles:
+
+1. **Token management**: ROPC login on first call using `VITE_KC_SVC_*` env vars; access token cached in memory; auto-refreshed using the refresh token 60 seconds before expiry; concurrent calls deduplicated via an in-flight promise
+2. **`publicFetch(path, options)`**: internal wrapper that attaches `Authorization: Bearer <token>` to every request
+3. **Public exports**: `submitForm`, `uploadToS3`, `getS3ViewUrl`, `sendEmail`, `logChat`, `reportError`
+
+```javascript
+// Simplified token lifecycle
+getToken()
+  → if cached + not expiring soon → return cached token
+  → if refresh_token available → POST /token with refresh_token
+  → else → POST /token with username + password (ROPC)
+```
 
 ---
 
-## 16. Chatbot System
+## 15. Chatbot System
 
-The TEC website includes a floating chat widget that answers common student questions entirely on the frontend using keyword matching — no AI, no external API calls for answers. Conversations are logged to Supabase (PostgreSQL) via a dedicated AWS Lambda function URL.
+The TEC website includes a floating chat widget that answers common student questions using keyword matching — no AI, no external API calls for answers. Conversations are logged to the TEC Management MySQL database.
 
----
-
-### Architecture Overview
+### Architecture
 
 ```
 User visits TEC website
         │
         ▼
-ChatWidget.jsx (React — always mounted)
+ChatWidget.jsx (always mounted, every page)
         │
         ├── User types a question
-        │         │
-        │         ▼
-        │   findAnswer(input)         ← pure keyword matching, no API call
-        │         │
-        │         ▼
-        │   Match found? ──Yes──► Show answer from FAQS array
-        │         │
-        │         No
-        │         ▼
-        │   Show FALLBACK message (phone + email)
+        │       ▼
+        │   findAnswer(input) ← pure keyword matching (no API)
+        │       ▼
+        │   Match found → show answer from FAQs array
+        │   No match  → show FALLBACK (phone + email)
         │
-        └── After every answer: logConversation() ──► fire-and-forget POST
-                                                              │
-                                                              ▼
-                                               Lambda Function URL (AWS)
-                                                              │
-                                                   ┌──────────┴──────────┐
-                                                   │  Rate limit check    │
-                                                   │  (per IP, in-memory) │
-                                                   └──────────┬──────────┘
-                                                              │
-                                                              ▼
-                                                   Supabase (PostgreSQL)
-                                                   chatbot_conversations
-                                                   chatbot_sessions
+        └── After every answer: logChat() ──► POST /website/chat
+                                                  │
+                                            Bearer token (website_public)
+                                                  │
+                                            FastAPI saves to MySQL:
+                                            chatbot_conversations
+                                            chatbot_sessions (upsert)
 ```
-
----
 
 ### Frontend — ChatWidget
 
 **File:** `src/components/ChatWidget/ChatWidget.jsx`
 
-The widget is mounted globally (in `App.jsx`) and appears on every page as a fixed floating button in the bottom-right corner.
-
-#### How answers work
+#### How Answers Work
 
 ```javascript
 // 1. User types a question
 // 2. findAnswer() lowercases input and scores each FAQ entry
 // 3. Each FAQ has an array of keywords — multi-word keywords score higher
-// 4. The FAQ with the highest score is returned if score > 0
+// 4. Highest-scoring FAQ returned if score > 0
 // 5. If no FAQ scores, FALLBACK is shown
 
 const FALLBACK = "I don't have information about that. Please contact "
                + "(+44) 1157950171 / info@trenteducation.co.uk";
 ```
 
-#### FAQ topics covered (15 entries)
+#### FAQ Topics (15 entries)
 
 | Topic | Keywords include |
 |---|---|
@@ -985,622 +791,259 @@ const FALLBACK = "I don't have information about that. Please contact "
 | GCSEs | gcse — explicitly states TEC does NOT offer GCSEs |
 | How to apply | apply, application, enrol, sign up |
 | Fees | fee, cost, price, pay, tuition |
-| Locations | location, centre, address, nottingham, leicester, birmingham |
+| Locations | location, centre, address, nottingham |
 | Entry requirements | requirement, qualify, eligible, level |
-| Scholarships & bursaries | scholarship, bursary, funding, financial support |
+| Scholarships & bursaries | scholarship, bursary, funding |
 | English language courses | english, esol, ielts, language |
 | BTEC HND | btec, hnd, higher national, level 4, level 5 |
 | Contact | contact, phone, email, call, reach |
-| International students | international, overseas, visa, foreign |
-| Digital Skills | digital, computer, it skills, beginner |
-| SIA / Door Supervisors | sia, door supervisor, security, licence |
-| Maths | maths, mathematics, functional skills maths |
+| International students | international, overseas, visa |
+| Digital Skills | digital, computer, it skills |
+| SIA / Door Supervisors | sia, door supervisor, security |
+| Maths | maths, mathematics, functional skills |
 | ATHE Level 3 | athe, level 3, diploma, business |
-
-#### Suggested questions
-
-Six clickable suggestion buttons are shown when the chat opens:
-
-1. What courses do you offer?
-2. How do I apply?
-3. What are the fees?
-4. Do you offer GCSEs?
-5. Where are you located?
-6. How can I contact TEC?
 
 #### Session ID
 
-Each chat session generates a UUID on widget mount:
+Each widget mount generates a UUID (`crypto.randomUUID()`). This UUID groups all messages from one browser visit into one session in the database.
 
-```javascript
-const [sessionId] = useState(() => crypto.randomUUID());
-```
+#### Conversation Logging
 
-This UUID groups all messages from one browser visit into one session in the database.
-
-#### Conversation logging
-
-After every answer, a fire-and-forget POST is sent to Lambda — it never throws or blocks the UI:
+Fire-and-forget — never blocks the UI:
 
 ```javascript
 async function logConversation(userMessage, botAnswer, sessionId) {
   try {
-    await fetch(`${LAMBDA_URL}/api/chat`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userMessage, botAnswer, sessionId }),
-    });
-  } catch { /* silent — never affects the user */ }
+    await logChat(userMessage, botAnswer, sessionId) // api.js
+  } catch { /* silent */ }
 }
 ```
 
----
+### Backend — FastAPI
 
-### Backend — Lambda Function URL
+**Endpoint:** `POST /api/v1/website/chat`
+**Auth:** `website_public` Bearer token
+**DB:** MySQL `chatbot_conversations` + `chatbot_sessions`
 
-**File:** `lambda/tec-chatbot-api/index.mjs`  
-**URL:** `https://htabzeqaghsn4zoe5z5hruppe40ckfyh.lambda-url.us-east-1.on.aws`  
-**Runtime:** Node.js 20.x · single file · no npm dependencies  
-**Env vars required:** `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`
+On receive:
+1. Inserts row into `chatbot_conversations`
+2. Upserts `chatbot_sessions` (increments `message_count`, updates `last_message_at`)
 
-This Lambda uses a **Function URL** (not API Gateway) — it has a direct HTTPS endpoint with no extra routing layer.
+### Admin — Chatbot Management (via tec-cms)
 
-#### Routes
-
-| Method | Path | Auth | Description |
-|---|---|---|---|
-| `GET` | `/api/health` | None | Health check |
-| `POST` | `/api/chat` | None | Rate limit + log conversation |
-| `GET` | `/api/admin/analytics` | Cognito Bearer | Session counts + today's messages |
-| `GET` | `/api/admin/conversations` | Cognito Bearer | Paginated session list with messages |
-
-#### Rate limiting
-
-In-memory rate limiting per IP address (resets on Lambda cold start):
-
-| Window | Limit | Error message |
+| Endpoint | Who can access | Purpose |
 |---|---|---|
-| Per minute | 20 messages | "Too many messages. Please wait a moment." |
-| Per hour | 100 messages | "Hourly limit reached. Please try again later." |
-| Per day | 200 messages | "Daily limit reached. Please contact TEC directly." |
+| `GET /website/chat/analytics` | `admin`, `staff`, `website_admin` | Total sessions, today's message count |
+| `GET /website/chat/conversations` | `admin`, `staff`, `website_admin` | Paginated session list with messages |
+| `GET /website/chat/leads` | `admin`, `staff`, `website_admin` | Pre-chat lead form submissions |
 
-The rate limit store is a `Map` keyed by IP. Lambda cold starts reset all counters (acceptable trade-off for simplicity — no Redis needed).
+### Data Retention
 
-#### Authentication (admin endpoints)
-
-Admin endpoints require a Cognito ID token as `Authorization: Bearer <token>`. The Lambda decodes the JWT payload (no RS256 signature verification — token already issued by Cognito), checks expiry, and verifies the user is in the `admin` or `chatbot` Cognito group:
-
-```
-Admin visits /admin/chatbot
-        │
-        ▼
-AdminPage.jsx calls getIdToken() from cognitoAuth.js
-        │
-        ▼
-Cognito session → returns JWT IdToken string
-        │
-        ▼
-authFetch('/api/admin/conversations') sends Bearer token
-        │
-        ▼
-Lambda decodes JWT payload → checks cognito:groups
-        │
-   ┌────┴────┐
-   │         │
-admin or   Neither
-chatbot    group
-group       │
-   │        ▼
-   │    401 Unauthorised
-   ▼
-Proceed with request
-```
-
-#### Session upsert logic
-
-When `/api/chat` receives a message, it:
-1. Inserts a row into `chatbot_conversations`
-2. Checks if the session ID already exists in `chatbot_sessions`
-   - If yes → PATCH `last_message_at` and increment `message_count`
-   - If no → INSERT new session row
-
-Both operations are fire-and-forget (non-blocking).
+Chatbot data older than 30 days is automatically purged on every `GET /website/chat/leads` call (GDPR — implemented in `WebsiteChatLeadService.list()`). A separate cron job or Alembic migration can extend this to all chatbot tables on a schedule.
 
 ---
 
-### Database — Supabase (PostgreSQL)
-
-**Provider:** Supabase (hosted PostgreSQL)  
-**Auth method used by Lambda:** `service_role` key (bypasses RLS entirely)  
-**RLS:** Enabled on both tables — no public access via `anon` or `authenticated` keys
-
-#### Table: `chatbot_conversations`
-
-Stores every individual message exchange.
-
-```sql
-create table chatbot_conversations (
-  id                 uuid primary key,
-  session_id         text,                      -- groups messages into sessions
-  user_message       text,                      -- what the user typed (max 2000 chars)
-  assistant_message  text,                      -- what the bot answered (max 5000 chars)
-  sources            jsonb default '[]',        -- legacy field, always empty array
-  created_at         timestamptz default now()
-);
-
-create index chatbot_conversations_created_idx  on chatbot_conversations(created_at desc);
-create index chatbot_conversations_session_idx  on chatbot_conversations(session_id);
-```
-
-#### Table: `chatbot_sessions`
-
-One row per unique chat session. Enables fast, accurate pagination without scanning conversations.
-
-```sql
-create table chatbot_sessions (
-  id               text primary key,            -- same UUID as session_id in conversations
-  created_at       timestamptz default now(),
-  last_message_at  timestamptz default now(),   -- updated on every new message
-  message_count    int default 0               -- incremented on every new message
-);
-
-create index chatbot_sessions_last_msg_idx on chatbot_sessions(last_message_at desc);
-```
-
-#### Relationship diagram
-
-```
-chatbot_sessions
-  id (PK, text)
-  created_at
-  last_message_at ◄── updated on every message
-  message_count   ◄── incremented on every message
-        │
-        │ 1 session : N conversations
-        │
-chatbot_conversations
-  id (PK, uuid)
-  session_id ──────────────────────────► chatbot_sessions.id
-  user_message
-  assistant_message
-  sources
-  created_at
-```
-
-#### Why two tables?
-
-Without `chatbot_sessions`, paginating sessions requires fetching all conversations, grouping them in code, then slicing — this breaks at scale (page 5 would require scanning the first 100+ conversations).
-
-With `chatbot_sessions`, pagination is a direct `LIMIT / OFFSET` on a small indexed table:
-
-```
-Page request for sessions 21–40:
-  Step 1: SELECT * FROM chatbot_sessions ORDER BY last_message_at DESC LIMIT 20 OFFSET 20
-  Step 2: SELECT * FROM chatbot_conversations WHERE session_id IN (those 20 IDs)
-  → 2 queries, always fast regardless of total data size
-```
-
----
-
-### Data Retention — Automatic Cleanup
-
-Old chatbot data is deleted automatically by a **Supabase pg_cron scheduled job**, not by the Lambda. This ensures cleanup happens even if the admin panel is never opened.
-
-#### Step 1 — Enable pg_cron extension
-
-1. Supabase Dashboard → **Database → Extensions**
-2. Search for `pg_cron` → toggle **ON**
-3. When prompted to select a schema, choose **`pg_catalog`** (the only valid option — this is correct)
-4. Confirm
-
-#### Step 2 — Create the scheduled job
-
-Run this in **Database → SQL Editor**:
-
-```sql
-select cron.schedule(
-  'delete-old-chatbot-data',
-  '0 2 * * 0',           -- every Sunday at 2:00am UTC
-  $$
-    delete from chatbot_conversations
-    where created_at < now() - interval '90 days';
-
-    delete from chatbot_sessions
-    where created_at < now() - interval '90 days';
-  $$
-);
-```
-
-#### Monitoring scheduled jobs
-
-**Supabase Dashboard → Database → Cron Jobs** shows all jobs, last run time, next run time and status.
-
-Or query directly in the SQL editor:
-
-```sql
--- All scheduled jobs
-select * from cron.job;
-
--- Recent run history (time, status, rows affected)
-select * from cron.job_run_details order by start_time desc limit 20;
-```
-
-| Setting | Value |
-|---|---|
-| Retention period | 90 days (3 months) |
-| Schedule | Every Sunday, 2:00am UTC |
-| Managed by | Supabase pg_cron (installed in `pg_catalog` schema) |
-| Tables affected | `chatbot_conversations`, `chatbot_sessions` |
-
----
-
-### Admin Panel — Chatbot Management
-
-Accessible at `/admin/chatbot` (requires `admin` or `chatbot` Cognito group).
-
-#### Features
-
-| Feature | Description |
-|---|---|
-| **Stats bar** | Total sessions and today's message count, loaded in parallel with conversations |
-| **Session cards** | Each session shown as a collapsible card — session ID badge, timestamp, message count, first question preview |
-| **Expand session** | Click a card to see full conversation thread with USER / BOT labels |
-| **Pagination** | 20 sessions per page, page controls with ellipsis for large sets |
-| **Refresh** | Reloads current page from API |
-| **URL routing** | `/admin/chatbot` — page reload preserves the section |
-
-#### Access control
-
-The Chatbot nav item in the admin sidebar is only shown to users in the `admin` or `chatbot` Cognito group:
-
-```jsx
-{(currentUser.groups.includes('admin') || currentUser.groups.includes('chatbot')) && (
-  <button onClick={() => navigate('/admin/chatbot')}>
-    🤖 Chatbot
-  </button>
-)}
-```
-
-The `chatbot` group is for staff who only need chatbot visibility — they cannot see form submissions.
-
----
-
-### Code Structure — Chatbot Files
-
-```
-tec-website/
-├── src/
-│   ├── components/
-│   │   └── ChatWidget/
-│   │       ├── ChatWidget.jsx        # Widget UI + keyword matching + logging
-│   │       └── ChatWidget.css        # Styles (launcher, bubbles, suggestions)
-│   │
-│   └── pages/
-│       └── admin/
-│           └── AdminPage.jsx         # ChatbotPanel component (analytics + conversations)
-│
-└── lambda/
-    └── tec-chatbot-api/
-        └── index.mjs                 # Lambda: rate limiting, logging, admin API
-```
-
----
-
-### Cognito Groups for Chatbot
-
-| Group | Can see chatbot panel | Can see form submissions |
-|---|---|---|
-| `admin` | ✅ | ✅ |
-| `chatbot` | ✅ | ❌ |
-| Any other group | ❌ | Depends on group |
-
-To grant a staff member chatbot-only access:
-1. AWS Cognito Console → User pools → `eu-west-2_sbCIAMB5c`
-2. Users → select user → Add to group → `chatbot`
-
----
-
-## 17. GDPR & Privacy Compliance
+## 16. GDPR & Privacy Compliance
 
 ### What Has Been Done
 
 | Measure | Status |
 |---|---|
-| Cookie consent banner | ✅ Implemented |
-| Privacy Policy page | ✅ Implemented (`/privacy-policy`) |
+| Cookie consent banner | ✅ |
+| Privacy Policy page (`/privacy-policy`) | ✅ |
 | Analytics only after consent | ✅ RUM gated behind cookie accept |
-| No third-party tracking scripts | ✅ None added |
-| Data stored in AWS (S3, DynamoDB) | ✅ — needs EU region migration |
-| Form submissions limited to staff access | ✅ Cognito RBAC |
+| No third-party tracking scripts | ✅ |
+| Data stored in EU region (RDS, S3 in `eu-west-2`) | ✅ |
+| Form submissions limited to staff via Keycloak RBAC | ✅ |
 | S3 files private (presigned URL access only) | ✅ |
-| Access and Participation Statement linked | ✅ |
+| Chatbot leads auto-purged after 30 days | ✅ |
 
-### What Still Needs to Be Done
+### Still Needed
 
 | Action | Priority |
 |---|---|
-| Migrate all AWS resources to `eu-west-2` (London) | 🔴 High |
-| Add ICO Registration Number to Privacy Policy | 🔴 High |
-| Implement data retention policy (auto-delete old submissions) | 🟡 Medium |
-| Cookie preferences management (granular control) | 🟡 Medium |
-| Data Subject Access Request (DSAR) process | 🟡 Medium |
-| DPA (Data Processing Agreement) with AWS | 🟡 Medium |
-| Staff data handling training | 🟡 Medium |
-| Privacy notice on each form | 🟡 Medium |
+| Amplify/CloudFront migration to `eu-west-2` | 🔴 High |
+| ICO Registration Number in Privacy Policy | 🔴 High |
+| Privacy notice on each form (above submit button) | 🟡 Medium |
+| Data retention policy for form submissions (auto-archive) | 🟡 Medium |
+| Cookie preferences management (granular) | 🟡 Medium |
+| DPA with AWS | 🟡 Medium |
 
 ### Data Collected Per Form
 
 | Form | Personal Data | Special Category |
 |---|---|---|
-| Application Form | Name, DOB, address, email, mobile, NI number, disability, ethnicity | Yes (disability, ethnicity) |
-| Job Application | Name, DOB, address, email, mobile, ethnicity, disability, CV | Yes (disability, ethnicity) |
-| New Starter Form | Full employment + bank details | No (bank data) |
+| Application Form | Name, DOB, address, email, mobile, NI, disability, ethnicity | Yes |
+| Job Application | Name, DOB, address, email, mobile, ethnicity, disability, CV | Yes |
+| New Starter Form | Full employment + bank details | Sensitive (bank) |
 | Enrolment Form | Name, DOB, nationality, visa status | Potentially |
 | Enquiry Form | Name, email, mobile | No |
-| Others | Varies | Varies |
-
-> **Special category data** (disability, ethnicity) requires explicit consent and heightened protection under UK GDPR.
 
 ---
 
-## 18. What Has Been Achieved
+## 17. What Has Been Achieved
 
 ### Infrastructure
-- ✅ Full AWS serverless backend (API Gateway + Lambda + DynamoDB + SES + S3)
-- ✅ AWS Amplify hosting with automatic CI/CD from GitHub
-- ✅ AWS Route 53 DNS hosting with nameserver delegation from cPanel
+
+- ✅ AWS Amplify static hosting with automatic CI/CD from GitHub
+- ✅ AWS Route 53 DNS with nameserver delegation from cPanel
 - ✅ Custom domain with SSL (HTTPS via ACM)
-- ✅ Dev and production environment separation
-- ✅ AWS Cognito authentication with group-based access control
-- ✅ CloudWatch RUM real-user analytics
+- ✅ FastAPI backend (replacing all Lambda functions) — running on EC2 via Docker
+- ✅ MySQL RDS (`eu-west-2`) replacing DynamoDB
+- ✅ Keycloak SSO replacing AWS Cognito
+- ✅ Dedicated `website_public` service account — all API calls authenticated
+- ✅ S3 file storage (`eu-west-2`) for form attachments
 
 ### Website
-- ✅ 40+ pages covering all courses, policies, approvals, careers
+
+- ✅ 50+ pages — all courses, policies, approvals, careers, international
 - ✅ Fully responsive (mobile, tablet, desktop)
 - ✅ 3-level navigation (desktop dropdown + mobile accordion)
-- ✅ Course pages with accordions, tabs, unit details, fee information
-- ✅ Careers section with individual job description pages
 - ✅ GDPR-compliant cookie consent
 - ✅ Privacy Policy page
-- ✅ Intro paragraphs centred and aligned with heading width across all pages
+- ✅ All `wp-content` and `trenteducation.co.uk` hard-coded links replaced with local paths
+- ✅ Policy PDFs updated (Student Disciplinary V2, Fitness to Study, Equality Diversity Inclusion)
 
 ### Forms
-- ✅ 9 forms collecting student/staff/partner data
-- ✅ File uploads (CV, ID documents, P45) to S3
-- ✅ Email notifications via AWS SES to correct departments
-- ✅ Confirmation emails to applicants
 
-### Admin Dashboard
-- ✅ Secure login with Cognito (no shared passwords)
-- ✅ Role-based access (staff only see their forms)
-- ✅ 894+ submissions managed
-- ✅ Status workflow (New → Reviewed → Actioned)
-- ✅ PDF generation for any entry
-- ✅ Excel export (multi-sheet, one per form type)
-- ✅ Google Sheets sync
-- ✅ File viewing via presigned S3 URLs
-- ✅ Entry editing in-place
-- ✅ Real-time search and filter
-- ✅ Session cache for fast load
-- ✅ Mobile-responsive with collapsible sidebar drawer
+- ✅ 9 forms — all migrated from Lambda/DynamoDB to FastAPI/MySQL
+- ✅ File uploads to S3 (CV, ID, P45) via presigned URLs
+- ✅ Email notifications + applicant confirmations via SES (now server-side on FastAPI)
+- ✅ All form submissions authenticated via `website_public` Keycloak role
+
+### Security
+
+- ✅ All public API calls require a valid Bearer token (website_public role)
+- ✅ CORS origin allowlist enforced server-side
+- ✅ IP rate limiting (20/min, 100/hr, 200/day)
+- ✅ Optional reCAPTCHA v3 support
 
 ---
 
-## 19. Known Issues & Limitations
+## 18. Known Issues & Limitations
 
 | Issue | Impact | Fix |
 |---|---|---|
-| All AWS resources in `us-east-1` | GDPR risk for EU data subjects | Migrate to `eu-west-2` at go-live |
-| No spam protection on forms | Bot submissions possible | Add Cloudflare Turnstile or honeypot fields |
-| No sitemap.xml or robots.txt | SEO impact | Generate and deploy |
-| No meta SEO tags on pages | Poor search engine visibility | Add `<meta>` tags to all pages |
-| ICO number missing from Privacy Policy | Legal compliance gap | Add when registered |
-| ADMIN_PASSWORD constant in forms.js | Legacy — Cognito now used | Remove or ignore |
-| DynamoDB full table scan | Performance at very high volume | Add GSI on `formType` + `submittedAt` |
-| Lambda cold starts | Occasional 1-2s delay on first request | Add provisioned concurrency if needed |
+| `VITE_KC_SVC_PASSWORD` bundled in JS build | Credential visible in bundle — mitigated by `website_public` scope | Accept trade-off or add a token-proxy edge function |
+| Amplify/CloudFront in `us-east-1` | GDPR concern | Migrate to `eu-west-2` at go-live |
+| No sitemap.xml or robots.txt | SEO impact | Generate and serve from `/public` |
+| No meta SEO tags on pages | Poor search visibility | Add `<meta>` tags |
+| ICO number missing from Privacy Policy | Legal gap | Add once registered |
+| reCAPTCHA not enabled in dev | Forms submittable without challenge | Set `VITE_RECAPTCHA_SITE_KEY` for prod |
 
 ---
 
-## 20. Future Roadmap
+## 19. Future Roadmap
 
 ### Short Term (Before Full Go-Live)
 
-- [ ] **AWS region migration** — move all services to `eu-west-2`
-- [ ] **Spam protection** — Cloudflare Turnstile on all public forms
-- [ ] **SEO meta tags** — Add `<title>`, `<meta description>`, Open Graph tags to every page
-- [ ] **sitemap.xml + robots.txt** — Serve from `/public`
-- [ ] **ICO number** — Add to Privacy Policy once registered
-- [ ] **Privacy notice on forms** — Short notice above submit buttons
+- [ ] **AWS region migration** — Amplify/CloudFront to `eu-west-2`
+- [ ] **reCAPTCHA** — Enable `VITE_RECAPTCHA_SITE_KEY` + `RECAPTCHA_ENABLED=true` in prod
+- [ ] **SEO meta tags** — `<title>`, `<meta description>`, Open Graph on every page
+- [ ] **sitemap.xml + robots.txt**
+- [ ] **ICO number** — Add to Privacy Policy
+- [ ] **Privacy notice** — Short notice above each form's submit button
 
 ### Medium Term
 
-- [ ] **GitHub Actions for Lambda** — Auto-deploy Lambda on push (currently manual)
-- [ ] **DynamoDB TTL** — Auto-delete submissions older than N years (data retention)
-- [ ] **Form spam analytics** — Dashboard section showing bot vs human submission ratio
-- [ ] **Student portal** — Authenticated area for students to track application status
-- [ ] **Two-factor authentication (MFA)** — On Cognito for admin users
+- [ ] **Token-proxy** — Move KC ROPC call server-side (edge function) so client secret isn't bundled
+- [ ] **Form submission data retention** — Auto-archive/delete old records (configurable TTL per form)
+- [ ] **Student portal** — Authenticated area to track application status
 
 ### Long Term
 
-- [ ] **CMS integration** — Allow non-technical staff to edit page content
-- [ ] **Course application tracking** — Full CRM-style pipeline
-- [ ] **International student document portal** — Secure document upload and verification
+- [ ] **CMS** — Allow non-technical staff to edit page content
+- [ ] **AI chatbot upgrade** — Replace keyword matching with a language model
 - [ ] **Ofsted/Awarding body reporting exports** — Structured data exports for regulators
 
 ---
 
-## 21. Runbook — How to Replicate This Project
-
-This section is a step-by-step guide for any developer (human or AI) building a similar project from scratch.
+## 20. Runbook — How to Replicate This Project
 
 ### Step 1 — Set Up the React SPA
 
 ```bash
-npm create vite@latest my-website -- --template react
-cd my-website
+npm create vite@latest tec-website -- --template react
+cd tec-website
 npm install react-router-dom lucide-react
 ```
 
-Configure Vite for `global` polyfill (needed for `amazon-cognito-identity-js`):
+### Step 2 — Set Up FastAPI Backend
 
-```javascript
-// vite.config.js
-export default defineConfig({
-  plugins: [react()],
-  define: { global: 'globalThis' },
-});
+Deploy `tec-management` on EC2:
+
+```bash
+git clone https://github.com/rameenjaved123/tec-management
+cd tec-management
+cp .env.example .env   # fill in DB, Keycloak, SES, S3 values
+docker compose up -d
+docker exec tec_app alembic upgrade head
 ```
 
-### Step 2 — Set Up AWS Amplify Hosting
+### Step 3 — Set Up Keycloak
+
+```bash
+# From tec-management project
+python scripts/setup_keycloak_dev.py
+```
+
+This creates the `tec` realm, all roles (including `website_public`), and the `website.service` user.
+
+### Step 4 — Set Up AWS Amplify Hosting
 
 1. Push code to GitHub
-2. Go to **AWS Amplify Console** → New app → Host web app
-3. Connect GitHub repo, select branch (`main`)
-4. Build settings: `npm run build`, artifact: `dist`
-5. Deploy — Amplify provides a `.amplifyapp.com` URL immediately
-6. Add SPA redirect rule: all paths → `index.html` (200 rewrite)
+2. AWS Amplify Console → New app → Host web app → Connect GitHub
+3. Build: `npm run build`, artifact: `dist`
+4. Add SPA redirect rule: all paths → `index.html` (200 rewrite)
+5. Set all `VITE_*` environment variables in Amplify Console
 
-### Step 3 — Set Up Route 53 & Connect Custom Domain
+### Step 5 — Set Up Route 53 & Custom Domain
 
-#### Option A — Use Route 53 as your DNS (Recommended for AWS-hosted sites)
+1. Create hosted zone for `trenteducation.co.uk`
+2. Delegate nameservers from cPanel to Route 53
+3. Add A/CNAME records pointing to Amplify
+4. Add `api.trenteducation.co.uk` → EC2 IP (FastAPI)
+5. Add `auth.trenteducation.co.uk` → EC2 IP (Keycloak)
+6. In Amplify → Domain management → Add domain → Amplify auto-creates ACM validation records in Route 53
 
-1. AWS Console → Route 53 → Hosted zones → Create hosted zone
-2. Enter your domain (e.g. `trenteducation.co.uk`), type: Public
-3. Note the 4 NS (nameserver) records Route 53 assigns
-4. Log in to your domain registrar (cPanel) → Nameservers → Replace with Route 53 NS values
-5. Wait up to 48 hours for global DNS propagation
+### Step 6 — Set Up SES
 
-#### Option B — Keep cPanel DNS (simpler but less integrated)
+1. Verify domain `trenteducation.co.uk` in SES (`us-east-1`)
+2. Add DNS records to Route 53 (TXT + 3× DKIM CNAMEs + SPF)
+3. Request SES production access
+4. Set `SES_REGION`, `SES_FROM_EMAIL`, `SES_FROM_NAME` in FastAPI `.env`
 
-1. Skip Route 53 entirely
-2. Add DNS records manually in cPanel when Amplify/SES provides them
+### Step 7 — Set Up S3 File Uploads
 
-#### Connect Domain to Amplify
-
-1. AWS Amplify Console → App → Domain management → Add domain
-2. Enter your domain
-3. If using Route 53: Amplify auto-creates validation records ✅ (no manual work)
-4. If using cPanel DNS: manually add the CNAME records Amplify provides
-5. SSL certificate is issued automatically by ACM (HTTPS)
-6. Both `example.co.uk` and `www.example.co.uk` can be configured as aliases
-
-### Step 4 — Set Up DynamoDB
-
-1. AWS Console → DynamoDB → Create table
-2. Table name: `your-table-name`
-3. Partition key: `id` (String)
-4. Billing: On-demand
-5. No indexes needed initially
-
-### Step 5 — Set Up API Gateway + Lambda (CRUD)
-
-1. Create Lambda function (Node.js 20.x)
-2. Attach IAM role with `DynamoDB:*` permissions on your table
-3. Upload your `index.mjs` (CRUD handler)
-4. Create API Gateway → REST API
-5. Add routes: `POST /save`, `GET /get`, `POST /update`, `DELETE /delete`
-6. Attach Lambda integration to each route
-7. Enable CORS on all routes
-8. Deploy the API → copy the invoke URL
-
-### Step 6 — Set Up Cognito
-
-1. AWS Cognito → Create User Pool
-2. Sign-in: Email
-3. Password policy: min 8 chars
-4. Create App Client (no secret — browser-side)
-5. Note: User Pool ID + Client ID
-6. Create groups matching your RBAC needs
-7. In API Gateway → Authorizers → Create JWT Authorizer → point to Cognito User Pool
-8. Attach authorizer to all protected routes
-
-### Step 7 — Set Up SES
-
-1. AWS SES → Verified identities → Verify your domain
-2. SES provides DNS records — add them to **Route 53** (or cPanel if not delegated):
-   - 1× TXT record for domain ownership
-   - 3× CNAME records for DKIM email signing
-   - 1× TXT SPF record: `v=spf1 include:amazonses.com ~all`
-3. Request production access (takes 24h AWS review) — required to send to non-verified addresses
-4. Create Lambda for sending emails (uses `@aws-sdk/client-ses`)
-5. IAM role: `ses:SendEmail` permission
-6. Create API Gateway route → attach Lambda
-
-### Step 8 — Set Up S3 File Uploads
-
-1. Create S3 bucket, block all public access
-2. Create Lambda to generate presigned PUT URLs (for upload) and GET URLs (for viewing)
-3. IAM role: `s3:PutObject`, `s3:GetObject` on the bucket
-4. CORS on S3 bucket:
+1. Bucket `tec-form-uploads` — block all public access
+2. Set CORS on bucket:
    ```json
-   [{"AllowedOrigins": ["*"], "AllowedMethods": ["GET","PUT"], "AllowedHeaders": ["*"]}]
+   [{"AllowedOrigins": ["https://trenteducation.co.uk"], "AllowedMethods": ["PUT"], "AllowedHeaders": ["*"]}]
    ```
+3. IAM role on EC2 with `s3:PutObject`, `s3:GetObject` on `tec-form-uploads`
 
-### Step 9 — Set Up CloudWatch RUM
+### Step 8 — Set Up CloudWatch RUM
 
-1. AWS CloudWatch → RUM → Create app monitor
-2. Set domain to your site URL
-3. Copy the snippet config (App ID, Identity Pool ID)
-4. Wrap `initRUM()` call behind cookie consent
-
-### Step 10 — Build the Admin Dashboard
-
-Key decisions:
-- **Single page** at `/admin` within the SPA (no separate app needed)
-- **Cognito auth** handled client-side via `amazon-cognito-identity-js`
-- **RBAC enforced on both client and server** (client hides UI, Lambda filters DB results)
-- **DynamoDB cache** in `sessionStorage` prevents slow loads on every navigation
-- **jsPDF** for PDF export — no backend needed, runs in browser
-- **xlsx** for Excel export — also runs in browser
-
-### Key Patterns Used in This Project
-
-#### 1. Dev-only features
-```javascript
-const IS_DEV = import.meta.env.DEV;
-// Only renders in `npm run dev`, never in production build
-{IS_DEV && <DevSearch />}
-```
-
-#### 2. CSS variables for consistent theming
-```css
-:root {
-  --tec-green: #2d6a4f;
-  --tec-gold:  #c9a84c;
-}
-```
-
-#### 3. Centralised API config
-All URLs, keys, and email addresses in one file (`config/forms.js`). Never scattered across components.
-
-#### 4. Session cache pattern
-```javascript
-const cached = sessionStorage.getItem('cache_key');
-if (cached && isFresh(cached)) {
-  showData(cached);
-  refreshInBackground();
-} else {
-  fetchAndCache();
-}
-```
-
-#### 5. Progressive data loading
-Stream DynamoDB pages to UI as they arrive — don't wait for full scan to complete before showing data.
-
-#### 6. Mobile-first sidebar
-On desktop: `position: sticky`. On mobile: `position: fixed; left: -260px` toggled to `left: 0` via class.
+1. CloudWatch → RUM → Create app monitor
+2. Set domain to `trenteducation.co.uk`
+3. Copy App ID + Identity Pool ID into `src/utils/rum.js`
+4. RUM is only initialised after cookie consent is accepted
 
 ---
 
 ## Appendix A — Environment Variables
 
-No `.env` file is used. All config is in `src/config/forms.js`. Sensitive values (API keys, Pool IDs) are acceptable in a public repo for this setup because:
-
-- Cognito Pool is protected by user authentication (can't access data without valid login)
-- API Gateway enforces Cognito JWT auth on all data routes
-- S3 is private — presigned URLs have short TTLs
-
-> For a higher-security setup, move API URLs and Cognito IDs to Amplify environment variables (exposed as `import.meta.env.VITE_*`).
+| Variable | Dev value | Production |
+|---|---|---|
+| `VITE_API_URL` | `http://localhost:8000/api/v1` | `https://api.trenteducation.co.uk/api/v1` |
+| `VITE_KC_URL` | `http://localhost:8080` | `https://auth.trenteducation.co.uk` |
+| `VITE_KC_REALM` | `tec` | `tec` |
+| `VITE_KC_CLIENT_ID` | `tec-website` | `tec-website` |
+| `VITE_KC_SVC_USERNAME` | `website.service` | `website.service` |
+| `VITE_KC_SVC_PASSWORD` | `Website@TEC2024!` | Set in Amplify env (not in git) |
+| `VITE_RECAPTCHA_SITE_KEY` | _(blank — disabled)_ | reCAPTCHA v3 site key |
+| `VITE_S3_WEBSITE_BUCKET` | `tec-form-uploads` | `tec-form-uploads` |
+| `VITE_AWS_REGION` | `eu-west-2` | `eu-west-2` |
 
 ---
 
@@ -1609,17 +1052,14 @@ No `.env` file is used. All config is in `src/config/forms.js`. Sensitive values
 | Resource | URL |
 |---|---|
 | GitHub Repo | `https://github.com/rameenjaved123/tec-website` |
+| Backend Repo | `https://github.com/rameenjaved123/tec-management` |
 | AWS Amplify Console | `https://console.aws.amazon.com/amplify` |
-| AWS Cognito Console | `https://console.aws.amazon.com/cognito` |
-| AWS API Gateway Console | `https://console.aws.amazon.com/apigateway` |
-| AWS Lambda Console | `https://console.aws.amazon.com/lambda` |
-| AWS DynamoDB Console | `https://console.aws.amazon.com/dynamodb` |
 | AWS SES Console | `https://console.aws.amazon.com/ses` |
 | AWS S3 Console | `https://console.aws.amazon.com/s3` |
 | AWS CloudWatch RUM | `https://console.aws.amazon.com/cloudwatch/home#rum` |
+| Keycloak Admin | `http://localhost:8080` (dev) |
 | Live Dev Site | `https://dev.trenteducation.co.uk` |
-| Admin Dashboard | `https://dev.trenteducation.co.uk/admin` |
 
 ---
 
-*This document was generated from the complete project implementation. Last updated: June 2026.*
+*Last updated: June 2026 — v2.0 FastAPI migration complete.*
