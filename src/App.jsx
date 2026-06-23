@@ -30,6 +30,7 @@ import AwardingOrganisationsPage from './pages/approvals/AwardingOrganisationsPa
 import AccreditationsPage from './pages/approvals/AccreditationsPage';
 import ApprovedSupplierStatusPage from './pages/approvals/ApprovedSupplierStatusPage';
 import MembershipsPage from './pages/approvals/MembershipsPage';
+import EnglishTeacherPage from './pages/jobs/EnglishTeacherPage';
 import LecturerPage from './pages/jobs/LecturerPage';
 import TeachingAssistantPage from './pages/jobs/TeachingAssistantPage';
 import StudentSupportOfficerPage from './pages/jobs/StudentSupportOfficerPage';
@@ -123,6 +124,7 @@ function AppLayout() {
           <Route path="/memberships" element={<MembershipsPage />} />
           <Route path="/careers" element={<CareersPage />} />
           <Route path="/marketing-executive" element={<MarketingExecutivePage />} />
+          <Route path="/job-english-teacher" element={<EnglishTeacherPage />} />
           <Route path="/job-lecturer" element={<LecturerPage />} />
           <Route path="/job-academic-manager" element={<AcademicManagerPage />} />
           <Route path="/job-education-officer" element={<EducationOfficerPage />} />

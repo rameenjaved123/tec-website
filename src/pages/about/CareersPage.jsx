@@ -5,6 +5,14 @@ import '../CoursePage.css';
 
 const jobs = [
   {
+    title: 'English Language Teacher',
+    positions: 'Full Time / Part Time',
+    status: 'open',
+    desc: 'Teach English skilfully and creatively to international EFL and local ESOL students at our Nottingham Centre. CELTA/CertTESOL or equivalent required.',
+    applyLink: '/job-application?job=English%20Language%20Teacher',
+    learnLink: '/job-english-teacher',
+  },
+  {
     title: 'Marketing Executive (Nottingham)',
     positions: '1 Position',
     status: 'open',
