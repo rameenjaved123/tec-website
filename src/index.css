@@ -22,6 +22,7 @@ body {
   color: var(--tec-text);
   background: #fff;
   line-height: 1.6;
+  font-size: 1.05rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -80,7 +81,7 @@ img {
 }
 
 .section-title {
-  font-size: clamp(1.7rem, 2.8vw, 2.2rem);
+  font-size: clamp(1.95rem, 3.2vw, 2.6rem);
   font-weight: 900;
   color: #0d1e13;
   margin-bottom: 1rem;
@@ -114,6 +115,7 @@ img {
 
 /* Smooth scrolling */
 html {
+  font-size: 19px;
   scroll-behavior: smooth;
   overflow-x: hidden;
 }
