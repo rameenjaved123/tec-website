@@ -15,8 +15,8 @@ export default function AboutPage() {
       <PageHero
         title="Background"
         subtitle="Trent Education Centre — empowering adults since 2012"
-        bgImage="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80"
-        bgPosition="center 50%"
+        bgImage="/assets/images/events/tec-classroom-session.webp"
+        bgPosition="center 40%"
       />
 
       <div className="container inner-content">
