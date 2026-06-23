@@ -658,7 +658,7 @@ export default function AdminPage() {
           {Object.entries(FORM_REGISTRY).map(([name, cfg]) => cfg.path ? (
             <a
               key={name}
-              href={cfg.path}
+              href={`${window.location.origin}${cfg.path}`}
               target="_blank"
               rel="noreferrer"
               className="adm-nav-item adm-nav-link"
