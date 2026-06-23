@@ -421,8 +421,9 @@ export default function HomePage() {
               { name: 'Membership',      src: '/assets/logos/partners/membership-2.png' },
               { name: 'Membership',      src: '/assets/logos/partners/membership-3.png' },
               { name: 'Membership',      src: '/assets/logos/partners/membership-4.png' },
-              { name: 'British Council', src: '/assets/logos/partners/british-council.png' },
-              { name: 'Advance HE',      src: '/assets/logos/partners/advance-he.png' },
+              { name: 'British Council',                          src: '/assets/logos/partners/british-council.png' },
+              { name: 'Accredited by the British Council (ELT)', src: '/assets/images/general/bc-accreditation.jpg' },
+              { name: 'Advance HE',                              src: '/assets/logos/partners/advance-he.png' },
               { name: 'TOTUM',           src: '/assets/logos/partners/totum.png' },
               { name: 'Endorsement',     src: '/assets/logos/partners/endorsement.png' },
             ].map((p, i) => (

@@ -1146,7 +1146,9 @@
 
 /* Memberships grid */
 .memberships-section.partners-logos--big {
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   max-width: 1000px;
 }
 
@@ -1154,6 +1156,8 @@
   background: var(--tec-green-dark);
   border-radius: 12px;
   padding: 18px 20px;
+  width: calc(25% - 12px);
+  min-width: 200px;
 }
 
 .memberships-section .partner-logo--big:hover {

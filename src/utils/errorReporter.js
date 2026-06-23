@@ -1,7 +1,7 @@
 /**
  * Error Reporter — production only
- * Sends JS errors + stack traces to Lambda → SNS → email
- * Never runs on localhost (import.meta.env.PROD is false in dev)
+ * Sends JS errors + stack traces to FastAPI backend → stored in website_errors table.
+ * Never runs on localhost (import.meta.env.PROD is false in dev).
  *
  * Rate limiting (prevents crash-loop spam):
  *   - Max 5 reports per browser session
@@ -9,47 +9,57 @@
  *   - Max 1 report every 10 seconds
  */
 
-const LAMBDA_URL  = 'https://5o6ssmq55g4z6w5s5pnrhpfro40bfmbf.lambda-url.us-east-1.on.aws/';
-const MAX_PER_SESSION = 5;      // hard cap per tab session
-const RATE_LIMIT_MS   = 10_000; // min ms between any two reports
+const BASE_URL    = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
+const WEBSITE_KEY = import.meta.env.VITE_WEBSITE_API_KEY || '';
+const ENDPOINT    = `${BASE_URL}/website/errors`;
 
-let reportCount   = 0;
-let lastReportAt  = 0;
-const seenErrors  = new Set(); // deduplicate by message
+const MAX_PER_SESSION = 5;
+const RATE_LIMIT_MS   = 10_000;
+
+let reportCount  = 0;
+let lastReportAt = 0;
+const seenErrors = new Set();
 
 export function sendErrorReport(payload) {
   if (!import.meta.env.PROD) return;
-
-  // 1. Hard cap — stop after MAX_PER_SESSION reports this session
   if (reportCount >= MAX_PER_SESSION) return;
 
-  // 2. Rate limit — don't send more than 1 per RATE_LIMIT_MS
   const now = Date.now();
   if (now - lastReportAt < RATE_LIMIT_MS) return;
 
-  // 3. Deduplicate — same error message already sent this session
   const dedupKey = `${payload.type}::${payload.message}`;
   if (seenErrors.has(dedupKey)) return;
 
-  // All checks passed — record and send
   reportCount++;
   lastReportAt = now;
   seenErrors.add(dedupKey);
 
   try {
-    navigator.sendBeacon(
-      LAMBDA_URL,
-      new Blob(
-        [JSON.stringify({
-          ...payload,
-          url:          window.location.href,
-          timestamp:    new Date().toISOString(),
-          userAgent:    navigator.userAgent,
-          reportNumber: reportCount,       // e.g. "Report 2 of 5"
-        })],
-        { type: 'application/json' }
-      )
+    // sendBeacon doesn't support custom headers — use a small Blob with JSON
+    // and add the API key as a query param for this fire-and-forget call.
+    const body = JSON.stringify({
+      ...payload,
+      url:          window.location.href,
+      timestamp:    new Date().toISOString(),
+      userAgent:    navigator.userAgent,
+      reportNumber: reportCount,
+    });
+
+    // Prefer fetch (keeps headers); fall back to sendBeacon if page is unloading.
+    const sent = navigator.sendBeacon(
+      `${ENDPOINT}?_key=${encodeURIComponent(WEBSITE_KEY)}`,
+      new Blob([body], { type: 'application/json' })
     );
+
+    if (!sent) {
+      // sendBeacon queue full — try fetch as fallback
+      fetch(ENDPOINT, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Website-API-Key': WEBSITE_KEY },
+        body,
+        keepalive: true,
+      }).catch(() => {});
+    }
   } catch {
     // never break the site because of the reporter
   }
@@ -58,7 +68,6 @@ export function sendErrorReport(payload) {
 export function initErrorReporter() {
   if (!import.meta.env.PROD) return;
 
-  // 1. Uncaught JS errors
   window.addEventListener('error', (event) => {
     sendErrorReport({
       type:    'uncaught-error',
@@ -67,7 +76,6 @@ export function initErrorReporter() {
     });
   });
 
-  // 2. Unhandled promise rejections
   window.addEventListener('unhandledrejection', (event) => {
     const reason = event.reason;
     sendErrorReport({
