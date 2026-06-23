@@ -395,9 +395,9 @@ const campusSlides = [
   { src: '/assets/images/campus/castle-boulevard/conference-room.jpg',  alt: 'Conference Room' },
   { src: '/assets/images/campus/castle-boulevard/exam-hall.jpg',        alt: 'Exam Hall' },
   { src: '/assets/images/campus/castle-boulevard/exam-hall-2.jpg',      alt: 'Exam Hall View 2' },
-  { src: '/assets/images/campus/castle-boulevard/64.jpg',               alt: 'Leisure and Games Area' },
-  { src: '/assets/images/campus/castle-boulevard/65.jpg',               alt: 'Leisure and Games Area View 2' },
-  { src: '/assets/images/campus/castle-boulevard/66.jpg',               alt: 'Students' },
+  { src: '/assets/images/campus/castle-boulevard/leisure-games-area.jpg',   alt: 'Leisure and Games Area' },
+  { src: '/assets/images/campus/castle-boulevard/leisure-games-area-2.jpg', alt: 'Leisure and Games Area View 2' },
+  { src: '/assets/images/campus/castle-boulevard/students.jpg',              alt: 'Students' },
 ];
 
 function CampusCarousel() {
