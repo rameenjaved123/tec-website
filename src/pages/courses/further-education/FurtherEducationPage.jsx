@@ -103,7 +103,7 @@ export default function FurtherEducationPage() {
 
         {courses.map((course, i) => (
           <div key={i} style={{ marginBottom: '40px', borderBottom: '1px solid #eee', paddingBottom: '36px' }}>
-            <h2 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--tec-green)', marginBottom: '12px' }}>
+            <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--tec-green)', marginBottom: '12px' }}>
               {course.title}
             </h2>
             <div style={{ display: 'flex', gap: '12px', marginBottom: '14px', flexWrap: 'wrap' }}>
