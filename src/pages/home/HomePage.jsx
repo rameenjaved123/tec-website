@@ -97,7 +97,6 @@ const campuses = [
 /* News & Events — Instagram feed images */
 const IG = '/assets/images/instagram/';
 const newsPosts = [
-  { src: IG + 'post-tec-costume.webp',                                     isVideo: false, link: 'https://www.instagram.com/trent_education_centre/p/DY4LQRtAf3T/' },
   { src: IG + 'reel-DPeIppKDI72.jpg',                                     isVideo: true,  link: 'https://www.instagram.com/trent_education_centre/reel/DPeIppKDI72/' },
   { src: IG + 'reel-DMcl8ifs_kb.jpg',                                     isVideo: true,  link: 'https://www.instagram.com/trent_education_centre/reel/DMcl8ifs_kb/' },
   { src: IG + '663136228_17969140263045882_4990871444550172158_nlow.webp', isVideo: true,  link: 'https://www.instagram.com/reels/DW3yuZjjK9M/' },
