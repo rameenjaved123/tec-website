@@ -97,9 +97,9 @@ const campuses = [
 /* News & Events — Instagram feed images */
 const IG = '/assets/images/instagram/';
 const newsPosts = [
+  { src: IG + 'reel-DPeIppKDI72.jpg',                                     isVideo: true,  link: 'https://www.instagram.com/trent_education_centre/reel/DPeIppKDI72/' },
   { src: IG + 'reel-DMcl8ifs_kb.jpg',                                     isVideo: true,  link: 'https://www.instagram.com/trent_education_centre/reel/DMcl8ifs_kb/' },
   { src: IG + '663136228_17969140263045882_4990871444550172158_nlow.webp', isVideo: true,  link: 'https://www.instagram.com/reels/DW3yuZjjK9M/' },
-  { src: IG + '656413746_1444211220831184_2177110105498773297_nlow.webp',  isVideo: true,  link: 'https://www.instagram.com/reels/DWYsLKxDIGa/' },
   { src: IG + '656864212_17967290847045882_714952565932259239_nfull.webp', isVideo: false, link: 'https://www.instagram.com/p/DWT0OOtDLlW/' },
   { src: IG + '645821380_17964433218045882_4962563911164900286_nfull.webp',isVideo: false, link: 'https://www.instagram.com/p/DVf69XMjAPi/' },
   { src: IG + '623986554_1795478401375747_3651335901021063968_nlow.webp',  isVideo: true,  link: 'https://www.instagram.com/reels/DUIT_eBDPSL/' },
