@@ -377,20 +377,24 @@ const ncfeSections = [
 
 /* ── Campus carousel images ── */
 const campusSlides = [
-  { src: '/assets/images/campus/castle-boulevard/entrance.jpg',  alt: 'Campus Main Entrance' },
-  { src: '/assets/images/campus/castle-boulevard/exterior.jpg',  alt: 'Campus Main Entrance View 2' },
-  { src: '/assets/images/campus/castle-boulevard/reception.jpg',  alt: 'Reception' },
-  { src: '/assets/images/campus/castle-boulevard/general.jpg',  alt: 'Classroom' },
-  { src: '/assets/images/campus/castle-boulevard/classroom-2.jpg',  alt: 'Student Waiting Area / Lounge View 2' },
-  { src: '/assets/images/campus/castle-boulevard/it-lab.jpg',  alt: 'IT Lab and Library' },
-  { src: '/assets/images/campus/castle-boulevard/library.jpg',  alt: 'First Floor Conference Room' },
-  { src: '/assets/images/campus/castle-boulevard/hallway-2.jpg',  alt: 'First Floor Office Area View 2' },
-  { src: '/assets/images/campus/castle-boulevard/waiting-room.jpg',  alt: 'Waiting Room' },
-  { src: '/assets/images/campus/castle-boulevard/multi-faith-room.jpg',  alt: 'Multi-Faith Room' },
-  { src: '/assets/images/campus/castle-boulevard/student-lounge.jpg',  alt: 'Student Waiting Area / Lounge' },
-  { src: '/assets/images/campus/castle-boulevard/hallway.jpg',  alt: 'Hallway' },
+  { src: '/assets/images/campus/castle-boulevard/entrance.jpg',         alt: 'Campus Main Entrance' },
+  { src: '/assets/images/campus/castle-boulevard/back-entrance.jpg',    alt: 'Campus Back Entrance' },
+  { src: '/assets/images/campus/castle-boulevard/exterior.jpg',         alt: 'Campus Exterior' },
+  { src: '/assets/images/campus/castle-boulevard/reception.jpg',        alt: 'Reception' },
+  { src: '/assets/images/campus/castle-boulevard/general.jpg',          alt: 'Campus General Area' },
+  { src: '/assets/images/campus/castle-boulevard/classroom.jpg',        alt: 'Classroom' },
+  { src: '/assets/images/campus/castle-boulevard/classroom-2.jpg',      alt: 'Classroom View 2' },
+  { src: '/assets/images/campus/castle-boulevard/it-lab.jpg',           alt: 'IT Lab' },
+  { src: '/assets/images/campus/castle-boulevard/it-lab-library.jpg',   alt: 'IT Lab and Library' },
+  { src: '/assets/images/campus/castle-boulevard/library.jpg',          alt: 'Library' },
+  { src: '/assets/images/campus/castle-boulevard/hallway.jpg',          alt: 'Hallway' },
+  { src: '/assets/images/campus/castle-boulevard/hallway-2.jpg',        alt: 'Hallway View 2' },
+  { src: '/assets/images/campus/castle-boulevard/waiting-room.jpg',     alt: 'Waiting Room' },
+  { src: '/assets/images/campus/castle-boulevard/student-lounge.jpg',   alt: 'Student Lounge' },
+  { src: '/assets/images/campus/castle-boulevard/multi-faith-room.jpg', alt: 'Multi-Faith Room' },
   { src: '/assets/images/campus/castle-boulevard/conference-room.jpg',  alt: 'Conference Room' },
-  { src: '/assets/images/campus/castle-boulevard/exam-hall-2.jpg',  alt: 'First Floor Conference Room View 2' },
+  { src: '/assets/images/campus/castle-boulevard/exam-hall.jpg',        alt: 'Exam Hall' },
+  { src: '/assets/images/campus/castle-boulevard/exam-hall-2.jpg',      alt: 'Exam Hall View 2' },
 ];
 
 function CampusCarousel() {
