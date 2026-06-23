@@ -59,7 +59,7 @@ export default function HigherEducationPage() {
 
         {courses.map((course, i) => (
           <div key={i} style={{ marginBottom: '48px', borderBottom: '1px solid #eee', paddingBottom: '40px' }}>
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--tec-green)', marginBottom: '12px' }}>
+            <h2 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--tec-green)', marginBottom: '12px' }}>
               {course.title}
             </h2>
             <div style={{ display: 'flex', gap: '16px', marginBottom: '14px', flexWrap: 'wrap' }}>
