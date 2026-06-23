@@ -649,7 +649,7 @@ export default function ATHELevel4Page() {
 
         {activeTab === 'Overview' && (
           <div className="al4-overview">
-            <p><strong>ATHE Level 4 Extended Diploma in Business and Management is a 120-credit qualification equivalent to the first year of a university degree.</strong></p>
+            <p><strong>A 120-credit qualification equivalent to the first year of a university degree.</strong></p>
             <p>It offers students broad and comprehensive knowledge and understanding of business covering 8 units on a wide range of business and management related topics. Students with this qualification can progress to Level 5 Extended Diploma in Business and Management. This course provides you with a wide range of transferable business knowledge and skills you will need to succeed in any industry of your choice. Skills you will learn include business communications, financial management, marketing, staff management and customer relationship management.</p>
             <p><strong>Enhance your Management Skills with the Level 4 Extended Diploma in Business &amp; Management</strong></p>
             <p className="al4-subhead">Career Opportunities:</p>

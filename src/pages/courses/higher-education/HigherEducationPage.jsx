@@ -45,7 +45,8 @@ export default function HigherEducationPage() {
       <PageHero
         title="Higher Education Courses"
         subtitle="Advance your academic and professional credentials"
-        bgImage="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1600&q=80"
+        bgImage="/assets/images/events/athe-graduation-group.jpg"
+        bgPosition="center 45%"
       >
         <span className="info-badge"><GraduationCap size={14} /> Level 4 &amp; 5 Qualifications</span>
         <span className="info-badge"><MapPin size={14} /> Nottingham · Leicester · Birmingham</span>

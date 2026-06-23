@@ -1308,7 +1308,7 @@ export default function ATHELevel5Page() {
 
         {activeTab === 'Overview' && (
           <div className="al4-overview">
-            <p><strong>ATHE Level 5 Extended Diploma in Business and Management is a 120-credit qualification equivalent to the second year of a university degree.</strong></p>
+            <p><strong>A 120-credit qualification equivalent to the second year of a university degree.</strong></p>
             <p>It offers students advanced knowledge and understanding of business covering 8 units on a wide range of business and management related topics. Students with this qualification can progress to Level 6 Extended Diploma in Business and Management (the final top-up year of a degree). This course builds on Level 4 foundations, developing higher-level skills in management, sustainability, ethics and entrepreneurship.</p>
             <p><strong>Advance your Management Skills with the Level 5 Extended Diploma in Business &amp; Management</strong></p>
             <p className="al4-subhead">Career Opportunities:</p>

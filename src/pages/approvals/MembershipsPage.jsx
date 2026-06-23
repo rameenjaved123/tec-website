@@ -35,7 +35,7 @@ export default function MembershipsPage() {
       <PageHero
         title="Memberships (PSRB)"
         subtitle="Our professional memberships and endorsements"
-        bgImage="https://images.unsplash.com/photo-1686771416282-3888ddaf249b?w=1600&q=80"
+        bgImage="/assets/images/events/asic-group-photo.jpg"
         bgPosition="center center"
       />
 

@@ -96,7 +96,7 @@ export default function ApprovalsPage() {
       <PageHero
         title="Approvals & Accreditations"
         subtitle="Our approved awarding organisations, accreditations, and supplier status"
-        bgImage="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1600&q=80"
+        bgImage="/assets/images/events/asic-group-photo.jpg"
         bgPosition="center center"
       />
 

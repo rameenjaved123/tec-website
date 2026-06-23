@@ -91,7 +91,8 @@ export default function FurtherEducationPage() {
       <PageHero
         title="Further Education Courses"
         subtitle="Practical qualifications to advance your skills and career"
-        bgImage="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1600&q=80"
+        bgImage="/assets/images/events/classroom-wide.jpg"
+        bgPosition="center 60%"
         bgPosition="center 40%"
       />
 

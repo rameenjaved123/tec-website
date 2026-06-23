@@ -67,6 +67,39 @@ const galleryItems = [
   { campus: 'Birmingham', src: `/assets/images/campus/birmingham/conference-room.jpg`, label: 'Conference Room' },
   { campus: 'Birmingham', src: `/assets/images/campus/birmingham/classroom-2.jpg`, label: 'Classroom' },
   { campus: 'Birmingham', src: `/assets/images/campus/birmingham/office-building.jpg`, label: 'Office Building' },
+
+  // Student Life & Events
+  { campus: 'Student Life & Events', src: `/assets/images/events/asic-classroom-full.jpg`, label: 'ASIC Accreditation Visit – Classroom' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/asic-classroom-presentation.jpg`, label: 'ASIC Visit – Classroom Presentation' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/asic-teacher-class.jpg`, label: 'ASIC Visit – Teacher with Class' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/asic-group-activity.jpg`, label: 'ASIC Visit – Group Activity' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/asic-group-photo.jpg`, label: 'ASIC Visit – Group Photo' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/asic-students-working.jpg`, label: 'ASIC Visit – Students Working' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/asic-students-discussion.jpg`, label: 'ASIC Visit – Student Discussion' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/asic-board-activity.png`, label: 'ASIC Visit – Board Activity' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/asic-visit-staff-group.jpg`, label: 'Successful ASIC Visit' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/athe-graduation-group.jpg`, label: 'ATHE Award Ceremony – Graduates' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/athe-graduation-celebration.jpg`, label: 'ATHE Inaugural Graduation Day' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/athe-graduation-formal.jpg`, label: 'ATHE Award Ceremony – Group Photo' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/athe-award-ceremony-speaker.jpg`, label: 'ATHE Award Ceremony – Speaker' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/dwp-esol-staff.jpg`, label: 'DWP ESOL Outreach Event' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/dwp-esol-staff-2.jpg`, label: 'DWP ESOL Event – Staff' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/dwp-esol-staff-3.jpg`, label: 'DWP ESOL Event – Promotion' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/dwp-esol-conversation.jpg`, label: 'DWP ESOL Event – Consultation' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/student-support-session.jpg`, label: 'One-to-One Student Support' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/student-tutor-session.jpg`, label: 'Student–Tutor Session' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/teacher-classroom-portrait.jpg`, label: 'Classroom Teacher' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/student-lounge-chat.jpg`, label: 'Students Relaxing in Lounge' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/student-foosball.jpg`, label: 'Students – Leisure Activities' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/students-studying.jpg`, label: 'Students Studying' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/classroom-writing.jpg`, label: 'Students in Class' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/students-attentive.jpg`, label: 'Students Focused in Class' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/classroom-wide.jpg`, label: 'Full Classroom Session' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/students-classroom-fun.jpg`, label: 'Students – Classroom Activity' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/esol-trip.jpg`, label: 'ESOL Students – Trip to NAE' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/student-common-room.jpg`, label: 'Student Common Room' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/student-lounge-group.jpg`, label: 'Students in the Lounge' },
+  { campus: 'Student Life & Events', src: `/assets/images/events/student-activity-game.jpg`, label: 'Student Activity – Team Game' },
 ];
 
 const tabs = [
@@ -76,6 +109,7 @@ const tabs = [
   'Nottingham Castle Boulevard',
   // 'Leicester',
   'Birmingham',
+  'Student Life & Events',
 ];
 
 const campusImages = [
@@ -174,7 +208,7 @@ export default function StudyCentresPage() {
         {/* Gallery section */}
         <div className="sc-gallery-section">
           <h2>Gallery</h2>
-          <div className="sc-divider-green" style={{ marginBottom: '24px' }} />
+          <p className="sc-gallery-tagline">Life at TEC — classrooms, events, and student moments across our campuses</p>
 
           <div className="sc-filter-tabs">
             {tabs.map(tab => (
@@ -199,7 +233,7 @@ export default function StudyCentresPage() {
                 onKeyDown={e => e.key === 'Enter' && setLightbox(item)}
               >
                 <img src={item.src} alt={item.label} loading="lazy" />
-                <div className="gallery-label">{item.label}</div>
+                <div className="gallery-label"><span>{item.label}</span></div>
               </div>
             ))}
           </div>
