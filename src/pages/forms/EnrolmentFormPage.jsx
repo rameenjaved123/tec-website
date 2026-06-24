@@ -126,18 +126,25 @@ const DISABILITY_OPTIONS = [
 ];
 
 const IMMIGRATION_STATUS_OPTIONS = [
-  'British Citizen',
-  'EU Settled Status',
-  'EU Pre-Settled Status',
-  'Indefinite Leave to Remain',
+  'EEA or Swiss national',
+  'Child of a Turkish Worker',
   'Refugee',
-  'Humanitarian Protection',
-  'Discretionary Leave',
-  'Family reunion',
-  'Student Visa',
-  'Skilled Worker Visa',
-  'Other',
-  'N/A',
+  'Pre-settled status (EU settlement scheme )',
+  'Humanitarian Protection or similar',
+  'Fully Settled in the UK',
+  'Pre Settled',
+  'UK Citizen - English',
+  'UK Citizen - Wales',
+  'UK Citizen - Scotland',
+  'UK Citizen - Northern Island',
+  'British Citizen - Channel Islands and Isle of Man',
+  'British Citizen - British Overseas Territories',
+  'EU National (non-UK Citizen)',
+  'Biometric Residents Permit',
+  'Indefinite leave to remain',
+  'Dependent Partner Leave To Remain',
+  'Dependent Leave To Remain',
+  'Skilled Worker Leave To Remain',
 ];
 
 const COUNTRIES = [
@@ -241,12 +248,19 @@ const INITIAL = {
   privacyAgreed: false,
 };
 
-// Fields that should NOT be auto-uppercased
+// Fields that should NOT be auto-uppercased (free-text inputs only; select/radio values keep their case)
 const SKIP_UPPERCASE = [
   'email', 'dob', 'passportValidFrom', 'passportValidTo', 'visaValidFrom', 'visaValidTo',
   'plannedStartDate', 'plannedEndDate', 'signatureDate', 'employmentStartDate', 'employmentEndDate',
   'nonBritishInfo', 'feesPayer', 'englishQualification', 'mathsQualification',
   'highestQualification', 'studentLoansCRN',
+  // radio/select fields — values must stay as-is to match option labels
+  'title', 'gender', 'accommodationType', 'nationality', 'countryOfBirth',
+  'qualificationLevel', 'previousEducationProvider', 'employmentType',
+  'sexIdentifier', 'religion', 'parentalEducation', 'careLeaverStatus',
+  'genderIdentity', 'sexualOrientation', 'ethnicity', 'disability',
+  'englishFirstLanguage', 'immigrationStatus', 'criminalConvictions',
+  'holdEquivalentQualification', 'contract',
 ];
 
 function toUpper(val) {
