@@ -261,6 +261,8 @@ const SKIP_UPPERCASE = [
   'genderIdentity', 'sexualOrientation', 'ethnicity', 'disability',
   'englishFirstLanguage', 'immigrationStatus', 'criminalConvictions',
   'holdEquivalentQualification', 'contract',
+  'studentFinance', 'requiresStudentVisa', 'ukResident3Years',
+  'permCountry', 'passportCountry',
 ];
 
 function toUpper(val) {
