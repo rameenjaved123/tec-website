@@ -87,9 +87,9 @@ const courses = {
 };
 
 const campuses = [
-  { label: 'Nottingham (Digital House 2.3, Clarendon Park)', img: '/assets/images/campus/thumbnails/digital-house.jpg' },
+  { label: 'Nottingham (Digital House 2.3, Clarendon Park)', img: '/assets/images/campus/digital-house/2.3.jpeg' },
   { label: 'Nottingham (Castle Boulevard)', img: '/assets/images/campus/thumbnails/castle-boulevard.jpg' },
-  { label: 'Nottingham (2.1 Clarendon Park)', img: '/assets/images/campus/thumbnails/clarendon-park.jpg' },
+  { label: 'Nottingham (2.1 Clarendon Park)', img: '/assets/images/campus/digital-house/2.1.jpeg' },
   { label: 'Leicester', img: '/assets/images/campus/thumbnails/leicester.jpg' },
   { label: 'Birmingham', img: '/assets/images/campus/thumbnails/birmingham.jpg' },
 ];
@@ -308,7 +308,7 @@ export default function HomePage() {
             <div className="centres-img-grid">
               {/* Featured large */}
               <div className="cig-featured">
-                <img src={campuses[0].img} alt={campuses[0].label} />
+                <img src={campuses[0].img} alt={campuses[0].label} style={{ transform: 'scale(1.5)', transformOrigin: 'center center' }} />
                 <span className="cig-label"><MapPin size={11} /> {campuses[0].label}</span>
               </div>
               {/* 2x2 small */}

@@ -114,9 +114,9 @@ const tabs = [
 
 const campusImages = [
   { src: `/assets/images/campus/thumbnails/castle-boulevard.jpg`, city: 'Nottingham', label: 'Castle Boulevard' },
-  { src: `/assets/images/campus/thumbnails/digital-house.jpg`, city: 'Nottingham', label: 'Digital House 2.3' },
-  { src: `/assets/images/campus/thumbnails/clarendon-park.jpg`, city: 'Nottingham', label: 'Clarendon Park 2.1' },
+  { src: `/assets/images/campus/digital-house/2.1.jpeg`, city: 'Nottingham', label: 'Clarendon Park 2.1' },
   { src: `/assets/images/campus/thumbnails/leicester.jpg`, city: 'Leicester', label: 'Leicester Centre' },
+  { src: `/assets/images/campus/digital-house/2.3.jpeg`, city: 'Nottingham', label: 'Digital House 2.3' },
   { src: `/assets/images/campus/thumbnails/birmingham.jpg`, city: 'Birmingham', label: 'Birmingham Centre' },
 ];
 
