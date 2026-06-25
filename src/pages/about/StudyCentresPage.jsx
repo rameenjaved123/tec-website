@@ -136,8 +136,8 @@ export default function StudyCentresPage() {
         title="Our Study Centres"
         subtitle="Connected Campuses, One Community"
         bgImage="/assets/images/campus/digital-house/entrance-2.jpg"
-        bgPosition="center 20%"
-        bgSize="cover"
+        bgPosition="30% 45%"
+        bgSize="130%"
       />
 
       <div className="container inner-content">
