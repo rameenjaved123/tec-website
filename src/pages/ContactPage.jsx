@@ -57,7 +57,7 @@ export default function ContactPage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px', marginBottom: '48px' }}>
           {[
             { icon: <Phone size={22} />, label: 'Phone', value: '(+44) 1157950171', link: 'tel:+441157950171' },
-            { icon: <Mail size={22} />, label: 'Email', value: 'info@trenteducation.co.uk', link: 'mailto:info@trenteducation.co.uk' },
+            { icon: <Mail size={22} />, label: 'Email', value: 'info@trenteducation.ac.uk', link: 'mailto:info@trenteducation.ac.uk' },
           ].map((item, i) => (
             <div key={i} style={{
               background: 'var(--tec-gray)',

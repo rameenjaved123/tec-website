@@ -805,7 +805,7 @@ export default function EnglishCoursesPage() {
             <Link to="/apply" className="eng-cta-btn-primary">
               Start Your Application <ArrowRight size={16} />
             </Link>
-            <a href="mailto:admissions@trenteducation.co.uk" className="eng-cta-btn-secondary">
+            <a href="mailto:admissions@trenteducation.ac.uk" className="eng-cta-btn-secondary">
               Email Admissions
             </a>
           </div>

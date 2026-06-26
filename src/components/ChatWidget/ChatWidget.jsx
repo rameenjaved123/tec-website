@@ -19,22 +19,22 @@ const FAQS = [
   {
     keywords: ['courses', 'offer', 'study', 'programme', 'what courses', 'available', 'programs'],
     question: 'What courses does TEC offer?',
-    answer: `TEC offers the following courses:\n\nEnglish Language:\n• Ascentis ESOL (English for Speakers of Other Languages)\n• NCFE Functional Skills English (Level 1 & 2)\n• IELTS Exam Preparation\n\nHigher Education:\n• Pearson BTEC Level 4 & 5 HND in Business (2 years)\n• ATHE Level 4 Extended Diploma in Business & Management\n• ATHE Level 5 Extended Diploma in Business & Management\n\nFurther Education:\n• ATHE Level 3 Diploma in Business (12 weeks)\n• NCFE Functional Skills Maths (Level 1 & 2)\n• SIA Door Supervisor Licence Course\n• Digital Skills for Beginners (free for UK students)\n\nFor further information, please contact us at info@trenteducation.co.uk.`,
+    answer: `TEC offers the following courses:\n\nEnglish Language:\n• Ascentis ESOL (English for Speakers of Other Languages)\n• NCFE Functional Skills English (Level 1 & 2)\n• IELTS Exam Preparation\n\nHigher Education:\n• Pearson BTEC Level 4 & 5 HND in Business (2 years)\n• ATHE Level 4 Extended Diploma in Business & Management\n• ATHE Level 5 Extended Diploma in Business & Management\n\nFurther Education:\n• ATHE Level 3 Diploma in Business (12 weeks)\n• NCFE Functional Skills Maths (Level 1 & 2)\n• SIA Door Supervisor Licence Course\n• Digital Skills for Beginners (free for UK students)\n\nFor further information, please contact us at info@trenteducation.ac.uk.`,
   },
   {
     keywords: ['gcse', 'a-level', 'a level', 'school', 'secondary', 'alevel'],
     question: 'Do you offer GCSEs or A-Levels?',
-    answer: `TEC does not offer GCSEs or A-Levels. We are a further and higher education provider for adults aged 18 and above.\n\nWe do offer:\n• ATHE Level 3 Diploma in Business (equivalent to an A-Level)\n• NCFE Functional Skills in English and Maths\n• Higher Education courses (BTEC HND, ATHE Level 4 and 5)\n• English language courses (ESOL, IELTS)\n\nPlease contact our admissions team at admissions@trenteducation.co.uk for guidance on the most suitable course for you.`,
+    answer: `TEC does not offer GCSEs or A-Levels. We are a further and higher education provider for adults aged 18 and above.\n\nWe do offer:\n• ATHE Level 3 Diploma in Business (equivalent to an A-Level)\n• NCFE Functional Skills in English and Maths\n• Higher Education courses (BTEC HND, ATHE Level 4 and 5)\n• English language courses (ESOL, IELTS)\n\nPlease contact our admissions team at admissions@trenteducation.ac.uk for guidance on the most suitable course for you.`,
   },
   {
     keywords: ['apply', 'application', 'enrol', 'enroll', 'sign up', 'register', 'admission', 'how to join', 'start', 'joining'],
     question: 'How do I apply / enrol?',
-    answer: `Applying to TEC involves three straightforward steps:\n\n1. Complete the online Student Application Form (approximately 20 minutes). Please include your personal details, chosen course, and any supporting documents.\n\n2. Our admissions team will review your application against the relevant entry requirements.\n\n3. If successful, you will receive an offer letter and can proceed to enrol and begin your studies.\n\nEmail: admissions@trenteducation.co.uk\nPhone: (+44) 1157950171\n\nAdmissions are currently open. Please get in touch to confirm availability for your chosen course.`,
+    answer: `Applying to TEC involves three straightforward steps:\n\n1. Complete the online Student Application Form (approximately 20 minutes). Please include your personal details, chosen course, and any supporting documents.\n\n2. Our admissions team will review your application against the relevant entry requirements.\n\n3. If successful, you will receive an offer letter and can proceed to enrol and begin your studies.\n\nEmail: admissions@trenteducation.ac.uk\nPhone: (+44) 1157950171\n\nAdmissions are currently open. Please get in touch to confirm availability for your chosen course.`,
   },
   {
     keywords: ['fee', 'cost', 'fees', 'price', 'how much', 'tuition', 'pay', 'payment', 'free', 'charge'],
     question: 'How much do the courses cost?',
-    answer: `Course fees vary depending on the programme and your student status.\n\nThe Digital Skills for Beginners course is available free of charge for UK home students.\n\nFor all other courses, please contact TEC directly for current fee information, as fees differ for UK home and international students.\n\nFunding options include:\n• Self-funded\n• Employer-sponsored\n• Government grants or loans\n• TEC Scholarships and Bursaries (£100,000 allocated annually)\n\nInternational students are required to pay an additional booking fee prior to travelling to the UK.\n\nEmail: admissions@trenteducation.co.uk\nPhone: (+44) 1157950171`,
+    answer: `Course fees vary depending on the programme and your student status.\n\nThe Digital Skills for Beginners course is available free of charge for UK home students.\n\nFor all other courses, please contact TEC directly for current fee information, as fees differ for UK home and international students.\n\nFunding options include:\n• Self-funded\n• Employer-sponsored\n• Government grants or loans\n• TEC Scholarships and Bursaries (£100,000 allocated annually)\n\nInternational students are required to pay an additional booking fee prior to travelling to the UK.\n\nEmail: admissions@trenteducation.ac.uk\nPhone: (+44) 1157950171`,
   },
   {
     keywords: ['location', 'address', 'where', 'campus', 'centre', 'center', 'nottingham', 'leicester', 'birmingham', 'castle boulevard', 'find you', 'directions'],
@@ -49,7 +49,7 @@ const FAQS = [
   {
     keywords: ['scholarship', 'bursary', 'funding', 'financial support', 'help paying', 'discount', 'grant', 'loan'],
     question: 'Are scholarships or bursaries available?',
-    answer: `TEC offers two forms of financial support:\n\nScholarships\nAvailable to students who demonstrate outstanding achievements in academics, work, sport, arts, or music. A scholarship may cover the full cost of study.\n\nBursaries\nAvailable to students from low-income backgrounds, contributing towards tuition costs.\n\nKey information:\n• £100,000 is allocated annually for scholarships and bursaries\n• Applications must be submitted at least one month before the term start date\n• Decisions are made within two weeks by the Senior Management Team\n• Once the annual fund is exhausted, no further applications are accepted until the next academic year\n\nEmail: admissions@trenteducation.co.uk`,
+    answer: `TEC offers two forms of financial support:\n\nScholarships\nAvailable to students who demonstrate outstanding achievements in academics, work, sport, arts, or music. A scholarship may cover the full cost of study.\n\nBursaries\nAvailable to students from low-income backgrounds, contributing towards tuition costs.\n\nKey information:\n• £100,000 is allocated annually for scholarships and bursaries\n• Applications must be submitted at least one month before the term start date\n• Decisions are made within two weeks by the Senior Management Team\n• Once the annual fund is exhausted, no further applications are accepted until the next academic year\n\nEmail: admissions@trenteducation.ac.uk`,
   },
   {
     keywords: ['english', 'esol', 'language', 'ielts', 'functional skills english', 'improve english', 'english course', 'speaking', 'writing', 'reading'],
@@ -59,37 +59,37 @@ const FAQS = [
   {
     keywords: ['btec', 'hnd', 'higher national', 'business degree', 'degree', 'university', 'progression', 'level 4', 'level 5'],
     question: 'Tell me about the BTEC HND in Business.',
-    answer: `The Pearson BTEC Level 4 and 5 Higher National Diploma (HND) in Business is a two-year programme equivalent to the first two years of a university degree.\n\nKey details:\n• 240 credits in total (120 at Level 4, 120 at Level 5)\n• Delivered through blended learning: one online session and one in-person session per week\n• Assessment is by assignments and projects only — no formal examinations\n\nCareer pathways include management, marketing, human resources, finance, and entrepreneurship.\n\nGraduates may progress to Year 2 or Year 3 of a university degree programme.\n\nEntry requirements: A Level 3 qualification or equivalent work experience.\nEnglish requirement: IELTS 5.5 or CEFR B2.\n\nEmail: info@trenteducation.co.uk`,
+    answer: `The Pearson BTEC Level 4 and 5 Higher National Diploma (HND) in Business is a two-year programme equivalent to the first two years of a university degree.\n\nKey details:\n• 240 credits in total (120 at Level 4, 120 at Level 5)\n• Delivered through blended learning: one online session and one in-person session per week\n• Assessment is by assignments and projects only — no formal examinations\n\nCareer pathways include management, marketing, human resources, finance, and entrepreneurship.\n\nGraduates may progress to Year 2 or Year 3 of a university degree programme.\n\nEntry requirements: A Level 3 qualification or equivalent work experience.\nEnglish requirement: IELTS 5.5 or CEFR B2.\n\nEmail: info@trenteducation.ac.uk`,
   },
   {
     keywords: ['contact', 'phone', 'email', 'call', 'reach', 'get in touch', 'open', 'hours', 'office', 'telephone'],
     question: 'How do I contact TEC?',
-    answer: `You can contact Trent Education Centre through the following:\n\nPhone: (+44) 1157950171\nGeneral enquiries: info@trenteducation.co.uk\nAdmissions: admissions@trenteducation.co.uk\n\nOffice hours: Monday to Friday, 9:00 am – 5:00 pm\nStudy centres: Open seven days a week\n\nHead Office:\nDigital House 2.3, Clarendon Park, Nottingham, NG5 1AH\n\nWe aim to respond to all email enquiries within one to two working days.`,
+    answer: `You can contact Trent Education Centre through the following:\n\nPhone: (+44) 1157950171\nGeneral enquiries: info@trenteducation.ac.uk\nAdmissions: admissions@trenteducation.ac.uk\n\nOffice hours: Monday to Friday, 9:00 am – 5:00 pm\nStudy centres: Open seven days a week\n\nHead Office:\nDigital House 2.3, Clarendon Park, Nottingham, NG5 1AH\n\nWe aim to respond to all email enquiries within one to two working days.`,
   },
   {
     keywords: ['international', 'visa', 'overseas', 'foreign', 'abroad', 'outside uk', 'from abroad', 'international student'],
     question: 'Can I apply as an international student?',
-    answer: `TEC welcomes applications from international students.\n\nKey information:\n• TEC is based in Nottingham — a diverse and welcoming city for international learners\n• An additional booking fee is required before travelling to the UK to cover visa administration costs (please contact admissions for the exact amount)\n• Tuition fees can be paid via Flywire, which supports payments from over 240 countries in 140+ currencies with multilingual support available around the clock\n\nApplication process:\n1. Submit your application with the required documents\n2. Attend an interview, which includes identity verification\n3. Receive a Conditional Offer Letter\n4. Accept your offer and complete any pre-arrival requirements\n\nEmail: info@trenteducation.co.uk\nPhone: (+44) 1157950171`,
+    answer: `TEC welcomes applications from international students.\n\nKey information:\n• TEC is based in Nottingham — a diverse and welcoming city for international learners\n• An additional booking fee is required before travelling to the UK to cover visa administration costs (please contact admissions for the exact amount)\n• Tuition fees can be paid via Flywire, which supports payments from over 240 countries in 140+ currencies with multilingual support available around the clock\n\nApplication process:\n1. Submit your application with the required documents\n2. Attend an interview, which includes identity verification\n3. Receive a Conditional Offer Letter\n4. Accept your offer and complete any pre-arrival requirements\n\nEmail: info@trenteducation.ac.uk\nPhone: (+44) 1157950171`,
   },
   {
     keywords: ['digital', 'computer', 'it skills', 'technology', 'beginner computer', 'basic computer', 'online', 'internet skills'],
     question: 'Tell me about the Digital Skills course.',
-    answer: `TEC offers a Digital Skills for Beginners course, available free of charge for UK home students.\n\nThis course is designed for people who are new to digital devices, online communication, or basic computing.\n\nThe programme runs over seven weeks:\n• Week 1: Getting started with digital devices and navigating the internet\n• Week 2: Mastering email and online communication\n• Week 3: Microsoft Office and job search skills\n• Week 4: E-commerce and safe online shopping\n• Week 5: Staying connected through video calls\n• Week 6: Online security best practices\n• Week 7: Practical assessment\n\nNo prior experience is required. The course is completely free for eligible UK students.\n\nEmail: admissions@trenteducation.co.uk`,
+    answer: `TEC offers a Digital Skills for Beginners course, available free of charge for UK home students.\n\nThis course is designed for people who are new to digital devices, online communication, or basic computing.\n\nThe programme runs over seven weeks:\n• Week 1: Getting started with digital devices and navigating the internet\n• Week 2: Mastering email and online communication\n• Week 3: Microsoft Office and job search skills\n• Week 4: E-commerce and safe online shopping\n• Week 5: Staying connected through video calls\n• Week 6: Online security best practices\n• Week 7: Practical assessment\n\nNo prior experience is required. The course is completely free for eligible UK students.\n\nEmail: admissions@trenteducation.ac.uk`,
   },
   {
     keywords: ['sia', 'door supervisor', 'security', 'bouncer', 'licence', 'license', 'security guard'],
     question: 'Tell me about the SIA Door Supervisor course.',
-    answer: `TEC offers the BIIAB Level 3 Award for Door Supervisors, which meets the requirements for obtaining an SIA licence to practise.\n\nThe course covers the following units:\n• Unit 1: Working within the Private Security Industry\n• Unit 2: Working as a Door Supervisor\n• Unit 3: Conflict Management within the Private Security Industry\n• Unit 4: Physical Intervention Skills\n• BIIAB Level 3 Award in Emergency First Aid at Work (mandatory under SIA regulations)\n\nTraining includes hands-on practical sessions and conflict management simulations.\n\nEnglish language requirement: CEFR B2, or Functional Skills English Level 1.\n\nEmail: admissions@trenteducation.co.uk`,
+    answer: `TEC offers the BIIAB Level 3 Award for Door Supervisors, which meets the requirements for obtaining an SIA licence to practise.\n\nThe course covers the following units:\n• Unit 1: Working within the Private Security Industry\n• Unit 2: Working as a Door Supervisor\n• Unit 3: Conflict Management within the Private Security Industry\n• Unit 4: Physical Intervention Skills\n• BIIAB Level 3 Award in Emergency First Aid at Work (mandatory under SIA regulations)\n\nTraining includes hands-on practical sessions and conflict management simulations.\n\nEnglish language requirement: CEFR B2, or Functional Skills English Level 1.\n\nEmail: admissions@trenteducation.ac.uk`,
   },
   {
     keywords: ['maths', 'math', 'mathematics', 'numeracy', 'functional skills maths', 'numbers'],
     question: 'Do you offer Maths courses?',
-    answer: `TEC offers NCFE Functional Skills in Mathematics at two levels:\n\nLevel 1 Functional Skills Maths\n• Nationally recognised qualification, awarded by NCFE and Open Awards (regulated by Ofqual)\n• Duration: 6 weeks, delivered onsite\n• No prior qualifications required — a skills assessment is completed before enrolment to determine your starting level\n• On completion, students may progress to Level 2\n\nLevel 2 Functional Skills Maths\n• A higher-level continuation of the above qualification\n• Duration: 6 weeks, delivered onsite\n\nThis course may be available free of charge for eligible UK students. Please contact us to confirm.\n\nEmail: admissions@trenteducation.co.uk`,
+    answer: `TEC offers NCFE Functional Skills in Mathematics at two levels:\n\nLevel 1 Functional Skills Maths\n• Nationally recognised qualification, awarded by NCFE and Open Awards (regulated by Ofqual)\n• Duration: 6 weeks, delivered onsite\n• No prior qualifications required — a skills assessment is completed before enrolment to determine your starting level\n• On completion, students may progress to Level 2\n\nLevel 2 Functional Skills Maths\n• A higher-level continuation of the above qualification\n• Duration: 6 weeks, delivered onsite\n\nThis course may be available free of charge for eligible UK students. Please contact us to confirm.\n\nEmail: admissions@trenteducation.ac.uk`,
   },
   {
     keywords: ['athe', 'level 3', 'diploma', 'business diploma', 'level 3 business'],
     question: 'Tell me about the ATHE Level 3 Diploma in Business.',
-    answer: `The ATHE Level 3 Diploma in Business is a 60-credit qualification equivalent to an A-Level, awarded by ATHE and regulated by Ofqual.\n\nKey details:\n• Duration: 12 weeks, delivered onsite\n• Five units: Business Environment, How Businesses and Organisations Work, Business Communication, Working in Teams, and Market Research\n• Widely recognised by employers\n• Provides direct progression to the ATHE Level 4 Diploma or the BTEC HND in Business\n\nEntry requirements: Five GCSEs at grade C/4 or above (or equivalent qualifications), or relevant work experience.\nEnglish requirement: CEFR B1 minimum.\n\nEmail: admissions@trenteducation.co.uk`,
+    answer: `The ATHE Level 3 Diploma in Business is a 60-credit qualification equivalent to an A-Level, awarded by ATHE and regulated by Ofqual.\n\nKey details:\n• Duration: 12 weeks, delivered onsite\n• Five units: Business Environment, How Businesses and Organisations Work, Business Communication, Working in Teams, and Market Research\n• Widely recognised by employers\n• Provides direct progression to the ATHE Level 4 Diploma or the BTEC HND in Business\n\nEntry requirements: Five GCSEs at grade C/4 or above (or equivalent qualifications), or relevant work experience.\nEnglish requirement: CEFR B1 minimum.\n\nEmail: admissions@trenteducation.ac.uk`,
   },
 ];
 
@@ -124,7 +124,7 @@ function findAnswer(input) {
   return bestScore > 0 ? best.answer : null;
 }
 
-const FALLBACK = `I'm sorry, I don't have specific information about that.\n\nFor any questions not covered here, please contact us directly:\n\nPhone: (+44) 1157950171\nGeneral enquiries: info@trenteducation.co.uk\nAdmissions: admissions@trenteducation.co.uk\nOffice hours: Monday to Friday, 9:00 am – 5:00 pm`;
+const FALLBACK = `I'm sorry, I don't have specific information about that.\n\nFor any questions not covered here, please contact us directly:\n\nPhone: (+44) 1157950171\nGeneral enquiries: info@trenteducation.ac.uk\nAdmissions: admissions@trenteducation.ac.uk\nOffice hours: Monday to Friday, 9:00 am – 5:00 pm`;
 
 function formatTime(date) {
   return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -309,7 +309,7 @@ export default function ChatWidget() {
           </div>
 
           <div className="chat-footer">
-            Trent Education Centre · <a href="mailto:info@trenteducation.co.uk">info@trenteducation.co.uk</a>
+            Trent Education Centre · <a href="mailto:info@trenteducation.ac.uk">info@trenteducation.ac.uk</a>
           </div>
         </>
       )}

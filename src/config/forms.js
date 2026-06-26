@@ -447,7 +447,7 @@ export const FORM_REGISTRY = {
   //   path: '/route',
   //   icon: '📝',
   //   color: '#hex',
-  //   notifyEmail: 'recipient@trenteducation.co.uk',
+  //   notifyEmail: 'recipient@trenteducation.ac.uk',
   //   sheetsTab: 'Sheet Tab Name',
   // },
 };
@@ -706,7 +706,7 @@ function buildConfirmationHtml(entry) {
               <p style="font-size:15px;color:#555;line-height:1.6;">Thank you for submitting your application to Trent Education Centre. We are pleased to confirm that your application has been successfully received and is now being reviewed.</p>
               <p style="font-size:15px;color:#555;line-height:1.6;">Below is a summary of the information you submitted:</p>
               ${appTable}
-              <p style="font-size:15px;color:#555;line-height:1.6;margin-top:20px;">If you have any questions, please contact us at <a href="mailto:digitaladmissions@trenteducation.co.uk" style="color:#4caf50;">digitaladmissions@trenteducation.co.uk</a></p>
+              <p style="font-size:15px;color:#555;line-height:1.6;margin-top:20px;">If you have any questions, please contact us at <a href="mailto:digitaladmissions@trenteducation.ac.uk" style="color:#4caf50;">digitaladmissions@trenteducation.ac.uk</a></p>
               <p style="font-size:15px;color:#555;">Thank you,</p>
               <p style="font-size:15px;color:#333;"><strong>Trent Education Centre</strong></p>
             </div>
@@ -732,7 +732,7 @@ function buildConfirmationHtml(entry) {
               <p style="font-size:15px;color:#555;line-height:1.6;">Thank you for submitting your job application to Trent Education Centre. We have received your application and our HR team will review it and be in touch with you shortly.</p>
               <p style="font-size:15px;color:#555;line-height:1.6;">Below is a summary of the information you submitted:</p>
               ${jobTable}
-              <p style="font-size:15px;color:#555;line-height:1.6;margin-top:20px;">If you have any questions in the meantime, please contact us at <a href="mailto:hr@trenteducation.co.uk" style="color:#4caf50;">hr@trenteducation.co.uk</a></p>
+              <p style="font-size:15px;color:#555;line-height:1.6;margin-top:20px;">If you have any questions in the meantime, please contact us at <a href="mailto:hr@trenteducation.ac.uk" style="color:#4caf50;">hr@trenteducation.ac.uk</a></p>
               <p style="font-size:15px;color:#555;">Thank you,</p>
               <p style="font-size:15px;color:#333;"><strong>Trent Education Centre</strong></p>
             </div>
@@ -748,7 +748,7 @@ function buildConfirmationHtml(entry) {
           <h2 style="color:#4caf50;font-size:22px;text-align:center;">Thank You for Your Enquiry</h2>
           <p style="font-size:16px;color:#333;">Dear <strong>${name}</strong>,</p>
           <p style="font-size:15px;color:#555;line-height:1.6;">Thank you for contacting Trent Education Centre. We have received your enquiry and a member of our admissions team will be in touch with you shortly.</p>
-          <p style="font-size:15px;color:#555;line-height:1.6;">If you have any immediate questions, please contact us at <a href="mailto:info@trenteducation.co.uk" style="color:#4caf50;">info@trenteducation.co.uk</a></p>`),
+          <p style="font-size:15px;color:#555;line-height:1.6;">If you have any immediate questions, please contact us at <a href="mailto:info@trenteducation.ac.uk" style="color:#4caf50;">info@trenteducation.ac.uk</a></p>`),
       };
 
     case 'English & IELTS Application': {
@@ -769,7 +769,7 @@ function buildConfirmationHtml(entry) {
               <p style="font-size:15px;color:#555;line-height:1.6;">Thank you for submitting your English & IELTS application to Trent Education Centre. Your application has been successfully received and is now being reviewed.</p>
               <p style="font-size:15px;color:#555;line-height:1.6;">Below is a summary of the information you submitted:</p>
               ${ieltsTable}
-              <p style="font-size:15px;color:#555;line-height:1.6;margin-top:20px;">If you have any questions, please contact us at <a href="mailto:internationaladmissions@trenteducation.co.uk" style="color:#4caf50;">internationaladmissions@trenteducation.co.uk</a></p>
+              <p style="font-size:15px;color:#555;line-height:1.6;margin-top:20px;">If you have any questions, please contact us at <a href="mailto:internationaladmissions@trenteducation.ac.uk" style="color:#4caf50;">internationaladmissions@trenteducation.ac.uk</a></p>
               <p style="font-size:15px;color:#555;">Thank you,</p>
               <p style="font-size:15px;color:#333;"><strong>Trent Education Centre</strong></p>
             </div>
@@ -785,7 +785,7 @@ function buildConfirmationHtml(entry) {
           <h2 style="color:#1a4d2e;font-size:22px;text-align:center;">Your New Starter Form Has Been Received</h2>
           <p style="font-size:16px;color:#333;">Dear <strong>${name}</strong>,</p>
           <p style="font-size:15px;color:#555;line-height:1.6;">Thank you for completing your new starter form. Our HR team has received your submission and will be in touch shortly to complete your onboarding.</p>
-          <p style="font-size:15px;color:#555;line-height:1.6;">If you have any questions, please contact us at <a href="mailto:hr@trenteducation.co.uk" style="color:#1a4d2e;">hr@trenteducation.co.uk</a></p>`),
+          <p style="font-size:15px;color:#555;line-height:1.6;">If you have any questions, please contact us at <a href="mailto:hr@trenteducation.ac.uk" style="color:#1a4d2e;">hr@trenteducation.ac.uk</a></p>`),
       };
 
     case 'International Application': {
@@ -806,7 +806,7 @@ function buildConfirmationHtml(entry) {
               <p style="font-size:15px;color:#555;line-height:1.6;">Thank you for submitting your international application to Trent Education Centre. Your application has been successfully received and is now being reviewed by our admissions team.</p>
               <p style="font-size:15px;color:#555;line-height:1.6;">Below is a summary of the information you submitted:</p>
               ${intlTable}
-              <p style="font-size:15px;color:#555;line-height:1.6;margin-top:20px;">If you have any questions, please contact us at <a href="mailto:internationaladmissions@trenteducation.co.uk" style="color:#4caf50;">internationaladmissions@trenteducation.co.uk</a></p>
+              <p style="font-size:15px;color:#555;line-height:1.6;margin-top:20px;">If you have any questions, please contact us at <a href="mailto:internationaladmissions@trenteducation.ac.uk" style="color:#4caf50;">internationaladmissions@trenteducation.ac.uk</a></p>
               <p style="font-size:15px;color:#555;">Thank you,</p>
               <p style="font-size:15px;color:#333;"><strong>Trent Education Centre</strong></p>
             </div>
@@ -824,7 +824,7 @@ function buildConfirmationHtml(entry) {
             <h2 style="color:#1a3c6e;font-size:22px;text-align:center;">Thank You for Enrolling</h2>
             <p style="font-size:16px;color:#333;">Dear <strong>${name}</strong>,</p>
             <p style="font-size:15px;color:#555;line-height:1.6;">Thank you for submitting your enrolment form to Trent Education Centre. We have received your application and our admissions team will review your details and be in touch with you shortly.</p>
-            <p style="font-size:15px;color:#555;line-height:1.6;">If you have any questions in the meantime, please contact us at <a href="mailto:digitaladmissions@trenteducation.co.uk" style="color:#1a3c6e;">digitaladmissions@trenteducation.co.uk</a></p>
+            <p style="font-size:15px;color:#555;line-height:1.6;">If you have any questions in the meantime, please contact us at <a href="mailto:digitaladmissions@trenteducation.ac.uk" style="color:#1a3c6e;">digitaladmissions@trenteducation.ac.uk</a></p>
             <p style="font-size:15px;color:#555;">Thank you,</p>
             <p style="font-size:15px;color:#333;"><strong>Trent Education Centre</strong></p>
           </div>`,
@@ -838,7 +838,7 @@ function buildConfirmationHtml(entry) {
           <h2 style="color:#1565c0;font-size:22px;text-align:center;">Thank You for Your Partnership Enquiry</h2>
           <p style="font-size:16px;color:#333;">Dear <strong>${name}</strong>,</p>
           <p style="font-size:15px;color:#555;line-height:1.6;">Thank you for reaching out to Trent Education Centre regarding a potential partnership. We have received your enquiry and a member of our partnerships team will be in touch with you soon.</p>
-          <p style="font-size:15px;color:#555;line-height:1.6;">If you have any immediate questions, please contact us at <a href="mailto:partnerships@trenteducation.co.uk" style="color:#1565c0;">partnerships@trenteducation.co.uk</a></p>`),
+          <p style="font-size:15px;color:#555;line-height:1.6;">If you have any immediate questions, please contact us at <a href="mailto:partnerships@trenteducation.ac.uk" style="color:#1565c0;">partnerships@trenteducation.ac.uk</a></p>`),
       };
 
     default:
@@ -849,7 +849,7 @@ function buildConfirmationHtml(entry) {
           <h2 style="color:#4caf50;font-size:22px;text-align:center;">Thank You for Contacting Trent Education Centre</h2>
           <p style="font-size:16px;color:#333;">Dear <strong>${name}</strong>,</p>
           <p style="font-size:15px;color:#555;line-height:1.6;">We have received your submission and will get back to you as soon as possible.</p>
-          <p style="font-size:15px;color:#555;line-height:1.6;">If you have any questions, please contact us at <a href="mailto:info@trenteducation.co.uk" style="color:#4caf50;">info@trenteducation.co.uk</a></p>`),
+          <p style="font-size:15px;color:#555;line-height:1.6;">If you have any questions, please contact us at <a href="mailto:info@trenteducation.ac.uk" style="color:#4caf50;">info@trenteducation.ac.uk</a></p>`),
       };
   }
 }
@@ -867,7 +867,7 @@ export async function sendConfirmationEmail(entry) {
       subject,
       html,
       fromName,
-      replyTo:  'hr@trenteducation.co.uk',
+      replyTo:  'hr@trenteducation.ac.uk',
     });
     console.log('Confirmation email sent to', entry.email);
     return true;
@@ -939,7 +939,7 @@ export async function sendEmailNotification(entry) {
       subject:  `New ${entry.formType || 'Form'} Submission`,
       html,
       fromName: 'Trent Enrol Admissions',
-      replyTo:  entry.email || 'noreply@trenteducation.co.uk',
+      replyTo:  entry.email || 'noreply@trenteducation.ac.uk',
     });
     console.log('Notification sent to', notifyEmail);
     return true;

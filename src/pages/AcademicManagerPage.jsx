@@ -139,7 +139,7 @@ export default function AcademicManagerPage() {
                 <p style={{ fontSize: '0.85rem', color: 'var(--tec-text-light)', lineHeight: 1.75, margin: 0 }}>
                   Nottingham NG5 1AH<br />
                   <a href="tel:+441157950171" style={{ color: 'var(--tec-green)', textDecoration: 'none' }}>+44 115 795 0171</a><br />
-                  <a href="mailto:info@trenteducation.co.uk" style={{ color: 'var(--tec-green)', textDecoration: 'none' }}>info@trenteducation.co.uk</a>
+                  <a href="mailto:info@trenteducation.ac.uk" style={{ color: 'var(--tec-green)', textDecoration: 'none' }}>info@trenteducation.ac.uk</a>
                 </p>
               </div>
             </div>

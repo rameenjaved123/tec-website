@@ -141,7 +141,7 @@ export default function StudentSupportPage() {
             <span className="ssp-reach-icon"><Mail size={18} /></span>
             <span className="ssp-reach-label">Email</span>
             <span className="ssp-reach-val">
-              <a href="mailto:info@trenteducation.co.uk">info@trenteducation.co.uk</a>
+              <a href="mailto:info@trenteducation.ac.uk">info@trenteducation.ac.uk</a>
             </span>
             <p className="ssp-reach-sub">We aim to reply within 1–2 working days.</p>
           </div>

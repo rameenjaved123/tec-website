@@ -23,8 +23,8 @@ export default function ComplaintPage() {
             <p style={{ lineHeight: 1.9, color: 'var(--tec-text-light)', marginBottom: '20px' }}>
               If you are a student or if you are applying to study at Trent Education Centre (TEC),
               you can complain to us about anything you are not satisfied with here:{' '}
-              <a href="mailto:complaints@trenteducation.co.uk" style={{ color: 'var(--tec-gold)', fontWeight: 600 }}>
-                complaints@trenteducation.co.uk
+              <a href="mailto:complaints@trenteducation.ac.uk" style={{ color: 'var(--tec-gold)', fontWeight: 600 }}>
+                complaints@trenteducation.ac.uk
               </a>.
             </p>
 
@@ -186,8 +186,8 @@ export default function ComplaintPage() {
               <div style={{ borderTop: '1px solid #ddd', paddingTop: '20px' }}>
                 <p style={{ fontSize: '0.85rem', color: 'var(--tec-text-light)', lineHeight: 1.7, margin: 0 }}>
                   For urgent matters, please contact us directly at{' '}
-                  <a href="mailto:complaints@trenteducation.co.uk" style={{ color: 'var(--tec-gold)', fontWeight: 600 }}>
-                    complaints@trenteducation.co.uk
+                  <a href="mailto:complaints@trenteducation.ac.uk" style={{ color: 'var(--tec-gold)', fontWeight: 600 }}>
+                    complaints@trenteducation.ac.uk
                   </a>
                 </p>
               </div>

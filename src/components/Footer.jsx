@@ -56,7 +56,7 @@ export default function Footer() {
             </li>
             <li>
               <Mail size={15} />
-              <a href="mailto:info@trenteducation.co.uk">info@trenteducation.co.uk</a>
+              <a href="mailto:info@trenteducation.ac.uk">info@trenteducation.ac.uk</a>
             </li>
             <li>
               <MapPin size={15} />

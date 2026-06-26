@@ -66,7 +66,7 @@ export default function ContactPage() {
         <div className="contact-quick">
           {[
             { icon: <Phone size={22} />, label: 'Phone', value: '(+44) 1157950171', link: 'tel:+441157950171' },
-            { icon: <Mail size={22} />,  label: 'Email', value: 'info@trenteducation.co.uk', link: 'mailto:info@trenteducation.co.uk' },
+            { icon: <Mail size={22} />,  label: 'Email', value: 'info@trenteducation.ac.uk', link: 'mailto:info@trenteducation.ac.uk' },
           ].map((item, i) => (
             <a key={i} href={item.link} className="contact-quick-tile">
               <span className="contact-quick-icon">{item.icon}</span>

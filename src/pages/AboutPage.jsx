@@ -77,7 +77,7 @@ export default function AboutPage() {
                 📞 <a href="tel:+441157950171" style={{ color: 'var(--tec-gold-light)' }}>(+44) 1157950171</a>
               </p>
               <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.88rem' }}>
-                📧 <a href="mailto:info@trenteducation.co.uk" style={{ color: 'var(--tec-gold-light)' }}>info@trenteducation.co.uk</a>
+                📧 <a href="mailto:info@trenteducation.ac.uk" style={{ color: 'var(--tec-gold-light)' }}>info@trenteducation.ac.uk</a>
               </p>
             </div>
           </div>

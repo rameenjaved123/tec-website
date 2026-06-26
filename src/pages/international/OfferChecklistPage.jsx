@@ -14,7 +14,7 @@ import PageHero from '../../components/PageHero';
    Mirrors WordPress /offer-checklist/ — wording verbatim.
    ════════════════════════════════════════════════════════════ */
 
-const ADMISSIONS_EMAIL = 'Internationaladmissions@trenteducation.co.uk';
+const ADMISSIONS_EMAIL = 'Internationaladmissions@trenteducation.ac.uk';
 
 const acceptSteps = [
   {

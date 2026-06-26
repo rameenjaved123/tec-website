@@ -36,7 +36,7 @@ const admissionsSteps = [
   {
     title: 'Introduction',
     items: [
-      'Applicants contact Admissions staff in person or online admissions@trenteducation.co.uk',
+      'Applicants contact Admissions staff in person or online admissions@trenteducation.ac.uk',
       'Admissions staff guide Applicants on courses, dates, and entry requirements',
       'Applicants complete the application form and apply for student finance or scholarship/bursary if relevant',
     ],
@@ -116,7 +116,7 @@ export default function AdmissionPage() {
           <h2>Apply for 2024</h2>
           <p>
             Admissions for Spring 2024 are now open! Start your application today and get connected to our Admissions Team{' '}
-            <a href="mailto:admissions@trenteducation.co.uk">admissions@trenteducation.co.uk</a>{' '}
+            <a href="mailto:admissions@trenteducation.ac.uk">admissions@trenteducation.ac.uk</a>{' '}
             so you can see if Trent Education Centre has the right courses and support for you.
           </p>
           <a href="/application-form" target="_blank" rel="noreferrer" className="adm-apply-btn">
@@ -163,7 +163,7 @@ export default function AdmissionPage() {
           </p>
           <p style={{ marginTop: 16 }}>
             Please contact our Admissions Team{' '}
-            <a href="mailto:admissions@trenteducation.co.uk">admissions@trenteducation.co.uk</a>{' '}
+            <a href="mailto:admissions@trenteducation.ac.uk">admissions@trenteducation.ac.uk</a>{' '}
             in order to enquire about your eligibility for student finance, and how you can apply for grants, loans, scholarships and bursaries to support your studies.
           </p>
         </div>
@@ -175,7 +175,7 @@ export default function AdmissionPage() {
         <p style={{ lineHeight: 1.8, color: '#444', marginBottom: 32 }}>
           The College welcomes eligible candidates to apply for a Scholarship or Bursary to help them fund their studies. The College sets aside £100,000 per annum for scholarships and bursaries. Funds for Scholarships and Bursaries will be provided to applicants on an individual basis. Once the fund has been spent for the academic year, students will not be able to apply until the next academic year.<br /><br />
           Please ask the Admissions Team{' '}
-          <a href="mailto:admissions@trenteducation.co.uk" style={{ color: 'var(--tec-green)' }}>admissions@trenteducation.co.uk</a>{' '}
+          <a href="mailto:admissions@trenteducation.ac.uk" style={{ color: 'var(--tec-green)' }}>admissions@trenteducation.ac.uk</a>{' '}
           to see if there are funds available for Scholarships or Bursaries in the current academic year before submitting your application.
         </p>
 
@@ -193,7 +193,7 @@ export default function AdmissionPage() {
         <h3 style={{ fontSize: '1.2rem', fontWeight: 700, margin: '40px 0 12px' }}>Eligibility and Application Process</h3>
         <p style={{ lineHeight: 1.8, color: '#444', marginBottom: 32 }}>
           We offer Scholarships and Bursaries for all our fee-paying courses. Anyone applying for a Scholarship or Bursary must meet the entry requirements for the course and must complete the usual application process. Request for a scholarship or bursary should be sent to{' '}
-          <a href="mailto:admissions@trenteducation.co.uk" style={{ color: 'var(--tec-green)' }}>admissions@trenteducation.co.uk</a>{' '}
+          <a href="mailto:admissions@trenteducation.ac.uk" style={{ color: 'var(--tec-green)' }}>admissions@trenteducation.ac.uk</a>{' '}
           along with a 500-word essay explaining in English why you should be a TEC Scholarship Student, or why you should be considered for a Bursary. Applicants for a Bursary may be required to provide evidence that they cannot finance the course themselves.<br /><br />
           You must submit your request for a Scholarship or Bursary at least one month before the term starts. Your request will be considered by the Senior Management Team (SMT) and you will receive their decision two weeks after you have sent your request.
         </p>
@@ -217,8 +217,8 @@ export default function AdmissionPage() {
         {/* Flowchart */}
         <div className="adm-flowchart">
           {[
-            { num: '01', step: 'Enquire', desc: 'The Applicant sends an email to admissions@trenteducation.co.uk to enquire if funds are available for a scholarship or bursary in the current academic year.' },
-            { num: '02', step: 'Submit Essay', desc: 'If funds are available, the applicant emails a 500-word essay requesting either a Scholarship or Bursary to admissions@trenteducation.co.uk.' },
+            { num: '01', step: 'Enquire', desc: 'The Applicant sends an email to admissions@trenteducation.ac.uk to enquire if funds are available for a scholarship or bursary in the current academic year.' },
+            { num: '02', step: 'Submit Essay', desc: 'If funds are available, the applicant emails a 500-word essay requesting either a Scholarship or Bursary to admissions@trenteducation.ac.uk.' },
             { num: '03', step: 'Decision', desc: 'The Admissions Team sends the essay to the Senior Management Team (SMT). The SMT decision is communicated to the applicant within 14 days.' },
           ].map((f, i) => (
             <div key={i} className="adm-flow-item">

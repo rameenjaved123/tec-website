@@ -99,8 +99,8 @@ export default function ApplyPage() {
             <a href="tel:+441157950171">
               <Phone size={16} /> (+44) 1157950171
             </a>
-            <a href="mailto:admissions@trenteducation.co.uk">
-              <Mail size={16} /> admissions@trenteducation.co.uk
+            <a href="mailto:admissions@trenteducation.ac.uk">
+              <Mail size={16} /> admissions@trenteducation.ac.uk
             </a>
           </div>
         </div>

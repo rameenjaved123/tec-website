@@ -42,7 +42,7 @@ export default function PrivacyPolicyPage() {
             </div>
             <div className="pp-summary-item">
               <div className="label">Contact</div>
-              <div className="value">info@trenteducation.co.uk</div>
+              <div className="value">info@trenteducation.ac.uk</div>
             </div>
             <div className="pp-summary-item">
               <div className="label">UK Regulator</div>
@@ -84,7 +84,7 @@ export default function PrivacyPolicyPage() {
             </p>
             <ul className="pp-list">
               <li><span><strong>Registered address:</strong> Digital House 2.3, Clarendon Park, Nottingham, NG5 1AH</span></li>
-              <li><span><strong>Email:</strong> <a href="mailto:info@trenteducation.co.uk">info@trenteducation.co.uk</a></span></li>
+              <li><span><strong>Email:</strong> <a href="mailto:info@trenteducation.ac.uk">info@trenteducation.ac.uk</a></span></li>
               <li><span><strong>Phone:</strong> (+44) 1157950171</span></li>
             </ul>
           </section>
@@ -261,7 +261,7 @@ export default function PrivacyPolicyPage() {
             </div>
             <div className="pp-callout">
               To exercise any right, email{' '}
-              <a href="mailto:info@trenteducation.co.uk">info@trenteducation.co.uk</a>. We will
+              <a href="mailto:info@trenteducation.ac.uk">info@trenteducation.ac.uk</a>. We will
               respond within <strong>30 days</strong>. You may also lodge a complaint with the{' '}
               <a href="https://ico.org.uk/make-a-complaint/" target="_blank" rel="noreferrer">
                 Information Commissioner's Office (ICO)
@@ -322,7 +322,7 @@ export default function PrivacyPolicyPage() {
               out to us. We aim to respond to all requests within 30 days.
             </p>
             <ul className="pp-list">
-              <li><span><strong>Email:</strong> <a href="mailto:info@trenteducation.co.uk">info@trenteducation.co.uk</a></span></li>
+              <li><span><strong>Email:</strong> <a href="mailto:info@trenteducation.ac.uk">info@trenteducation.ac.uk</a></span></li>
               <li><span><strong>Phone:</strong> (+44) 1157950171</span></li>
               <li><span><strong>Post:</strong> Trent Education Centre Ltd, Digital House 2.3, Clarendon Park, Nottingham, NG5 1AH</span></li>
             </ul>
@@ -334,7 +334,7 @@ export default function PrivacyPolicyPage() {
               <h3>Have a privacy question?</h3>
               <p>Our team is happy to help with any data requests or concerns. We respond within 30 days.</p>
             </div>
-            <a href="mailto:info@trenteducation.co.uk" className="pp-cta">
+            <a href="mailto:info@trenteducation.ac.uk" className="pp-cta">
               Email Us →
             </a>
           </div>

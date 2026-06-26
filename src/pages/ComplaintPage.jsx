@@ -22,8 +22,8 @@ export default function ComplaintPage() {
             <h2 style={{ color: 'var(--tec-green)', marginBottom: '12px' }}>How to complain?</h2>
             <p style={{ lineHeight: 1.9, color: 'var(--tec-text-light)', marginBottom: '20px' }}>
               If you have a complaint, please email us at{' '}
-              <a href="mailto:complaints@trenteducation.co.uk" style={{ color: 'var(--tec-gold)', fontWeight: 600 }}>
-                complaints@trenteducation.co.uk
+              <a href="mailto:complaints@trenteducation.ac.uk" style={{ color: 'var(--tec-gold)', fontWeight: 600 }}>
+                complaints@trenteducation.ac.uk
               </a>.
               Your complaint should include:
             </p>
@@ -165,8 +165,8 @@ export default function ComplaintPage() {
               <div style={{ borderTop: '1px solid #ddd', paddingTop: '20px' }}>
                 <p style={{ fontSize: '0.85rem', color: 'var(--tec-text-light)', lineHeight: 1.7, margin: 0 }}>
                   For urgent matters, please contact us directly at{' '}
-                  <a href="mailto:complaints@trenteducation.co.uk" style={{ color: 'var(--tec-gold)', fontWeight: 600 }}>
-                    complaints@trenteducation.co.uk
+                  <a href="mailto:complaints@trenteducation.ac.uk" style={{ color: 'var(--tec-gold)', fontWeight: 600 }}>
+                    complaints@trenteducation.ac.uk
                   </a>
                 </p>
               </div>
