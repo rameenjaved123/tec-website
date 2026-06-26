@@ -26,7 +26,24 @@ Public-facing: marketing pages, 9 form types, chatbot widget, error reporting, a
 
 > Admin/form management has moved entirely to the VLE frontend (`tec-cms` at `website_admin` role).
 
-## Environment Variables
+## Production URLs
+- Website: `https://trenteducation.ac.uk` (Amplify — branch `main`)
+- API: `https://api.trenteducation.ac.uk/api/v1`
+- Keycloak: `https://auth.trenteducation.ac.uk`
+
+**Amplify environment variables (set in Amplify Console, NOT in git):**
+```
+VITE_API_URL=https://api.trenteducation.ac.uk/api/v1
+VITE_KC_URL=https://auth.trenteducation.ac.uk
+VITE_KC_REALM=tec
+VITE_KC_CLIENT_ID=tec-website
+VITE_KC_SVC_USERNAME=website.service
+VITE_KC_SVC_PASSWORD=Website@TEC2024!
+VITE_S3_WEBSITE_BUCKET=tec-form-uploads
+VITE_AWS_REGION=eu-west-2
+```
+
+## Local Development Environment Variables
 ```
 VITE_API_URL=http://localhost:8000/api/v1
 VITE_KC_URL=http://localhost:8080
@@ -38,6 +55,16 @@ VITE_RECAPTCHA_SITE_KEY=                  # reCAPTCHA v3 site key (leave blank f
 VITE_S3_WEBSITE_BUCKET=tec-form-uploads
 VITE_AWS_REGION=eu-west-2
 ```
+
+## Keycloak Client — tec-website (IMPORTANT after domain changes)
+
+The `tec-website` Keycloak client must have `trenteducation.ac.uk` in its **Web Origins** and **Valid Redirect URIs**, otherwise the browser at `trenteducation.ac.uk` cannot obtain a token from Keycloak (CORS block). This causes form submissions to silently fail — the form shows "Enquiry Received!" but nothing is saved to the database.
+
+**Fix:** Keycloak Admin → `tec` realm → Clients → `tec-website` → Settings:
+- **Web origins**: `https://trenteducation.ac.uk`, `https://www.trenteducation.ac.uk`
+- **Valid redirect URIs**: `https://trenteducation.ac.uk/*`, `https://www.trenteducation.ac.uk/*`
+
+After any domain change, always update Keycloak client origins — the `allowed-origins` claim in the JWT shows what is currently configured.
 
 ## Form Type → FastAPI Slug Mapping
 | Form name | FastAPI slug |

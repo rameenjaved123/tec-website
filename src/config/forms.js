@@ -30,16 +30,16 @@ const FORM_SLUG = {
 // ── Notification emails ───────────────────────────────────────
 // Who gets emailed when each form is submitted
 export const NOTIFY_EMAILS = {
-  'New Starter Form':               'hr@trenteducation.co.uk',
-  'Partnerships & Collaborations':  'partnerships@trenteducation.co.uk',
-  'Application Form':               'digitaladmissions@trenteducation.co.uk',
-  'Job Application':                'hr@trenteducation.co.uk',
-  'English & IELTS Application':    'internationaladmissions@trenteducation.co.uk',
-  'Enquiry Form':                   'digitaladmissions@trenteducation.co.uk',
-  'Enrolment Form':                 'digitaladmissions@trenteducation.co.uk',
-  'International Application':      'internationaladmissions@trenteducation.co.uk',
-  'Contact':                        'info@trenteducation.co.uk',
-  'default':                        'info@trenteducation.co.uk',
+  'New Starter Form':               'hr@trenteducation.ac.uk',
+  'Partnerships & Collaborations':  'partnerships@trenteducation.ac.uk',
+  'Application Form':               'digitaladmissions@trenteducation.ac.uk',
+  'Job Application':                'hr@trenteducation.ac.uk',
+  'English & IELTS Application':    'internationaladmissions@trenteducation.ac.uk',
+  'Enquiry Form':                   'digitaladmissions@trenteducation.ac.uk',
+  'Enrolment Form':                 'digitaladmissions@trenteducation.ac.uk',
+  'International Application':      'internationaladmissions@trenteducation.ac.uk',
+  'Contact':                        'info@trenteducation.ac.uk',
+  'default':                        'info@trenteducation.ac.uk',
 };
 
 // ── Google Sheets (Apps Script) ───────────────────────────────
