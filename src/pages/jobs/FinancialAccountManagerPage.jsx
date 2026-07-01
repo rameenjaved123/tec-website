@@ -7,7 +7,7 @@ export default function FinancialAccountManagerPage() {
       <PageHero
         title="Financial Account Manager"
         subtitle="Job description and person specification"
-        bgImage="/assets/images/general/site-photo-3.jpg"
+        bgImage="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1600&q=80"
         bgPosition="center center"
       />
 
