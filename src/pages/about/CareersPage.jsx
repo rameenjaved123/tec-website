@@ -5,6 +5,14 @@ import '../CoursePage.css';
 
 const jobs = [
   {
+    title: 'Financial Accounts Manager',
+    positions: '1 Position',
+    status: 'open',
+    desc: 'We are seeking an experienced Financial Accounts Manager to oversee the financial operations of Trent Education Centre. The successful candidate will manage accounts, financial reporting, budgeting and compliance. Salary: £45,000 per annum.',
+    applyLink: '/job-application?job=Financial%20Accounts%20Manager',
+    learnLink: '/job-financial-account-manager',
+  },
+  {
     title: 'English Language Teacher',
     positions: 'Full Time / Part Time',
     status: 'open',
