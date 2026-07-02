@@ -562,37 +562,41 @@
   background: var(--tec-green-dark);
 }
 
-/* ── Location section ── */
+/* ════════════════════════════════════════
+   Location section
+   ════════════════════════════════════════ */
 .eng-location-section {
-  background: #f5f7f5;
-  border-top: 1px solid #e5ece5;
-  border-bottom: 1px solid #e5ece5;
-  padding: 64px 20px;
+  background: #f4f7f4;
+  border-top: 1px solid #dde8dd;
+  border-bottom: 1px solid #dde8dd;
+  padding: 64px 0;
 }
 
-.eng-location-title {
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: var(--tec-green-dark);
-  text-align: center;
-  margin-bottom: 36px;
+.eng-location-container {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
-.eng-location-grid {
+/* Side-by-side: carousel left, content right */
+.eng-location-inner {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  align-items: start;
+  grid-template-columns: 55% 45%;
+  gap: 48px;
+  align-items: stretch;
 }
 
-/* ── Campus Carousel ── */
+.eng-location-left {
+  display: flex;
+}
+
+/* ── Carousel ── fills the full height of the right content column */
 .eng-carousel {
   position: relative;
-  border-radius: 10px;
+  border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(26, 58, 42, 0.14);
+  box-shadow: 0 8px 32px rgba(26, 58, 42, 0.18);
   background: #111;
-  aspect-ratio: 1 / 1;
   width: 100%;
 }
 
@@ -600,6 +604,7 @@
   position: relative;
   width: 100%;
   height: 100%;
+  min-height: 380px;
 }
 
 .eng-carousel-slide {
@@ -618,6 +623,80 @@
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+/* ── Right content column ── */
+.eng-location-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.eng-location-eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tec-gold, #b8921a);
+  margin-bottom: 6px;
+}
+
+.eng-location-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--tec-green-dark);
+  line-height: 1.25;
+  margin: 0 0 10px;
+}
+
+.eng-location-desc {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: #555;
+  margin: 0;
+}
+
+.eng-location-divider {
+  height: 1px;
+  background: #dde8dd;
+  margin: 14px 0;
+}
+
+.eng-facilities-label {
+  font-weight: 700;
+  color: #222;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+
+.eng-facilities-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 20px;
+}
+
+.eng-facility-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: #444;
+  line-height: 1.3;
+}
+
+.eng-facility-icon {
+  width: 24px;
+  height: 24px;
+  background: rgba(26, 87, 55, 0.08);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--tec-green-mid, #2d6a4f);
+  flex-shrink: 0;
 }
 
 /* Prev / Next buttons */
@@ -671,61 +750,6 @@
 .eng-car-dot.active {
   background: var(--tec-gold);
   transform: scale(1.3);
-}
-
-/* Text side */
-.eng-location-text {
-  padding-top: 8px;
-}
-
-.eng-location-tagline {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--tec-green);
-  line-height: 1.45;
-  margin-bottom: 14px;
-}
-
-.eng-location-text > p {
-  font-size: 0.95rem;
-  line-height: 1.8;
-  color: #444;
-  margin-bottom: 20px;
-}
-
-.eng-facilities-label {
-  font-weight: 700;
-  color: #222;
-  font-size: 0.95rem;
-  margin-bottom: 14px;
-}
-
-.eng-facilities-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.eng-facility-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 0.9rem;
-  color: #444;
-  line-height: 1.5;
-}
-
-.eng-facility-icon {
-  width: 30px;
-  height: 30px;
-  background: rgba(26, 87, 55, 0.08);
-  border-radius: 7px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--tec-green-mid);
-  flex-shrink: 0;
-  margin-top: 1px;
 }
 
 /* ── Plain title ── */
@@ -1213,19 +1237,18 @@
 
 @media (max-width: 768px) {
   .eng-course-overview-grid,
-  .eng-facilities-grid,
   .eng-study-grid,
-  .eng-study-grid--2,
-  .eng-location-grid {
+  .eng-study-grid--2 {
     grid-template-columns: 1fr;
+  }
+
+  .eng-location-inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
   }
 
   .eng-video-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .eng-carousel {
-    aspect-ratio: 4 / 3;
   }
 
   .eng-acc-body {

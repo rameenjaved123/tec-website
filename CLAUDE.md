@@ -66,6 +66,14 @@ The `tec-website` Keycloak client must have `trenteducation.ac.uk` in its **Web 
 
 After any domain change, always update Keycloak client origins — the `allowed-origins` claim in the JWT shows what is currently configured.
 
+## Application Form — added fields (src/pages/forms/ApplicationFormPage.jsx)
+Three optional fields added to match the student record model:
+- **Marital Status** (select, optional) — in Personal Information section
+- **Preferred Contact Method** (select, optional) — in Personal Information section
+- **Education History** (textarea, optional) — in Background section
+
+Keys in the submitted payload: `maritalStatus`, `preferredContact`, `education` — matches `FORM_FIELD_MAP["application"]` in the backend and the `columnMap` in VLE WebsiteForms.
+
 ## Form Type → FastAPI Slug Mapping
 | Form name | FastAPI slug |
 |---|---|

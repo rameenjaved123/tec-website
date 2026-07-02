@@ -621,30 +621,36 @@ export default function EnglishCoursesPage() {
 
       {/* ── Location ── */}
       <div className="eng-location-section">
-        <div className="container">
-          <h2 className="eng-location-title">Location: Castle Boulevard, Nottingham</h2>
-          <div className="eng-location-grid">
+        <div className="eng-location-container">
+          <div className="eng-location-inner">
 
-            {/* Campus image carousel */}
-            <CampusCarousel />
+            {/* Left: carousel */}
+            <div className="eng-location-left">
+              <CampusCarousel />
+            </div>
 
-            {/* Text + facilities */}
-            <div className="eng-location-text">
-              <h3 className="eng-location-tagline">Our English Language Hub is in the centre of Nottingham.</h3>
-              <p>
-                It is easy to reach and only a short walk from the city centre. The building is modern
-                and comfortable, and it has everything you need for your studies.
+            {/* Right: content */}
+            <div className="eng-location-right">
+              <span className="eng-location-eyebrow">Our Campus</span>
+              <h2 className="eng-location-title">Location: Castle Boulevard, Nottingham</h2>
+              <p className="eng-location-desc">
+                Our English Language Hub is in the centre of Nottingham — easy to reach and only a
+                short walk from the city centre. The building is modern and comfortable, with
+                everything you need for your studies.
               </p>
+
+              <div className="eng-location-divider" />
+
               <p className="eng-facilities-label">Facilities include:</p>
               <div className="eng-facilities-grid">
                 {[
-                  { icon: <UtensilsCrossed size={15} />, text: 'A kitchen and cafeteria area' },
-                  { icon: <Star size={15} />,            text: 'A prayer room and halal-friendly facilities' },
-                  { icon: <Armchair size={15} />,        text: 'Student lounge areas and quiet spaces for self‑study' },
-                  { icon: <Monitor size={15} />,         text: 'Language and IT rooms, plus a library' },
-                  { icon: <HeartHandshake size={15} />,  text: 'Staff who can help you with your studies and welfare' },
+                  { icon: <UtensilsCrossed size={15} />, text: 'Kitchen & cafeteria' },
+                  { icon: <Star size={15} />,            text: 'Prayer room & halal facilities' },
+                  { icon: <Armchair size={15} />,        text: 'Student lounge & quiet study areas' },
+                  { icon: <Monitor size={15} />,         text: 'Language, IT rooms & library' },
+                  { icon: <HeartHandshake size={15} />,  text: 'Welfare & student support' },
                   { icon: <Users size={15} />,           text: 'Staff rooms' },
-                  { icon: <Tv size={15} />,              text: 'Classrooms with Smart Screens' },
+                  { icon: <Tv size={15} />,              text: 'Smart Screen classrooms' },
                 ].map((f, i) => (
                   <div key={i} className="eng-facility-item">
                     <span className="eng-facility-icon">{f.icon}</span>
