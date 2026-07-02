@@ -108,6 +108,9 @@ const START_DATES = [
 
 const STUDY_CENTRES = ['Nottingham', 'Birmingham', 'Leicester'];
 
+const MARITAL_STATUSES = ['Single', 'Married', 'Civil Partnership', 'Divorced', 'Widowed', 'Separated', 'Prefer Not to Answer'];
+const PREFERRED_CONTACTS = ['Email', 'Phone', 'SMS / Text', 'WhatsApp', 'Post'];
+
 const EMPLOYMENT_STATUSES = ['Employed', 'Unemployed', 'Self Employed'];
 const LENGTH_OPTIONS = ['Up to 3 Months', '3 to 6 Months', '6 to 12 Months', 'More than 12 Months'];
 
@@ -167,11 +170,11 @@ export default function ApplicationFormPage() {
     // Personal
     title: '', firstName: '', lastName: '', sex: '', dob: '',
     mobile: '', email: '', emergencyContact: '', nationalInsurance: '',
-    ukResident3Years: '',
+    ukResident3Years: '', maritalStatus: '', preferredContact: '',
     // Address
     addressLine1: '', addressLine2: '', city: '', country: '', postCode: '',
     // Background
-    prevQualification: '', countryOfBirth: '', nationality: '', ethnicity: '',
+    education: '', prevQualification: '', countryOfBirth: '', nationality: '', ethnicity: '',
     visaStatus: '', shareCode: '', dateOfArrival: '',
     // Course
     course: '', otherCourses: [], startDate: '', passportNumber: '', studyCentre: '',
@@ -366,6 +369,21 @@ export default function ApplicationFormPage() {
               </Field>
             </div>
 
+            <div className="nsf-grid-2">
+              <Field label="Marital Status">
+                <select className="nsf-input" value={form.maritalStatus} onChange={e => set('maritalStatus', e.target.value)}>
+                  <option value="">Please Select (Optional)</option>
+                  {MARITAL_STATUSES.map(o => <option key={o} value={o}>{o}</option>)}
+                </select>
+              </Field>
+              <Field label="Preferred Contact Method">
+                <select className="nsf-input" value={form.preferredContact} onChange={e => set('preferredContact', e.target.value)}>
+                  <option value="">Please Select (Optional)</option>
+                  {PREFERRED_CONTACTS.map(o => <option key={o} value={o}>{o}</option>)}
+                </select>
+              </Field>
+            </div>
+
             <Field label="Have you been a UK resident for 3 years or more?" required error={errors.ukResident3Years}>
               <div className="nsf-radio-group">
                 {['Yes', 'No'].map(v => (
@@ -420,6 +438,12 @@ export default function ApplicationFormPage() {
                 <option value="">Please Select</option>
                 {PREV_QUAL.map(q => <option key={q} value={q}>{q}</option>)}
               </select>
+            </Field>
+
+            <Field label="Education History">
+              <textarea className="nsf-input" rows={3} value={form.education}
+                onChange={e => set('education', e.target.value)}
+                placeholder="e.g. GCSEs at Anytown Secondary School (2018), A-Levels at Anytown College (2020) — Optional" />
             </Field>
 
             <div className="nsf-grid-2">
