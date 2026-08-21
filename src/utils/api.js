@@ -20,7 +20,9 @@ const TOKEN_URL = `${KC_URL}/realms/${KC_REALM}/protocol/openid-connect/token`;
 
 // ── reCAPTCHA v3 ─────────────────────────────────────────────────────────────
 
-const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY || '';
+// reCAPTCHA v3 site key is public (embedded in the page). Hardcoded fallback so
+// bot protection works even if the build env var isn't set; env var still wins.
+const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY || '6LdVuZEtAAAAAGEeX4gfAG5_uBHwHgPYfHIvMAL9';
 
 /** Returns a reCAPTCHA v3 token for the given action, or null if not configured. */
 export async function getRecaptchaToken(action = 'submit') {
