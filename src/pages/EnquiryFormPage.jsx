@@ -16,6 +16,7 @@ const ENQUIRY_COURSES = [
   'NCFE & Open Awards Level 1 in English',
   'NCFE & Open Awards Level 1 in Mathematics',
   'ESOL',
+  'General English',
   'Other Courses',
 ];
 
