@@ -175,6 +175,7 @@ export async function deleteSubmission(slug, id) {
 // ── Email ─────────────────────────────────────────────────────────────────────
 
 export async function sendEmail({ to, subject, html, fromName, replyTo }) {
+  const recaptchaToken = await getRecaptchaToken('send_email');
   return publicFetch('/website/send-email', {
     method: 'POST',
     body: JSON.stringify({
@@ -183,6 +184,7 @@ export async function sendEmail({ to, subject, html, fromName, replyTo }) {
       html,
       from_name: fromName || 'Trent Education Centre',
       reply_to:  replyTo  || null,
+      recaptcha_token: recaptchaToken,
     }),
   });
 }
