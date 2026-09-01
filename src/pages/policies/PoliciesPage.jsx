@@ -20,6 +20,7 @@ const sections = [
       { title: 'Consumer Protection Policy',                                  link: '/assets/documents/policies/consumer-protection.pdf' },
       { title: 'Contingency and Adverse Effects Policy',                      link: '/assets/documents/policies/contingency.pdf' },
       { title: 'Data Protection Policy',                                      link: '/assets/documents/policies/data-protection.pdf' },
+      { title: 'Data Retention Policy',                                       link: '/assets/documents/policies/data-retention.pdf' },
       { title: 'Equality, Diversity & Inclusion Policy',                      link: '/assets/documents/policies/equality-diversity-inclusion.pdf' },
       { title: 'Ethics Policy',                                               link: '/assets/documents/policies/ethics.pdf' },
       { title: 'Fraud Management Policy',                                     link: '/assets/documents/policies/fraud-management.pdf' },
@@ -32,7 +33,7 @@ const sections = [
       { title: 'Strategic Plan (2024–28)',                                    link: '/assets/documents/policies/strategic-plan.pdf' },
       { title: 'Student Protection Plan',                                     link: '/assets/documents/policies/student-protection-plan.pdf' },
       { title: 'Terms and Conditions (Higher Education)',                     link: '/assets/documents/terms/terms-conditions-he.pdf' },
-      { title: 'Tuition Fee, Refunds and Compensation Policy (Higher Education)', link: '/assets/documents/terms/tuition-fees-he.pdf' },
+      { title: 'Tuition Fees, Refunds and Compensation Policy (Higher Education)', link: '/assets/documents/terms/tuition-fees-he.pdf' },
     ],
   },
   {
@@ -73,6 +74,7 @@ const sections = [
   {
     name: 'Information and Marketing',
     items: [
+      { title: 'Data Privacy Notice and Consent Policy',                      link: '/assets/documents/policies/data-privacy-notice-consent.pdf' },
       { title: 'Online Safety Statement',                                     link: '/assets/documents/policies/online-safety.pdf' },
     ],
   },
