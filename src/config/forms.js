@@ -25,6 +25,7 @@ const FORM_SLUG = {
   'Partnerships & Collaborations': 'partnerships',
   'English & IELTS Application': 'english-ielts',
   'Complaint Form':              'complaint',
+  'Academic Transition Form':   'academic-transition',
 };
 
 // ── Notification emails ───────────────────────────────────────
