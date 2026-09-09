@@ -74,10 +74,32 @@ function YesNo({ label, glh, value, onChange, error }) {
 const initialState = {
   studentName: '', email: '', intake: '', classDayGroup: '',
   ans: {},                       // Yes/No answers keyed by question label
+  notes: {},                     // optional free-text notes keyed by question label
   experienceFeedback: '',
   mitigatingCircumstances: '',
   acknowledged: false,
 };
+
+// Induction question with Yes/No + an optional open comment
+function InductionItem({ index, question, answer, note, onAnswer, onNote }) {
+  return (
+    <div style={{ padding: '14px 0', borderBottom: '1px solid #eef1f4' }}>
+      <label className="nsf-label" style={{ fontWeight: 500, display: 'block', marginBottom: 8 }}>
+        {index}. {question}
+      </label>
+      <div className="nsf-radio-group" style={{ marginBottom: 8 }}>
+        {['Yes', 'No', 'Not sure'].map(v => (
+          <label key={v} className="nsf-radio">
+            <input type="radio" checked={answer === v} onChange={() => onAnswer(v)} /> {v}
+          </label>
+        ))}
+      </div>
+      <input className="nsf-input" style={{ fontSize: '0.85rem' }}
+        placeholder="Add a comment (optional)…"
+        value={note || ''} onChange={e => onNote(e.target.value)} />
+    </div>
+  );
+}
 
 export default function TransitionFormPage() {
   const navigate = useNavigate();
@@ -91,6 +113,7 @@ export default function TransitionFormPage() {
     setErrors(e => ({ ...e, [field]: '' }));
   };
   const setAns = (label, value) => setForm(f => ({ ...f, ans: { ...f.ans, [label]: value } }));
+  const setNote = (label, value) => setForm(f => ({ ...f, notes: { ...f.notes, [label]: value } }));
 
   const validate = () => {
     const e = {};
@@ -131,7 +154,11 @@ export default function TransitionFormPage() {
       payload['GLH previously covered — Year 1'] = `${coveredY1} of ${TOTAL_GLH_Y1}`;
       payload['GLH previously covered — Year 2'] = `${coveredY2} of ${TOTAL_GLH_Y2}`;
       payload['GLH previously covered — Total'] = `${coveredY1 + coveredY2} of ${TOTAL_GLH_Y1 + TOTAL_GLH_Y2}`;
-      INDUCTION.forEach((q, i) => { payload[`Induction Q${i + 1}: ${q}`] = form.ans[q] || 'Not answered'; });
+      INDUCTION.forEach((q, i) => {
+        const a = form.ans[q] || 'Not answered';
+        const note = (form.notes[q] || '').trim();
+        payload[`Induction Q${i + 1}: ${q}`] = note ? `${a} — ${note}` : a;
+      });
       payload.experienceFeedback = form.experienceFeedback.trim();
       payload.mitigatingCircumstances = form.mitigatingCircumstances.trim();
       payload.acknowledgedTrentPolicies = form.acknowledged ? 'Yes' : 'No';
@@ -178,7 +205,15 @@ export default function TransitionFormPage() {
 
         <div className="nsf-page-header">
           <h1 className="nsf-page-title">Academic Transition Form</h1>
-          <p className="nsf-page-sub">For BAJ students transitioning to Trent Education. Please complete all required fields marked with *</p>
+          <p className="nsf-page-sub">Welcome to Trent Education. Please complete all required fields marked with *</p>
+        </div>
+
+        <div style={{ background: 'linear-gradient(135deg,#eaf3ee,#f5faf7)', border: '1px solid #d6e6dc',
+          borderRadius: 12, padding: '16px 20px', marginBottom: 24, color: '#294b38', lineHeight: 1.6 }}>
+          <strong>Transitioning from BAJ to Trent Education.</strong> This short form helps us set up your
+          record on the Trent Education system — which modules you've already completed (so we can credit your
+          hours), and a quick induction check so nothing is missed. It takes about 5 minutes. You can add a
+          comment on any item you'd like to explain.
         </div>
 
         <form className="nsf-form" onSubmit={handleSubmit} noValidate>
@@ -235,8 +270,13 @@ export default function TransitionFormPage() {
           {/* Induction checklist */}
           <div className="nsf-section">
             <h2 className="nsf-section-title">Induction Checklist</h2>
+            <p className="nsf-page-sub" style={{ marginTop: -6, marginBottom: 10 }}>
+              Answer each one, and add a comment where you'd like to explain or flag anything.
+            </p>
             {INDUCTION.map((q, i) => (
-              <YesNo key={q} label={`${i + 1}. ${q}`} value={form.ans[q]} onChange={v => setAns(q, v)} />
+              <InductionItem key={q} index={i + 1} question={q}
+                answer={form.ans[q]} note={form.notes[q]}
+                onAnswer={v => setAns(q, v)} onNote={v => setNote(q, v)} />
             ))}
           </div>
 
