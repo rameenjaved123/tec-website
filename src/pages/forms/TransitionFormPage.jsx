@@ -6,24 +6,26 @@ import { saveSubmission, saveSubmissionToDB } from '../../config/forms';
 
 // ── Module lists (from the Academic Transition Form) ───────────────────────────
 const YEAR1 = [
-  'Unit 1 (The Contemporary Business Environment)',
-  'Unit 2 (Marketing Processes and Planning)',
-  'Unit 5 (Accounting Principles)',
-  'Unit 8 (Innovation and Commercialisation)',
-  'Unit 14 (Digital Business in Practice)',
-  'Unit 3 (Human Resource Management)',
-  'Unit 4 (Leadership and Management)',
-  'Unit 6 (Managing a Successful Business Project)',
+  { label: 'Unit 1 (The Contemporary Business Environment)', glh: 15 },
+  { label: 'Unit 2 (Marketing Processes and Planning)', glh: 15 },
+  { label: 'Unit 5 (Accounting Principles)', glh: 15 },
+  { label: 'Unit 8 (Innovation and Commercialisation)', glh: 15 },
+  { label: 'Unit 14 (Digital Business in Practice)', glh: 15 },
+  { label: 'Unit 3 (Human Resource Management)', glh: 15 },
+  { label: 'Unit 4 (Leadership and Management)', glh: 15 },
+  { label: 'Unit 6 (Managing a Successful Business Project)', glh: 15 },
 ];
 const YEAR2 = [
-  'Unit 19 (Research Project)',
-  'Unit 20 (Organisational Behaviour Management)',
-  'Unit 34 (Digital Marketing)',
-  'Unit 55 (Planning a Social Media Campaign)',
-  'Unit 28 (Launching a New Venture)',
-  'Unit 33 (Marketing Insights and Analytics)',
-  'Unit 35 (Integrated Marketing Communications)',
+  { label: 'Unit 19 (Research Project)', glh: 30 },
+  { label: 'Unit 20 (Organisational Behaviour Management)', glh: 15 },
+  { label: 'Unit 34 (Digital Marketing)', glh: 15 },
+  { label: 'Unit 55 (Planning a Social Media Campaign)', glh: 15 },
+  { label: 'Unit 28 (Launching a New Venture)', glh: 15 },
+  { label: 'Unit 33 (Marketing Insights and Analytics)', glh: 15 },
+  { label: 'Unit 35 (Integrated Marketing Communications)', glh: 15 },
 ];
+const TOTAL_GLH_Y1 = 120;   // reference totals (from the paper form)
+const TOTAL_GLH_Y2 = 120;
 const INDUCTION = [
   'Have you received and accepted the Canvas invitations for your term modules?',
   'Have you accessed the Zoom links for your online classes through Canvas?',
@@ -48,10 +50,16 @@ function Field({ label, required, children }) {
   );
 }
 
-function YesNo({ label, value, onChange, error }) {
+function YesNo({ label, glh, value, onChange, error }) {
   return (
     <div className="nsf-field" style={{ marginBottom: 14 }}>
-      <label className="nsf-label" style={{ fontWeight: 500 }}>{label}</label>
+      <label className="nsf-label" style={{ fontWeight: 500 }}>
+        {label}
+        {glh != null && (
+          <span style={{ marginLeft: 8, fontSize: '0.78rem', fontWeight: 600, color: '#1a4d2e',
+            background: '#eaf3ee', borderRadius: 6, padding: '1px 7px' }}>{glh} GLH</span>
+        )}
+      </label>
       <div className="nsf-radio-group">
         {['Yes', 'No'].map(v => (
           <label key={v} className={`nsf-radio${error ? ' nsf-input-error' : ''}`}>
@@ -90,7 +98,7 @@ export default function TransitionFormPage() {
     if (!form.email.trim())         e.email = 'Required';
     if (!form.intake.trim())        e.intake = 'Required';
     if (!form.classDayGroup.trim()) e.classDayGroup = 'Required';
-    if (![...YEAR1, ...YEAR2].every(u => form.ans[u]))
+    if (![...YEAR1, ...YEAR2].every(u => form.ans[u.label]))
       e.modules = 'Please answer Yes/No for every module in both years.';
     if (!form.acknowledged)         e.acknowledged = 'You must acknowledge this to continue.';
     setErrors(e);
@@ -109,8 +117,20 @@ export default function TransitionFormPage() {
         intake: form.intake.trim(),
         classDayGroup: form.classDayGroup.trim(),
       };
-      YEAR1.forEach(u => { payload[`Year 1 — ${u}`] = form.ans[u] || ''; });
-      YEAR2.forEach(u => { payload[`Year 2 — ${u}`] = form.ans[u] || ''; });
+      let coveredY1 = 0, coveredY2 = 0;
+      YEAR1.forEach(u => {
+        const a = form.ans[u.label] || '';
+        payload[`Year 1 — ${u.label} (${u.glh} GLH)`] = a;
+        if (a === 'Yes') coveredY1 += u.glh;
+      });
+      YEAR2.forEach(u => {
+        const a = form.ans[u.label] || '';
+        payload[`Year 2 — ${u.label} (${u.glh} GLH)`] = a;
+        if (a === 'Yes') coveredY2 += u.glh;
+      });
+      payload['GLH previously covered — Year 1'] = `${coveredY1} of ${TOTAL_GLH_Y1}`;
+      payload['GLH previously covered — Year 2'] = `${coveredY2} of ${TOTAL_GLH_Y2}`;
+      payload['GLH previously covered — Total'] = `${coveredY1 + coveredY2} of ${TOTAL_GLH_Y1 + TOTAL_GLH_Y2}`;
       INDUCTION.forEach((q, i) => { payload[`Induction Q${i + 1}: ${q}`] = form.ans[q] || 'Not answered'; });
       payload.experienceFeedback = form.experienceFeedback.trim();
       payload.mitigatingCircumstances = form.mitigatingCircumstances.trim();
@@ -199,14 +219,17 @@ export default function TransitionFormPage() {
             <p className="nsf-page-sub" style={{ marginTop: -6, marginBottom: 16 }}>
               Please indicate Yes or No for each module — have you previously completed it?
             </p>
-            <h3 style={{ fontSize: '0.95rem', fontWeight: 700, margin: '8px 0 12px' }}>Year 1</h3>
+            <h3 style={{ fontSize: '0.95rem', fontWeight: 700, margin: '8px 0 12px' }}>Year 1 <span style={{ fontWeight: 500, color: '#64748b' }}>· Total {TOTAL_GLH_Y1} GLH</span></h3>
             {YEAR1.map(u => (
-              <YesNo key={u} label={u} value={form.ans[u]} onChange={v => setAns(u, v)} error={errors.modules && !form.ans[u]} />
+              <YesNo key={u.label} label={u.label} glh={u.glh} value={form.ans[u.label]} onChange={v => setAns(u.label, v)} error={errors.modules && !form.ans[u.label]} />
             ))}
-            <h3 style={{ fontSize: '0.95rem', fontWeight: 700, margin: '18px 0 12px' }}>Year 2</h3>
+            <h3 style={{ fontSize: '0.95rem', fontWeight: 700, margin: '18px 0 12px' }}>Year 2 <span style={{ fontWeight: 500, color: '#64748b' }}>· Total {TOTAL_GLH_Y2} GLH</span></h3>
             {YEAR2.map(u => (
-              <YesNo key={u} label={u} value={form.ans[u]} onChange={v => setAns(u, v)} error={errors.modules && !form.ans[u]} />
+              <YesNo key={u.label} label={u.label} glh={u.glh} value={form.ans[u.label]} onChange={v => setAns(u.label, v)} error={errors.modules && !form.ans[u.label]} />
             ))}
+            <p className="nsf-page-sub" style={{ marginTop: 10 }}>
+              Total GLH covered across both years: <strong>{TOTAL_GLH_Y1 + TOTAL_GLH_Y2}</strong> (we'll calculate how much you've already completed from your answers above).
+            </p>
           </div>
 
           {/* Induction checklist */}
