@@ -20,6 +20,8 @@ import DigitalSkillsPage from './pages/courses/further-education/DigitalSkillsPa
 import OTHMCoursesPage from './pages/courses/othm/OTHMCoursesPage';
 import OTHMBeautyTherapyL3Page from './pages/courses/othm/OTHMBeautyTherapyL3Page';
 import OTHMFacialTreatmentsL3Page from './pages/courses/othm/OTHMFacialTreatmentsL3Page';
+import OTHMTourismHospitalityL4Page from './pages/courses/othm/OTHMTourismHospitalityL4Page';
+import OTHMTourismHospitalityL5Page from './pages/courses/othm/OTHMTourismHospitalityL5Page';
 import AboutPage from './pages/about/AboutPage';
 import MissionValuesPage from './pages/about/MissionValuesPage';
 import StudyCentresPage from './pages/about/StudyCentresPage';
@@ -27,6 +29,7 @@ import CarbonReductionPage from './pages/about/CarbonReductionPage';
 import StudentLifePage from './pages/about/StudentLifePage';
 import StrategicPlanPage from './pages/about/StrategicPlanPage';
 import NewsEventsPage from './pages/about/NewsEventsPage';
+import COTHMVisitPage from './pages/news/COTHMVisitPage';
 import CareersPage from './pages/about/CareersPage';
 import ApprovalsPage from './pages/approvals/ApprovalsPage';
 import AwardingOrganisationsPage from './pages/approvals/AwardingOrganisationsPage';
@@ -116,6 +119,8 @@ function AppLayout() {
           <Route path="/othm-courses" element={<OTHMCoursesPage />} />
           <Route path="/othm-beauty-therapy-level-3" element={<OTHMBeautyTherapyL3Page />} />
           <Route path="/othm-facial-treatments-level-3" element={<OTHMFacialTreatmentsL3Page />} />
+          <Route path="/othm-tourism-hospitality-level-4" element={<OTHMTourismHospitalityL4Page />} />
+          <Route path="/othm-tourism-hospitality-level-5" element={<OTHMTourismHospitalityL5Page />} />
 
           {/* About */}
           <Route path="/about" element={<AboutPage />} />
@@ -143,6 +148,7 @@ function AppLayout() {
           <Route path="/job-human-resource-officer" element={<HumanResourceOfficerPage />} />
           <Route path="/job-office-admin-it-assistant" element={<OfficeAdminITAssistantPage />} />
           <Route path="/news-events" element={<NewsEventsPage />} />
+          <Route path="/news/cothm-visit" element={<COTHMVisitPage />} />
           <Route path="/complaint" element={<ComplaintPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/international" element={<InternationalPage />} />

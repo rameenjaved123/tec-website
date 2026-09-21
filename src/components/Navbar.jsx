@@ -40,6 +40,8 @@ const ALL_PAGES = [
   { label: 'OTHM Courses', path: '/othm-courses' },
   { label: 'OTHM Level 3 Diploma in Beauty Therapy', path: '/othm-beauty-therapy-level-3' },
   { label: 'OTHM Level 3 Certificate in Facial Treatments', path: '/othm-facial-treatments-level-3' },
+  { label: 'OTHM Level 4 Diploma in Tourism and Hospitality Management', path: '/othm-tourism-hospitality-level-4' },
+  { label: 'OTHM Level 5 Diploma in Tourism and Hospitality Management', path: '/othm-tourism-hospitality-level-5' },
   { label: 'Policies', path: '/policies' },
   { label: 'How to Write a Personal Statement', path: '/personal-statement' },
   { label: 'Trent Language Hub', path: '/trent-language-hub' },
@@ -168,6 +170,8 @@ const navItems = [
       { label: 'All OTHM Courses', path: '/othm-courses' },
       { label: 'OTHM Level 3 Diploma in Beauty Therapy', path: '/othm-beauty-therapy-level-3' },
       { label: 'OTHM Level 3 Certificate in Facial Treatments', path: '/othm-facial-treatments-level-3' },
+      { label: 'OTHM Level 4 Diploma in Tourism and Hospitality Management', path: '/othm-tourism-hospitality-level-4' },
+      { label: 'OTHM Level 5 Diploma in Tourism and Hospitality Management', path: '/othm-tourism-hospitality-level-5' },
     ],
   },
   {

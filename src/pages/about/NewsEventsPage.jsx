@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import '../InnerPage.css';
 import PageHero from '../../components/PageHero';
 
@@ -106,6 +107,14 @@ const BASE = '/assets/images/news/';
 
 /* ─── news data ─────────────────────────────────────────────────── */
 const news = [
+  {
+    day: '21', month: 'Sep', year: '2026',
+    title: 'Trent Education Centre Visits COTHM 🤝',
+    desc: 'The Trent Education Centre team visited COTHM to discuss potential areas of collaboration and explore opportunities for future partnerships. We had a productive discussion and look forward to developing a mutually beneficial relationship.',
+    location: 'COTHM',
+    media: { type: 'image', src: BASE + '2026/09/cothm-visit-1.jpeg' },
+    articleLink: '/news/cothm-visit',
+  },
   {
     day: '05', month: 'Mar', year: '2026',
     title: 'World Book Day at TEC 📖✨',
@@ -415,7 +424,13 @@ export default function NewsEventsPage() {
             >
               {/* ── Thumbnail ── */}
               <div style={{ width: '100%', lineHeight: 0, position: 'relative' }}>
-                <MediaBlock media={item.media} title={item.title} />
+                {item.articleLink ? (
+                  <Link to={item.articleLink} style={{ display: 'block', lineHeight: 0 }}>
+                    <MediaBlock media={item.media} title={item.title} />
+                  </Link>
+                ) : (
+                  <MediaBlock media={item.media} title={item.title} />
+                )}
                 {/* Instagram badge overlay */}
                 {item.instaLink && (
                   <a
@@ -496,6 +511,16 @@ export default function NewsEventsPage() {
                 }}>
                   {item.desc}
                 </p>
+
+                {item.articleLink && (
+                  <Link to={item.articleLink} style={{
+                    marginTop: 2, alignSelf: 'flex-start', color: 'var(--tec-green)',
+                    fontWeight: 700, fontSize: '0.78rem', textDecoration: 'none',
+                    display: 'inline-flex', alignItems: 'center', gap: 4,
+                  }}>
+                    Read full story →
+                  </Link>
+                )}
 
               </div>
             </article>

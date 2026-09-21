@@ -38,23 +38,59 @@ const courses = [
     ],
     link: '/othm-facial-treatments-level-3',
   },
+  {
+    title: 'OTHM Level 4 Diploma in Tourism and Hospitality Management',
+    duration: '600 GLH · 1 Year',
+    mode: 'Onsite',
+    intake: 'One Academic Year',
+    awarding: 'OTHM',
+    description:
+      'A 120-credit Ofqual-regulated qualification that supports learners’ development as managers within the tourism and hospitality industry, combining theory with practical application across the business environment, services marketing, sustainability and event management. Progresses to a Level 5 Diploma or Year 2 of a UK Bachelor’s degree.',
+    modules: [
+      'Academic Writing and Research Skills',
+      'Business Environment for Tourism and Hospitality',
+      'Services Marketing in Tourism and Hospitality',
+      'Sustainability in Tourism and Hospitality',
+      'Events Management',
+      'The Development of the Tourism and Hospitality Industry',
+    ],
+    link: '/othm-tourism-hospitality-level-4',
+  },
+  {
+    title: 'OTHM Level 5 Diploma in Tourism and Hospitality Management',
+    duration: '600 GLH · 1 Year',
+    mode: 'Onsite',
+    intake: 'One Academic Year',
+    awarding: 'OTHM',
+    description:
+      'A 120-credit Ofqual-regulated qualification that develops learners as managers who critically apply contemporary knowledge and theories to complex problems in tourism and hospitality. Progresses to the OTHM Level 6 Diploma or the final year of a UK Bachelor’s degree.',
+    modules: [
+      'Digital Marketing Management for Tourism and Hospitality',
+      'Operations Management',
+      'Management Accounting',
+      'Management of Human Resources',
+      'Customer Relationship Management',
+      'Contemporary Issues in Tourism and Hospitality',
+    ],
+    link: '/othm-tourism-hospitality-level-5',
+  },
 ];
 
 export default function OTHMCoursesPage() {
   return (
     <div className="inner-page page-enter">
       <PageHero
-        title="OTHM Beauty & Complementary Therapy Courses"
-        subtitle="Professional beauty therapy qualifications awarded by OTHM"
-        bgImage="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1600&q=80"
+        title="OTHM Courses"
+        subtitle="Industry-focused OTHM qualifications delivered at Trent Education Centre"
+        bgImage="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1600&q=80"
         bgPosition="center 45%"
       />
 
       <div className="container inner-content">
         <p style={{ fontSize: '1.05rem', color: 'var(--tec-text-light)', margin: '0 0 36px', textAlign: 'center' }}>
-          Our OTHM beauty therapy courses are practical, industry-focused qualifications delivered onsite at
-          Trent Education Centre, designed to prepare learners for employment or further study in the beauty
-          and complementary therapy sector.
+          Our OTHM qualifications are practical, industry-focused programmes delivered at Trent Education Centre,
+          designed to prepare learners for employment or further study — from beauty and complementary therapy to
+          tourism and hospitality management.
         </p>
 
         {courses.map((course, i) => (
