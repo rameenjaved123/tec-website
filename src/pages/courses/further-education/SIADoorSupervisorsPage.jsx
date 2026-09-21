@@ -13,7 +13,7 @@ const facts = [
   { icon: <Clock size={22} />, label: '6 Days + 1 Day First Aid / Onsite' },
   { icon: <Calendar size={22} />, label: 'Intake: Every Week' },
   { icon: <Award size={22} />, label: 'Awarding Body: Pearson' },
-  { icon: <TrendingUp size={22} />, label: 'Progression: Learners who successfully complete this qualification may progress into related fields including the ATHE Level 4 Diploma in Health and Social Care or higher-level apprenticeships.' },
+  { icon: <TrendingUp size={22} />, label: 'Progression: Students who successfully complete this qualification may progress into related fields including the ATHE Level 4 Diploma in Health and Social Care or higher-level apprenticeships.' },
 ];
 
 const tabs = ['Overview', 'Course Units', 'Fees and Funding'];
@@ -49,13 +49,13 @@ export default function SIADoorSupervisorsPage() {
 
         {activeTab === 'Overview' && (
           <div className="al4-overview">
-            <p><strong>Door Supervisor Competence:</strong> This Level 2 Award for Door Supervisors in the Private Security Industry equips learners with the knowledge and skills required to work as a door supervisor. From understanding legal and operational aspects to managing conflict situations, you will gain the expertise needed to succeed in this important security role.</p>
+            <p><strong>Door Supervisor Competence:</strong> This Level 2 Award for Door Supervisors in the Private Security Industry equips students with the knowledge and skills required to work as a door supervisor. From understanding legal and operational aspects to managing conflict situations, you will gain the expertise needed to succeed in this important security role.</p>
             <ul className="al4-bullets" style={{ margin: '16px 0' }}>
               <li><strong>SIA Licence Requirements:</strong> All door supervisors must hold a licence to practise issued by the Security Industry Authority (SIA). Successful completion of this course fulfils one of the requirements needed to apply for a licence.</li>
               <li><strong>Practical Application:</strong> Our hands-on approach goes beyond theoretical knowledge. You will engage in real-world scenarios involving conflict management and simulations that reflect the challenges commonly encountered on the job. Practical experience in securing premises and ensuring the safety of patrons will enhance your confidence and prepare you for the role of door supervisor.</li>
             </ul>
             <p><strong>BIIAB Level 3 Award in Emergency First Aid at Work</strong></p>
-            <p>It is now a mandatory requirement, under SIA regulations, for individuals applying for a Door Supervisor or Security Guard licence to complete first aid training prior to undertaking licence-linked training. Trent Education Centre is proud to offer this qualification, which is designed to equip learners with the knowledge and skills necessary to administer first aid to adults in a professional setting.</p>
+            <p>It is now a mandatory requirement, under SIA regulations, for individuals applying for a Door Supervisor or Security Guard licence to complete first aid training prior to undertaking licence-linked training. Trent Education Centre is proud to offer this qualification, which is designed to equip students with the knowledge and skills necessary to administer first aid to adults in a professional setting.</p>
           </div>
         )}
 
@@ -106,8 +106,8 @@ export default function SIADoorSupervisorsPage() {
       <div className="container al4-section">
         <h2 className="al4-section-title">Entry Requirement</h2>
         <p><strong>Age:</strong> 18+</p>
-        <p style={{ marginTop: 16 }}><strong>English Language for Learners:</strong></p>
-        <p style={{ marginTop: 8 }}>During their professional duties, security operatives may need to contact emergency services or manage conflict through effective communication. Strong communication skills in reading, writing, speaking, and listening are therefore essential. Prospective learners should demonstrate English language proficiency by meeting at least one of the following criteria:</p>
+        <p style={{ marginTop: 16 }}><strong>English Language for Students:</strong></p>
+        <p style={{ marginTop: 8 }}>During their professional duties, security operatives may need to contact emergency services or manage conflict through effective communication. Strong communication skills in reading, writing, speaking, and listening are therefore essential. Prospective students should demonstrate English language proficiency by meeting at least one of the following criteria:</p>
         <ul className="al4-bullets" style={{ marginTop: 8 }}>
           <li>A B2 level qualification from the Home Office&rsquo;s list of recognised English tests and qualifications</li>
           <li>A B2 level on the Common European Framework of Reference for Languages (CEFR)</li>

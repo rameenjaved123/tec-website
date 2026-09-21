@@ -38,8 +38,6 @@ const ALL_PAGES = [
   { label: 'SIA Level 2 Award for Door Supervisors', path: '/sia-door-supervisors' },
   { label: 'Digital Skills for Beginners', path: '/digital-skills' },
   { label: 'OTHM Courses', path: '/othm-courses' },
-  { label: 'OTHM Level 3 Diploma in Beauty Therapy', path: '/othm-beauty-therapy-level-3' },
-  { label: 'OTHM Level 3 Certificate in Facial Treatments', path: '/othm-facial-treatments-level-3' },
   { label: 'OTHM Level 4 Diploma in Tourism and Hospitality Management', path: '/othm-tourism-hospitality-level-4' },
   { label: 'OTHM Level 5 Diploma in Tourism and Hospitality Management', path: '/othm-tourism-hospitality-level-5' },
   { label: 'Policies', path: '/policies' },
@@ -168,8 +166,6 @@ const navItems = [
     path: '/othm-courses',
     children: [
       { label: 'All OTHM Courses', path: '/othm-courses' },
-      { label: 'OTHM Level 3 Diploma in Beauty Therapy', path: '/othm-beauty-therapy-level-3' },
-      { label: 'OTHM Level 3 Certificate in Facial Treatments', path: '/othm-facial-treatments-level-3' },
       { label: 'OTHM Level 4 Diploma in Tourism and Hospitality Management', path: '/othm-tourism-hospitality-level-4' },
       { label: 'OTHM Level 5 Diploma in Tourism and Hospitality Management', path: '/othm-tourism-hospitality-level-5' },
     ],

@@ -89,6 +89,8 @@ const VISA_STATUSES = [
 const COURSES = [
   'HNC/HND in Business:  Entrepreneurship and Small Business Management',
   'ATHE Level 5 Extended Diploma in Business and Management',
+  'OTHM Level 4 Diploma in Tourism and Hospitality Management',
+  'OTHM Level 5 Diploma in Tourism and Hospitality Management',
   'ESOL (English for Speakers of Other Languages)',
   'SIA Level 2 Award for Door Supervisors in the Private Security Industry (BIIAB)',
   'NCFE & Open Awards Level 2 in English',

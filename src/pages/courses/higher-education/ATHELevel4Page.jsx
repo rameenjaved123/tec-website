@@ -10,9 +10,9 @@ import PageHero from '../../../components/PageHero';
    Assessor Guidance (shared boilerplate)
 ───────────────────────────────────────────── */
 const ASSESSOR_GUIDANCE = [
-  'In order to achieve this unit learners must produce work which demonstrates achievement of the learning outcomes at the standards provided by the assessment criteria.',
-  'Learners must use real life examples to illustrate the points which are made. There is a requirement to utilise information from specific organisations to meet some of the stated standards. Learners will need to agree with tutors an appropriate organisation and country on which to base their study. Tutors need to ensure that the organisation chosen is suitable. SMEs are recommended as larger organisations are often too complex and accessing the information required can be challenging.',
-  'Learner work should demonstrate substantial coverage of the unit indicative content.',
+  'In order to achieve this unit students must produce work which demonstrates achievement of the learning outcomes at the standards provided by the assessment criteria.',
+  'Students must use real life examples to illustrate the points which are made. There is a requirement to utilise information from specific organisations to meet some of the stated standards. Students will need to agree with tutors an appropriate organisation and country on which to base their study. Tutors need to ensure that the organisation chosen is suitable. SMEs are recommended as larger organisations are often too complex and accessing the information required can be challenging.',
+  'Student work should demonstrate substantial coverage of the unit indicative content.',
 ];
 
 /* ─────────────────────────────────────────────
@@ -25,7 +25,7 @@ const units = [
     code: 'Y/850/5055', level: 4, glh: 60, credits: 15,
     gradingStructure: 'Pass-Merit-Distinction',
     hasAssessorGuidance: true,
-    aims: "This unit will develop learners' understanding of the business environment and the internal and external circumstances in which different organisations operate. Learners will also gain understanding of organisational responsibilities and structures.",
+    aims: "This unit will develop students' understanding of the business environment and the internal and external circumstances in which different organisations operate. Students will also gain understanding of organisational responsibilities and structures.",
     outcomes: [
       {
         lo: '1. Understand types of organisation, their purposes and responsibilities',
@@ -59,7 +59,7 @@ const units = [
     code: 'A/650/5056', level: 4, glh: 60, credits: 15,
     gradingStructure: 'Pass-Merit-Distinction',
     hasAssessorGuidance: true,
-    aims: 'This unit aims to develop knowledge and understanding of those aspects of organisations that concern and support people. This includes communication practices, teamwork, remote working and other organisational structures. Using this knowledge and understanding, learners will be able to review the impact of workplace practices on people.',
+    aims: 'This unit aims to develop knowledge and understanding of those aspects of organisations that concern and support people. This includes communication practices, teamwork, remote working and other organisational structures. Using this knowledge and understanding, students will be able to review the impact of workplace practices on people.',
     outcomes: [
       {
         lo: '1. Understand communication within organisations',
@@ -92,7 +92,7 @@ const units = [
     title: 'Unit 3: Financial and Management Accounting Techniques for Managers',
     code: 'D/650/5057', level: 4, glh: 60, credits: 15,
     gradingStructure: null, hasAssessorGuidance: false,
-    aims: 'To develop a knowledge and understanding of fundamental financial and management accounting techniques that are used by managers in organisations and to develop skills enabling learners to apply these techniques.',
+    aims: 'To develop a knowledge and understanding of fundamental financial and management accounting techniques that are used by managers in organisations and to develop skills enabling students to apply these techniques.',
     outcomes: [
       {
         lo: '1. Understand financial and management accounting systems',
@@ -119,7 +119,7 @@ const units = [
     title: 'Unit 4: Communication Skills for Business',
     code: 'F/650/5058', level: 4, glh: 60, credits: 15,
     gradingStructure: null, hasAssessorGuidance: false,
-    aims: 'This unit aims to develop knowledge and understanding of the communication practices within organisations and learners are introduced to the different modes and channels of communication used in organisations. In addition, learners will be able to develop their communication skills. Learners will also apply their own communication skills to typical organisational requirements.',
+    aims: 'This unit aims to develop knowledge and understanding of the communication practices within organisations and students are introduced to the different modes and channels of communication used in organisations. In addition, students will be able to develop their communication skills. Students will also apply their own communication skills to typical organisational requirements.',
     outcomes: [
       {
         lo: '1. Understand how internal communication takes place within organisations',
@@ -185,7 +185,7 @@ const units = [
     title: 'Unit 8: Managing a Work-Based Team',
     code: 'R/650/5062', level: 4, glh: 60, credits: 15,
     gradingStructure: null, hasAssessorGuidance: false,
-    aims: 'This unit aims to develop project management skills for a work-based team project by implementing the different stages of project development. Learners will have the opportunity to plan, implement and review a project of their choice.',
+    aims: 'This unit aims to develop project management skills for a work-based team project by implementing the different stages of project development. Students will have the opportunity to plan, implement and review a project of their choice.',
     outcomes: [
       {
         lo: '1. Can develop a proposal for a work-based team project',
@@ -218,7 +218,7 @@ const units = [
     title: 'Unit 9: Entrepreneurship',
     code: 'T/650/5063', level: 4, glh: 60, credits: 15,
     gradingStructure: null, hasAssessorGuidance: false,
-    aims: 'To provide the learner with an understanding of entrepreneurship in business, the skills and qualities needed by a successful entrepreneur and the roles an entrepreneur plays in starting and developing businesses. The learner will develop skills in generating ideas for possible new business ventures and will be able to prepare for a new business venture.',
+    aims: 'To provide the student with an understanding of entrepreneurship in business, the skills and qualities needed by a successful entrepreneur and the roles an entrepreneur plays in starting and developing businesses. The student will develop skills in generating ideas for possible new business ventures and will be able to prepare for a new business venture.',
     outcomes: [
       {
         lo: '1. Understand entrepreneurship in business',
@@ -245,7 +245,7 @@ const units = [
     title: 'Unit 10: Customer Relationship Management',
     code: 'Y/650/5064', level: 4, glh: 60, credits: 15,
     gradingStructure: null, hasAssessorGuidance: false,
-    aims: 'Learners will be able to develop knowledge and understanding of the scope and importance of Customer Relationship Management (CRM) and to explore how effective CRM is achieved. Learners will also gain an understanding of loyalty schemes and have an opportunity to make improvements to CRM.',
+    aims: 'Students will be able to develop knowledge and understanding of the scope and importance of Customer Relationship Management (CRM) and to explore how effective CRM is achieved. Students will also gain an understanding of loyalty schemes and have an opportunity to make improvements to CRM.',
     outcomes: [
       {
         lo: '1. Understand the importance of customer relationship management (CRM) to business',
@@ -579,7 +579,7 @@ function UnitAccordion({ unit, isOpen, onToggle }) {
                 <tr>
                   <th className="al4-lo-col">
                     Learning Outcomes<br />
-                    <span className="al4-lo-sub">The learner will demonstrate that they:</span>
+                    <span className="al4-lo-sub">The student will demonstrate that they:</span>
                   </th>
                   <th>Pass (P)</th>
                   <th>Merit (M)</th>

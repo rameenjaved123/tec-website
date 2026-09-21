@@ -56,7 +56,7 @@ export default function COTHMVisitPage() {
           <p>
             The visit provided a valuable opportunity for both teams to share their expertise, learn about each
             other&rsquo;s programmes and facilities, and identify areas where working together could benefit
-            learners across both institutions. We are excited about the possibilities this partnership may bring
+            students across both institutions. We are excited about the possibilities this partnership may bring
             and look forward to continuing these conversations in the months ahead.
           </p>
         </div>

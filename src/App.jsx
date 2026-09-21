@@ -18,8 +18,6 @@ import NCFEMathsL2Page from './pages/courses/further-education/NCFEMathsL2Page';
 import SIADoorSupervisorsPage from './pages/courses/further-education/SIADoorSupervisorsPage';
 import DigitalSkillsPage from './pages/courses/further-education/DigitalSkillsPage';
 import OTHMCoursesPage from './pages/courses/othm/OTHMCoursesPage';
-import OTHMBeautyTherapyL3Page from './pages/courses/othm/OTHMBeautyTherapyL3Page';
-import OTHMFacialTreatmentsL3Page from './pages/courses/othm/OTHMFacialTreatmentsL3Page';
 import OTHMTourismHospitalityL4Page from './pages/courses/othm/OTHMTourismHospitalityL4Page';
 import OTHMTourismHospitalityL5Page from './pages/courses/othm/OTHMTourismHospitalityL5Page';
 import AboutPage from './pages/about/AboutPage';
@@ -117,8 +115,6 @@ function AppLayout() {
           <Route path="/sia-door-supervisors" element={<SIADoorSupervisorsPage />} />
           <Route path="/digital-skills" element={<DigitalSkillsPage />} />
           <Route path="/othm-courses" element={<OTHMCoursesPage />} />
-          <Route path="/othm-beauty-therapy-level-3" element={<OTHMBeautyTherapyL3Page />} />
-          <Route path="/othm-facial-treatments-level-3" element={<OTHMFacialTreatmentsL3Page />} />
           <Route path="/othm-tourism-hospitality-level-4" element={<OTHMTourismHospitalityL4Page />} />
           <Route path="/othm-tourism-hospitality-level-5" element={<OTHMTourismHospitalityL5Page />} />
 

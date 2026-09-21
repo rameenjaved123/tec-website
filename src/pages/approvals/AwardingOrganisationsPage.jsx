@@ -11,25 +11,25 @@ const orgs = [
   {
     name: 'ATHE',
     logo: '/assets/logos/athe-large.png',
-    desc: 'ATHE (Awards for Training and Higher Education) is a UK-regulated awarding body, recognised by Ofqual. It provides accredited qualifications across sectors such as business, management, and healthcare, helping thousands of learners achieve success through flexible, industry-aligned courses.',
+    desc: 'ATHE (Awards for Training and Higher Education) is a UK-regulated awarding body, recognised by Ofqual. It provides accredited qualifications across sectors such as business, management, and healthcare, helping thousands of students achieve success through flexible, industry-aligned courses.',
     link: 'https://www.athe.co.uk',
   },
   {
     name: 'ASCENTIS',
     logo: '/assets/logos/ofsted.png',
-    desc: 'Ascentis is a leading UK-based awarding organisation, offering a diverse range of high-quality qualifications that promote lifelong learning and progression. Known for their innovative and flexible approach, Ascentis supports learners and centres globally across sectors including education, employability, and personal development.',
+    desc: 'Ascentis is a leading UK-based awarding organisation, offering a diverse range of high-quality qualifications that promote lifelong learning and progression. Known for their innovative and flexible approach, Ascentis supports students and centres globally across sectors including education, employability, and personal development.',
     link: 'https://www.ascentis.co.uk/',
   },
   {
     name: 'FOCUS AWARDS',
     logo: '/assets/logos/focus-awards.png',
-    desc: 'Focus Awards is a UK-regulated awarding organisation committed to delivering high-quality qualifications across a broad range of sectors. Renowned for its flexible, learner-centred approach, Focus Awards supports training providers and learners by offering vocational qualifications that align with industry standards and encourage career progression.',
+    desc: 'Focus Awards is a UK-regulated awarding organisation committed to delivering high-quality qualifications across a broad range of sectors. Renowned for its flexible, student-centred approach, Focus Awards supports training providers and students by offering vocational qualifications that align with industry standards and encourage career progression.',
     link: 'https://focusawards.org.uk/',
   },
   {
     name: 'OTHM',
     logo: '/assets/logos/othm-sm.jpg',
-    desc: 'Founded in 2014, OTHM is an awarding organisation recognised for providing high-quality qualifications in management, business, and hospitality sectors, facilitating career progression for learners globally.',
+    desc: 'Founded in 2014, OTHM is an awarding organisation recognised for providing high-quality qualifications in management, business, and hospitality sectors, facilitating career progression for students globally.',
     link: 'https://www.othm.org.uk',
   },
   {
@@ -41,13 +41,13 @@ const orgs = [
   {
     name: 'NCFE',
     logo: '/assets/logos/ncfe-lg.jpg',
-    desc: 'Trent Education Centre is accredited by NCFE, an Ofqual regulated national Awarding Organisation. NCFE is dedicated to designing and certifying nationally recognized qualifications and awards, facilitating the success of millions of learners from diverse backgrounds.',
+    desc: 'Trent Education Centre is accredited by NCFE, an Ofqual regulated national Awarding Organisation. NCFE is dedicated to designing and certifying nationally recognized qualifications and awards, facilitating the success of millions of students from diverse backgrounds.',
     link: 'https://www.ncfe.org.uk',
   },
   {
     name: 'OPEN AWARDS',
     logo: '/assets/logos/open-awards-lg.jpg',
-    desc: 'Open Awards is a UK-based awarding body regulated by Ofqual, committed to providing accessible qualifications across various sectors. With a focus on supporting diverse learners, Open Awards offers recognised certifications that equip individuals with the skills and knowledge needed for personal and professional development.',
+    desc: 'Open Awards is a UK-based awarding body regulated by Ofqual, committed to providing accessible qualifications across various sectors. With a focus on supporting diverse students, Open Awards offers recognised certifications that equip individuals with the skills and knowledge needed for personal and professional development.',
     link: 'https://www.openawards.org.uk',
   },
 ];

@@ -5,47 +5,13 @@ import PageHero from '../../../components/PageHero';
 
 const courses = [
   {
-    title: 'OTHM Level 3 Diploma in Beauty Therapy',
-    duration: '600 Hours',
-    mode: 'Onsite',
-    intake: 'Every Month',
-    awarding: 'OTHM',
-    description:
-      'Develops your skills as a beauty therapist to provide treatments to professional standards. Extending your knowledge beyond Level 2, this 60-credit diploma covers the knowledge, skills and competencies required to administer the most up-to-date treatments in the beauty industry safely and appropriately.',
-    modules: [
-      'Health and Safety Practice in the Salon',
-      'Client Care and Communication',
-      'Facial Electrical Treatments',
-      'Body Electrical Treatments',
-      'Body Massage',
-      'Plus two optional units (e.g. Hot Stone Therapy, Aromatherapy Massage)',
-    ],
-    link: '/othm-beauty-therapy-level-3',
-  },
-  {
-    title: 'OTHM Level 3 Certificate in Facial Treatments',
-    duration: '270 Hours',
-    mode: 'Onsite',
-    intake: 'Every Month',
-    awarding: 'OTHM',
-    description:
-      'Provides learners with the knowledge and understanding required to provide facial treatments. This 26-credit certificate equips learners with the underpinning knowledge and skills required to succeed in employment or further studies in the beauty and complementary therapy sector.',
-    modules: [
-      'Health and Safety Practice in the Salon',
-      'Client Care and Communication',
-      'Anatomy and Physiology for Facial Treatments',
-      'Provide Facial Treatments',
-    ],
-    link: '/othm-facial-treatments-level-3',
-  },
-  {
     title: 'OTHM Level 4 Diploma in Tourism and Hospitality Management',
     duration: '600 GLH · 1 Year',
     mode: 'Onsite',
     intake: 'One Academic Year',
     awarding: 'OTHM',
     description:
-      'A 120-credit Ofqual-regulated qualification that supports learners’ development as managers within the tourism and hospitality industry, combining theory with practical application across the business environment, services marketing, sustainability and event management. Progresses to a Level 5 Diploma or Year 2 of a UK Bachelor’s degree.',
+      'A 120-credit Ofqual-regulated qualification that supports students’ development as managers within the tourism and hospitality industry, combining theory with practical application across the business environment, services marketing, sustainability and event management. Progresses to a Level 5 Diploma or Year 2 of a UK Bachelor’s degree.',
     modules: [
       'Academic Writing and Research Skills',
       'Business Environment for Tourism and Hospitality',
@@ -63,7 +29,7 @@ const courses = [
     intake: 'One Academic Year',
     awarding: 'OTHM',
     description:
-      'A 120-credit Ofqual-regulated qualification that develops learners as managers who critically apply contemporary knowledge and theories to complex problems in tourism and hospitality. Progresses to the OTHM Level 6 Diploma or the final year of a UK Bachelor’s degree.',
+      'A 120-credit Ofqual-regulated qualification that develops students as managers who critically apply contemporary knowledge and theories to complex problems in tourism and hospitality. Progresses to the OTHM Level 6 Diploma or the final year of a UK Bachelor’s degree.',
     modules: [
       'Digital Marketing Management for Tourism and Hospitality',
       'Operations Management',
@@ -89,8 +55,7 @@ export default function OTHMCoursesPage() {
       <div className="container inner-content">
         <p style={{ fontSize: '1.05rem', color: 'var(--tec-text-light)', margin: '0 0 36px', textAlign: 'center' }}>
           Our OTHM qualifications are practical, industry-focused programmes delivered at Trent Education Centre,
-          designed to prepare learners for employment or further study — from beauty and complementary therapy to
-          tourism and hospitality management.
+          designed to prepare students for employment or further study in tourism and hospitality management.
         </p>
 
         {courses.map((course, i) => (

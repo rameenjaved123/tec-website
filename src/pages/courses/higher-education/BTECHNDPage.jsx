@@ -294,9 +294,9 @@ export default function BTECHNDPage() {
 
         {activeTab === 'Overview' && (
           <div className="al4-overview">
-            <p><strong>Welcome to Trent Education Centre's Higher National Diploma (HND) in Business (Entrepreneurship and Small Business Management).</strong> This rewarding and challenging programme is designed to provide learners with a thorough grounding in the key concepts and practical skills essential to business.</p>
-            <p>BTEC Higher Nationals offer a strong emphasis on practical skills alongside the development of the essential knowledge and understanding required in today&rsquo;s business environment. Learners benefit from this comprehensive academic and practical programme, which develops key skills and knowledge tailored to their individual progression needs — whether that be into employment, starting their own business, or continuing into higher education, including a top-up year for a university degree or other professional courses.</p>
-            <p>A major progression route for learners of the BTEC Higher National Certificate (HNC) and Diploma (HND) is direct entry to the second or third year of an honours degree programme, depending on how well the BTEC units align with the prerequisites of the chosen degree.</p>
+            <p><strong>Welcome to Trent Education Centre's Higher National Diploma (HND) in Business (Entrepreneurship and Small Business Management).</strong> This rewarding and challenging programme is designed to provide students with a thorough grounding in the key concepts and practical skills essential to business.</p>
+            <p>BTEC Higher Nationals offer a strong emphasis on practical skills alongside the development of the essential knowledge and understanding required in today&rsquo;s business environment. Students benefit from this comprehensive academic and practical programme, which develops key skills and knowledge tailored to their individual progression needs — whether that be into employment, starting their own business, or continuing into higher education, including a top-up year for a university degree or other professional courses.</p>
+            <p>A major progression route for students of the BTEC Higher National Certificate (HNC) and Diploma (HND) is direct entry to the second or third year of an honours degree programme, depending on how well the BTEC units align with the prerequisites of the chosen degree.</p>
             <p className="al4-subhead">Programme Structure:</p>
             <ul className="al4-bullets">
               <li>120 credits at Level 4 — 6 core units and 2 optional units (8 units, each worth 15 credits)</li>
@@ -391,7 +391,7 @@ export default function BTECHNDPage() {
       {/* Entry Requirement */}
       <div className="container al4-section">
         <h2 className="al4-section-title">Entry Requirement</h2>
-        <p>For Learners who have recently been in education, the entry profile is likely to include one of the following:</p>
+        <p>For Students who have recently been in education, the entry profile is likely to include one of the following:</p>
         <ul className="al4-bullets" style={{ marginTop: 8 }}>
           <li>A BTEC Level 3 qualification in Business</li>
           <li>A GCE Advanced Level profile demonstrating strong performance in a relevant subject or adequate performance across multiple GCE subjects</li>
@@ -399,7 +399,7 @@ export default function BTECHNDPage() {
           <li>At least one GCE A Level pass in a relevant subject, supported by appropriate GCSE passes</li>
           <li>An Access to Higher Education Certificate awarded by an approved Further Education institution</li>
           <li>Appropriate work experience</li>
-          <li>Learners aged 18 or over applying for HND courses</li>
+          <li>Students aged 18 or over applying for HND courses</li>
           <li>An international equivalent of the above qualifications</li>
         </ul>
         <p style={{ marginTop: 16 }}>Trent Education Centre (TEC) will consider applicants&rsquo; prior learning when assessing their suitability for BTEC Higher Nationals, through Recognition of Prior Learning (RPL).</p>
@@ -426,7 +426,7 @@ export default function BTECHNDPage() {
       <div className="container al4-section">
         <h2 className="al4-section-title">Why TEC?</h2>
         <p style={{ marginBottom: 16 }}>Trent Education Centre (TEC) has a strong reputation and extensive experience in delivering quality education, particularly in areas that align with the practical and vocational focus of the HND. TEC provides essential resources, including experienced faculty, modern facilities, and an up-to-date curriculum designed to effectively support HND programmes.</p>
-        <p style={{ marginBottom: 16 }}>As a career-oriented provider, TEC&rsquo;s connections with local businesses and industries offer valuable networking, internship, and job opportunities for Learners. Its convenient location makes TEC an accessible choice for learners pursuing higher education locally or internationally.</p>
+        <p style={{ marginBottom: 16 }}>As a career-oriented provider, TEC&rsquo;s connections with local businesses and industries offer valuable networking, internship, and job opportunities for Students. Its convenient location makes TEC an accessible choice for students pursuing higher education locally or internationally.</p>
         <p>TEC is also partnered with recognised accreditation bodies and universities, which strengthens the credibility of its HND programmes and ensures they meet established academic and industry standards.</p>
       </div>
 

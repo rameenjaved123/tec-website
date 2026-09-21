@@ -40,7 +40,7 @@ export default function OTHMTourismHospitalityL4Page() {
 
         {activeTab === 'Overview' && (
           <div className="al4-overview">
-            <p><strong>The OTHM Level 4 Diploma in Tourism and Hospitality Management supports learners&rsquo; development as managers within the tourism and hospitality industry.</strong></p>
+            <p><strong>The OTHM Level 4 Diploma in Tourism and Hospitality Management supports students&rsquo; development as managers within the tourism and hospitality industry.</strong></p>
             <p>The qualification combines theoretical knowledge with practical application across academic research skills, the business environment, services marketing, consumer behaviour, sustainability and event management. Successful completion supports progression to university study as well as entry into the tourism and hospitality workforce.</p>
           </div>
         )}
@@ -61,7 +61,8 @@ export default function OTHMTourismHospitalityL4Page() {
 
         {activeTab === 'Course Fees' && (
           <div className="al4-fees">
-            <p>At Trent Education Centre we are committed to making education accessible and affordable. We offer a range of funding options, including government loans, scholarships and bursaries, and flexible payment plans may be available. Please contact our admissions team for the current fee and personalised advice.</p>
+            <p>Tuition fee for Home (UK) students per year*: <strong>&pound;4,000</strong></p>
+            <p style={{ marginTop: 16 }}>At Trent Education Centre we are committed to making education accessible and affordable. We offer a range of funding options, including government loans, scholarships and bursaries, and flexible payment plans may be available. Please contact our admissions team for personalised advice.</p>
             <p style={{ marginTop: 16 }}>
               Before enrolling, please read the{' '}
               <a href="/assets/documents/terms/terms-conditions-he.pdf" target="_blank" rel="noreferrer">Terms and Conditions</a>
@@ -93,7 +94,7 @@ export default function OTHMTourismHospitalityL4Page() {
         <ul className="al4-bullets" style={{ marginTop: 8 }}>
           <li>A relevant Level 3 Diploma or an equivalent qualification</li>
           <li>GCE Advanced Level (A Levels) in 2 subjects or equivalent</li>
-          <li>Mature learners (21+) with relevant management experience</li>
+          <li>Mature students (21+) with relevant management experience</li>
         </ul>
         <p style={{ marginTop: 16 }}><strong>English Language Requirements:</strong></p>
         <p style={{ marginTop: 8 }}>Applicants who are not from a majority English-speaking country must provide evidence of English language competency.</p>
@@ -102,7 +103,7 @@ export default function OTHMTourismHospitalityL4Page() {
 
       <div className="container al4-section">
         <h2 className="al4-section-title">Progression</h2>
-        <p>On successful completion, learners can progress to a relevant OTHM Level 5 Diploma, or gain direct entry into the second year of a UK Bachelor&rsquo;s degree programme, as this is an Ofqual-regulated qualification.</p>
+        <p>On successful completion, students can progress to a relevant OTHM Level 5 Diploma, or gain direct entry into the second year of a UK Bachelor&rsquo;s degree programme, as this is an Ofqual-regulated qualification.</p>
       </div>
 
       <div className="container al4-section">

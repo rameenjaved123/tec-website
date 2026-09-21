@@ -293,8 +293,8 @@ export default function BTECHNDPage() {
         {activeTab === 'Overview' && (
           <div className="al4-overview">
             <p><strong>The Pearson BTEC Level 4 &amp; 5 Higher National Diploma (HND) in Business is a two-year programme equivalent to the first two years of a university degree.</strong></p>
-            <p>This rewarding and challenging programme is designed to provide learners with a thorough grounding in the key concepts and practical skills essential to business. BTEC Higher Nationals offer a strong emphasis on practical skills alongside the development of essential knowledge and understanding required in today&rsquo;s business environment.</p>
-            <p>Learners benefit from a comprehensive academic and practical programme, which develops key skills and knowledge tailored to their individual progression needs — whether into employment, starting their own business, or continuing into higher education.</p>
+            <p>This rewarding and challenging programme is designed to provide students with a thorough grounding in the key concepts and practical skills essential to business. BTEC Higher Nationals offer a strong emphasis on practical skills alongside the development of essential knowledge and understanding required in today&rsquo;s business environment.</p>
+            <p>Students benefit from a comprehensive academic and practical programme, which develops key skills and knowledge tailored to their individual progression needs — whether into employment, starting their own business, or continuing into higher education.</p>
             <p className="al4-subhead">Programme Structure:</p>
             <ul className="al4-bullets">
               <li>120 credits at Level 4 — 8 units × 15 credits (Year 1)</li>
@@ -383,7 +383,7 @@ export default function BTECHNDPage() {
         <h2 className="al4-section-title">Entry Requirement</h2>
         <p><strong>Age:</strong> 18+</p>
         <p style={{ marginTop: 16 }}><strong>Qualifications:</strong></p>
-        <p style={{ marginTop: 8 }}>For learners who have recently been in education or training the entry profile is likely to include one of the following:</p>
+        <p style={{ marginTop: 8 }}>For students who have recently been in education or training the entry profile is likely to include one of the following:</p>
         <ul className="al4-bullets" style={{ marginTop: 8 }}>
           <li>A BTEC Level 3 qualification in Business or a related subject</li>
           <li>A GCE Advanced Level profile showing attainment in a relevant subject</li>

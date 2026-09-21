@@ -31,7 +31,7 @@ const awardingOrgs = [
   {
     name: 'OTHM',
     logo: '/assets/logos/othm.jpg',
-    desc: 'Founded in 2014, OTHM is an awarding organization recognized for providing high-quality qualifications in management, business, and hospitality sectors, facilitating career progression for learners globally.',
+    desc: 'Founded in 2014, OTHM is an awarding organization recognized for providing high-quality qualifications in management, business, and hospitality sectors, facilitating career progression for students globally.',
     link: '/awarding-organisations',
   },
   {
@@ -43,7 +43,7 @@ const awardingOrgs = [
   {
     name: 'NCFE',
     logo: '/assets/logos/ncfe.jpg',
-    desc: 'Trent Education Centre is accredited by NCFE, an Ofqual regulated national Awarding Organisation. NCFE is dedicated to designing and certifying nationally recognized qualifications and awards, facilitating the success of millions of learners from diverse backgrounds.',
+    desc: 'Trent Education Centre is accredited by NCFE, an Ofqual regulated national Awarding Organisation. NCFE is dedicated to designing and certifying nationally recognized qualifications and awards, facilitating the success of millions of students from diverse backgrounds.',
     link: '/awarding-organisations',
   },
   {

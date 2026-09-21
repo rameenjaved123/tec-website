@@ -30,7 +30,7 @@ const courses = [
     fee: '£700 (UK students)',
     awarding: 'NCFE & Open Awards',
     description:
-      'Nationally recognised maths qualification for everyday life and the workplace. Ideal for learners who want to develop and demonstrate their mathematical skills for employment, further education, or daily life. No prior qualifications required.',
+      'Nationally recognised maths qualification for everyday life and the workplace. Ideal for students who want to develop and demonstrate their mathematical skills for employment, further education, or daily life. No prior qualifications required.',
     modules: ['Number & place value', 'Fractions, decimals & percentages', 'Ratio & proportion', 'Measurements', 'Handling & interpreting data', 'Problem solving'],
     link: '/ncfe-maths-l1',
   },
@@ -54,7 +54,7 @@ const courses = [
     fee: '£399 (UK students)',
     awarding: 'Pearson',
     description:
-      'Equips learners with the knowledge and skills required to work as a door supervisor. Successful completion fulfils one of the requirements to apply for an SIA Door Supervisor licence. Includes mandatory BIIAB Level 3 Award in Emergency First Aid at Work.',
+      'Equips students with the knowledge and skills required to work as a door supervisor. Successful completion fulfils one of the requirements to apply for an SIA Door Supervisor licence. Includes mandatory BIIAB Level 3 Award in Emergency First Aid at Work.',
     modules: [
       'Unit 1: Working within the Private Security Industry',
       'Unit 2: Working as a Door Supervisor within the Private Security Industry',
@@ -98,7 +98,7 @@ export default function FurtherEducationPage() {
 
       <div className="container inner-content">
         <p style={{ fontSize: '1.05rem', color: 'var(--tec-text-light)', margin: '0 0 36px', textAlign: 'center' }}>
-          Our Further Education courses are designed for adult learners looking to upskill, gain new
+          Our Further Education courses are designed for adult students looking to upskill, gain new
           qualifications, or prepare for higher education and employment.
         </p>
 

@@ -779,9 +779,9 @@ const units = [
     gradingStructure: 'Pass-Merit-Distinction',
     hasAssessorGuidance: true,
     assessorGuidance: [
-      'In order to achieve this unit, learners must produce work which demonstrates achievement of the learning outcomes at the standards provided by the assessment criteria. Learners must use real life examples to illustrate the points which are made. There is a requirement to utilise information from specific organisations to meet some of the stated standards. For LOs 2 and 4, learners will need to agree with tutors an appropriate country or countries on which to base their study. For LO4, they will also need to agree an appropriate organisation. Tutors need to ensure that the countries and organisations chosen are suitable.',
+      'In order to achieve this unit, students must produce work which demonstrates achievement of the learning outcomes at the standards provided by the assessment criteria. Students must use real life examples to illustrate the points which are made. There is a requirement to utilise information from specific organisations to meet some of the stated standards. For LOs 2 and 4, students will need to agree with tutors an appropriate country or countries on which to base their study. For LO4, they will also need to agree an appropriate organisation. Tutors need to ensure that the countries and organisations chosen are suitable.',
     ],
-    aims: 'This unit develops learners understanding of the issues organisations face when operating in a global context. This understanding will allow learners to review the issues currently impacting on business organisations.',
+    aims: 'This unit develops students understanding of the issues organisations face when operating in a global context. This understanding will allow students to review the issues currently impacting on business organisations.',
     outcomes: [
       {
         lo: '1. Understand global business operations',
@@ -829,9 +829,9 @@ const units = [
     gradingStructure: 'Pass-Merit-Distinction',
     hasAssessorGuidance: true,
     assessorGuidance: [
-      'In order to achieve this unit, learners must produce work which demonstrates achievement of the learning outcomes at the standards provided by the assessment criteria. Learners must use real life examples to illustrate the points which are made. There is a requirement to utilise information from specific organisations to meet some of the stated standards. For LO4, learners will need to agree an appropriate organisation. Tutors need to ensure that the organisation chosen is suitable.',
+      'In order to achieve this unit, students must produce work which demonstrates achievement of the learning outcomes at the standards provided by the assessment criteria. Students must use real life examples to illustrate the points which are made. There is a requirement to utilise information from specific organisations to meet some of the stated standards. For LO4, students will need to agree an appropriate organisation. Tutors need to ensure that the organisation chosen is suitable.',
     ],
-    aims: 'This unit will enable learners to understand how to manage individuals and teams. Learners will study organisational factors and how they impact on and influence individual and team behaviour, and learn management tools and techniques to help them effectively manage individuals and teams.',
+    aims: 'This unit will enable students to understand how to manage individuals and teams. Students will study organisational factors and how they impact on and influence individual and team behaviour, and learn management tools and techniques to help them effectively manage individuals and teams.',
     outcomes: [
       {
         lo: '1. Understand factors that impact on individuals and teams in organisations',
@@ -880,9 +880,9 @@ const units = [
     gradingStructure: 'Pass-Merit-Distinction',
     hasAssessorGuidance: true,
     assessorGuidance: [
-      'In order to achieve this unit, learners must produce work which demonstrates achievement of the learning outcomes at the standards provided by the assessment criteria. Learners must use real life examples and financial data from actual organisations to illustrate the points made. Learners are expected to demonstrate their ability to interpret and apply financial information to management decisions.',
+      'In order to achieve this unit, students must produce work which demonstrates achievement of the learning outcomes at the standards provided by the assessment criteria. Students must use real life examples and financial data from actual organisations to illustrate the points made. Students are expected to demonstrate their ability to interpret and apply financial information to management decisions.',
     ],
-    aims: 'This unit will enable learners to understand the financial information available to managers and the tools and techniques used in financial management. Learners will develop skills in interpreting financial statements and applying budgetary management techniques.',
+    aims: 'This unit will enable students to understand the financial information available to managers and the tools and techniques used in financial management. Students will develop skills in interpreting financial statements and applying budgetary management techniques.',
     outcomes: [
       {
         lo: '1. Understand financial statements and their interpretation',
@@ -924,9 +924,9 @@ const units = [
     gradingStructure: 'Pass-Merit-Distinction',
     hasAssessorGuidance: true,
     assessorGuidance: [
-      'In order to achieve this unit, learners must produce work which demonstrates achievement of the learning outcomes at the standards provided by the assessment criteria. Learners will need to select an appropriate business topic for their research project, agreed with their tutor. The research must use appropriate research methods and produce a written report presenting the findings and recommendations.',
+      'In order to achieve this unit, students must produce work which demonstrates achievement of the learning outcomes at the standards provided by the assessment criteria. Students will need to select an appropriate business topic for their research project, agreed with their tutor. The research must use appropriate research methods and produce a written report presenting the findings and recommendations.',
     ],
-    aims: 'This unit will enable learners to understand research methods and their application to business contexts. Learners will develop skills in designing and conducting business research, analysing data, and communicating findings effectively.',
+    aims: 'This unit will enable students to understand research methods and their application to business contexts. Students will develop skills in designing and conducting business research, analysing data, and communicating findings effectively.',
     outcomes: [
       {
         lo: '1. Understand research methods for business',
@@ -975,9 +975,9 @@ const units = [
     gradingStructure: 'Pass-Merit-Distinction',
     hasAssessorGuidance: true,
     assessorGuidance: [
-      'In order to achieve this unit, learners must produce work which demonstrates achievement of the learning outcomes at the standards provided by the assessment criteria. Learners must use real life examples to illustrate the points which are made and apply theories and models to actual business situations. Learners are expected to critically evaluate communication strategies and their effectiveness.',
+      'In order to achieve this unit, students must produce work which demonstrates achievement of the learning outcomes at the standards provided by the assessment criteria. Students must use real life examples to illustrate the points which are made and apply theories and models to actual business situations. Students are expected to critically evaluate communication strategies and their effectiveness.',
     ],
-    aims: 'This unit will enable learners to understand theories and models of communication and how they can be applied to business. Learners will develop an understanding of communication strategies and their management, including digital communication in contemporary organisations.',
+    aims: 'This unit will enable students to understand theories and models of communication and how they can be applied to business. Students will develop an understanding of communication strategies and their management, including digital communication in contemporary organisations.',
     outcomes: [
       {
         lo: '1. Understand communication theories and models in a business context',
@@ -1025,9 +1025,9 @@ const units = [
     gradingStructure: 'Pass-Merit-Distinction',
     hasAssessorGuidance: true,
     assessorGuidance: [
-      'In order to achieve this unit, learners must produce work which demonstrates achievement of the learning outcomes at the standards provided by the assessment criteria. Learners must use real life examples to illustrate the points which are made. There is a requirement to utilise information from specific organisations to meet some of the stated standards. Learners will need to agree an appropriate organisation for their sustainability plan with their tutor.',
+      'In order to achieve this unit, students must produce work which demonstrates achievement of the learning outcomes at the standards provided by the assessment criteria. Students must use real life examples to illustrate the points which are made. There is a requirement to utilise information from specific organisations to meet some of the stated standards. Students will need to agree an appropriate organisation for their sustainability plan with their tutor.',
     ],
-    aims: 'This unit will enable learners to understand sustainability in business organisations and the external environment that drives sustainable practice. Learners will develop knowledge of approaches to managing sustainability and the ability to create a sustainability plan for an organisation.',
+    aims: 'This unit will enable students to understand sustainability in business organisations and the external environment that drives sustainable practice. Students will develop knowledge of approaches to managing sustainability and the ability to create a sustainability plan for an organisation.',
     outcomes: [
       {
         lo: '1. Understand sustainability in business organisations',
@@ -1077,9 +1077,9 @@ const units = [
     gradingStructure: 'Pass-Merit-Distinction',
     hasAssessorGuidance: true,
     assessorGuidance: [
-      'In order to achieve this unit, learners must produce work which demonstrates achievement of the learning outcomes at the standards provided by the assessment criteria. Learners must use real life examples to illustrate the points which are made. Learners are expected to engage critically with ethical theory and apply it to real business situations and case studies.',
+      'In order to achieve this unit, students must produce work which demonstrates achievement of the learning outcomes at the standards provided by the assessment criteria. Students must use real life examples to illustrate the points which are made. Students are expected to engage critically with ethical theory and apply it to real business situations and case studies.',
     ],
-    aims: 'This unit will enable learners to understand ethical theory and its application to business. Learners will develop an understanding of corporate social responsibility, ethical decision-making, and the role of governance in promoting ethical behaviour in organisations.',
+    aims: 'This unit will enable students to understand ethical theory and its application to business. Students will develop an understanding of corporate social responsibility, ethical decision-making, and the role of governance in promoting ethical behaviour in organisations.',
     outcomes: [
       {
         lo: '1. Understand ethical theories and their application to business',
@@ -1128,9 +1128,9 @@ const units = [
     gradingStructure: 'Pass-Merit-Distinction',
     hasAssessorGuidance: true,
     assessorGuidance: [
-      'In order to achieve this unit, learners must produce work which demonstrates achievement of the learning outcomes at the standards provided by the assessment criteria. Learners must use real life examples to illustrate the points which are made. For the business plan element, learners will develop a plan for a new business venture of their choosing, agreed with their tutor. Tutors should ensure the chosen venture is realistic and appropriate for the level.',
+      'In order to achieve this unit, students must produce work which demonstrates achievement of the learning outcomes at the standards provided by the assessment criteria. Students must use real life examples to illustrate the points which are made. For the business plan element, students will develop a plan for a new business venture of their choosing, agreed with their tutor. Tutors should ensure the chosen venture is realistic and appropriate for the level.',
     ],
-    aims: 'This unit will enable learners to understand entrepreneurship and the process of planning a new business venture. Learners will develop knowledge of how to assess market potential and legal considerations, produce a business plan, and understand how to secure funding for a new venture.',
+    aims: 'This unit will enable students to understand entrepreneurship and the process of planning a new business venture. Students will develop knowledge of how to assess market potential and legal considerations, produce a business plan, and understand how to secure funding for a new venture.',
     outcomes: [
       {
         lo: '1. Understand how to determine the market potential of a new business venture',
@@ -1241,8 +1241,8 @@ function UnitAccordion({ unit, isOpen, onToggle }) {
               <table className="al4-lo-table">
                 <thead>
                   <tr>
-                    <th className="al4-lo-col">Learning Outcomes<span className="al4-lo-sub">The learner will demonstrate that they:</span></th>
-                    <th>P (Pass)<span className="al4-lo-sub">The learner can:</span></th>
+                    <th className="al4-lo-col">Learning Outcomes<span className="al4-lo-sub">The student will demonstrate that they:</span></th>
+                    <th>P (Pass)<span className="al4-lo-sub">The student can:</span></th>
                     <th>M (Merit)</th>
                     <th>D (Distinction)</th>
                   </tr>
@@ -1390,7 +1390,7 @@ export default function ATHELevel5Page() {
         <h2 className="al4-section-title">Entry Requirement</h2>
         <p><strong>Age:</strong> 18+</p>
         <p style={{ marginTop: 16 }}><strong>Qualifications:</strong></p>
-        <p style={{ marginTop: 8 }}>For learners who have recently been in education or training the entry profile is likely to include one of the following:</p>
+        <p style={{ marginTop: 8 }}>For students who have recently been in education or training the entry profile is likely to include one of the following:</p>
         <ul className="al4-bullets" style={{ marginTop: 8 }}>
           <li>Prior study in business, management or related subjects at level 4 or above</li>
           <li>A level 4 qualification for example an ATHE Level 4 Extended Diploma in Business and Management or an ATHE Level 4 Diploma in Business and Administrative Management</li>

@@ -13,7 +13,7 @@ const facts = [
   { icon: <Clock size={22} />, label: '12 Weeks' },
   { icon: <Calendar size={22} />, label: 'Intake: January / April / June / October' },
   { icon: <Award size={22} />, label: 'Awarding Body: ATHE' },
-  { icon: <TrendingUp size={22} />, label: 'Progression: Learners who successfully complete this qualification may progress to the Level 4 Extended Diploma in Business and Management.' },
+  { icon: <TrendingUp size={22} />, label: 'Progression: Students who successfully complete this qualification may progress to the Level 4 Extended Diploma in Business and Management.' },
 ];
 
 const tabs = ['Overview', 'Mandatory Course Units', 'Course Fees'];
@@ -49,8 +49,8 @@ export default function ATHELevel3Page() {
         {activeTab === 'Overview' && (
           <div className="al4-overview">
             <p><strong>Our Level 3 Diploma in Business is awarded by Awards for Training and Higher Education (ATHE) and regulated by Ofqual.</strong></p>
-            <p>It is well respected by employers across the sector. This comprehensive programme comprises 60 credits and is suitable for learners who wish to develop knowledge and skills in business management, and to progress towards an HND or university degree in business.</p>
-            <p>The ATHE Level 3 Diploma in Business is a 60-credit qualification, equivalent to an A Level or Access to Higher Education qualification. It provides learners with knowledge and understanding of the business environment and how businesses operate. This qualification is widely recognised by employers, and learners can progress to Level 4 qualifications in Business upon successful completion.</p>
+            <p>It is well respected by employers across the sector. This comprehensive programme comprises 60 credits and is suitable for students who wish to develop knowledge and skills in business management, and to progress towards an HND or university degree in business.</p>
+            <p>The ATHE Level 3 Diploma in Business is a 60-credit qualification, equivalent to an A Level or Access to Higher Education qualification. It provides students with knowledge and understanding of the business environment and how businesses operate. This qualification is widely recognised by employers, and students can progress to Level 4 qualifications in Business upon successful completion.</p>
           </div>
         )}
 
@@ -109,7 +109,7 @@ export default function ATHELevel3Page() {
           <li>Equivalent international qualifications</li>
         </ul>
         <p style={{ marginTop: 16 }}><strong>English Language Requirements:</strong></p>
-        <p style={{ marginTop: 8 }}>For learners without qualifications from majority English-speaking countries:</p>
+        <p style={{ marginTop: 8 }}>For students without qualifications from majority English-speaking countries:</p>
         <ul className="al4-bullets" style={{ marginTop: 8 }}>
           <li>IELTS 5.0</li>
           <li>Common European Framework of Reference for Languages (CEFR) Level B1</li>
@@ -117,9 +117,9 @@ export default function ATHELevel3Page() {
           <li>Pearson Test of English Academic (PTE-A) score of 40.8 or higher</li>
           <li>Functional Skills English Level 1</li>
         </ul>
-        <p style={{ marginTop: 8 }}>Learners who do not meet any of the above may be required to pass the TEC English language test.</p>
+        <p style={{ marginTop: 8 }}>Students who do not meet any of the above may be required to pass the TEC English language test.</p>
         <p style={{ marginTop: 16 }}><strong>Prior Experiential Learning:</strong></p>
-        <p style={{ marginTop: 8 }}>Learners without formal qualifications may be considered if they can demonstrate prior learning through relevant work experience. This will be assessed via a personal statement and interview.</p>
+        <p style={{ marginTop: 8 }}>Students without formal qualifications may be considered if they can demonstrate prior learning through relevant work experience. This will be assessed via a personal statement and interview.</p>
         <p style={{ marginTop: 16 }}><strong>All entry decisions are made on an individual basis.</strong></p>
       </div>
 

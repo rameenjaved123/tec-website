@@ -14,7 +14,7 @@ const courses = [
   },
   {
     title: 'ESOL',
-    desc: 'English for Speakers of Other Languages. Structured to support learners from diverse backgrounds in developing strong foundational and advanced English communication. (International & UK-Based Students)',
+    desc: 'English for Speakers of Other Languages. Structured to support students from diverse backgrounds in developing strong foundational and advanced English communication. (International & UK-Based Students)',
     img: '/uploads/2025/04/3.jpg',
     href: '/english-language-courses',
     internal: true,
@@ -49,7 +49,7 @@ const features = [
         <li style={{ marginBottom: 8 }}>Language &amp; digital learning <strong>labs</strong></li>
         <li style={{ marginBottom: 8 }}>Modern student lounges and study areas</li>
         <li style={{ marginBottom: 8 }}>On-site student support services</li>
-        <li>A welcoming and inclusive atmosphere for international learners</li>
+        <li>A welcoming and inclusive atmosphere for international students</li>
       </ul>
     ),
   },

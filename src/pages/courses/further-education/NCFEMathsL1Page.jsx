@@ -13,7 +13,7 @@ const facts = [
   { icon: <Clock size={22} />, label: '6 Weeks' },
   { icon: <Calendar size={22} />, label: 'Intake: January / April / June / October' },
   { icon: <Award size={22} />, label: 'Awarding Body: NCFE & Open Awards' },
-  { icon: <TrendingUp size={22} />, label: 'Progression: Learners who successfully complete this qualification may progress to the Level 2 Functional Skills Mathematics.' },
+  { icon: <TrendingUp size={22} />, label: 'Progression: Students who successfully complete this qualification may progress to the Level 2 Functional Skills Mathematics.' },
 ];
 
 const tabs = ['Overview', 'Course Fees'];
@@ -50,7 +50,7 @@ export default function NCFEMathsL1Page() {
           <div className="al4-overview">
             <p><strong>The Level 1 Functional Skills Mathematics qualification is awarded by NCFE &amp; Open Awards and regulated by Ofqual.</strong></p>
             <p>The Level 1 Functional Skills Mathematics qualification is designed to demonstrate proficiency in mathematics at the appropriate level and the ability to apply mathematical thinking to solve problems effectively in the workplace and other real-life contexts.</p>
-            <p>This qualification is ideal for learners who want to develop and demonstrate their mathematical skills, whether for employment, further education, or everyday life. It provides a nationally recognised certificate that confirms a solid foundation in mathematics at Level 1.</p>
+            <p>This qualification is ideal for students who want to develop and demonstrate their mathematical skills, whether for employment, further education, or everyday life. It provides a nationally recognised certificate that confirms a solid foundation in mathematics at Level 1.</p>
           </div>
         )}
 
@@ -93,7 +93,7 @@ export default function NCFEMathsL1Page() {
         <p style={{ marginTop: 16 }}><strong>Qualifications:</strong></p>
         <ul className="al4-bullets" style={{ marginTop: 8 }}>
           <li>No prior qualifications are required to enrol on this course</li>
-          <li>Learners will complete a Functional Skills assessment to determine the appropriate starting level</li>
+          <li>Students will complete a Functional Skills assessment to determine the appropriate starting level</li>
           <li>Equivalent international qualifications may also be considered</li>
         </ul>
         <p style={{ marginTop: 16 }}><strong>All entry decisions are made on an individual basis.</strong></p>

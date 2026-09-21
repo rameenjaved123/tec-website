@@ -54,7 +54,7 @@ export default function HigherEducationPage() {
 
       <div className="container inner-content">
         <p style={{ fontSize: '1.05rem', color: 'var(--tec-text-light)', margin: '0 0 36px', textAlign: 'center' }}>
-          Our Higher Education courses are ideal for learners looking to progress into degree-level
+          Our Higher Education courses are ideal for students looking to progress into degree-level
           study or advance their careers in business and management.
         </p>
 

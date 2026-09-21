@@ -115,7 +115,7 @@ export default function DigitalSkillsPage() {
       <div className="container al4-section">
         <h2 className="al4-section-title">Why TEC?</h2>
         <p style={{ marginBottom: 16 }}>Joining the Digital Skills for Beginners course at Trent Education Centre offers a range of key benefits. As a reputable institution committed to empowering individuals, we provide a supportive and inclusive learning environment where beginners can confidently develop essential digital skills.</p>
-        <p>The course is accessible, hands-on, and tailored to meet the needs of learners at all levels. With expert instructors and personalised guidance, participants can progress at their own pace, enhancing their digital literacy and unlocking opportunities for career development, improved social connectivity, and greater independence in everyday life. By choosing Trent Education Centre, you&rsquo;re not just learning digital skills &mdash; you&rsquo;re investing in your future.</p>
+        <p>The course is accessible, hands-on, and tailored to meet the needs of students at all levels. With expert instructors and personalised guidance, participants can progress at their own pace, enhancing their digital literacy and unlocking opportunities for career development, improved social connectivity, and greater independence in everyday life. By choosing Trent Education Centre, you&rsquo;re not just learning digital skills &mdash; you&rsquo;re investing in your future.</p>
       </div>
 
       {/* How to Apply */}
