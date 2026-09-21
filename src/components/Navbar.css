@@ -13,6 +13,13 @@
   height: 72px;
 }
 
+/* The default .container is 1200px; the menu (with OTHM added) is wider than that
+   and was overflowing + sitting centered with a big left margin. Widen the header
+   so the logo + menu use more of the screen and sit further left. */
+.navbar-inner.container {
+  max-width: 1720px;
+}
+
 
 .navbar-logo img {
   height: 52px;
