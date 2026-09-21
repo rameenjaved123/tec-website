@@ -37,6 +37,9 @@ const ALL_PAGES = [
   { label: 'NCFE Level 2 Functional Skills in Maths', path: '/ncfe-maths-l2' },
   { label: 'SIA Level 2 Award for Door Supervisors', path: '/sia-door-supervisors' },
   { label: 'Digital Skills for Beginners', path: '/digital-skills' },
+  { label: 'OTHM Courses', path: '/othm-courses' },
+  { label: 'OTHM Level 3 Diploma in Beauty Therapy', path: '/othm-beauty-therapy-level-3' },
+  { label: 'OTHM Level 3 Certificate in Facial Treatments', path: '/othm-facial-treatments-level-3' },
   { label: 'Policies', path: '/policies' },
   { label: 'How to Write a Personal Statement', path: '/personal-statement' },
   { label: 'Trent Language Hub', path: '/trent-language-hub' },
@@ -156,6 +159,15 @@ const navItems = [
       { label: 'NCFE Level 2 Functional Skills in Maths', path: '/ncfe-maths-l2' },
       { label: 'SIA Level 2 Award for Door Supervisors', path: '/sia-door-supervisors' },
       { label: 'Digital Skills for Beginners', path: '/digital-skills' },
+    ],
+  },
+  {
+    label: 'OTHM Courses',
+    path: '/othm-courses',
+    children: [
+      { label: 'All OTHM Courses', path: '/othm-courses' },
+      { label: 'OTHM Level 3 Diploma in Beauty Therapy', path: '/othm-beauty-therapy-level-3' },
+      { label: 'OTHM Level 3 Certificate in Facial Treatments', path: '/othm-facial-treatments-level-3' },
     ],
   },
   {
