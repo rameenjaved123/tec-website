@@ -86,6 +86,14 @@
   z-index: 100;
 }
 
+/* Right-most top-level menus: align their dropdown to the right edge of the
+   trigger so wide menus (OTHM Courses, About) open inward instead of running
+   off-screen (which gets clipped by overflow-x: hidden). */
+.navbar-desktop .nav-item:nth-last-child(-n+3) > .dropdown.depth-0 {
+  left: auto;
+  right: 0;
+}
+
 .dropdown.depth-1 {
   top: 0;
   /* Open to the LEFT to avoid going off-screen on right-side menus */
