@@ -115,7 +115,8 @@ img {
 
 /* Smooth scrolling */
 html {
-  font-size: 19px;
+  /* Global type scale — lowered from 19px to make all rem-based text ~2 sizes smaller site-wide */
+  font-size: 17px;
   scroll-behavior: smooth;
   overflow-x: hidden;
 }
