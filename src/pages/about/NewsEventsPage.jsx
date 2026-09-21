@@ -112,7 +112,13 @@ const news = [
     title: 'Trent Education Centre Visits COTHM 🤝',
     desc: 'The Trent Education Centre team visited COTHM to discuss potential areas of collaboration and explore opportunities for future partnerships. We had a productive discussion and look forward to developing a mutually beneficial relationship.',
     location: 'COTHM',
-    media: { type: 'image', src: BASE + '2026/09/cothm-visit-1.jpeg' },
+    media: { type: 'carousel', images: [
+      BASE + '2026/09/cothm-visit-1.jpeg',
+      BASE + '2026/09/cothm-visit-2.jpeg',
+      BASE + '2026/09/cothm-visit-3.jpeg',
+      BASE + '2026/09/cothm-visit-4.jpeg',
+      BASE + '2026/09/cothm-visit-5.jpeg',
+    ]},
     articleLink: '/news/cothm-visit',
   },
   {
@@ -424,11 +430,13 @@ export default function NewsEventsPage() {
             >
               {/* ── Thumbnail ── */}
               <div style={{ width: '100%', lineHeight: 0, position: 'relative' }}>
-                {item.articleLink ? (
+                {item.articleLink && item.media?.type !== 'carousel' ? (
                   <Link to={item.articleLink} style={{ display: 'block', lineHeight: 0 }}>
                     <MediaBlock media={item.media} title={item.title} />
                   </Link>
                 ) : (
+                  /* Carousel stays interactive (its arrows must not navigate);
+                     use the title + 'Read full story' link to open the article. */
                   <MediaBlock media={item.media} title={item.title} />
                 )}
                 {/* Instagram badge overlay */}
@@ -494,7 +502,9 @@ export default function NewsEventsPage() {
 
                 {/* Title */}
                 <h3 style={{ fontSize: '0.92rem', fontWeight: 700, color: '#1a1a1a', lineHeight: 1.4, margin: 0 }}>
-                  {item.title}
+                  {item.articleLink
+                    ? <Link to={item.articleLink} style={{ color: 'inherit', textDecoration: 'none' }}>{item.title}</Link>
+                    : item.title}
                 </h3>
 
                 {/* Description — clamped to 5 lines so cards stay a consistent height */}
