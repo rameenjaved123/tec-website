@@ -40,9 +40,14 @@ export default function OTHMTourismHospitalityPage() {
 
         {activeTab === 'Overview' && (
           <div className="al4-overview">
-            <p><strong>The OTHM Level 4 &amp; 5 Diploma in Tourism and Hospitality Management is a two-year programme that develops students as managers within the tourism and hospitality industry.</strong></p>
-            <p>Delivered as a single two-year course, it is equivalent to the first two years of an undergraduate degree. Year 1 (Level 4) builds the essential foundations — academic research skills, the business environment, services marketing, sustainability and event management. Year 2 (Level 5) develops advanced management capability, applying contemporary knowledge and theories to complex problems in tourism and hospitality.</p>
-            <p>Students begin at Level 4 and progress to Level 5 in the second year. On successful completion of both years, students can progress to the final year (top-up) of a UK Bachelor&rsquo;s degree, as this is an Ofqual-regulated qualification.</p>
+            <p><strong>The OTHM Level 4 &amp; 5 Diploma in Tourism and Hospitality Management is a two-year programme, delivered as a single course starting at Level 4 and equivalent to the first two years of an undergraduate degree.</strong></p>
+
+            <h3 style={{ fontWeight: 700, color: 'var(--tec-green)', margin: '22px 0 8px' }}>Level 4 (Year 1)</h3>
+            <p>The OTHM Level 4 Diploma in Tourism and Hospitality Management prepares students for management roles within the tourism and hospitality industry.</p>
+            <p>The qualification combines theoretical knowledge with practical application across academic research skills, the business environment, services marketing, consumer behaviour, sustainability and event management. If you successfully complete Level 4, you can continue to Level 5, which is equivalent to the second year of a university degree. You may also use the knowledge and skills gained at Level 4 to gain employment or promotion in the tourism and hospitality industry.</p>
+
+            <h3 style={{ fontWeight: 700, color: 'var(--tec-green)', margin: '22px 0 8px' }}>Level 5 (Year 2)</h3>
+            <p>Students critically apply contemporary knowledge and theories to the management of complex problems, gaining the specialist skills and technical understanding needed to advance their management careers or progress to further study. If you successfully complete Level 5, you can apply to a university for a Level 6 Top-Up, which is the third and final year of a university degree.</p>
           </div>
         )}
 
@@ -103,11 +108,25 @@ export default function OTHMTourismHospitalityPage() {
         <ul className="al4-bullets" style={{ marginTop: 8 }}>
           <li>A relevant Level 3 Diploma or an equivalent qualification</li>
           <li>GCE Advanced Level (A Levels) in 2 subjects or equivalent</li>
-          <li>Mature students (21+) with relevant management experience</li>
+          <li>Mature students (21+) with relevant work experience</li>
         </ul>
         <p style={{ marginTop: 16 }}><strong>English Language Requirements:</strong></p>
-        <p style={{ marginTop: 8 }}>Applicants who are not from a majority English-speaking country must provide evidence of English language competency.</p>
+        <p style={{ marginTop: 8 }}>Applicants who are not from majority English-speaking countries must demonstrate English-language proficiency at CEFR B2. This can be evidenced through one of the following:</p>
+        <ul className="al4-bullets" style={{ marginTop: 8 }}>
+          <li>IELTS 5.5 overall (with Reading and Writing at 5.5)</li>
+          <li>CEFR B2</li>
+          <li>Cambridge B2 First &ndash; score 160 or above</li>
+          <li>Pearson Test of English Academic (PTE-A) 45+</li>
+          <li>Functional Skills English Level 2</li>
+        </ul>
+        <p style={{ marginTop: 8 }}>Applicants who do not hold one of the above qualifications may demonstrate equivalent English-language ability through a TEC English-language test and interview.</p>
         <p style={{ marginTop: 16 }}><strong>All entry decisions are made on an individual basis.</strong></p>
+      </div>
+
+      <div className="container al4-section">
+        <h2 className="al4-section-title">Progression</h2>
+        <p style={{ marginBottom: 14 }}>On successful completion of Level 4, students may progress to a relevant OTHM Level 5 Diploma. Some UK universities may consider applicants with an Ofqual-regulated Level 4 qualification for entry into the second year of a Bachelor&rsquo;s degree, subject to their individual admissions policies and credit-transfer requirements.</p>
+        <p>On successful completion of Level 5, students can apply to a university for a Level 6 Top-Up, which is the third and final year of a university degree.</p>
       </div>
 
       <div className="container al4-section">
@@ -130,7 +149,7 @@ export default function OTHMTourismHospitalityPage() {
                 <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
               </span>
               <h3>We Review</h3>
-              <p>Our admissions team reviews your application and supporting documents against the entry requirements for your chosen course.</p>
+              <p>After you submit your application, an admissions representative will contact you and will help you to complete the process. If you are eligible, they will invite you for an interview.</p>
             </div>
             <div className="al4-apply-step">
               <span className="al4-apply-icon">
