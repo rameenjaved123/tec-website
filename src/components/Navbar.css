@@ -33,9 +33,9 @@
   flex: 1;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 6px;
-  margin-left: 28px;
+  justify-content: center;
+  gap: 8px;
+  padding-left: 40px;
 }
 
 .dev-search-wrap {

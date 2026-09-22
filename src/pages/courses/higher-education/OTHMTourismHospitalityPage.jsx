@@ -23,7 +23,7 @@ export default function OTHMTourismHospitalityPage() {
 
       <PageHero
         title="OTHM Level 4 &amp; 5 Diploma in Tourism and Hospitality Management"
-        bgImage="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=1600&q=80"
+        bgImage="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1600&q=80"
       />
 
       <div style={{ height: '24px', background: '#fff' }} />
