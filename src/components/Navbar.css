@@ -11,15 +11,21 @@
   display: flex;
   align-items: center;
   height: 72px;
+  position: relative; /* anchor for the absolutely-centred menu */
 }
 
-/* The default .container is 1200px; the menu (with OTHM added) is wider than that
-   and was overflowing + sitting centered with a big left margin. Widen the header
-   so the logo + menu use more of the screen and sit further left. */
+/* Widen the header (default .container is 1200px) and give the logo comfortable
+   breathing room from the edge. */
 .navbar-inner.container {
   max-width: 1720px;
+  padding-left: 44px;
+  padding-right: 44px;
 }
 
+.navbar-logo {
+  position: relative;
+  z-index: 2; /* stays clickable above the centred menu overlay */
+}
 
 .navbar-logo img {
   height: 52px;
@@ -29,13 +35,20 @@
   object-fit: contain;
 }
 
+/* Centre the menu across the FULL width of the header bar, independent of the
+   logo, so it reads as truly centred. pointer-events lets the logo stay clickable
+   under the overlay. */
 .navbar-desktop {
-  flex: 1;
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding-left: 40px;
+  pointer-events: none;
+}
+.navbar-desktop .nav-item {
+  pointer-events: auto;
 }
 
 .dev-search-wrap {
