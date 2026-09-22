@@ -1,29 +1,29 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Clock, Calendar, Award, FileText } from 'lucide-react';
+import { Clock, Calendar, Award, TrendingUp, FileText } from 'lucide-react';
 import '../../InnerPage.css';
 import '../../CoursePage.css';
-import '../higher-education/ATHELevel4Page.css';
+import './ATHELevel4Page.css';
 import PageHero from '../../../components/PageHero';
 
 const facts = [
-  { icon: <Clock size={22} />, label: '600 Guided Learning Hours (1,200 TQT)' },
-  { icon: <Calendar size={22} />, label: 'Duration: One Academic Year (Full-time)' },
+  { icon: <Clock size={22} />, label: '2 Years' },
+  { icon: <Calendar size={22} />, label: 'Duration: Two Academic Years (Full-time)' },
   { icon: <Award size={22} />, label: 'Awarding Body: OTHM (Ofqual regulated)' },
-  { icon: <FileText size={22} />, label: 'Level 5 Diploma · 120 Credits' },
+  { icon: <TrendingUp size={22} />, label: 'Progression: Final year (top-up) of a UK Bachelor’s degree' },
 ];
 
 const tabs = ['Overview', 'Course Units', 'Course Fees'];
 
-export default function OTHMTourismHospitalityL5Page() {
+export default function OTHMTourismHospitalityPage() {
   const [activeTab, setActiveTab] = useState('Overview');
 
   return (
     <div className="inner-page page-enter al4-page">
 
       <PageHero
-        title="OTHM Level 5 Diploma in Tourism and Hospitality Management"
-        bgImage="https://images.unsplash.com/photo-1551632436-cbf8dd35adfa?w=1600&q=80"
+        title="OTHM Level 4 &amp; 5 Diploma in Tourism and Hospitality Management"
+        bgImage="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=1600&q=80"
       />
 
       <div style={{ height: '24px', background: '#fff' }} />
@@ -40,14 +40,24 @@ export default function OTHMTourismHospitalityL5Page() {
 
         {activeTab === 'Overview' && (
           <div className="al4-overview">
-            <p><strong>The OTHM Level 5 Diploma in Tourism and Hospitality Management develops students as managers within the tourism and hospitality industry.</strong></p>
-            <p>Students critically apply contemporary knowledge and theories to the management of complex problems, gaining the specialist skills and technical understanding needed to advance their management careers or progress to further study.</p>
+            <p><strong>The OTHM Level 4 &amp; 5 Diploma in Tourism and Hospitality Management is a two-year programme that develops students as managers within the tourism and hospitality industry.</strong></p>
+            <p>Delivered as a single two-year course, it is equivalent to the first two years of an undergraduate degree. Year 1 (Level 4) builds the essential foundations — academic research skills, the business environment, services marketing, sustainability and event management. Year 2 (Level 5) develops advanced management capability, applying contemporary knowledge and theories to complex problems in tourism and hospitality.</p>
+            <p>Students begin at Level 4 and progress to Level 5 in the second year. On successful completion of both years, students can progress to the final year (top-up) of a UK Bachelor&rsquo;s degree, as this is an Ofqual-regulated qualification.</p>
           </div>
         )}
 
         {activeTab === 'Course Units' && (
           <div className="al4-units-list">
-            <p style={{ fontWeight: 700, marginBottom: 10 }}>Mandatory Units — complete all 6 (120 credits, 20 credits each)</p>
+            <p style={{ fontWeight: 700, marginBottom: 10 }}>Year 1 — Level 4 (120 credits, 6 mandatory units of 20 credits each)</p>
+            <ul className="al4-bullets">
+              <li>Academic Writing and Research Skills (20 Credits)</li>
+              <li>Business Environment for Tourism and Hospitality (20 Credits)</li>
+              <li>Services Marketing in Tourism and Hospitality (20 Credits)</li>
+              <li>Sustainability in Tourism and Hospitality (20 Credits)</li>
+              <li>Events Management (20 Credits)</li>
+              <li>The Development of the Tourism and Hospitality Industry (20 Credits)</li>
+            </ul>
+            <p style={{ fontWeight: 700, margin: '22px 0 10px' }}>Year 2 — Level 5 (120 credits, 6 mandatory units of 20 credits each)</p>
             <ul className="al4-bullets">
               <li>Digital Marketing Management for Tourism and Hospitality (20 Credits)</li>
               <li>Operations Management (20 Credits)</li>
@@ -62,7 +72,6 @@ export default function OTHMTourismHospitalityL5Page() {
         {activeTab === 'Course Fees' && (
           <div className="al4-fees">
             <p>Tuition fee for Home (UK) students per year*: <strong>&pound;4,000</strong></p>
-            <p style={{ marginTop: 16 }}>At Trent Education Centre we are committed to making education accessible and affordable. We offer a range of funding options, including government loans, scholarships and bursaries, and flexible payment plans may be available. Please contact our admissions team for personalised advice.</p>
             <p style={{ marginTop: 16 }}>
               Before enrolling, please read the{' '}
               <a href="/assets/documents/terms/terms-conditions-he.pdf" target="_blank" rel="noreferrer">Terms and Conditions</a>
@@ -92,18 +101,13 @@ export default function OTHMTourismHospitalityL5Page() {
         <p><strong>Age:</strong> 18+</p>
         <p style={{ marginTop: 12 }}>Applicants should hold at least one of the following:</p>
         <ul className="al4-bullets" style={{ marginTop: 8 }}>
-          <li>A relevant Level 4 Diploma or an equivalent qualification</li>
-          <li>GCE Advanced Level (A Levels) in 3 subjects or equivalent</li>
+          <li>A relevant Level 3 Diploma or an equivalent qualification</li>
+          <li>GCE Advanced Level (A Levels) in 2 subjects or equivalent</li>
           <li>Mature students (21+) with relevant management experience</li>
         </ul>
         <p style={{ marginTop: 16 }}><strong>English Language Requirements:</strong></p>
         <p style={{ marginTop: 8 }}>Applicants who are not from a majority English-speaking country must provide evidence of English language competency.</p>
         <p style={{ marginTop: 16 }}><strong>All entry decisions are made on an individual basis.</strong></p>
-      </div>
-
-      <div className="container al4-section">
-        <h2 className="al4-section-title">Progression</h2>
-        <p>On successful completion, students can progress to the OTHM Level 6 Diploma in Tourism and Hospitality Management, or gain direct entry into the final year of a three-year UK Bachelor&rsquo;s degree programme, as this is an Ofqual-regulated qualification.</p>
       </div>
 
       <div className="container al4-section">

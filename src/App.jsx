@@ -17,9 +17,7 @@ import NCFEMathsL1Page from './pages/courses/further-education/NCFEMathsL1Page';
 import NCFEMathsL2Page from './pages/courses/further-education/NCFEMathsL2Page';
 import SIADoorSupervisorsPage from './pages/courses/further-education/SIADoorSupervisorsPage';
 import DigitalSkillsPage from './pages/courses/further-education/DigitalSkillsPage';
-import OTHMCoursesPage from './pages/courses/othm/OTHMCoursesPage';
-import OTHMTourismHospitalityL4Page from './pages/courses/othm/OTHMTourismHospitalityL4Page';
-import OTHMTourismHospitalityL5Page from './pages/courses/othm/OTHMTourismHospitalityL5Page';
+import OTHMTourismHospitalityPage from './pages/courses/higher-education/OTHMTourismHospitalityPage';
 import AboutPage from './pages/about/AboutPage';
 import MissionValuesPage from './pages/about/MissionValuesPage';
 import StudyCentresPage from './pages/about/StudyCentresPage';
@@ -114,9 +112,7 @@ function AppLayout() {
           <Route path="/ncfe-maths-l2" element={<NCFEMathsL2Page />} />
           <Route path="/sia-door-supervisors" element={<SIADoorSupervisorsPage />} />
           <Route path="/digital-skills" element={<DigitalSkillsPage />} />
-          <Route path="/othm-courses" element={<OTHMCoursesPage />} />
-          <Route path="/othm-tourism-hospitality-level-4" element={<OTHMTourismHospitalityL4Page />} />
-          <Route path="/othm-tourism-hospitality-level-5" element={<OTHMTourismHospitalityL5Page />} />
+          <Route path="/othm-tourism-hospitality" element={<OTHMTourismHospitalityPage />} />
 
           {/* About */}
           <Route path="/about" element={<AboutPage />} />

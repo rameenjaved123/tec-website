@@ -37,6 +37,17 @@ const courses = [
     modules: [],
     link: '/btec-hnd',
   },
+  {
+    title: 'OTHM Level 4 & 5 Diploma in Tourism and Hospitality Management',
+    duration: '2 Years',
+    mode: 'Onsite',
+    intake: 'One Academic Year (starting at Level 4)',
+    fee: '£4,000 per year (UK students)',
+    description:
+      'A two-year, Ofqual-regulated programme (240 credits) equivalent to the first two years of a degree. Year 1 (Level 4) builds the foundations of tourism and hospitality management; Year 2 (Level 5) develops advanced management capability. Graduates can progress to the final year (top-up) of a UK Bachelor\'s degree.',
+    modules: [],
+    link: '/othm-tourism-hospitality',
+  },
 ];
 
 export default function HigherEducationPage() {

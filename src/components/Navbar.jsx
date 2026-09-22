@@ -37,9 +37,7 @@ const ALL_PAGES = [
   { label: 'NCFE Level 2 Functional Skills in Maths', path: '/ncfe-maths-l2' },
   { label: 'SIA Level 2 Award for Door Supervisors', path: '/sia-door-supervisors' },
   { label: 'Digital Skills for Beginners', path: '/digital-skills' },
-  { label: 'OTHM Courses', path: '/othm-courses' },
-  { label: 'OTHM Level 4 Diploma in Tourism and Hospitality Management', path: '/othm-tourism-hospitality-level-4' },
-  { label: 'OTHM Level 5 Diploma in Tourism and Hospitality Management', path: '/othm-tourism-hospitality-level-5' },
+  { label: 'OTHM Level 4 & 5 Diploma in Tourism and Hospitality Management', path: '/othm-tourism-hospitality' },
   { label: 'Policies', path: '/policies' },
   { label: 'How to Write a Personal Statement', path: '/personal-statement' },
   { label: 'Trent Language Hub', path: '/trent-language-hub' },
@@ -147,6 +145,7 @@ const navItems = [
         ],
       },
       { label: 'Pearson BTEC Level 4 & 5 HND in Business', path: '/btec-hnd' },
+      { label: 'OTHM Level 4 & 5 Diploma in Tourism and Hospitality Management', path: '/othm-tourism-hospitality' },
     ],
   },
   {
@@ -159,15 +158,6 @@ const navItems = [
       { label: 'NCFE Level 2 Functional Skills in Maths', path: '/ncfe-maths-l2' },
       { label: 'SIA Level 2 Award for Door Supervisors', path: '/sia-door-supervisors' },
       { label: 'Digital Skills for Beginners', path: '/digital-skills' },
-    ],
-  },
-  {
-    label: 'OTHM Courses',
-    path: '/othm-courses',
-    children: [
-      { label: 'All OTHM Courses', path: '/othm-courses' },
-      { label: 'OTHM Level 4 Diploma in Tourism and Hospitality Management', path: '/othm-tourism-hospitality-level-4' },
-      { label: 'OTHM Level 5 Diploma in Tourism and Hospitality Management', path: '/othm-tourism-hospitality-level-5' },
     ],
   },
   {
