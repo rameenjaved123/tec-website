@@ -26,6 +26,7 @@ const FORM_SLUG = {
   'English & IELTS Application': 'english-ielts',
   'Complaint Form':              'complaint',
   'Academic Transition Form':   'academic-transition',
+  'Mitigating Circumstances Form': 'mitigating-circumstances',
 };
 
 // ── Notification emails ───────────────────────────────────────
