@@ -482,7 +482,11 @@ export default function ApplicationFormPage() {
               </Field>
             </div>
 
-            <div className="nsf-grid-2">
+            <div className="nsf-grid-3">
+              <Field label="Passport Number" required error={errors.passportNumber}>
+                <input className={`nsf-input${errors.passportNumber ? ' nsf-input-error' : ''}`}
+                  value={form.passportNumber} onChange={e => set('passportNumber', e.target.value)} />
+              </Field>
               <Field label="Share Code">
                 <input className="nsf-input" value={form.shareCode} onChange={e => set('shareCode', e.target.value)} placeholder="Optional" />
               </Field>
@@ -518,17 +522,13 @@ export default function ApplicationFormPage() {
               </Field>
             )}
 
-            <div className="nsf-grid-3">
+            <div className="nsf-grid-2">
               <Field label="When would you like to start study?" required error={errors.startDate}>
                 <select className={`nsf-input${errors.startDate ? ' nsf-input-error' : ''}`}
                   value={form.startDate} onChange={e => set('startDate', e.target.value)}>
                   <option value="">Please Select</option>
                   {START_DATES.map(d => <option key={d} value={d}>{d}</option>)}
                 </select>
-              </Field>
-              <Field label="Passport Number" required error={errors.passportNumber}>
-                <input className={`nsf-input${errors.passportNumber ? ' nsf-input-error' : ''}`}
-                  value={form.passportNumber} onChange={e => set('passportNumber', e.target.value)} />
               </Field>
               <Field label="Preferred Study Centre" required error={errors.studyCentre}>
                 <select className={`nsf-input${errors.studyCentre ? ' nsf-input-error' : ''}`}
