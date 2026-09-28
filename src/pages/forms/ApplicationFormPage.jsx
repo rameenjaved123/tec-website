@@ -91,6 +91,7 @@ const COURSES = [
   'ATHE Level 5 Extended Diploma in Business and Management',
   'OTHM Level 4 & 5 Diploma in Tourism and Hospitality Management',
   'ESOL (English for Speakers of Other Languages)',
+  'General English',
   'SIA Level 2 Award for Door Supervisors in the Private Security Industry (BIIAB)',
   'NCFE & Open Awards Level 2 in English',
   'NCFE & Open Awards Level 2 in Mathematics',
