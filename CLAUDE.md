@@ -74,6 +74,13 @@ Three optional fields added to match the student record model:
 
 Keys in the submitted payload: `maritalStatus`, `preferredContact`, `education` — matches `FORM_FIELD_MAP["application"]` in the backend and the `columnMap` in VLE WebsiteForms.
 
+## Chatbot Lead Capture (src/components/ChatWidget/ChatWidget.jsx)
+The chat widget now captures visitor contact details so TEC can follow up on enquiries.
+- On first open, a **"How can we reach you?"** card asks for **Full name** (required), **Email** (required, validated), **Phone** (optional) and **Course interest** (optional), with **Start chat** and **Skip** buttons.
+- On submit it POSTs to `/website/chat/lead` via `saveChatLead()` in `src/utils/api.js` (CORS + rate limit + reCAPTCHA action `chat_lead`), then shows a personalised confirmation message and reveals the normal chat/suggestions.
+- The choice is remembered in `localStorage` (`tec_chat_lead`) so returning visitors aren't re-asked; **Skip** is also remembered. Saving never blocks chatting (failures are swallowed).
+- Leads are viewable in the CMS (`vle-frontend`) under **Chatbot Leads** (`GET /website/chat/leads`, auto-purged after 30 days for GDPR). Backend sends an email notification to the admissions inbox (`digitaladmissions@trenteducation.ac.uk`) on each new lead.
+
 ## Form Type → FastAPI Slug Mapping
 | Form name | FastAPI slug |
 |---|---|

@@ -203,6 +203,22 @@ export async function logChat(userMessage, botAnswer, sessionId, recaptchaToken 
   });
 }
 
+// Save a chatbot lead (visitor contact details) so TEC can follow up.
+export async function saveChatLead({ name, email, phone, courseInterest, message, sourcePage }, recaptchaToken = null) {
+  return publicFetch('/website/chat/lead', {
+    method: 'POST',
+    body: JSON.stringify({
+      name,
+      email,
+      phone:           phone || null,
+      course_interest: courseInterest || null,
+      message:         message || null,
+      source_page:     sourcePage || (typeof window !== 'undefined' ? window.location.href : null),
+      recaptcha_token: recaptchaToken,
+    }),
+  });
+}
+
 // ── Error reporter ────────────────────────────────────────────────────────────
 
 export async function reportError(payload) {

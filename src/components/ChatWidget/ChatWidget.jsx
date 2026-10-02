@@ -1,6 +1,17 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import './ChatWidget.css';
-import { logChat, getRecaptchaToken } from '../../utils/api';
+import { logChat, saveChatLead, getRecaptchaToken } from '../../utils/api';
+
+const LEAD_STORAGE_KEY = 'tec_chat_lead';
+
+function readStoredLead() {
+  try {
+    const raw = localStorage.getItem(LEAD_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
 
 const BOT_AVATAR = '/assets/logos/tec-crest.png';
 
@@ -152,6 +163,13 @@ export default function ChatWidget() {
   const [sessionId, setSessionId] = useState(() => crypto.randomUUID());
   const [input, setInput]         = useState('');
   const [typing, setTyping]       = useState(false);
+
+  // Lead capture — ask the visitor how we can reach them before they chat.
+  const [leadDone, setLeadDone]       = useState(() => !!readStoredLead());
+  const [leadForm, setLeadForm]       = useState({ name: '', email: '', phone: '', courseInterest: '' });
+  const [leadErrors, setLeadErrors]   = useState({});
+  const [leadSaving, setLeadSaving]   = useState(false);
+
   const bottomRef = useRef(null);
   const inputRef  = useRef(null);
 
@@ -194,6 +212,43 @@ export default function ChatWidget() {
 
   const handleKey = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  };
+
+  const setLeadField = (field, value) => {
+    setLeadForm(f => ({ ...f, [field]: value }));
+    setLeadErrors(e => ({ ...e, [field]: '' }));
+  };
+
+  const submitLead = async () => {
+    const name = leadForm.name.trim();
+    const email = leadForm.email.trim();
+    const errs = {};
+    if (!name) errs.name = 'Please enter your name';
+    if (!email) errs.email = 'Please enter your email';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errs.email = 'Enter a valid email';
+    if (Object.keys(errs).length) { setLeadErrors(errs); return; }
+
+    setLeadSaving(true);
+    const lead = { name, email, phone: leadForm.phone.trim(), courseInterest: leadForm.courseInterest.trim() };
+    try {
+      const token = await getRecaptchaToken('chat_lead');
+      await saveChatLead(lead, token);
+    } catch {
+      // Don't block the visitor if saving fails — they can still chat.
+    }
+    try { localStorage.setItem(LEAD_STORAGE_KEY, JSON.stringify({ ...lead, ts: Date.now() })); } catch {}
+    setLeadSaving(false);
+    setLeadDone(true);
+    setMessages(prev => [...prev, {
+      role: 'assistant',
+      content: `Thanks, ${name.split(' ')[0]}! A member of our team can follow up with you. In the meantime, ask me anything about our courses, fees, or admissions.`,
+      ts: new Date(),
+    }]);
+  };
+
+  const skipLead = () => {
+    try { localStorage.setItem(LEAD_STORAGE_KEY, JSON.stringify({ skipped: true, ts: Date.now() })); } catch {}
+    setLeadDone(true);
   };
 
   if (!open) {
@@ -257,8 +312,60 @@ export default function ChatWidget() {
               </div>
             )}
 
+            {/* Lead capture — ask for contact details before chatting */}
+            {!leadDone && !typing && (
+              <div className="chat-lead">
+                <p className="chat-lead-title">How can we reach you?</p>
+                <p className="chat-lead-sub">Leave your details and our team can follow up on your enquiry.</p>
+                <div className="chat-lead-field">
+                  <input
+                    className={`chat-lead-input${leadErrors.name ? ' chat-lead-input--error' : ''}`}
+                    placeholder="Full name *"
+                    value={leadForm.name}
+                    onChange={e => setLeadField('name', e.target.value)}
+                  />
+                  {leadErrors.name && <span className="chat-lead-error">{leadErrors.name}</span>}
+                </div>
+                <div className="chat-lead-field">
+                  <input
+                    type="email"
+                    className={`chat-lead-input${leadErrors.email ? ' chat-lead-input--error' : ''}`}
+                    placeholder="Email address *"
+                    value={leadForm.email}
+                    onChange={e => setLeadField('email', e.target.value)}
+                  />
+                  {leadErrors.email && <span className="chat-lead-error">{leadErrors.email}</span>}
+                </div>
+                <div className="chat-lead-field">
+                  <input
+                    type="tel"
+                    className="chat-lead-input"
+                    placeholder="Phone number (optional)"
+                    value={leadForm.phone}
+                    onChange={e => setLeadField('phone', e.target.value)}
+                  />
+                </div>
+                <div className="chat-lead-field">
+                  <input
+                    className="chat-lead-input"
+                    placeholder="Course you're interested in (optional)"
+                    value={leadForm.courseInterest}
+                    onChange={e => setLeadField('courseInterest', e.target.value)}
+                  />
+                </div>
+                <div className="chat-lead-actions">
+                  <button className="chat-lead-submit" onClick={submitLead} disabled={leadSaving}>
+                    {leadSaving ? 'Saving…' : 'Start chat'}
+                  </button>
+                  <button className="chat-lead-skip" onClick={skipLead} disabled={leadSaving}>
+                    Skip
+                  </button>
+                </div>
+              </div>
+            )}
+
             {/* Suggestions panel — shows on open, after fallback, or when user toggles */}
-            {showSuggestions && !typing && (
+            {leadDone && showSuggestions && !typing && (
               <div className="chat-suggestions">
                 <div className="chat-suggestions-header">
                   <p className="chat-suggestions-label">Common questions</p>
@@ -273,7 +380,7 @@ export default function ChatWidget() {
             )}
 
             {/* Show suggestions toggle when hidden and not typing */}
-            {!showSuggestions && !typing && (
+            {leadDone && !showSuggestions && !typing && (
               <div style={{ textAlign: 'center', padding: '4px 0 2px' }}>
                 <button className="chat-suggestions-toggle" onClick={() => setShowSuggestions(true)}>
                   💡 Common questions

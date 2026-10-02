@@ -334,3 +334,74 @@
     padding: 12px 18px 12px 14px;
   }
 }
+
+/* ── Lead capture card ───────────────────────────────────────────────────────── */
+.chat-lead {
+  margin: 6px 0 4px;
+  padding: 14px;
+  background: #fff;
+  border: 1px solid #e6e8e3;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.chat-lead-title {
+  margin: 0 0 2px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--tec-green, #1a4a2e);
+}
+.chat-lead-sub {
+  margin: 0 0 12px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #6b7280;
+}
+.chat-lead-field { margin-bottom: 8px; }
+.chat-lead-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 11px;
+  font-size: 13px;
+  border: 1.5px solid #e0e0dc;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.chat-lead-input:focus { border-color: var(--tec-green, #1a4a2e); }
+.chat-lead-input--error { border-color: #dc2626; }
+.chat-lead-error {
+  display: block;
+  margin-top: 3px;
+  font-size: 11px;
+  color: #dc2626;
+}
+.chat-lead-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.chat-lead-submit {
+  flex: 1;
+  padding: 9px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--tec-green, #1a4a2e);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.chat-lead-submit:hover:not(:disabled) { opacity: 0.9; }
+.chat-lead-submit:disabled { opacity: 0.6; cursor: default; }
+.chat-lead-skip {
+  padding: 9px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #6b7280;
+  background: #f3f4f6;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.chat-lead-skip:hover:not(:disabled) { background: #e9ebe6; }
