@@ -4,6 +4,25 @@ import { logChat, saveChatLead, getRecaptchaToken } from '../../utils/api';
 
 const LEAD_STORAGE_KEY = 'tec_chat_lead';
 
+// Course list — kept in sync with the Student Application Form dropdown.
+const LEAD_COURSES = [
+  'HNC/HND in Business:  Entrepreneurship and Small Business Management',
+  'ATHE Level 5 Extended Diploma in Business and Management',
+  'OTHM Level 4 & 5 Diploma in Tourism and Hospitality Management',
+  'ESOL (English for Speakers of Other Languages)',
+  'General English',
+  'SIA Level 2 Award for Door Supervisors in the Private Security Industry (BIIAB)',
+  'NCFE & Open Awards Level 2 in English',
+  'NCFE & Open Awards Level 2 in Mathematics',
+  'NCFE & Open Awards Level 1 in English',
+  'NCFE & Open Awards Level 1 in Mathematics',
+  'IELTS - Exam Preparation',
+  'Function Skills English',
+  'Function Skills Mathematics',
+  'Digital Skills (Beginner)',
+  'Other / Not sure yet',
+];
+
 function readStoredLead() {
   try {
     const raw = localStorage.getItem(LEAD_STORAGE_KEY);
@@ -346,12 +365,16 @@ export default function ChatWidget() {
                   />
                 </div>
                 <div className="chat-lead-field">
-                  <input
-                    className="chat-lead-input"
-                    placeholder="Course you're interested in (optional)"
+                  <select
+                    className={`chat-lead-input chat-lead-select${leadForm.courseInterest ? '' : ' chat-lead-select--placeholder'}`}
                     value={leadForm.courseInterest}
                     onChange={e => setLeadField('courseInterest', e.target.value)}
-                  />
+                  >
+                    <option value="">Course you're interested in (optional)</option>
+                    {LEAD_COURSES.map(c => (
+                      <option key={c} value={c}>{c}</option>
+                    ))}
+                  </select>
                 </div>
                 <div className="chat-lead-actions">
                   <button className="chat-lead-submit" onClick={submitLead} disabled={leadSaving}>
