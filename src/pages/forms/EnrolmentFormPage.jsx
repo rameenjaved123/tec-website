@@ -145,6 +145,7 @@ const IMMIGRATION_STATUS_OPTIONS = [
   'Dependent Partner Leave To Remain',
   'Dependent Leave To Remain',
   'Skilled Worker Leave To Remain',
+  'Electronic Travel Authorisation',
 ];
 
 const COUNTRIES = [

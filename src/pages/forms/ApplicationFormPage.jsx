@@ -84,6 +84,7 @@ const VISA_STATUSES = [
   'British Citizen - British Overseas Territories','EU National (non-UK Citizen)',
   'Biometric Residents Permit','Indefinite leave to remain','Dependent Partner Leave To Remain',
   'Dependent Leave To Remain','Skilled Worker Leave To Remain',
+  'Electronic Travel Authorisation',
 ];
 
 const COURSES = [
