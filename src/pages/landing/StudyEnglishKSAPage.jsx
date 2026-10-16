@@ -26,6 +26,7 @@ const IMGS = {
 
 const ACCREDITATIONS = [
   { img: '/assets/badges/british-council-badge.png', alt: 'British Council Accredited' },
+  { img: '/assets/logos/partners/ascentis-trimmed.png', alt: 'Ascentis Awarding Organisation' },
   { img: '/assets/logos/british-council-ielts.jpg', alt: 'IELTS Registration Centre' },
   { img: '/assets/logos/ncfe.jpg', alt: 'NCFE' },
   { img: '/assets/badges/asic.jpg', alt: 'ASIC Accredited' },
