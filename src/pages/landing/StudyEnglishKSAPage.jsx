@@ -40,7 +40,7 @@ const L = {
     heroSub: 'A premier English Language Programme at Trent Education Centre — a British Council accredited English language centre in the heart of the United Kingdom.',
     pill1: 'British Council Accredited',
     pill2: 'Government-Sponsored Students Welcome',
-    factDurationL: 'Duration', factDurationV: 'Up to 11 months',
+    factDurationL: 'Duration', factDurationV: 'Up to 9 months',
     factTuitionL: 'Tuition', factTuitionV: '20 hours / week',
     factLocationL: 'Location', factLocationV: 'Castle Boulevard, Nottingham',
     factModeL: 'Mode', factModeV: 'Face-to-face',
@@ -96,7 +96,7 @@ const L = {
     feesH2: "Fees & what's included",
     feeNote: 'Government-sponsored course fee',
     feeList: [
-      'Up to 11 months of English language study',
+      'Up to 9 months of English language study',
       '20 hours of tuition per week',
       'Initial assessment to place you at the right level',
       'Ongoing feedback and progress monitoring',
@@ -113,7 +113,7 @@ const L = {
       { t: 'Healthcare & Safety', d: 'Access to NHS services, a 24-hour emergency line, and a safe, respectful environment where everyone is welcome regardless of culture or background.' },
     ],
     visaLabel: 'Visa:',
-    visaText: ' Most students study on a Short-Term Study Visa, which allows stays for the course length (maximum 11 months). Always check the specific requirements for your nationality and course on the UK Government website before you travel.',
+    visaText: ' Most students study on a Short-Term Study Visa, which allows stays for the course length (maximum 9 months). Always check the specific requirements for your nationality and course on the UK Government website before you travel.',
 
     accredTitle: 'Accredited & recognised by',
 
@@ -131,7 +131,7 @@ const L = {
     heroSub: 'برنامج متميّز لتعليم اللغة الإنجليزية في مركز ترنت التعليمي — مركز معتمد من المجلس الثقافي البريطاني لتعليم اللغة الإنجليزية في قلب المملكة المتحدة.',
     pill1: 'معتمد من المجلس الثقافي البريطاني',
     pill2: 'نرحّب بالطلاب المبتعثين على نفقة الحكومة',
-    factDurationL: 'المدة', factDurationV: 'حتى 11 شهراً',
+    factDurationL: 'المدة', factDurationV: 'حتى 9 أشهر',
     factTuitionL: 'ساعات الدراسة', factTuitionV: '20 ساعة أسبوعياً',
     factLocationL: 'الموقع', factLocationV: 'كاسل بوليفارد، نوتنغهام',
     factModeL: 'طريقة الدراسة', factModeV: 'حضوري (وجهاً لوجه)',
@@ -187,7 +187,7 @@ const L = {
     feesH2: 'الرسوم وما تشمله',
     feeNote: 'رسوم الدورة (على نفقة الحكومة)',
     feeList: [
-      'حتى 11 شهراً من دراسة اللغة الإنجليزية',
+      'حتى 9 أشهر من دراسة اللغة الإنجليزية',
       '20 ساعة تدريس أسبوعياً',
       'تقييم أولي لتحديد المستوى المناسب لك',
       'تغذية راجعة مستمرة ومتابعة للتقدّم',
@@ -204,7 +204,7 @@ const L = {
       { t: 'الرعاية الصحية والأمان', d: 'إمكانية الوصول إلى خدمات هيئة الصحة الوطنية (NHS)، وخط طوارئ على مدار الساعة، وبيئة آمنة ومحترمة يُرحَّب فيها بالجميع بغضّ النظر عن الثقافة أو الخلفية.' },
     ],
     visaLabel: 'التأشيرة:',
-    visaText: ' يدرس معظم الطلاب بتأشيرة دراسة قصيرة الأمد (Short-Term Study Visa) التي تتيح الإقامة طوال مدة الدورة (بحدٍّ أقصى 11 شهراً). تحقّق دائماً من المتطلبات الخاصة بجنسيتك ودورتك على موقع الحكومة البريطانية قبل السفر.',
+    visaText: ' يدرس معظم الطلاب بتأشيرة دراسة قصيرة الأمد (Short-Term Study Visa) التي تتيح الإقامة طوال مدة الدورة (بحدٍّ أقصى 9 أشهر). تحقّق دائماً من المتطلبات الخاصة بجنسيتك ودورتك على موقع الحكومة البريطانية قبل السفر.',
 
     accredTitle: 'معتمد ومعترف به من',
 
