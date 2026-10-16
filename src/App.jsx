@@ -74,6 +74,7 @@ import IELTSPage from './pages/IELTSPage';
 import GenericPage from './pages/GenericPage';
 import CookieConsent from './components/CookieConsent';
 import ChatWidget from './components/ChatWidget/ChatWidget';
+import StudyEnglishKSAPage from './pages/landing/StudyEnglishKSAPage';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -186,6 +187,10 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Standalone, unlisted landing page for KSA (Saudi) students —
+            rendered without the site navbar/footer so it shows only the
+            English programme content. Shared by direct link. */}
+        <Route path="/study-english-saudi-arabia" element={<StudyEnglishKSAPage />} />
         {/* Everything else — with navbar/footer */}
         <Route path="*" element={<AppLayout />} />
       </Routes>
