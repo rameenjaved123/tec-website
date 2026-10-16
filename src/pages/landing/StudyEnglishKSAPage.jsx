@@ -26,7 +26,7 @@ const IMGS = {
 
 const ACCREDITATIONS = [
   { img: '/assets/badges/british-council-badge.png', alt: 'British Council Accredited' },
-  { img: '/assets/logos/partners/ascentis-trimmed.png', alt: 'Ascentis Awarding Organisation' },
+  { img: '/assets/logos/partners/ascentis-trimmed.png', alt: 'Ascentis Awarding Organisation', word: 'Ascentis', sub: 'Awarding Organisation' },
   { img: '/assets/logos/british-council-ielts.jpg', alt: 'IELTS Registration Centre' },
   { img: '/assets/logos/ncfe.jpg', alt: 'NCFE' },
   { img: '/assets/badges/asic.jpg', alt: 'ASIC Accredited' },
@@ -383,7 +383,17 @@ export default function StudyEnglishKSAPage() {
           <p className="ksa-accred-title">{t.accredTitle}</p>
           <div className="ksa-accred-row">
             {ACCREDITATIONS.map((a) => (
-              <img key={a.alt} src={a.img} alt={a.alt} className="ksa-accred-logo" />
+              a.word ? (
+                <div className="ksa-accred-lockup" key={a.alt}>
+                  <img src={a.img} alt={a.alt} className="ksa-accred-logo ksa-accred-mark" />
+                  <span className="ksa-accred-word">
+                    {a.word}
+                    {a.sub && <span className="ksa-accred-sub">{a.sub}</span>}
+                  </span>
+                </div>
+              ) : (
+                <img key={a.alt} src={a.img} alt={a.alt} className="ksa-accred-logo" />
+              )
             ))}
           </div>
         </div>
@@ -492,6 +502,13 @@ const ksaStyles = `
 .ksa-accred-title { color:#6b7280; font-size:13px; text-transform:uppercase; letter-spacing:1px; font-weight:700; margin:0 0 22px; }
 .ksa-accred-row { display:flex; gap:38px; align-items:center; justify-content:center; flex-wrap:wrap; }
 .ksa-accred-logo { height:58px; width:auto; object-fit:contain; }
+.ksa-accred-lockup { display:flex; align-items:center; gap:8px; }
+.ksa-accred-mark { height:50px; }
+.ksa-accred-word { display:flex; flex-direction:column; line-height:1; text-align:left;
+  font-weight:800; font-size:26px; color:#2b2b2b; letter-spacing:.2px; }
+.ksa-accred-sub { font-size:9px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase;
+  color:#6b7280; margin-top:4px; }
+.ksa-root[dir="rtl"] .ksa-accred-word { text-align:right; }
 
 .ksa-cta { background:linear-gradient(135deg,#0c3420,#17492e); color:#fff; padding:60px 24px 34px; text-align:center; }
 .ksa-cta-title { font-size:clamp(24px,3.4vw,32px); font-weight:800; margin:0 0 10px; }
