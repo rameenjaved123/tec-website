@@ -17,10 +17,10 @@ const CAMPUS = '16 Castle Blvd, Nottingham, NG7 1FL, UK';
 
 const IMGS = {
   classrooms: '/assets/images/events/tec-classroom-session.webp',
-  faculty: '/assets/images/events/teacher-classroom-portrait.jpg',
+  faculty: '/assets/images/events/ksa-experienced-faculty.webp',
   facilities: '/assets/images/events/student-common-room.jpg',
   support: '/assets/images/events/student-support-session.jpg',
-  life: '/assets/images/events/esol-trip.jpg',
+  life: '/assets/images/events/ksa-life-beyond-classroom.webp',
   leisure: '/assets/images/events/student-lounge-group.jpg',
 };
 
