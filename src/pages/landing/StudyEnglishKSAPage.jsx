@@ -89,7 +89,7 @@ const L = {
       { img: IMGS.facilities, t: 'Comfortable Facilities', d: 'A welcoming student environment with comfortable study and social spaces.' },
       { img: IMGS.support, t: 'One-to-One Support', d: 'Personal academic and welfare support throughout your studies.' },
       { img: IMGS.life, t: 'Life Beyond the Classroom', d: 'Trips and activities to practise English and experience life in the UK.' },
-      { img: IMGS.leisure, t: 'Indoor Games & Leisure', d: 'A relaxed leisure area to unwind and make friends between classes.' },
+      { img: IMGS.leisure, pos: 'center 22%', t: 'Indoor Games & Leisure', d: 'A relaxed leisure area to unwind and make friends between classes.' },
     ],
 
     feesEyebrow: 'Course Details',
@@ -180,7 +180,7 @@ const L = {
       { img: IMGS.facilities, t: 'مرافق مريحة', d: 'بيئة طلابية مرحّبة مع مساحات مريحة للدراسة والتواصل الاجتماعي.' },
       { img: IMGS.support, t: 'دعم فردي', d: 'دعم أكاديمي وشخصي فردي طوال فترة دراستك.' },
       { img: IMGS.life, t: 'حياة خارج الفصل', d: 'رحلات وأنشطة لممارسة الإنجليزية والتعرّف على الحياة في المملكة المتحدة.' },
-      { img: IMGS.leisure, t: 'ألعاب داخلية وترفيه', d: 'منطقة ترفيهية هادئة للاسترخاء وتكوين الصداقات بين الحصص.' },
+      { img: IMGS.leisure, pos: 'center 22%', t: 'ألعاب داخلية وترفيه', d: 'منطقة ترفيهية هادئة للاسترخاء وتكوين الصداقات بين الحصص.' },
     ],
 
     feesEyebrow: 'تفاصيل الدورة',
@@ -331,7 +331,7 @@ export default function StudyEnglishKSAPage() {
           <div className="ksa-grid ksa-grid-3">
             {t.why.map((w) => (
               <div className="ksa-why" key={w.t}>
-                <div className="ksa-why-img" style={{ backgroundImage: `url('${w.img}')` }} />
+                <div className="ksa-why-img" style={{ backgroundImage: `url('${w.img}')`, backgroundPosition: w.pos || 'center' }} />
                 <div className="ksa-why-body">
                   <h4 className="ksa-card-title">{w.t}</h4>
                   <p className="ksa-card-text">{w.d}</p>
