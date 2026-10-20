@@ -21,7 +21,7 @@ const IMGS = {
   facilities: '/assets/images/events/student-common-room.jpg',
   support: '/assets/images/events/student-support-session.jpg',
   life: '/assets/images/events/ksa-life-beyond-classroom.webp',
-  leisure: '/assets/images/events/student-lounge-group.jpg',
+  leisure: '/assets/images/events/ksa-indoor-games.jpg',
 };
 
 const ACCREDITATIONS = [
