@@ -111,3 +111,14 @@ page). Unused CSS (`.sp-tables-section`, `.sp-table-img`) left in StrategicPlanP
 
 `public/assets/documents/policies/internal-verification.pdf` replaced with the updated Internal
 Verification & Quality Assurance Policy.
+
+## Home hero responsiveness (src/pages/home/HomePage.css)
+All hero slides are full pre-designed banner images (`heroSlides` in HomePage.jsx, all
+`imageOnly`), sharing a ~2.665:1 ratio (2500×938 / 1700×638 / 1900×713). The hero previously
+forced `height: 600px` on desktop (min-width:769px) while `.hero-full-img` used
+`object-fit: cover` — at ~1280–1366px laptops the image was scaled up to cover 600px and the
+left/right edges (headings like "Learn English with Confidence", "Apply Now" button) were
+cropped. Fix: keep `aspect-ratio: 2500/938` on the `.hero` at every width (removed the fixed-height
+desktop override) so the frame matches the banner ratio and `cover` fills it with no cropping —
+fully responsive on all laptop/desktop widths. If future banners use a different ratio, update the
+`.hero` aspect-ratio to match (or they will crop).

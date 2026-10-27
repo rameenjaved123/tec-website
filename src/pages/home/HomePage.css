@@ -1,18 +1,13 @@
 /* ── Hero ── */
 .hero {
   position: relative;
-  /* Mobile: natural image proportions — no zoom/crop on wide banners */
+  /* All hero banners share a ~2.665:1 ratio (2500×938 / 1700×638 / 1900×713).
+     Keeping this aspect-ratio at every width means object-fit: cover fills the
+     frame exactly with no left/right cropping — the full pre-designed banner
+     (headings, buttons) stays visible and scales responsively on all screens. */
   aspect-ratio: 2500 / 938;
   overflow: hidden;
   background: #0d1e13;
-}
-
-/* Desktop: fixed height — aspect-ratio alone gives only ~512px at 1366px wide */
-@media (min-width: 769px) {
-  .hero {
-    aspect-ratio: unset;
-    height: 600px;
-  }
 }
 
 /* ── Split slide (standard) ── */
