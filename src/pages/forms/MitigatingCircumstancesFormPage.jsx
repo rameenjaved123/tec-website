@@ -191,7 +191,7 @@ export default function MitigatingCircumstancesFormPage() {
                   Have you attached evidence to support your request?
                   <span style={{ display: 'block', fontWeight: 400, fontSize: '0.9em', color: '#555', marginTop: 4 }}>
                     If using the online form, have you emailed your evidence to{' '}
-                    <a href="mailto:mitcircs@trenteducation.ac.uk">mitcircs@trenteducation.ac.uk</a>?
+                    <a href="mailto:mitcircs@trenteducation.ac.uk" style={{ color: '#1a6bb5' }}>mitcircs@trenteducation.ac.uk</a>?
                   </span>
                 </>
               }
