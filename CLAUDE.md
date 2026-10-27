@@ -93,3 +93,21 @@ The chat widget now captures visitor contact details so TEC can follow up on enq
 | Partnerships & Collaborations | partnerships |
 | English & IELTS Application | english-ielts |
 | Complaint Form | complaint |
+
+## Strategic Plan page (src/pages/about/StrategicPlanPage.jsx) — updated to V04 (25 Mar 2026)
+Narrative sections (Purpose, Aim, Mission, Vision, Values, Holistic Approach, Future Plans,
+Strategic Priorities) now match the current Strategic Plan PDF
+(`public/assets/documents/policies/strategic-plan.pdf`, V04):
+- Purpose adds "including English language skills"; Mission adds "and international communities".
+- Future Plans renamed to **Future Plans (2024-2026)** with new content (ATHE L5, Pearson HND,
+  OfS application, English Language Study Centre, Ascentis ESOL, British Council IELTS/ASIC/
+  Accreditation, IELTS/EAP from 2027).
+- Strategic Priorities now **5** (added #5: develop quality/international recognition of English
+  language courses).
+The **Strategic Objectives tables** (photo-1…4), **Appendix ratio table** (photo-5) and
+**References** section were removed from the page — per request, those belong in the PDF, not on a
+webpage. The full detail remains in the downloadable Strategic Plan PDF (linked from the Policies
+page). Unused CSS (`.sp-tables-section`, `.sp-table-img`) left in StrategicPlanPage.css.
+
+`public/assets/documents/policies/internal-verification.pdf` replaced with the updated Internal
+Verification & Quality Assurance Policy.
