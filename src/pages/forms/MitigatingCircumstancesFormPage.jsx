@@ -185,7 +185,19 @@ export default function MitigatingCircumstancesFormPage() {
               {errors.circumstances && <span className="nsf-error">{errors.circumstances}</span>}
             </Field>
 
-            <YesNo label="Have you attached evidence to support your request?" value={form.evidenceAttached} onChange={v => set('evidenceAttached', v)} />
+            <YesNo
+              label={
+                <>
+                  Have you attached evidence to support your request?
+                  <span style={{ display: 'block', fontWeight: 400, fontSize: '0.9em', color: '#555', marginTop: 4 }}>
+                    If using the online form, have you emailed your evidence to{' '}
+                    <a href="mailto:mitcircs@trenteducation.ac.uk">mitcircs@trenteducation.ac.uk</a>?
+                  </span>
+                </>
+              }
+              value={form.evidenceAttached}
+              onChange={v => set('evidenceAttached', v)}
+            />
 
             <Field label="Describe the evidence you have for the reasons given.">
               <textarea className="nsf-input" rows={3} value={form.evidenceDescription} onChange={e => set('evidenceDescription', e.target.value)} />
