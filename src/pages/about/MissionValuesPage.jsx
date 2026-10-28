@@ -97,9 +97,18 @@ export default function MissionValuesPage() {
           <div>
             <h3>Be part of our vision</h3>
             <p>Join us today and start shaping your tomorrow!</p>
-            <Link to="/apply" className="btn-gold" style={{ display: 'inline-block' }}>
-              Apply Now
-            </Link>
+            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+              <Link to="/apply" className="btn-gold" style={{ display: 'inline-block' }}>
+                Apply Now
+              </Link>
+              <Link to="/enquiry-form" style={{
+                display: 'inline-block', padding: '12px 28px', background: 'transparent',
+                border: '2px solid rgba(255,255,255,0.75)', color: '#fff',
+                borderRadius: '50px', fontWeight: 600, fontSize: '0.95rem'
+              }}>
+                Enquire Now
+              </Link>
+            </div>
           </div>
         </div>
       </div>

@@ -147,6 +147,13 @@ export default function FurtherEducationPage() {
               }}>
                 Apply Now
               </Link>
+              <Link to="/enquiry-form" style={{
+                display: 'inline-block', padding: '12px 28px', background: 'transparent',
+                border: '2px solid var(--tec-green)', color: 'var(--tec-green)',
+                borderRadius: '50px', fontWeight: 600, fontSize: '0.95rem', transition: 'all 0.2s'
+              }}>
+                Enquire Now
+              </Link>
             </div>
           </div>
         ))}

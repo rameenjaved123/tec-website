@@ -136,8 +136,13 @@ export default function NCFEMathsL1Page() {
               <p>Once you&rsquo;ve completed your application and connected with an admissions representative, you&rsquo;re ready to create your schedule.</p>
             </div>
           </div>
-          <div style={{ textAlign: 'center', marginTop: 36 }}>
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center', marginTop: 36 }}>
             <Link to="/apply" className="btn-gold" style={{ display: 'inline-block', padding: '14px 40px', fontSize: '1rem' }}>Apply Now</Link>
+            <Link to="/enquiry-form" style={{
+              display: 'inline-block', padding: '14px 40px', fontSize: '1rem', background: 'transparent',
+              border: '2px solid var(--tec-green)', color: 'var(--tec-green)',
+              borderRadius: '50px', fontWeight: 600
+            }}>Enquire Now</Link>
           </div>
         </div>
       </div>

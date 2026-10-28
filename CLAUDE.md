@@ -131,3 +131,20 @@ fully responsive on all laptop/desktop widths. If future banners use a different
   centre. (This replaced an earlier button-based version the user didn't want — `.navbar-desktop`
   remains the original absolutely-centred overlay.)
 - Added **Enquire** (→ /enquiry-form) above **Apply** in the Admission dropdown (and mobile).
+
+## "Enquire Now" buttons beside "Apply Now" (course pages)
+Added an **Enquire Now** button (→ /enquiry-form) next to every course **Apply Now** button
+(Apply Now stays → /apply). Styling matches each page's existing button; on dark backgrounds the
+Enquire button is a white outline, on light backgrounds a green outline. Pages updated:
+- src/pages/IELTSPage.jsx
+- src/pages/TrentLanguageHubPage.jsx
+- src/pages/about/StudentLifePage.jsx
+- src/pages/about/MissionValuesPage.jsx
+- src/pages/courses/higher-education/HigherEducationPage.jsx (per course card)
+- src/pages/courses/further-education/FurtherEducationPage.jsx (per course card)
+- src/pages/courses/further-education/NCFEMathsL1Page.jsx
+
+NOT changed — job-application "Apply Now" buttons (→ /job-application, CV/cover-letter, not courses):
+Lecturer, English Teacher, Teaching Assistant, Student Support Officer, Financial Account Manager,
+Marketing Executive. HomePage hero "Apply Now" lives in a split-slide code path that no longer
+renders (all hero slides are imageOnly banner images), so nothing visible to pair there.
