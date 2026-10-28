@@ -122,3 +122,12 @@ cropped. Fix: keep `aspect-ratio: 2500/938` on the `.hero` at every width (remov
 desktop override) so the frame matches the banner ratio and `cover` fills it with no cropping —
 fully responsive on all laptop/desktop widths. If future banners use a different ratio, update the
 `.hero` aspect-ratio to match (or they will crop).
+
+## Navbar course CTAs + Admission submenu (src/components/Navbar.jsx + Navbar.css)
+- Added two course CTA links to the header: **Enquire about a course** (→ /enquiry-form,
+  outlined gold) and **Apply for a course** (→ /application-form, filled gold). They sit on the
+  right of the bar on desktop and in the mobile menu (`.mobile-cta`); hidden on desktop ≤1280px
+  (where the nav collapses to the hamburger).
+- Changed `.navbar-desktop` from an absolutely-centred full-width overlay to normal flow
+  (`flex: 1`), so the centred menu no longer overlaps the logo or the new CTAs.
+- Added **Enquire** (→ /enquiry-form) above **Apply** in the Admission dropdown (and mobile).

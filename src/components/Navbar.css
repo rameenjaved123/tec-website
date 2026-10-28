@@ -35,20 +35,14 @@
   object-fit: contain;
 }
 
-/* Centre the menu across the FULL width of the header bar, independent of the
-   logo, so it reads as truly centred. pointer-events lets the logo stay clickable
-   under the overlay. */
+/* Menu sits in normal flow between the logo and the right-hand CTAs and centres
+   within that space, so it never overlaps the logo or the Enquire/Apply buttons. */
 .navbar-desktop {
-  position: absolute;
-  inset: 0;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  pointer-events: none;
-}
-.navbar-desktop .nav-item {
-  pointer-events: auto;
 }
 
 .dev-search-wrap {
@@ -342,4 +336,71 @@
   font-size: 0.83rem;
   color: #999;
   text-align: center;
+}
+
+/* ── Course CTA links (right side of the bar) ── */
+.navbar-cta {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  z-index: 2; /* above the absolutely-centred menu overlay */
+  flex-shrink: 0;
+}
+
+.navbar-cta-link {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  line-height: 1;
+}
+
+/* Enquire — outlined gold */
+.navbar-cta-enquire {
+  color: var(--tec-gold-light);
+  border: 1.5px solid var(--tec-gold);
+  background: transparent;
+}
+.navbar-cta-enquire:hover {
+  background: var(--tec-gold);
+  color: var(--tec-green-dark);
+  border-color: var(--tec-gold);
+}
+
+/* Apply — filled gold */
+.navbar-cta-apply {
+  color: var(--tec-green-dark);
+  background: var(--tec-gold);
+  border: 1.5px solid var(--tec-gold);
+}
+.navbar-cta-apply:hover {
+  background: var(--tec-gold-light);
+  border-color: var(--tec-gold-light);
+}
+
+/* Hide the desktop CTAs when the desktop nav collapses (≤1280px) — they appear
+   in the mobile menu instead */
+@media (max-width: 1280px) {
+  .navbar-cta { display: none; }
+}
+
+/* ── Mobile menu CTAs ── */
+.mobile-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 24px 8px;
+}
+.mobile-cta .navbar-cta-link {
+  text-align: center;
+  padding: 12px 16px;
+  font-size: 0.8rem;
 }

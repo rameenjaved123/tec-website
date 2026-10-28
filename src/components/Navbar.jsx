@@ -121,6 +121,7 @@ const navItems = [
     path: '/admission',
     children: [
       { label: 'Overview', path: '/admission' },
+      { label: 'Enquire', path: '/enquiry-form' },
       { label: 'Apply', path: '/apply' },
     ],
   },
@@ -331,6 +332,12 @@ export default function Navbar() {
           ))}
         </nav>
 
+        {/* Course CTAs */}
+        <div className="navbar-cta">
+          <Link to="/enquiry-form" className="navbar-cta-link navbar-cta-enquire">Enquire about a course</Link>
+          <Link to="/application-form" className="navbar-cta-link navbar-cta-apply">Apply for a course</Link>
+        </div>
+
         {/* Dev-only search */}
         {IS_DEV && <DevSearch />}
 
@@ -350,6 +357,10 @@ export default function Navbar() {
               depth={0}
             />
           ))}
+          <div className="mobile-cta">
+            <Link to="/enquiry-form" className="navbar-cta-link navbar-cta-enquire">Enquire about a course</Link>
+            <Link to="/application-form" className="navbar-cta-link navbar-cta-apply">Apply for a course</Link>
+          </div>
         </div>
       )}
     </header>
