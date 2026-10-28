@@ -292,12 +292,14 @@
 }
 
 .apply-eligibility-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
 }
 
 .apply-eligibility-card {
+  flex: 0 1 260px;
   background: #fff;
   border: 1px solid #e6ede7;
   border-radius: 14px;
@@ -394,15 +396,9 @@
   margin: 0;
 }
 
-@media (max-width: 900px) {
-  .apply-eligibility-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 @media (max-width: 600px) {
-  .apply-eligibility-grid {
-    grid-template-columns: 1fr;
+  .apply-eligibility-card {
+    flex: 1 1 100%;
   }
   .apply-next-item {
     padding: 14px 16px;
