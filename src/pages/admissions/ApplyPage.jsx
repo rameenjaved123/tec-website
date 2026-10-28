@@ -43,7 +43,7 @@ const documents = [
 
 // ── Who can apply ──────────────────────────────────────────────
 const eligibility = [
-  { icon: <Users size={20} />,         title: 'Adult Students (18+)',         desc: 'Recent qualifications and a willingness to learn or returning to education or upskilling for work.' },
+  { icon: <Users size={20} />,         title: 'Adult Students (18+)',         desc: 'Recent qualifications and a willingness to learn or returning to education and upskilling for work.' },
   { icon: <Globe size={20} />,         title: 'International Students',       desc: 'Apply for English language courses as an international student on a short-term study visa.' },
   { icon: <ShieldCheck size={20} />,   title: 'Career Changers',              desc: 'Work-experience and prior-learning recognition considered.' },
 ];

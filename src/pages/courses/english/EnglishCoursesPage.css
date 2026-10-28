@@ -123,17 +123,28 @@
 }
 
 .eng-overview-card {
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
   background: rgba(255, 255, 255, 0.07);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-top: 4px solid var(--tec-gold);
   border-radius: 8px;
   padding: 32px 28px;
   color: #fff;
-  transition: background 0.2s;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s, border-color 0.2s;
 }
 
 .eng-overview-card:hover {
-  background: rgba(255, 255, 255, 0.11);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(201, 162, 39, 0.5);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+}
+
+/* Nudge the "View details" arrow on card hover */
+.eng-overview-card:hover .eng-overview-link {
+  gap: 10px;
 }
 
 .eng-overview-icon {
@@ -542,7 +553,18 @@
   margin-top: 32px;
   display: flex;
   justify-content: flex-start;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
 }
+
+.eng-apply-or {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #6b7280;
+  letter-spacing: 0.05em;
+}
+
 
 .eng-apply-btn {
   display: inline-flex;
@@ -560,6 +582,18 @@
 
 .eng-apply-btn:hover {
   background: var(--tec-green-dark);
+}
+
+.eng-apply-btn--outline {
+  background: transparent !important;
+  color: var(--tec-green) !important;
+  border: 2px solid var(--tec-green);
+  padding: 11px 28px;
+}
+
+.eng-apply-btn--outline:hover {
+  background: var(--tec-green) !important;
+  color: #fff !important;
 }
 
 /* ════════════════════════════════════════

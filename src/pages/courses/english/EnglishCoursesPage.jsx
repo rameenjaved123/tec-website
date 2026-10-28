@@ -557,7 +557,7 @@ export default function EnglishCoursesPage() {
         <div className="container" style={{ maxWidth: 1100 }}>
           <div className="eng-course-overview-grid">
 
-            <div className="eng-overview-card">
+            <a href="#esol" className="eng-overview-card">
               <div className="eng-overview-icon"><BookOpen size={28} /></div>
               <h3>Ascentis ESOL</h3>
               <p className="eng-overview-sub">Entry 1 to Level 2 (A1 – C1)</p>
@@ -566,10 +566,10 @@ export default function EnglishCoursesPage() {
                 <li><CalendarDays size={13} /> Wed &amp; Thu</li>
                 <li><span className="eng-fee-pill">£3,240</span></li>
               </ul>
-              <a href="#esol" className="eng-overview-link">View details <ArrowRight size={14} /></a>
-            </div>
+              <span className="eng-overview-link">View details <ArrowRight size={14} /></span>
+            </a>
 
-            <div className="eng-overview-card">
+            <a href="#ncfe" className="eng-overview-card">
               <div className="eng-overview-icon"><GraduationCap size={28} /></div>
               <h3>NCFE Functional Skills</h3>
               <p className="eng-overview-sub">Level 1 &amp; Level 2 English</p>
@@ -578,8 +578,8 @@ export default function EnglishCoursesPage() {
                 <li><CalendarDays size={13} /> Tue &amp; Wed</li>
                 <li><span className="eng-fee-pill">£720</span></li>
               </ul>
-              <a href="#ncfe" className="eng-overview-link">View details <ArrowRight size={14} /></a>
-            </div>
+              <span className="eng-overview-link">View details <ArrowRight size={14} /></span>
+            </a>
 
           </div>
         </div>
@@ -598,6 +598,10 @@ export default function EnglishCoursesPage() {
             <Link to="/apply" className="eng-apply-btn">
               Apply for ESOL <ArrowRight size={16} />
             </Link>
+            <span className="eng-apply-or">OR</span>
+            <Link to="/enquiry-form" className="eng-apply-btn eng-apply-btn--outline">
+              Enquire Now <ArrowRight size={16} />
+            </Link>
           </div>
         </div>
       </div>
@@ -614,6 +618,10 @@ export default function EnglishCoursesPage() {
           <div className="eng-apply-row">
             <Link to="/apply" className="eng-apply-btn">
               Apply for Functional Skills <ArrowRight size={16} />
+            </Link>
+            <span className="eng-apply-or">OR</span>
+            <Link to="/enquiry-form" className="eng-apply-btn eng-apply-btn--outline">
+              Enquire Now <ArrowRight size={16} />
             </Link>
           </div>
         </div>
