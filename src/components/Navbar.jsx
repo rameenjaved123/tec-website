@@ -332,12 +332,6 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Course CTAs */}
-        <div className="navbar-cta">
-          <Link to="/enquiry-form" className="navbar-cta-link navbar-cta-enquire">Enquire about a course</Link>
-          <Link to="/application-form" className="navbar-cta-link navbar-cta-apply">Apply for a course</Link>
-        </div>
-
         {/* Dev-only search */}
         {IS_DEV && <DevSearch />}
 
@@ -345,6 +339,20 @@ export default function Navbar() {
         <button className="mobile-toggle" onClick={() => setMobileOpen(!mobileOpen)}>
           {mobileOpen ? <X size={26} /> : <Menu size={26} />}
         </button>
+      </div>
+
+      {/* Tagline / info strip below the menu bar */}
+      <div className="navbar-tagline">
+        <div className="navbar-tagline-inner container">
+          <span className="navbar-tagline-text">
+            Empowering futures — English, Further &amp; Higher Education in Nottingham
+          </span>
+          <span className="navbar-tagline-links">
+            <Link to="/enquiry-form" className="navbar-tagline-link">Enquire about a course</Link>
+            <span className="navbar-tagline-sep" aria-hidden="true">|</span>
+            <Link to="/application-form" className="navbar-tagline-link">Apply for a course</Link>
+          </span>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -357,10 +365,6 @@ export default function Navbar() {
               depth={0}
             />
           ))}
-          <div className="mobile-cta">
-            <Link to="/enquiry-form" className="navbar-cta-link navbar-cta-enquire">Enquire about a course</Link>
-            <Link to="/application-form" className="navbar-cta-link navbar-cta-apply">Apply for a course</Link>
-          </div>
         </div>
       )}
     </header>

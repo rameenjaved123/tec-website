@@ -35,14 +35,20 @@
   object-fit: contain;
 }
 
-/* Menu sits in normal flow between the logo and the right-hand CTAs and centres
-   within that space, so it never overlaps the logo or the Enquire/Apply buttons. */
+/* Centre the menu across the FULL width of the header bar, independent of the
+   logo, so it reads as truly centred. pointer-events lets the logo stay clickable
+   under the overlay. */
 .navbar-desktop {
-  flex: 1;
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  pointer-events: none;
+}
+.navbar-desktop .nav-item {
+  pointer-events: auto;
 }
 
 .dev-search-wrap {
@@ -338,69 +344,65 @@
   text-align: center;
 }
 
-/* ── Course CTA links (right side of the bar) ── */
-.navbar-cta {
-  margin-left: auto;
+
+/* ── Tagline / info strip (slim line below the menu bar) ── */
+.navbar-tagline {
+  background: #0d1e13;
+  border-top: 1px solid rgba(201, 162, 39, 0.35); /* gold hairline separating it from the menu */
+}
+
+.navbar-tagline-inner {
   display: flex;
   align-items: center;
-  gap: 10px;
-  position: relative;
-  z-index: 2; /* above the absolutely-centred menu overlay */
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 34px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.navbar-tagline-inner.container {
+  max-width: 1720px;
+  padding-left: 44px;
+  padding-right: 44px;
+}
+
+.navbar-tagline-text {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.72);
+  letter-spacing: 0.02em;
+}
+
+.navbar-tagline-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   flex-shrink: 0;
 }
 
-.navbar-cta-link {
-  display: inline-block;
-  padding: 8px 16px;
-  border-radius: 50px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  text-decoration: none;
-  transition: background 0.2s, color 0.2s, border-color 0.2s;
-  line-height: 1;
-}
-
-/* Enquire — outlined gold */
-.navbar-cta-enquire {
+.navbar-tagline-link {
+  font-size: 0.78rem;
+  font-weight: 600;
   color: var(--tec-gold-light);
-  border: 1.5px solid var(--tec-gold);
-  background: transparent;
-}
-.navbar-cta-enquire:hover {
-  background: var(--tec-gold);
-  color: var(--tec-green-dark);
-  border-color: var(--tec-gold);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+  white-space: nowrap;
 }
 
-/* Apply — filled gold */
-.navbar-cta-apply {
-  color: var(--tec-green-dark);
-  background: var(--tec-gold);
-  border: 1.5px solid var(--tec-gold);
-}
-.navbar-cta-apply:hover {
-  background: var(--tec-gold-light);
-  border-color: var(--tec-gold-light);
+.navbar-tagline-link:hover {
+  color: #fff;
+  text-decoration: underline;
 }
 
-/* Hide the desktop CTAs when the desktop nav collapses (≤1280px) — they appear
-   in the mobile menu instead */
-@media (max-width: 1280px) {
-  .navbar-cta { display: none; }
+.navbar-tagline-sep {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.78rem;
 }
 
-/* ── Mobile menu CTAs ── */
-.mobile-cta {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 20px 24px 8px;
-}
-.mobile-cta .navbar-cta-link {
-  text-align: center;
-  padding: 12px 16px;
-  font-size: 0.8rem;
+/* On small screens keep the links, drop the tagline text to save room */
+@media (max-width: 680px) {
+  .navbar-tagline-text { display: none; }
+  .navbar-tagline-inner { justify-content: center; }
+  .navbar-tagline-inner.container { padding-left: 16px; padding-right: 16px; }
 }

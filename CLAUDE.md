@@ -123,11 +123,11 @@ desktop override) so the frame matches the banner ratio and `cover` fills it wit
 fully responsive on all laptop/desktop widths. If future banners use a different ratio, update the
 `.hero` aspect-ratio to match (or they will crop).
 
-## Navbar course CTAs + Admission submenu (src/components/Navbar.jsx + Navbar.css)
-- Added two course CTA links to the header: **Enquire about a course** (→ /enquiry-form,
-  outlined gold) and **Apply for a course** (→ /application-form, filled gold). They sit on the
-  right of the bar on desktop and in the mobile menu (`.mobile-cta`); hidden on desktop ≤1280px
-  (where the nav collapses to the hamburger).
-- Changed `.navbar-desktop` from an absolutely-centred full-width overlay to normal flow
-  (`flex: 1`), so the centred menu no longer overlaps the logo or the new CTAs.
+## Navbar tagline strip + Admission submenu (src/components/Navbar.jsx + Navbar.css)
+- Added a slim **tagline/info strip** (`.navbar-tagline`) directly below the menu bar, separated by
+  a gold hairline border. Left: tagline text ("Empowering futures — English, Further & Higher
+  Education in Nottingham"); right: two text links — **Enquire about a course** (→ /enquiry-form)
+  and **Apply for a course** (→ /application-form). On ≤680px the tagline text hides and the links
+  centre. (This replaced an earlier button-based version the user didn't want — `.navbar-desktop`
+  remains the original absolutely-centred overlay.)
 - Added **Enquire** (→ /enquiry-form) above **Apply** in the Admission dropdown (and mobile).
