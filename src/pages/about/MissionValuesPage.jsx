@@ -97,10 +97,11 @@ export default function MissionValuesPage() {
           <div>
             <h3>Be part of our vision</h3>
             <p>Join us today and start shaping your tomorrow!</p>
-            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
               <Link to="/apply" className="btn-gold" style={{ display: 'inline-block' }}>
                 Apply Now
               </Link>
+              <span style={{ fontWeight: 700, fontSize: '0.85rem', color: 'rgba(255,255,255,0.85)', letterSpacing: '0.05em' }}>OR</span>
               <Link to="/enquiry-form" style={{
                 display: 'inline-block', padding: '12px 28px', background: 'transparent',
                 border: '2px solid rgba(255,255,255,0.75)', color: '#fff',

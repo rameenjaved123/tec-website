@@ -153,10 +153,11 @@ export default function TrentLanguageHubPage() {
             <p>
               Whether you are a school graduate preparing for university, a professional upgrading your English, or simply looking to gain international experience – <strong>Trent Language Hub</strong> is here to guide you every step of the way.
             </p>
-            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
               <a href="/apply" className="aap-split-btn">
                 Apply Now <ArrowRight size={16} />
               </a>
+              <span style={{ fontWeight: 700, fontSize: '0.8rem', color: '#6b7280', letterSpacing: '0.05em' }}>OR</span>
               <a href="/enquiry-form" className="aap-split-btn">
                 Enquire Now <ArrowRight size={16} />
               </a>

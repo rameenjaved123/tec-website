@@ -136,7 +136,7 @@ export default function FurtherEducationPage() {
                 </div>
               ))}
             </div>
-            <div style={{ display: 'flex', gap: '12px', marginTop: '16px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: '12px', marginTop: '16px', flexWrap: 'wrap', alignItems: 'center' }}>
               <Link to={course.link} className="btn-gold" style={{ display: 'inline-block' }}>
                 Course Details
               </Link>
@@ -147,6 +147,7 @@ export default function FurtherEducationPage() {
               }}>
                 Apply Now
               </Link>
+              <span style={{ fontWeight: 700, fontSize: '0.8rem', color: '#6b7280', letterSpacing: '0.05em' }}>OR</span>
               <Link to="/enquiry-form" style={{
                 display: 'inline-block', padding: '12px 28px', background: 'transparent',
                 border: '2px solid var(--tec-green)', color: 'var(--tec-green)',

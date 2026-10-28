@@ -174,10 +174,11 @@ export default function IELTSPage() {
               Start your journey with Trent Education Centre and unlock your potential. Our experienced
               tutors will guide you every step of the way to achieve your target band score.
             </p>
-            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
               <a href="/apply" className="aap-split-btn">
                 Apply Now <ArrowRight size={16} />
               </a>
+              <span style={{ fontWeight: 700, fontSize: '0.8rem', color: '#6b7280', letterSpacing: '0.05em' }}>OR</span>
               <a href="/enquiry-form" className="aap-split-btn">
                 Enquire Now <ArrowRight size={16} />
               </a>

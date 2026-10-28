@@ -158,8 +158,9 @@ export default function StudentLifePage() {
         <div className="container">
           <h2>Ready to take the next step?</h2>
           <p>Join thousands of students building their future at Trent Education Centre.</p>
-          <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
             <a href="/apply" className="sl-cta-btn">Apply Now</a>
+            <span style={{ fontWeight: 700, fontSize: '0.85rem', color: 'rgba(255,255,255,0.85)', letterSpacing: '0.05em' }}>OR</span>
             <a href="/enquiry-form" className="sl-cta-btn" style={{ background: 'transparent', color: '#fff', border: '2px solid rgba(255,255,255,0.75)', boxShadow: 'none' }}>Enquire Now</a>
           </div>
         </div>
