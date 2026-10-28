@@ -136,6 +136,10 @@ export default function EnquiryFormPage() {
 
         <div className="nsf-page-header">
           <h1 className="nsf-page-title">Enquiry Form</h1>
+          <p className="nsf-page-sub">
+            If you would like some information about any of our courses, please complete the form
+            below and a member of our admissions team will get back to you with everything you need to know.
+          </p>
           <p className="nsf-page-sub">Please complete all required fields marked with *</p>
         </div>
         <form className="nsf-form" onSubmit={handleSubmit} noValidate>
