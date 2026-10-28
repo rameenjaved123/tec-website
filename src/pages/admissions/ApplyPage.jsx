@@ -43,7 +43,7 @@ const documents = [
 
 // ── Who can apply ──────────────────────────────────────────────
 const eligibility = [
-  { icon: <GraduationCap size={20} />, title: 'School Leavers (16+)',        desc: 'Recent qualifications and a willingness to learn.' },
+  { icon: <GraduationCap size={20} />, title: 'School Leavers (18+)',        desc: 'Recent qualifications and a willingness to learn.' },
   { icon: <Users size={20} />,         title: 'Adult Students (19+)',         desc: 'Returning to education or upskilling for work.' },
   { icon: <Globe size={20} />,         title: 'International Students',       desc: 'See our International Application route — visa support available.' },
   { icon: <ShieldCheck size={20} />,   title: 'Career Changers',              desc: 'Work-experience and prior-learning recognition considered.' },
