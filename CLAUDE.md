@@ -144,7 +144,13 @@ Enquire button is a white outline, on light backgrounds a green outline. Pages u
 - src/pages/courses/further-education/FurtherEducationPage.jsx (per course card)
 - src/pages/courses/further-education/NCFEMathsL1Page.jsx
 
-NOT changed — job-application "Apply Now" buttons (→ /job-application, CV/cover-letter, not courses):
-Lecturer, English Teacher, Teaching Assistant, Student Support Officer, Financial Account Manager,
-Marketing Executive. HomePage hero "Apply Now" lives in a split-slide code path that no longer
+HomePage hero "Apply Now" lives in a split-slide code path that no longer
 renders (all hero slides are imageOnly banner images), so nothing visible to pair there.
+
+## Careers page (src/pages/about/CareersPage.jsx)
+- **Office Admin Manager** reactivated: moved from Previous Vacancies → **Current Vacancies**
+  (status `open`, applyLink `/job-application?job=Office%20Admin%20Manager`), positioned in the
+  middle of the open list (after Marketing Executive) rather than at the top.
+- Open job listings now show **Apply Here → OR → Enquire Now** (Enquire Now → `/enquiry-form`),
+  matching the OR pattern used on course pages. CSS `.job-or` (grey) and `.job-enquire`
+  (gold outline) in `src/pages/CoursePage.css`.

@@ -208,3 +208,22 @@
   background: var(--tec-green);
   color: white;
 }
+
+.job-or {
+  align-self: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #6b7280;
+  letter-spacing: 0.04em;
+}
+
+.job-enquire {
+  border: 2px solid var(--tec-gold);
+  color: var(--tec-gold);
+  background: transparent;
+}
+
+.job-enquire:hover {
+  background: var(--tec-gold);
+  color: white;
+}

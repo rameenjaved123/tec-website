@@ -29,6 +29,14 @@ const jobs = [
     learnLink: '/marketing-executive',
   },
   {
+    title: 'Office Admin Manager',
+    positions: null,
+    status: 'open',
+    desc: 'Oversees daily administrative operations, manages office supplies, coordinates staff, and supports executive team functions.',
+    applyLink: '/job-application?job=Office%20Admin%20Manager',
+    learnLink: '/job-office-admin-manager',
+  },
+  {
     title: 'Lecturer',
     positions: null,
     status: 'open',
@@ -59,14 +67,6 @@ const jobs = [
     desc: 'Designs and implements digital marketing campaigns, manages social media profiles, and analyses digital data to optimise marketing strategies.',
     applyLink: '/job-application?job=Digital%20Marketing%20Executive',
     learnLink: '/digital-marketing-executive',
-  },
-  {
-    title: 'Office Admin Manager',
-    positions: null,
-    status: 'closed',
-    desc: 'Oversees daily administrative operations, manages office supplies, coordinates staff, and supports executive team functions.',
-    applyLink: null,
-    learnLink: '/job-office-admin-manager',
   },
   {
     title: 'Human Resource Officer',
@@ -140,9 +140,13 @@ export default function CareersPage() {
             <p className="job-desc">{job.desc}</p>
             <div className="job-actions">
               {job.applyLink && (
-                <a href={job.applyLink} target="_blank" rel="noreferrer" className="job-apply">
-                  Apply Here
-                </a>
+                <>
+                  <a href={job.applyLink} target="_blank" rel="noreferrer" className="job-apply">
+                    Apply Here
+                  </a>
+                  <span className="job-or">OR</span>
+                  <Link to="/enquiry-form" className="job-enquire">Enquire Now</Link>
+                </>
               )}
               {job.learnLink && (
                 job.learnLink.startsWith('/')
