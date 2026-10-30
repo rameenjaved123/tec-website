@@ -46,6 +46,7 @@ const sections = [
       { title: 'Complaints & Appeals Policy',                                 link: '/assets/documents/policies/complaints-and-appeals.pdf' },
       { title: 'Examinations Policy',                                         link: '/assets/documents/policies/examinations.pdf' },
       { title: 'Internal Verification & Quality Assurance Policy',            link: '/assets/documents/policies/internal-verification.pdf' },
+      { title: 'Lesson Observation Policy',                                   link: '/assets/documents/policies/lesson-observation-academic.pdf' },
       { title: 'Recognition of Prior Learning Policy',                        link: '/assets/documents/policies/recognition-prior-learning.pdf' },
       { title: 'Special Consideration and Reasonable Adjustments Policy',     link: '/assets/documents/policies/special-consideration.pdf' },
       { title: 'Student Disciplinary Policy',                                 link: '/assets/documents/policies/student-disciplinary.pdf' },
