@@ -93,6 +93,7 @@ The chat widget now captures visitor contact details so TEC can follow up on enq
 | Partnerships & Collaborations | partnerships |
 | English & IELTS Application | english-ielts |
 | Complaint Form | complaint |
+| Functional Skills Exam-Only Registration | exam-only-registration |
 
 ## Strategic Plan page (src/pages/about/StrategicPlanPage.jsx) — updated to V04 (25 Mar 2026)
 Narrative sections (Purpose, Aim, Mission, Vision, Values, Holistic Approach, Future Plans,
@@ -146,6 +147,25 @@ Enquire button is a white outline, on light backgrounds a green outline. Pages u
 
 HomePage hero "Apply Now" lives in a split-slide code path that no longer
 renders (all hero slides are imageOnly banner images), so nothing visible to pair there.
+
+## Functional Skills Exam-Only Registration (src/pages/forms/ExamOnlyRegistrationPage.jsx)
+Public form for external/private Functional Skills (English & Maths, Entry 1 – Level 2)
+exam-only candidates, built from the "Exam Only Registration" Word form. Route
+**`/exam-only-registration`**; registered in `src/config/forms.js` as
+`'Functional Skills Exam-Only Registration'` → slug `exam-only-registration`,
+notifyEmail `digitaladmissions@trenteducation.ac.uk`. Uses the standard
+`saveSubmissionToDB` + `sendEmailNotification` + `sendConfirmationEmail` pipeline.
+- Sections **A–E only** (Candidate info, Exam requirements, Access arrangements, Supporting
+  documents, Declarations). Section **F (internal use)** from the Word doc is deliberately
+  **omitted** — it belongs to the exams office in the CMS, not the public form.
+- Three supporting-document uploads (ID, proof of address, photo) are **optional at this stage**
+  (exams office confirms/collects before booking). Stored as `proofOfIdUrl`, `proofOfAddressUrl`,
+  `photoUrl` (keys end in `Url` so the CMS renders them as document links).
+- Structured payload keys mapped to backend columns: `fullName, dob, email, mobile, uln, subject,
+  englishLevel, mathsLevel, examLocation, firstAttempt, preferredDate`. Everything else is stored
+  in the `data` JSON blob with human-readable labels.
+- Submission is explicitly an **enquiry** — the form copy and success screen both state booking is
+  not confirmed until TEC confirms in writing.
 
 ## Careers page (src/pages/about/CareersPage.jsx)
 - **Office Admin Manager** reactivated: moved from Previous Vacancies → **Current Vacancies**

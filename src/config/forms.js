@@ -25,6 +25,7 @@ const FORM_SLUG = {
   'Partnerships & Collaborations': 'partnerships',
   'English & IELTS Application': 'english-ielts',
   'Complaint Form':              'complaint',
+  'Functional Skills Exam-Only Registration': 'exam-only-registration',
   'Academic Transition Form':   'academic-transition',
   'Mitigating Circumstances Form': 'mitigating-circumstances',
 };
@@ -40,6 +41,7 @@ export const NOTIFY_EMAILS = {
   'Enquiry Form':                   'digitaladmissions@trenteducation.ac.uk',
   'Enrolment Form':                 'digitaladmissions@trenteducation.ac.uk',
   'International Application':      'internationaladmissions@trenteducation.ac.uk',
+  'Functional Skills Exam-Only Registration': 'digitaladmissions@trenteducation.ac.uk',
   'Contact':                        'info@trenteducation.ac.uk',
   'default':                        'info@trenteducation.ac.uk',
 };
@@ -441,6 +443,31 @@ export const FORM_REGISTRY = {
       hearAbout:                   'How did you hear about us?',
       referralName:                'Referral Name',
       submittedAt:                 'Entry Date',
+    },
+  },
+
+  'Functional Skills Exam-Only Registration': {
+    path: '/exam-only-registration',
+    icon: '📝',
+    color: '#1a4d2e',
+    notifyEmail: NOTIFY_EMAILS['Functional Skills Exam-Only Registration'],
+    sheetsTab: '',
+    sheetsUrl: '',
+    scriptUrl: '',
+    // Readable labels for the structured keys (other keys are already human-readable)
+    columnMap: {
+      fullName:      'Full legal name',
+      dob:           'Date of birth',
+      email:         'Email',
+      mobile:        'Mobile',
+      uln:           'Unique Learner Number (ULN)',
+      subject:       'Subject(s) required',
+      englishLevel:  'Level required — English',
+      mathsLevel:    'Level required — Mathematics',
+      examLocation:  'Preferred examination location',
+      firstAttempt:  'First attempt / resit',
+      preferredDate: 'Preferred examination month/date',
+      submittedAt:   'Submitted At',
     },
   },
 

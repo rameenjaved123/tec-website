@@ -54,6 +54,7 @@ import PartnershipsFormPage from './pages/forms/PartnershipsFormPage';
 import NewStarterFormPage from './pages/forms/NewStarterFormPage';
 import TransitionFormPage from './pages/forms/TransitionFormPage';
 import MitigatingCircumstancesFormPage from './pages/forms/MitigatingCircumstancesFormPage';
+import ExamOnlyRegistrationPage from './pages/forms/ExamOnlyRegistrationPage';
 import PoliciesPage from './pages/policies/PoliciesPage';
 import PrivacyPolicyPage from './pages/policies/PrivacyPolicyPage';
 import ComplaintPage from './pages/policies/ComplaintPage';
@@ -159,6 +160,7 @@ function AppLayout() {
           <Route path="/new-starter-form" element={<NewStarterFormPage />} />
           <Route path="/transition-form" element={<TransitionFormPage />} />
           <Route path="/mitigating-circumstances-form" element={<MitigatingCircumstancesFormPage />} />
+          <Route path="/exam-only-registration" element={<ExamOnlyRegistrationPage />} />
           <Route path="/partnerships-form" element={<PartnershipsFormPage />} />
           <Route path="/application-form" element={<ApplicationFormPage />} />
           <Route path="/job-application" element={<JobApplicationFormPage />} />
