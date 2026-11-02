@@ -126,7 +126,7 @@ export default function ExamOnlyRegistrationPage() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
       console.error('Submission error:', err);
-      setErrors({ submit: 'Something went wrong submitting the form. Please try again, or email digitaladmissions@trenteducation.ac.uk.' });
+      setErrors({ submit: 'Something went wrong submitting the form. Please try again, or email admissions@trenteducation.ac.uk.' });
     } finally {
       setSubmitting(false);
     }
@@ -140,7 +140,7 @@ export default function ExamOnlyRegistrationPage() {
             <div className="nsf-success-icon">✓</div>
             <h2>Registration Enquiry Received!</h2>
             <p>Thank you, <strong>{form.fullName}</strong>. Your Functional Skills exam-only registration has been submitted to Trent Education Centre.</p>
-            <p>This is an enquiry and does not confirm a booking. Our examinations office will review availability, eligibility, fees and identity requirements and will be in touch in writing. For any questions, email <a href="mailto:digitaladmissions@trenteducation.ac.uk">digitaladmissions@trenteducation.ac.uk</a>.</p>
+            <p>This is an enquiry and does not confirm a booking. Our examinations office will review availability, eligibility, fees and identity requirements and will be in touch in writing. For any questions, email <a href="mailto:admissions@trenteducation.ac.uk">admissions@trenteducation.ac.uk</a>.</p>
             <button className="nsf-btn-primary" onClick={() => navigate('/')}>Back to Home</button>
           </div>
         </div>

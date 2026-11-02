@@ -41,7 +41,7 @@ export const NOTIFY_EMAILS = {
   'Enquiry Form':                   'digitaladmissions@trenteducation.ac.uk',
   'Enrolment Form':                 'digitaladmissions@trenteducation.ac.uk',
   'International Application':      'internationaladmissions@trenteducation.ac.uk',
-  'Functional Skills Exam-Only Registration': 'digitaladmissions@trenteducation.ac.uk',
+  'Functional Skills Exam-Only Registration': 'admissions@trenteducation.ac.uk',
   'Contact':                        'info@trenteducation.ac.uk',
   'default':                        'info@trenteducation.ac.uk',
 };

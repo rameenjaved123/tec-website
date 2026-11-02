@@ -153,7 +153,7 @@ Public form for external/private Functional Skills (English & Maths, Entry 1 –
 exam-only candidates, built from the "Exam Only Registration" Word form. Route
 **`/exam-only-registration`**; registered in `src/config/forms.js` as
 `'Functional Skills Exam-Only Registration'` → slug `exam-only-registration`,
-notifyEmail `digitaladmissions@trenteducation.ac.uk`. Uses the standard
+notifyEmail `admissions@trenteducation.ac.uk`. Uses the standard
 `saveSubmissionToDB` + `sendEmailNotification` + `sendConfirmationEmail` pipeline.
 - Sections **A–E only** (Candidate info, Exam requirements, Access arrangements, Supporting
   documents, Declarations). Section **F (internal use)** from the Word doc is deliberately
