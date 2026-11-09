@@ -117,7 +117,7 @@ export default function ExamOnlyRegistrationPage() {
         payload.photoUrl = fileUrl;
       }
 
-      const entry = saveSubmission('Functional Skills Exam-Only Registration', payload);
+      const entry = saveSubmission('Functional Skills — Exam-Only Registration', payload);
       await saveSubmissionToDB(entry);
       // Fire-and-forget notifications (never block the confirmation)
       sendEmailNotification(entry).catch(() => {});

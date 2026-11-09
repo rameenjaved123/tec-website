@@ -25,7 +25,7 @@ const FORM_SLUG = {
   'Partnerships & Collaborations': 'partnerships',
   'English & IELTS Application': 'english-ielts',
   'Complaint Form':              'complaint',
-  'Functional Skills Exam-Only Registration': 'exam-only-registration',
+  'Functional Skills — Exam-Only Registration': 'exam-only-registration',
   'Exam Only Registration Form': 'exam-registration',
   'Academic Transition Form':   'academic-transition',
   'Mitigating Circumstances Form': 'mitigating-circumstances',
@@ -42,7 +42,7 @@ export const NOTIFY_EMAILS = {
   'Enquiry Form':                   'digitaladmissions@trenteducation.ac.uk',
   'Enrolment Form':                 'digitaladmissions@trenteducation.ac.uk',
   'International Application':      'internationaladmissions@trenteducation.ac.uk',
-  'Functional Skills Exam-Only Registration': 'admissions@trenteducation.ac.uk',
+  'Functional Skills — Exam-Only Registration': 'admissions@trenteducation.ac.uk',
   'Exam Only Registration Form':    'admissions@trenteducation.ac.uk',
   'Contact':                        'info@trenteducation.ac.uk',
   'default':                        'info@trenteducation.ac.uk',
@@ -448,11 +448,11 @@ export const FORM_REGISTRY = {
     },
   },
 
-  'Functional Skills Exam-Only Registration': {
+  'Functional Skills — Exam-Only Registration': {
     path: '/exam-only-registration',
     icon: '📝',
     color: '#1a4d2e',
-    notifyEmail: NOTIFY_EMAILS['Functional Skills Exam-Only Registration'],
+    notifyEmail: NOTIFY_EMAILS['Functional Skills — Exam-Only Registration'],
     sheetsTab: '',
     sheetsUrl: '',
     scriptUrl: '',
