@@ -94,6 +94,7 @@ The chat widget now captures visitor contact details so TEC can follow up on enq
 | English & IELTS Application | english-ielts |
 | Complaint Form | complaint |
 | Functional Skills Exam-Only Registration | exam-only-registration |
+| Exam Only Registration Form | exam-registration |
 
 ## Strategic Plan page (src/pages/about/StrategicPlanPage.jsx) — updated to V04 (25 Mar 2026)
 Narrative sections (Purpose, Aim, Mission, Vision, Values, Holistic Approach, Future Plans,
